@@ -1,6 +1,6 @@
 package org.sscn.persistence.entities;
 
-// Generated Jul 26, 2013 12:03:44 PM by Hibernate Tools 3.4.0.CR1
+// Generated Aug 12, 2013 12:44:57 PM by Hibernate Tools 3.4.0.CR1
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;

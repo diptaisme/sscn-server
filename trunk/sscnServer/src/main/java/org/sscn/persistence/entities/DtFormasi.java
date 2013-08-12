@@ -1,10 +1,15 @@
 package org.sscn.persistence.entities;
 
-// Generated Jul 26, 2013 12:03:44 PM by Hibernate Tools 3.4.0.CR1
+// Generated Aug 12, 2013 12:44:57 PM by Hibernate Tools 3.4.0.CR1
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -14,75 +19,61 @@ import javax.persistence.Table;
 @Table(name = "dt_formasi", catalog = "dbseleksicpns")
 public class DtFormasi implements java.io.Serializable {
 
-	private String instansi;
-	private String lokasi;
-	private String jabatan;
-	private String pendidikan;
-	private int jumlah;
+	private Integer id;
+	private MFormasi MFormasi;
+	private RefPendidikan pendidikan;
+	private Integer jumlah;
 
 	public DtFormasi() {
 	}
 
-	public DtFormasi(String instansi, String jabatan, String pendidikan,
-			int jumlah) {
-		this.instansi = instansi;
-		this.jabatan = jabatan;
-		this.pendidikan = pendidikan;
-		this.jumlah = jumlah;
+	public DtFormasi(MFormasi MFormasi) {
+		this.MFormasi = MFormasi;
 	}
 
-	public DtFormasi(String instansi, String lokasi, String jabatan,
-			String pendidikan, int jumlah) {
-		this.instansi = instansi;
-		this.lokasi = lokasi;
-		this.jabatan = jabatan;
+	public DtFormasi(MFormasi MFormasi, RefPendidikan pendidikan, Integer jumlah) {
+		this.MFormasi = MFormasi;
 		this.pendidikan = pendidikan;
 		this.jumlah = jumlah;
 	}
 
 	@Id
-	@Column(name = "INSTANSI", unique = true, nullable = false, length = 4)
-	public String getInstansi() {
-		return this.instansi;
+	@GeneratedValue(strategy = IDENTITY)
+	@Column(name = "ID", unique = true, nullable = false)
+	public Integer getId() {
+		return this.id;
 	}
 
-	public void setInstansi(String instansi) {
-		this.instansi = instansi;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
-	@Column(name = "LOKASI", length = 10)
-	public String getLokasi() {
-		return this.lokasi;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "FORMASI", nullable = false)
+	public MFormasi getMFormasi() {
+		return this.MFormasi;
 	}
 
-	public void setLokasi(String lokasi) {
-		this.lokasi = lokasi;
+	public void setMFormasi(MFormasi MFormasi) {
+		this.MFormasi = MFormasi;
 	}
 
-	@Column(name = "JABATAN", nullable = false, length = 7)
-	public String getJabatan() {
-		return this.jabatan;
-	}
-
-	public void setJabatan(String jabatan) {
-		this.jabatan = jabatan;
-	}
-
-	@Column(name = "PENDIDIKAN", nullable = false, length = 7)
-	public String getPendidikan() {
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "PENDIDIKAN", nullable = false)
+	public RefPendidikan getPendidikan() {
 		return this.pendidikan;
 	}
 
-	public void setPendidikan(String pendidikan) {
+	public void setPendidikan(RefPendidikan pendidikan) {
 		this.pendidikan = pendidikan;
 	}
 
-	@Column(name = "JUMLAH", nullable = false)
-	public int getJumlah() {
+	@Column(name = "JUMLAH")
+	public Integer getJumlah() {
 		return this.jumlah;
 	}
 
-	public void setJumlah(int jumlah) {
+	public void setJumlah(Integer jumlah) {
 		this.jumlah = jumlah;
 	}
 

@@ -1,12 +1,15 @@
 package org.sscn.persistence.entities;
 
-// Generated Jul 26, 2013 12:03:44 PM by Hibernate Tools 3.4.0.CR1
+// Generated Aug 12, 2013 12:44:57 PM by Hibernate Tools 3.4.0.CR1
 
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -16,26 +19,57 @@ import javax.persistence.Table;
 @Table(name = "dt_pengumuman", catalog = "dbseleksicpns")
 public class DtPengumuman implements java.io.Serializable {
 
-	private DtPengumumanId id;
+	private Integer id;
+	private RefInstansi refInstansi;
+	private byte[] berita;
+	private String status;
 
 	public DtPengumuman() {
 	}
 
-	public DtPengumuman(DtPengumumanId id) {
-		this.id = id;
+	public DtPengumuman(RefInstansi refInstansi, byte[] berita, String status) {
+		this.refInstansi = refInstansi;
+		this.berita = berita;
+		this.status = status;
 	}
 
-	@EmbeddedId
-	@AttributeOverrides({
-			@AttributeOverride(name = "instansi", column = @Column(name = "INSTANSI", nullable = false, length = 4)),
-			@AttributeOverride(name = "berita", column = @Column(name = "BERITA", nullable = false, length = 100)),
-			@AttributeOverride(name = "status", column = @Column(name = "STATUS", nullable = false, length = 1)) })
-	public DtPengumumanId getId() {
+	@Id
+	@GeneratedValue(strategy = IDENTITY)
+	@Column(name = "ID", unique = true, nullable = false)
+	public Integer getId() {
 		return this.id;
 	}
 
-	public void setId(DtPengumumanId id) {
+	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "INSTANSI", nullable = false)
+	public RefInstansi getRefInstansi() {
+		return this.refInstansi;
+	}
+
+	public void setRefInstansi(RefInstansi refInstansi) {
+		this.refInstansi = refInstansi;
+	}
+
+	@Column(name = "BERITA", nullable = false)
+	public byte[] getBerita() {
+		return this.berita;
+	}
+
+	public void setBerita(byte[] berita) {
+		this.berita = berita;
+	}
+
+	@Column(name = "STATUS", nullable = false, length = 1)
+	public String getStatus() {
+		return this.status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 }

@@ -5,6 +5,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -13,16 +16,22 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.sscn.persistence.entities.DtPendaftaran;
+import org.sscn.persistence.entities.MFormasi;
+import org.sscn.persistence.entities.RefInstansi;
+import org.sscn.persistence.entities.RefJabatan;
+import org.sscn.persistence.entities.RefLokasi;
+import org.sscn.persistence.entities.RefPendidikan;
 import org.sscn.services.RegistrasiService;
 
 @Controller
-@RequestMapping("/registrasi.do")
 public class RegistrasiController {
 	@Inject
 	private RegistrasiService registrasiService;
 
-	@RequestMapping(method = RequestMethod.POST)
+	// belum selesai
+	@RequestMapping(value = "/registrasi.do", method = RequestMethod.POST)
 	public String registrasi(@RequestParam("no_ktp") String noKtp,
 			@RequestParam("nama") String nama,
 			@RequestParam("tempat_lahir") String tempatLahir,
@@ -41,37 +50,35 @@ public class RegistrasiController {
 			@RequestParam("no_ijazah") String noIjazah, Model model) {
 		DtPendaftaran pendaftaran = new DtPendaftaran();
 		pendaftaran.setAlamat(alamat);
-		pendaftaran.setInstansi("inst");
-		pendaftaran.setJabatan("Jab");
 		pendaftaran.setJnsKelamin("P");
 		pendaftaran.setKeterangan("sdsadsa keterangan");
 		pendaftaran.setLembaga("lem");
-		pendaftaran.setLokasi("lok");
+		pendaftaran.setMFormasi(new MFormasi());
 		pendaftaran.setLokasiTest("lokT");
-		
-		
-		int minute=Calendar.getInstance().getTime().getMinutes();
-		int day=Calendar.getInstance().getTime().getDay();
-		int second =Calendar.getInstance().getTime().getSeconds();
-		int x=noKtp.length()>7?2:3;
-		int y=noKtp.length()%2>7?0:1;
-		String noPeserta=""+x+minute+"0"+day+y+second;  //random example
-		String noRegister = ""+y+day+minute+x+second; //random example
-		if(noPeserta.length()>10){
-			noPeserta=noPeserta.substring(0, 10);
+
+		int minute = Calendar.getInstance().getTime().getMinutes();
+		int day = Calendar.getInstance().getTime().getDay();
+		int second = Calendar.getInstance().getTime().getSeconds();
+		int x = noKtp.length() > 7 ? 2 : 3;
+		int y = noKtp.length() % 2 > 7 ? 0 : 1;
+		String noPeserta = "" + x + minute + "0" + day + y + second; // random
+																		// example
+		String noRegister = "" + y + day + minute + x + second; // random
+																// example
+		if (noPeserta.length() > 10) {
+			noPeserta = noPeserta.substring(0, 10);
 		}
-		if(noRegister.length()>10){
-			noRegister=noRegister.substring(0, 10);
+		if (noRegister.length() > 10) {
+			noRegister = noRegister.substring(0, 10);
 		}
 		pendaftaran.setNoPeserta(noPeserta);
-		pendaftaran.setNoRegister(noRegister); //example
+		pendaftaran.setNoRegister(noRegister); // example
 		pendaftaran.setStatus("V");
 		pendaftaran.setTglTest(new Date());
 		pendaftaran.setTglUpdated(new Date());
 		pendaftaran.setTglValidate(new Date());
 		pendaftaran.setUserValidate("kosong");
-		
-		
+
 		pendaftaran.setEmail(email);
 		pendaftaran.setKodePos(kodePos);
 		pendaftaran.setKota(kota);
@@ -100,7 +107,55 @@ public class RegistrasiController {
 		model.addAttribute("pendaftaran", pendaftaran);
 		return "RegistrasiSuccess";
 	}
-	private String generateNoRegistrasi(){
-		return "";		
+
+	private String generateNoRegistrasi() {
+		return "";
 	}
+
+	@RequestMapping(value = "/ac_instansi.do", method = RequestMethod.GET)
+	@ResponseBody
+	public Map<String, List<RefInstansi>> getInstansis(
+			@RequestParam("maxRows") String maxRows,
+			@RequestParam("startsWith") String startsWith) {
+		List<RefInstansi> instansis = registrasiService.getInstansi(
+				Integer.parseInt(maxRows), startsWith);
+		Map<String, List<RefInstansi>> instansiMap = new HashMap<String, List<RefInstansi>>();
+		instansiMap.put("instansis", instansis);
+		return instansiMap;
+	}
+
+	@RequestMapping(value = "/cb_lokasi_by_instansi.do", method = RequestMethod.GET)
+	@ResponseBody
+	public Map<String, List<RefLokasi>> getLokasis(
+			@RequestParam("instansi") String instansi) {
+
+		List<RefLokasi> lokasis = registrasiService.getLokasi(instansi);
+		Map<String, List<RefLokasi>> lokasiMap = new HashMap<String, List<RefLokasi>>();
+		lokasiMap.put("lokasis", lokasis);
+		return lokasiMap;
+	}
+	
+	@RequestMapping(value = "/cb_jabatan_by_instansi_lokasi.do", method = RequestMethod.GET)
+	@ResponseBody
+	public Map<String, List<RefJabatan>> getJabatans(
+			@RequestParam("instansi") String instansi, @RequestParam("lokasi") String lokasi) {
+
+		List<RefJabatan> jabatans = registrasiService.getJabatan(instansi, lokasi);
+		Map<String, List<RefJabatan>> lokasiMap = new HashMap<String, List<RefJabatan>>();
+		lokasiMap.put("jabatans", jabatans);
+		return lokasiMap;
+	}
+	
+	//get pendidikan
+	@RequestMapping(value = "/cb_pendidikan_by_instansi_lokasi_jabatan.do", method = RequestMethod.GET)
+	@ResponseBody
+	public Map<String, List<RefPendidikan>> getPendidikans(
+			@RequestParam("instansi") String instansi, @RequestParam("lokasi") String lokasi, @RequestParam("jabatan") String jabatan) {
+
+		List<RefPendidikan> pendidikans = registrasiService.getPendidikan(instansi, lokasi, jabatan);
+		Map<String, List<RefPendidikan>> pendidikanMap = new HashMap<String, List<RefPendidikan>>();
+		pendidikanMap.put("pendidikans", pendidikans);
+		return pendidikanMap;
+	}
+
 }

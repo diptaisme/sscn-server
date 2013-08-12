@@ -1,12 +1,15 @@
 package org.sscn.persistence.entities;
 
-// Generated Jul 26, 2013 12:03:44 PM by Hibernate Tools 3.4.0.CR1
+// Generated Aug 12, 2013 12:44:57 PM by Hibernate Tools 3.4.0.CR1
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -18,12 +21,14 @@ import javax.persistence.UniqueConstraint;
 public class RefPns implements java.io.Serializable {
 
 	private RefPnsId id;
+	private RefInstansi refInstansi;
 
 	public RefPns() {
 	}
 
-	public RefPns(RefPnsId id) {
+	public RefPns(RefPnsId id, RefInstansi refInstansi) {
 		this.id = id;
+		this.refInstansi = refInstansi;
 	}
 
 	@EmbeddedId
@@ -38,6 +43,16 @@ public class RefPns implements java.io.Serializable {
 
 	public void setId(RefPnsId id) {
 		this.id = id;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "INSTANSI", nullable = false, insertable = false, updatable = false)
+	public RefInstansi getRefInstansi() {
+		return this.refInstansi;
+	}
+
+	public void setRefInstansi(RefInstansi refInstansi) {
+		this.refInstansi = refInstansi;
 	}
 
 }

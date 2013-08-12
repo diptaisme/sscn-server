@@ -1,11 +1,14 @@
 package org.sscn.persistence.entities;
 
-// Generated Jul 26, 2013 12:03:44 PM by Hibernate Tools 3.4.0.CR1
+// Generated Aug 12, 2013 12:44:57 PM by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -19,6 +22,7 @@ import javax.persistence.UniqueConstraint;
 public class DtPendaftaran implements java.io.Serializable {
 
 	private String noNik;
+	private MFormasi MFormasi;
 	private String noRegister;
 	private String nama;
 	private String tmpLahir;
@@ -30,13 +34,11 @@ public class DtPendaftaran implements java.io.Serializable {
 	private String kota;
 	private String telpon;
 	private String email;
-	private String instansi;
-	private String lokasi;
-	private String jabatan;
 	private String pendidikan;
 	private String lembaga;
 	private String noIjazah;
 	private String status;
+	private String regStatus;
 	private String noPeserta;
 	private Date tglTest;
 	private String lokasiTest;
@@ -49,15 +51,15 @@ public class DtPendaftaran implements java.io.Serializable {
 	public DtPendaftaran() {
 	}
 
-	public DtPendaftaran(String noNik, String noRegister, String nama,
-			String tmpLahir, Date tglLahir, String jnsKelamin, String alamat,
-			String kodePos, String propinsi, String kota, String telpon,
-			String email, String instansi, String lokasi, String jabatan,
-			String pendidikan, String lembaga, String noIjazah, String status,
-			String noPeserta, Date tglTest, String lokasiTest, Date tglCreated,
-			Date tglUpdated, String userValidate, Date tglValidate,
-			String keterangan) {
+	public DtPendaftaran(String noNik, MFormasi MFormasi, String noRegister,
+			String nama, String tmpLahir, Date tglLahir, String jnsKelamin,
+			String alamat, String kodePos, String propinsi, String kota,
+			String telpon, String email, String pendidikan, String lembaga,
+			String noIjazah, String status, String regStatus, String noPeserta,
+			Date tglTest, String lokasiTest, Date tglCreated, Date tglUpdated,
+			String userValidate, Date tglValidate, String keterangan) {
 		this.noNik = noNik;
+		this.MFormasi = MFormasi;
 		this.noRegister = noRegister;
 		this.nama = nama;
 		this.tmpLahir = tmpLahir;
@@ -69,13 +71,11 @@ public class DtPendaftaran implements java.io.Serializable {
 		this.kota = kota;
 		this.telpon = telpon;
 		this.email = email;
-		this.instansi = instansi;
-		this.lokasi = lokasi;
-		this.jabatan = jabatan;
 		this.pendidikan = pendidikan;
 		this.lembaga = lembaga;
 		this.noIjazah = noIjazah;
 		this.status = status;
+		this.regStatus = regStatus;
 		this.noPeserta = noPeserta;
 		this.tglTest = tglTest;
 		this.lokasiTest = lokasiTest;
@@ -94,6 +94,16 @@ public class DtPendaftaran implements java.io.Serializable {
 
 	public void setNoNik(String noNik) {
 		this.noNik = noNik;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "FORMASI_ID", nullable = false)
+	public MFormasi getMFormasi() {
+		return this.MFormasi;
+	}
+
+	public void setMFormasi(MFormasi MFormasi) {
+		this.MFormasi = MFormasi;
 	}
 
 	@Column(name = "NO_REGISTER", unique = true, nullable = false, length = 10)
@@ -196,34 +206,7 @@ public class DtPendaftaran implements java.io.Serializable {
 		this.email = email;
 	}
 
-	@Column(name = "INSTANSI", nullable = false, length = 4)
-	public String getInstansi() {
-		return this.instansi;
-	}
-
-	public void setInstansi(String instansi) {
-		this.instansi = instansi;
-	}
-
-	@Column(name = "LOKASI", nullable = false, length = 10)
-	public String getLokasi() {
-		return this.lokasi;
-	}
-
-	public void setLokasi(String lokasi) {
-		this.lokasi = lokasi;
-	}
-
-	@Column(name = "JABATAN", nullable = false, length = 7)
-	public String getJabatan() {
-		return this.jabatan;
-	}
-
-	public void setJabatan(String jabatan) {
-		this.jabatan = jabatan;
-	}
-
-	@Column(name = "PENDIDIKAN", nullable = false, length = 7)
+	@Column(name = "PENDIDIKAN", nullable = false, length = 50)
 	public String getPendidikan() {
 		return this.pendidikan;
 	}
@@ -232,7 +215,7 @@ public class DtPendaftaran implements java.io.Serializable {
 		this.pendidikan = pendidikan;
 	}
 
-	@Column(name = "LEMBAGA", nullable = false, length = 10)
+	@Column(name = "LEMBAGA", nullable = false, length = 100)
 	public String getLembaga() {
 		return this.lembaga;
 	}
@@ -257,6 +240,15 @@ public class DtPendaftaran implements java.io.Serializable {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	@Column(name = "REG_STATUS", nullable = false, length = 1)
+	public String getRegStatus() {
+		return this.regStatus;
+	}
+
+	public void setRegStatus(String regStatus) {
+		this.regStatus = regStatus;
 	}
 
 	@Column(name = "NO_PESERTA", nullable = false, length = 10)
