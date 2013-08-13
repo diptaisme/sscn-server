@@ -1,11 +1,13 @@
 package org.sscn.persistence.entities;
 
-// Generated Aug 12, 2013 12:44:57 PM by Hibernate Tools 3.4.0.CR1
+// Generated Aug 14, 2013 12:27:10 AM by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -21,8 +23,9 @@ import javax.persistence.UniqueConstraint;
 @Table(name = "dt_pendaftaran", catalog = "dbseleksicpns", uniqueConstraints = @UniqueConstraint(columnNames = "NO_REGISTER"))
 public class DtPendaftaran implements java.io.Serializable {
 
-	private String noNik;
+	private Long id;
 	private MFormasi MFormasi;
+	private String noNik;
 	private String noRegister;
 	private String nama;
 	private String tmpLahir;
@@ -47,19 +50,22 @@ public class DtPendaftaran implements java.io.Serializable {
 	private String userValidate;
 	private Date tglValidate;
 	private String keterangan;
+	private String akreditasi;
+	private String nilaiIpk;
 
 	public DtPendaftaran() {
 	}
 
-	public DtPendaftaran(String noNik, MFormasi MFormasi, String noRegister,
+	public DtPendaftaran(MFormasi MFormasi, String noNik, String noRegister,
 			String nama, String tmpLahir, Date tglLahir, String jnsKelamin,
 			String alamat, String kodePos, String propinsi, String kota,
 			String telpon, String email, String pendidikan, String lembaga,
 			String noIjazah, String status, String regStatus, String noPeserta,
 			Date tglTest, String lokasiTest, Date tglCreated, Date tglUpdated,
-			String userValidate, Date tglValidate, String keterangan) {
-		this.noNik = noNik;
+			String userValidate, Date tglValidate, String keterangan,
+			String akreditasi, String nilaiIpk) {
 		this.MFormasi = MFormasi;
+		this.noNik = noNik;
 		this.noRegister = noRegister;
 		this.nama = nama;
 		this.tmpLahir = tmpLahir;
@@ -84,16 +90,19 @@ public class DtPendaftaran implements java.io.Serializable {
 		this.userValidate = userValidate;
 		this.tglValidate = tglValidate;
 		this.keterangan = keterangan;
+		this.akreditasi = akreditasi;
+		this.nilaiIpk = nilaiIpk;
 	}
 
 	@Id
-	@Column(name = "NO_NIK", unique = true, nullable = false, length = 16)
-	public String getNoNik() {
-		return this.noNik;
+	@GeneratedValue(strategy = IDENTITY)
+	@Column(name = "ID", unique = true, nullable = false)
+	public Long getId() {
+		return this.id;
 	}
 
-	public void setNoNik(String noNik) {
-		this.noNik = noNik;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -104,6 +113,15 @@ public class DtPendaftaran implements java.io.Serializable {
 
 	public void setMFormasi(MFormasi MFormasi) {
 		this.MFormasi = MFormasi;
+	}
+
+	@Column(name = "NO_NIK", nullable = false, length = 16)
+	public String getNoNik() {
+		return this.noNik;
+	}
+
+	public void setNoNik(String noNik) {
+		this.noNik = noNik;
 	}
 
 	@Column(name = "NO_REGISTER", unique = true, nullable = false, length = 10)
@@ -170,7 +188,7 @@ public class DtPendaftaran implements java.io.Serializable {
 		this.kodePos = kodePos;
 	}
 
-	@Column(name = "PROPINSI", nullable = false, length = 2)
+	@Column(name = "PROPINSI", nullable = false, length = 150)
 	public String getPropinsi() {
 		return this.propinsi;
 	}
@@ -179,7 +197,7 @@ public class DtPendaftaran implements java.io.Serializable {
 		this.propinsi = propinsi;
 	}
 
-	@Column(name = "KOTA", nullable = false, length = 4)
+	@Column(name = "KOTA", nullable = false, length = 150)
 	public String getKota() {
 		return this.kota;
 	}
@@ -197,7 +215,7 @@ public class DtPendaftaran implements java.io.Serializable {
 		this.telpon = telpon;
 	}
 
-	@Column(name = "EMAIL", nullable = false, length = 20)
+	@Column(name = "EMAIL", nullable = false, length = 100)
 	public String getEmail() {
 		return this.email;
 	}
@@ -325,6 +343,24 @@ public class DtPendaftaran implements java.io.Serializable {
 
 	public void setKeterangan(String keterangan) {
 		this.keterangan = keterangan;
+	}
+
+	@Column(name = "AKREDITASI", nullable = false, length = 2)
+	public String getAkreditasi() {
+		return this.akreditasi;
+	}
+
+	public void setAkreditasi(String akreditasi) {
+		this.akreditasi = akreditasi;
+	}
+
+	@Column(name = "NILAI_IPK", nullable = false, length = 5)
+	public String getNilaiIpk() {
+		return this.nilaiIpk;
+	}
+
+	public void setNilaiIpk(String nilaiIpk) {
+		this.nilaiIpk = nilaiIpk;
 	}
 
 }
