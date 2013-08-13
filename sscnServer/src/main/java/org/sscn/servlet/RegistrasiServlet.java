@@ -12,6 +12,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.sscn.manager.Constanta;
+import org.sscn.persistence.entities.DtPendaftaran;
+import org.sscn.services.RegistrasiService;
 
 /**
  * Servlet implementation class RegistrasiServlet
@@ -27,6 +29,7 @@ public class RegistrasiServlet extends HttpServlet {
 			ApplicationContext currentApplicationContext) {
 		applicationContext = currentApplicationContext;
 	}
+
 	/**
 	 * Default constructor.
 	 */
@@ -62,7 +65,7 @@ public class RegistrasiServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		
+
 		if (request.getParameter("formID") != null) {
 			// check form id dari form Pendaftaran web SSCN
 			if (request.getParameter("formID").equals("32063786011852")) {
@@ -74,24 +77,48 @@ public class RegistrasiServlet extends HttpServlet {
 						+ request.getParameter("lokasi_kerja"));
 				System.out.println("pendidikan = "
 						+ request.getParameter("pendidikan"));
+				try {
+					RegistrasiService registrasiService = (RegistrasiService) applicationContext
+							.getBean("RegistrasiService");
+					DtPendaftaran pendafataran = registrasiService
+							.insertPendaftaran(request);
+					if (pendafataran == null) {
+						cetakRegistrasiGagal(response);
+					} else {
+						// generate pdf :)
+					}
+				} catch (Exception ex) {
+					ex.printStackTrace();
+					cetakRegistrasiGagal(response);
+				}
 			} else {
-				response.setContentType("text/html");
-				PrintWriter out = response.getWriter();
-				out.println("<HTML><HEAD><TITLE>SSCN</TITLE>"
-						+ "</HEAD><BODY>Maaf anda tidak dapat mengakses halaman ini. Klik <a href='"
-						+ Constanta.URL_WEB_SSCN
-						+ "'>link ini </a> untuk kembali</BODY></HTML>");
-				out.close();
+				cetakNotAksesRegistrasi(response);
 			}
 		} else {
-			response.setContentType("text/html");
-			PrintWriter out = response.getWriter();
-			out.println("<HTML><HEAD><TITLE>SSCN</TITLE>"
-					+ "</HEAD><BODY>Maaf anda tidak dapat mengakses halaman ini. Klik <a href='"
-					+ Constanta.URL_WEB_SSCN
-					+ "'>link ini </a> untuk kembali</BODY></HTML>");
-			out.close();
+			cetakNotAksesRegistrasi(response);
 		}
+	}
+
+	private void cetakRegistrasiGagal(HttpServletResponse response)
+			throws IOException {
+		response.setContentType("text/html");
+		PrintWriter out = response.getWriter();
+		out.println("<HTML><HEAD><TITLE>SSCN</TITLE>"
+				+ "</HEAD><BODY>Maaf proses registrasi gagal. Klik <a href='"
+				+ Constanta.URL_WEB_SSCN
+				+ "'>link ini </a> untuk kembali</BODY></HTML>");
+		out.close();
+	}
+
+	private void cetakNotAksesRegistrasi(HttpServletResponse response)
+			throws IOException {
+		response.setContentType("text/html");
+		PrintWriter out = response.getWriter();
+		out.println("<HTML><HEAD><TITLE>SSCN</TITLE>"
+				+ "</HEAD><BODY>Maaf anda tidak dapat mengakses halaman ini. Klik <a href='"
+				+ Constanta.URL_WEB_SSCN
+				+ "'>link ini </a> untuk kembali</BODY></HTML>");
+		out.close();
 	}
 
 	@Override

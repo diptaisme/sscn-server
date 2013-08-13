@@ -2,6 +2,8 @@ package org.sscn.services;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.sscn.persistence.entities.DtPendaftaran;
 import org.sscn.persistence.entities.RefInstansi;
 import org.sscn.persistence.entities.RefJabatan;
@@ -19,4 +21,6 @@ public interface RegistrasiService {
 
 	List<RefPendidikan> getPendidikan(String instansi, String lokasi,
 			String jabatan);
+
+	DtPendaftaran insertPendaftaran(HttpServletRequest request);
 }

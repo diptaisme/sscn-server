@@ -1,11 +1,14 @@
 package org.sscn.services.impl;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -63,10 +66,11 @@ public class RegistrasiServiceImpl implements RegistrasiService {
 	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 	public List<RefJabatan> getJabatan(String instansi, String lokasi) {
 		HashMap<String, String> map = new HashMap<String, String>();
-		map.put("refInstansi.kode",instansi);
-		map.put("refLokasi.kode",lokasi);
-		
-		List<MFormasi> listFormasi = mFormasiDao.findByMapOfProperties(map, null, null);
+		map.put("refInstansi.kode", instansi);
+		map.put("refLokasi.kode", lokasi);
+
+		List<MFormasi> listFormasi = mFormasiDao.findByMapOfProperties(map,
+				null, null);
 
 		List<RefJabatan> listJabatan = new ArrayList<RefJabatan>();
 
@@ -76,7 +80,7 @@ public class RegistrasiServiceImpl implements RegistrasiService {
 		return listJabatan;
 
 	}
-	
+
 	@Override
 	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 	public List<RefPendidikan> getPendidikan(String instansi, String lokasi,
@@ -101,5 +105,93 @@ public class RegistrasiServiceImpl implements RegistrasiService {
 
 		return listPendidikan;
 
+	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public DtPendaftaran insertPendaftaran(HttpServletRequest request) {
+		try {
+
+			String noNik = request.getParameter("no_nik");
+
+			String nama = request.getParameter("nama");
+			String tempatLahir = request.getParameter("tempat_lahir");
+			Date tglLahir = new Date(); // tgl lahir nanti
+			
+			String alamat = request.getParameter("alamat");
+			String kota = request.getParameter("kota");
+			String propinsi = request.getParameter("propinsi");
+			String kodePos = request.getParameter("kode_pos");
+			String telpon = request.getParameter("area_telpon") + request.getParameter("telpon"); // belom pasti
+			String email = request.getParameter("email");
+
+			String instansi = request.getParameter("instansi");
+			String jabatan = request.getParameter("jabatan");
+			String lokasiKerja = request.getParameter("lokasi_kerja");
+			String pendidikan = request.getParameter("pendidikan");
+
+			MFormasi mFormasi = null; // formasi nanti, sudah
+			HashMap<String, String> propertiesMap = new HashMap<String, String>();
+			propertiesMap.put("refInstansi.kode", instansi);
+			propertiesMap.put("refLokasi.kode", lokasiKerja);
+			propertiesMap.put("refJabatan.kode", jabatan);
+			List<MFormasi> listFormasi = mFormasiDao.findByMapOfProperties(
+					propertiesMap, null, null);
+			if (listFormasi == null || listFormasi.size() == 0) {
+				return null;
+			}else{
+				mFormasi = listFormasi.get(0);
+			}
+
+			String noIjazah = request.getParameter("no_ijazah");
+			String status = ""; // status
+			String regStatus = ""; // regStatus
+			// belom ada di form
+			String jnsKelamin = "P"; //set dulu
+			String lembaga = "";
+			String akreditasi = "";
+			String nilaiIPK = "";
+			// memang tidak diisi
+			Date tglTest = new Date();
+			String lokasiTest = "";
+			Date tglCreated = new Date();
+			Date tglUpdated = new Date();
+			String userValidate = "";
+			Date tglValidate = new Date();
+			String keterangan = "";
+
+			// asal-asal dulu biar unik
+			int minute = Calendar.getInstance().getTime().getMinutes();
+			int day = Calendar.getInstance().getTime().getDay();
+			int second = Calendar.getInstance().getTime().getSeconds();
+			int x = noNik.length() > 7 ? 2 : 3;
+			int y = noNik.length() % 2 > 7 ? 0 : 1;
+			String noPeserta = "" + x + minute + "0" + day + y + second; // random
+																			// example
+			String noRegister = "" + y + day + minute + x + second; // random
+																	// example
+			if (noPeserta.length() > 10) {
+				noPeserta = noPeserta.substring(0, 10);
+			}
+			if (noRegister.length() > 10) {
+				noRegister = noRegister.substring(0, 10);
+			}
+			// noRegister = ""; // generate no register
+			// noPeserta = ""; // kosong
+
+			DtPendaftaran pendaftaran = new DtPendaftaran(mFormasi, noNik, noRegister,
+					nama, tempatLahir, tglLahir, jnsKelamin,
+					alamat, kodePos, propinsi, kota,
+					telpon, email, pendidikan, lembaga,
+					noIjazah, status, regStatus, noPeserta,
+					tglTest, lokasiTest,tglCreated, tglUpdated,
+					userValidate, tglValidate, keterangan,
+					akreditasi, nilaiIPK);
+			dtPendaftaranDao.insert(pendaftaran);
+			return pendaftaran;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return null;
+		}
 	}
 }
