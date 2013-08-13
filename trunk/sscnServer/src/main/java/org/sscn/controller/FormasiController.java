@@ -1,17 +1,16 @@
 package org.sscn.controller;
 
+import java.util.Iterator;
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
-import org.hibernate.Hibernate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.sscn.dao.DtFormasiDao;
 import org.sscn.dao.DtUserDao;
 import org.sscn.dao.MFormasiDao;
@@ -22,32 +21,30 @@ import org.sscn.dao.RefPendidikanDao;
 import org.sscn.persistence.entities.DtFormasi;
 import org.sscn.persistence.entities.DtUser;
 import org.sscn.persistence.entities.MFormasi;
-import org.sscn.persistence.entities.RefInstansi;
 import org.sscn.persistence.entities.RefJabatan;
 import org.sscn.persistence.entities.RefLokasi;
 import org.sscn.persistence.entities.RefPendidikan;
-import org.sscn.util.json.StandardJsonMessage;
 
 @Controller
 public class FormasiController {
 	@Inject
 	private RefInstansiDao refInstansiDao;
-	
+
 	@Inject
 	private RefLokasiDao refLokasiDao;
-	
+
 	@Inject
 	private RefJabatanDao refJabatanDao;
-	
+
 	@Inject
 	private RefPendidikanDao refPendidikanDao;
 
 	@Inject
 	private MFormasiDao mFormasiDao;
-	
+
 	@Inject
 	private DtFormasiDao dtFormasiDao;
-	
+
 	@Inject
 	private DtUserDao dtUserDao;
 
@@ -67,8 +64,8 @@ public class FormasiController {
 		// refInstansiDao.findById(user.getRefInstansi().getKode());
 		model.addAttribute("username", user.getNama());
 		DtUser userp = dtUserDao.findById(user.getUsername());
-//		RefInstansi instansi = user.getRefInstansi();
-//		Hibernate.initialize(user);
+		// RefInstansi instansi = user.getRefInstansi();
+		// Hibernate.initialize(user);
 		model.addAttribute("instansiNama", userp.getRefInstansi().getNama());
 
 		List<MFormasi> formasis = mFormasiDao.findAll(null);
@@ -86,34 +83,135 @@ public class FormasiController {
 
 		DtUser userLogin = (DtUser) session.getAttribute("userLogin");
 		if (userLogin == null) {
-			//model.addAttribute("userLogin", userLogin);
-			//StandardJsonMessage res = new StandardJsonMessage(-1, null, null,
-			//		"session empty");
+			// model.addAttribute("userLogin", userLogin);
+			// StandardJsonMessage res = new StandardJsonMessage(-1, null, null,
+			// "session empty");
 			return "redirect:login.do";
 		}
 
-		MFormasi nformasi = new MFormasi();
-		RefLokasi refLokasi = refLokasiDao.findById(lokasi); 
-		nformasi.setRefLokasi(refLokasi);
-		
-		RefJabatan refJabatan = refJabatanDao.findById(jabatan);
-		nformasi.setRefJabatan(refJabatan);
-		
-		DtUser user = dtUserDao.findById(userLogin.getUsername());
-		nformasi.setRefInstansi(user.getRefInstansi());
-		
-		nformasi.setJumlah(Integer.parseInt(jumlah));
-		mFormasiDao.insert(nformasi);
-		
-		DtFormasi detFormasi = new DtFormasi(nformasi);
-		RefPendidikan objPendidikan = refPendidikanDao.findById(pendidikan[0]);
-		detFormasi.setPendidikan(objPendidikan);
-		detFormasi.setJumlah(Integer.parseInt(pendidikanJml[0]));
-		dtFormasiDao.insert(detFormasi);
-		
-//		StandardJsonMessage res = new StandardJsonMessage(1, null, null,
-//				"Save Success");
+		try {
+			MFormasi nformasi = new MFormasi();
+			RefLokasi refLokasi = refLokasiDao.findById(lokasi);
+			nformasi.setRefLokasi(refLokasi);
+
+			RefJabatan refJabatan = refJabatanDao.findById(jabatan);
+			nformasi.setRefJabatan(refJabatan);
+
+			DtUser user = dtUserDao.findById(userLogin.getUsername());
+			nformasi.setRefInstansi(user.getRefInstansi());
+
+			nformasi.setJumlah(Integer.parseInt(jumlah));
+			mFormasiDao.insert(nformasi);
+
+			for (int i = 0; i < pendidikan.length; i++) {
+				DtFormasi detFormasi = new DtFormasi(nformasi);
+				RefPendidikan objPendidikan = refPendidikanDao
+						.findById(pendidikan[i]);
+				detFormasi.setPendidikan(objPendidikan);
+				detFormasi.setJumlah(Integer.parseInt(pendidikanJml[i]));
+				dtFormasiDao.insert(detFormasi);
+			}
+
+			model.addAttribute("pesan", "Insert berhasil");
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			model.addAttribute("pesan", "Insert gagal");
+		}
+
 		return "redirect:formasi.do";
 	}
+
+	// roberto
+	@RequestMapping(value = "/formasiUpdate.do", method = RequestMethod.POST)
+	public String update(@RequestParam("id") String id,
+			@RequestParam("lokasi") String lokasi,
+			@RequestParam("jabatan") String jabatan,
+			@RequestParam("pendidikan[]") String[] pendidikan,
+			@RequestParam("pendidikanJmlh[]") String[] pendidikanJml,
+			@RequestParam("jumlah") String jumlah, HttpSession session,
+			ModelMap model) throws Exception {
+
+		DtUser userLogin = (DtUser) session.getAttribute("userLogin");
+		if (userLogin == null) {
+			// model.addAttribute("userLogin", userLogin);
+			// StandardJsonMessage res = new StandardJsonMessage(-1, null, null,
+			// "session empty");
+			return "redirect:login.do";
+		}
+
+		try {
+			MFormasi nformasi = mFormasiDao.findById(id);
+			RefLokasi refLokasi = refLokasiDao.findById(lokasi);
+			nformasi.setRefLokasi(refLokasi);
+
+			RefJabatan refJabatan = refJabatanDao.findById(jabatan);
+			nformasi.setRefJabatan(refJabatan);
+
+			DtUser user = dtUserDao.findById(userLogin.getUsername());
+			nformasi.setRefInstansi(user.getRefInstansi());
+
+			nformasi.setJumlah(Integer.parseInt(jumlah));
+			mFormasiDao.update(nformasi);
+
+			Iterator<DtFormasi> iterator = nformasi.getDtFormasis().iterator();
+			int i = 0;
+			while (iterator.hasNext()) {
+				DtFormasi detFormasi = (DtFormasi) iterator.next();
+				RefPendidikan objPendidikan = refPendidikanDao
+						.findById(pendidikan[i]);
+				detFormasi.setPendidikan(objPendidikan);
+				detFormasi.setJumlah(Integer.parseInt(pendidikanJml[i]));
+				dtFormasiDao.update(detFormasi);
+				i++;
+			}
+			model.addAttribute("pesan", "update berhasil");
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			model.addAttribute("pesan", "update gagal");
+		}
+		return "redirect:formasi.do";
+	}
+
+	@RequestMapping(value = "/formasiDelete.do", method = RequestMethod.POST)
+	public String delete(@RequestParam("id") String id, HttpSession session,
+			ModelMap model) throws Exception {
+
+		DtUser userLogin = (DtUser) session.getAttribute("userLogin");
+		if (userLogin == null) {
+			return "redirect:login.do";
+		}
+
+		try {
+			MFormasi instance = mFormasiDao.findById(id);
+			mFormasiDao.remove(instance);
+			model.addAttribute("pesan", "delete berhasil");
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			model.addAttribute("pesan", "delete gagal");
+		}
+
+		return "redirect:formasi.do";
+	}
+	
+	@RequestMapping(value = "/getFormasi.do", method = RequestMethod.GET)
+	public String getFormasi(@RequestParam("id") String id, HttpSession session,
+			ModelMap model) throws Exception {
+
+		DtUser userLogin = (DtUser) session.getAttribute("userLogin");
+		if (userLogin == null) {
+			return "redirect:login.do";
+		}
+
+		try {
+			MFormasi nformasi = mFormasiDao.findById(id);
+			model.addAttribute("formasi", nformasi);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			model.addAttribute("pesan", "Insert gagal");
+		}
+
+		return "formasi.do";
+	}
+
 
 }
