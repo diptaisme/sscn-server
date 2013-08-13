@@ -213,39 +213,117 @@ public class UserController {
 	@RequestMapping(value = "/userSave.do", method = RequestMethod.POST)
 	@ResponseBody
 	public StandardJsonMessage save(@RequestParam("username") String username,
-			@RequestParam("nip") String nip,
-			@RequestParam("name") String name,
+			@RequestParam("nip") String nip, @RequestParam("name") String name,
 			@RequestParam("password") String password,
 			@RequestParam("instansi") String instansiKd,
-			@RequestParam("profile") String profile, HttpSession session) throws Exception {
-		// ObjectMapper objectMapper = new ObjectMapper();
+			@RequestParam("profile") String profile, HttpSession session)
+			throws Exception {
 
 		DtUser userLogin = (DtUser) session.getAttribute("userLogin");
 		if (userLogin == null) {
 			StandardJsonMessage res = new StandardJsonMessage(-1, null, null,
 					"Save Success");
 			return res;
-		}		
-		
-		//		
-		DtUser user = new DtUser();
-		user.setNip(nip);
-		user.setNama(name);
-		user.setUsername(username);
-		user.setPassword(password);
-		user.setKewenangan(profile);
-		user.setTglCreated(new Date());
-		user.setTglUpdated(new Date());
-		user.setNipAdmin(userLogin.getNip());
+		}
+
+		StandardJsonMessage res = null;
+		DtUser user = null;
+		try {
+			user = new DtUser();
+			user.setNip(nip);
+			user.setNama(name);
+			user.setUsername(username);
+			user.setPassword(password);
+			user.setKewenangan(profile);
+			user.setTglCreated(new Date());
+			user.setTglUpdated(new Date());
+			user.setNipAdmin(userLogin.getNip());			
+			
+			if (userService.addUser(user, instansiKd)) {
+				res = new StandardJsonMessage(1, user, null, "Save Success");
+			} else {
+				res = new StandardJsonMessage(1, user, null, "Save Gagal");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			res = new StandardJsonMessage(1, user, null, "Save Gagal");
+		}
+		return res;
+	}
+
+	// roberto
+	@RequestMapping(value = "/userUpdate.do", method = RequestMethod.POST)
+	@ResponseBody
+	public StandardJsonMessage update(
+			@RequestParam("username") String username,
+			@RequestParam("nip") String nip, @RequestParam("name") String name,
+			@RequestParam("password") String password,
+			@RequestParam("instansi") String instansiKd,
+			@RequestParam("profile") String profile, HttpSession session)
+			throws Exception {
+
+		DtUser userLogin = (DtUser) session.getAttribute("userLogin");
+		if (userLogin == null) {
+			StandardJsonMessage res = new StandardJsonMessage(-1, null, null,
+					"Save Success");
+			return res;
+		}
+
 		//
-		StandardJsonMessage res =null;
-		if(userService.addUser(user, instansiKd)){
-			res = new StandardJsonMessage(1, user, null,
-					"Save Success");			
-		}else{
-			res = new StandardJsonMessage(1, user, null,
-					"Save Gagal");
-		}		
+
+		StandardJsonMessage res = null;
+		DtUser user = null;
+		try {
+			user = dtUserDao.findByProperty("username", username, null).get(0);
+
+			user.setNip(nip);
+			user.setNama(name);
+			user.setUsername(username);
+			user.setPassword(password);
+			user.setKewenangan(profile);
+			user.setTglCreated(new Date());
+			user.setTglUpdated(new Date());
+			user.setNipAdmin(userLogin.getNip());
+
+			if (userService.addUser(user, instansiKd)) {
+				res = new StandardJsonMessage(1, user, null, "Save Success");
+			} else {
+				res = new StandardJsonMessage(1, user, null, "Save Gagal");
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			res = new StandardJsonMessage(1, user, null, "Save Gagal");
+		}
+		return res;
+	}
+	
+	@RequestMapping(value = "/userDelete.do", method = RequestMethod.POST)
+	@ResponseBody
+	public StandardJsonMessage delete(
+			@RequestParam("username") String username,HttpSession session)
+			throws Exception {
+
+		DtUser userLogin = (DtUser) session.getAttribute("userLogin");
+		if (userLogin == null) {
+			StandardJsonMessage res = new StandardJsonMessage(-1, null, null,
+					"Save Success");
+			return res;
+		}
+
+		StandardJsonMessage res = null;
+		DtUser user = null;
+		try {
+			user = dtUserDao.findByProperty("username", username, null).get(0);
+			
+			if (dtUserDao.remove(user)) {
+				res = new StandardJsonMessage(1, user, null, "Save Success");
+			} else {
+				res = new StandardJsonMessage(1, user, null, "Save Gagal");
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			res = new StandardJsonMessage(1, user, null, "Save Gagal");
+		}
 		return res;
 	}
 }
