@@ -8,7 +8,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>SSCN | User Management</title>
+<title>SSCN | Lokasi Management</title>
 
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -118,9 +118,11 @@
 					<li class="dropdown"><a href="/sscnServer/user.do"
 						class="dropdown-toggle"> <i class="icon-th"></i> User
 							Management <b class="caret"></b> </a></li>
-							<li class="dropdown"><a href="/sscnServer/lokasi.do"
+							
+					<li class="dropdown"><a href="/sscnServer/lokasi.do"
 						class="dropdown-toggle"> <i class="icon-th"></i> Lokasi
 							Management <b class="caret"></b> </a></li>
+							
 
 					<li class="dropdown"><a href="/sscnServer/formasi.do"
 						class="dropdown-toggle"> <i class="icon-copy"></i> Formasi <b
@@ -181,7 +183,7 @@
 				<ul class="breadcrumb">
 					<li><a href="../../default.htm">Home</a><span class="divider">/</span>
 					</li>
-					<li><a href="#">User Management</a><span class="divider">/</span>
+					<li><a href="#">Lokasi Management</a><span class="divider">/</span>
 					</li>
 					<li class="active">List</li>
 				</ul>
@@ -196,7 +198,7 @@
 
 						<div class="widget-header">
 							<h3>
-								<i class="icon-th-list"></i> User Management
+								<i class="icon-th-list"></i> Lokasi Management
 							</h3>
 						</div>
 						<!-- /widget-header -->
@@ -226,29 +228,28 @@
 
 								<div class="row">
 									<div class="span6 pull-right">
-										<a href="#" id="addUserModal"
+										<a href="#" id="addLokasiModal"
 											class="btn btn-small btn-primary"><i class="icon-plus"></i>Add
-											New User</a>
-										<!--
-											<button class="btn btn-small btn-primary"><i class="icon-plus"></i>&nbsp;&nbsp;Add New User</button>-->
+											New Lokasi</a>
+										
 									</div>
 								</div>
 								<table
 									class="table table-striped table-bordered table-highlight" id="myTable">
 									<thead>
 										<tr>
-											<th>Username</th>
+											<th>Kode</th>
 											<th>Instansi</th>
-											<th>Profile</th>
+											<th>Nama</th>
 											<th>Action(s)</th>
 										</tr>
 									</thead>
 									<tbody>										
-										<c:forEach items="${users}" var="user">
+										<c:forEach items="${lokasis}" var="lokasi">
 											<tr class="odd gradeX">
-												<td>${user.username}</td>
-												<td>${user.refInstansi.nama}</td>
-												<td>Administrator</td>
+												<td>${lokasi.kode}</td>
+												<td>${lokasi.refInstansi.nama}</td>
+												<td>${lokasi.nama} </td>
 												<td>Edit | Delete</td>
 											</tr>
 										</c:forEach>
@@ -300,9 +301,9 @@
 	</div>
 	<!-- /#footer -->
 
-	<div id="myModal" title="Create new user">
+	<div id="myModal" title="Create new lokasi">
 		<p class="validateTips">All form fields are required.</p>
-		<form class="form-horizontal" action="/sscnServer/userSave.do" method="post" id="formAddUser">
+		<form class="form-horizontal" action="/sscnServer/lokasiSave.do" method="post" id="formAddLokasi">
 				<fieldset>
 					<div id="loadingImage" style="display: none">
 						<img src="img/ajax-loader.gif" />
@@ -310,29 +311,24 @@
 					<div id="alert" class="alert alert-error" style="display: none">											
 					</div>
 					<div class="control-group">
+						<label class="control-label" for="input01">Kode</label>
+						<div class="controls">
+							<input type="text" class="input-large" id="kode" name="kode" size="4">
+							<p class="help-block">
+								<!--In addition to freeform text, any HTML5 text-based input appears like so.-->
+							</p>
+						</div>
+					</div>
+					<div class="control-group">
 						<label class="control-label" for="input01">Nama</label>
 						<div class="controls">
-							<input type="text" class="input-large" id="name" name="name">
+							<input type="text" class="input-large" id="nama" name="nama">
 							<p class="help-block">
 								<!--In addition to freeform text, any HTML5 text-based input appears like so.-->
 							</p>
 						</div>
 					</div>
-					<div class="control-group">
-						<label class="control-label" for="input01">Username</label>
-						<div class="controls">
-							<input type="text" class="input-large" id="username" name="username">
-							<p class="help-block">
-								<!--In addition to freeform text, any HTML5 text-based input appears like so.-->
-							</p>
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="input01">Password</label>
-						<div class="controls">
-							<input type="text" class="input-large" id="password" name="password">
-						</div>
-					</div>
+					
 					<div class="control-group">
 						<label class="control-label" for="input01">Instansi</label>
 						<div class="controls">
@@ -342,30 +338,12 @@
 							</div>						
 						</div>
 					</div>
-					<div class="control-group">
-						<label class="control-label" for="input01">Nip</label>
-						<div class="controls">
-							<div class="ui-widget">
-								<input type="text" class="input-large" id="nip" name="nip">
-							</div>						
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="select01">Profile</label>
-						<div class="controls">
-							<select id="profile" name="profile">
-								<option value=1>Administrator</option>
-								<option value=2>Admin Instansi</option>
-								<option value=3>Verifikator</option>
-							</select>
-						</div>
-					</div>
 					
 					<div class="form-actions">
 						<button type="submit" class="btn btn-primary btn-large">
 							Save changes
 						</button>
-						<button class="btn btn-large" id="btnCancelFAddUser">
+						<button class="btn btn-large" id="btnCancelFAddLokasi">
 							Cancel
 						</button>
 					</div>
@@ -383,28 +361,25 @@
 				modal : true
 			});
 
-			$('#addUserModal').click(function() {
+			$('#addLokasiModal').click(function() {
 				$("#myModal").dialog("open");
 			});
 
-			$('#btnCancelFAddUser').click(function() {
+			$('#btnCancelFAddLokasi').click(function() {
 				$("#myModal").dialog("close");
 			});
 		});
 	</script>
 	
 	<script>
-			jQuery(document).ready(function() {
-				$('#addFormasi').click(function() {
-					window.location.href = "http://localhost/scpns/addformasi.html";
-				});
+			jQuery(document).ready(function() {				
 
 				function log(message) {
 					$("<div>").text(message).prependTo("#log");
 					$("#log").scrollTop(0);
 				}
 
-				$("#formAddUser").submit(function(event) {
+				$("#formAddLokasi").submit(function(event) {
 					 
 					  /* stop form from submitting normally */
 					  event.preventDefault();
@@ -419,7 +394,7 @@
 					      url = $form.attr( 'action' );
 					 
 					  /* Send the data using post */
-					  var posting = $.post( "http://localhost:8080/sscnServer/userSave.do", term,"json"
+					  var posting = $.post( "http://localhost:8080/sscnServer/lokasiSave.do", term,"json"
 					  					  );
 					 
 					  /* Put the results in a div */
@@ -433,9 +408,8 @@
 					  		
 					  		if (data.result == 1){
 					  			$("#myModal").dialog("close");
-					  			$('#username').val('');
-					  			$('#nip').val('');
-					  			$('#password').val('');
+					  			$('#kode').val('');
+					  			$('#nama').val('');
 					  			$('#instansiValue').val('');
 					  			$('#instansi').val('');
 					  			alert(data.message);
@@ -458,17 +432,8 @@
 					var lenRow = table.rows.length;
 					var row = table.insertRow(lenRow);
 					var colCount = table.rows[0].cells.length;
-					var profile = '';
-					if (data.kewenangan == '1'){
-						profile = 'Administrator';
-					} else if (data.kewenangan == '2'){
-						profile = 'Admin Instansi';
-					} else if (data.kewenangan == '3'){
-						profile = 'Verifikator';
-					} else {
-						profile = 'unknown profile';
-					}
-					var newRowHtml = '<tr class="odd gradeX"><td>'+ data.username+'</td><td>'+ data.refInstansi.nama +'</td><td>'+profile+'</td><td>Edit | Delete</td></tr>';
+					var profile = '';					
+					var newRowHtml = '<tr class="odd gradeX"><td>'+ data.kode+'</td><td>'+ data.refInstansi.nama +'</td><td>'+data.nama+'</td><td>Edit | Delete</td></tr>';
 					row.innerHTML = newRowHtml;	
 				}
 				
