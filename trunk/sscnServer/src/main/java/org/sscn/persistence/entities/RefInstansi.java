@@ -26,7 +26,7 @@ public class RefInstansi implements java.io.Serializable {
 	private Set<DtPengumuman> dtPengumumans = new HashSet<DtPengumuman>(0);
 	private Set<MFormasi> MFormasis = new HashSet<MFormasi>(0);
 	private Set<DtUser> dtUsers = new HashSet<DtUser>(0);
-	private Set<RefPns> refPnses = new HashSet<RefPns>(0);
+	
 
 	public RefInstansi() {
 	}
@@ -46,7 +46,7 @@ public class RefInstansi implements java.io.Serializable {
 		this.dtPengumumans = dtPengumumans;
 		this.MFormasis = MFormasis;
 		this.dtUsers = dtUsers;
-		this.refPnses = refPnses;
+//		this.refPnses = refPnses;
 	}
 
 	@Id
@@ -108,14 +108,14 @@ public class RefInstansi implements java.io.Serializable {
 		this.dtUsers = dtUsers;
 	}
 	
-	@JsonIgnore
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "refInstansi")
-	public Set<RefPns> getRefPnses() {
-		return this.refPnses;
-	}
-
-	public void setRefPnses(Set<RefPns> refPnses) {
-		this.refPnses = refPnses;
-	}
+//	@JsonIgnore
+//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "refInstansi")
+//	public Set<RefPns> getRefPnses() {
+//		return this.refPnses;
+//	}
+//
+//	public void setRefPnses(Set<RefPns> refPnses) {
+//		this.refPnses = refPnses;
+//	}
 
 }
