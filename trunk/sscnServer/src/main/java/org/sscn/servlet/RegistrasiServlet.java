@@ -1,17 +1,25 @@
 package org.sscn.servlet;
 
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperRunManager;
+
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.sscn.manager.Constanta;
+import org.sscn.manager.DBManager;
 import org.sscn.persistence.entities.DtPendaftaran;
 import org.sscn.services.RegistrasiService;
 
@@ -21,6 +29,7 @@ import org.sscn.services.RegistrasiService;
 @Component("RegistrasiServlet")
 public class RegistrasiServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private Connection connection = null;
 
 	/** The application context. */
 	private ApplicationContext applicationContext;
@@ -42,6 +51,12 @@ public class RegistrasiServlet extends HttpServlet {
 		super.init();
 		setApplicationContext(WebApplicationContextUtils
 				.getRequiredWebApplicationContext(this.getServletContext()));
+		try {
+			connection = DBManager.getConnection();
+		} catch (Exception ex) {
+			System.out.println("ex :" + ex.getMessage());
+			connection = null;
+		}
 	}
 
 	/**
@@ -86,6 +101,30 @@ public class RegistrasiServlet extends HttpServlet {
 						cetakRegistrasiGagal(response);
 					} else {
 						// generate pdf :)
+						byte[] byteStream = null;
+						String instansi = "test saja kok";
+						try {
+							Map<String, Object> mapParamater = new HashMap<String, Object>();
+							mapParamater.put("INSTANSI_KODE", instansi);
+							byteStream = JasperRunManager
+									.runReportToPdf(
+											getServletContext()
+													.getRealPath(
+															"/WEB-INF/reports/rptPengumumanInstansi.jasper"),
+											mapParamater, connection);
+
+							OutputStream outStream = response.getOutputStream();
+							response.setHeader("Content-Disposition",
+									"attachment, filename=PengumumuanInstansi.pdf");
+							response.setContentType("application/pdf");
+							response.setContentLength(byteStream.length);
+							outStream.write(byteStream, 0, byteStream.length);
+							outStream.flush();
+						} catch (JRException e) {
+							e.printStackTrace();
+						} catch (Exception ex) {
+							ex.printStackTrace();
+						}
 					}
 				} catch (Exception ex) {
 					ex.printStackTrace();
@@ -123,8 +162,15 @@ public class RegistrasiServlet extends HttpServlet {
 
 	@Override
 	public void destroy() {
-		// TODO Auto-generated method stub
 		super.destroy();
+		try {
+			if (connection != null) {
+				connection.close();
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			System.out.println("ex :" + ex.getMessage());
+		}
 	}
 
 }

@@ -76,6 +76,7 @@ public class PrintServlet extends HttpServlet {
 			response.setContentType("application/pdf");
 			response.setContentLength(byteStream.length);
 			outStream.write(byteStream, 0, byteStream.length);
+			outStream.flush();
 		} catch (JRException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

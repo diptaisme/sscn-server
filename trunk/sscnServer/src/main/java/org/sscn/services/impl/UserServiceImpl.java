@@ -61,9 +61,9 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	@Transactional(readOnly = false)
-	public boolean deleteUser(String nip) {
+	public boolean deleteUserByUsername(String username) {
 		try {
-			DtUser user = dtUserDao.findById(nip);
+			DtUser user = dtUserDao.findById(username);
 			dtUserDao.remove(user);
 			return true;
 		} catch (Exception ex) {
@@ -90,7 +90,12 @@ public class UserServiceImpl implements UserService {
 	@Override
 	@Transactional(readOnly = false)
 	public DtUser insertUser(DtUser user) {
-		dtUserDao.insert(user);
-		return user;
+		return dtUserDao.insert(user);
+	}
+
+	@Override
+	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
+	public List<DtUser> findByProperty(String name, String value, int... idx) {		
+		return findByProperty(name, value, idx);
 	}
 }

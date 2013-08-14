@@ -15,19 +15,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.sscn.dao.DtUserDao;
-import org.sscn.dao.RefInstansiDao;
-import org.sscn.dao.RefLokasiDao;
 import org.sscn.persistence.entities.DtUser;
-import org.sscn.persistence.entities.RefInstansi;
 import org.sscn.persistence.entities.RefLokasi;
+import org.sscn.services.LokasiService;
+import org.sscn.util.json.StandardJsonMessage;
 
 @Controller
 public class LokasiController {
 
-
 	@Inject
-	private RefLokasiDao refLokasiDao;
+	private LokasiService lokasiService;
 
 	@RequestMapping(value = "/findLokasiLikeByName.do", method = RequestMethod.GET)
 	@ResponseBody
@@ -35,14 +32,126 @@ public class LokasiController {
 			@RequestParam("callback") String callBack,
 			@RequestParam("name_startsWith") String name) throws Exception {
 		ObjectMapper objectMapper = new ObjectMapper();
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("nama", name);
-		List<RefLokasi> lokasis = refLokasiDao.findLikeMapOfProperties(
-				map, null);
-		Map<String, Object> map2 = new HashMap<String, Object>();
-		map2.put("lokasis", lokasis);
 
-		return objectMapper.writeValueAsString(new JSONPObject(callBack, map2));
+		List<RefLokasi> lokasis = lokasiService.findLokasiByLikeName(name);
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("lokasis", lokasis);
+
+		return objectMapper.writeValueAsString(new JSONPObject(callBack,
+				resultMap));
+	}
+
+	// roberto
+	@RequestMapping(value = "/lokasiSave.do", method = RequestMethod.POST)
+	@ResponseBody
+	public StandardJsonMessage save(@RequestParam("kode") String kode,
+			@RequestParam("name") String name,
+			@RequestParam("instansi") String instansiKd, HttpSession session)
+			throws Exception {
+
+		DtUser userLogin = (DtUser) session.getAttribute("userLogin");
+		if (userLogin == null) {
+			StandardJsonMessage res = new StandardJsonMessage(-1, null, null,
+					"Save Gagal");
+			return res;
+		}
+
+		StandardJsonMessage res = null;
+		RefLokasi lokasi = null;
+		try {
+			lokasi = lokasiService.save(kode, name, instansiKd);
+			if (lokasi != null) {
+				res = new StandardJsonMessage(1, lokasi, null, "Save Success");
+			} else {
+				res = new StandardJsonMessage(1, lokasi, null, "Save Gagal");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			res = new StandardJsonMessage(1, lokasi, null, "Save Gagal");
+		}
+		return res;
+	}
+
+	@RequestMapping(value = "/lokasiUpdate.do", method = RequestMethod.POST)
+	@ResponseBody
+	public StandardJsonMessage update(@RequestParam("kode") String kode,
+			@RequestParam("name") String name,
+			@RequestParam("instansi") String instansiKd, HttpSession session)
+			throws Exception {
+
+		DtUser userLogin = (DtUser) session.getAttribute("userLogin");
+		if (userLogin == null) {
+			StandardJsonMessage res = new StandardJsonMessage(-1, null, null,
+					"Update Gagal");
+			return res;
+		}
+
+		StandardJsonMessage res = null;
+		RefLokasi lokasi = null;
+		try {
+			lokasi = lokasiService.update(kode, name, instansiKd);
+			if ((lokasi) != null) {
+				res = new StandardJsonMessage(1, lokasi, null, "Update Success");
+			} else {
+				res = new StandardJsonMessage(1, lokasi, null, "Update Gagal");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			res = new StandardJsonMessage(1, lokasi, null, "Update Gagal");
+		}
+		return res;
+	}
+
+	@RequestMapping(value = "/lokasiDelete.do", method = RequestMethod.POST)
+	@ResponseBody
+	public StandardJsonMessage delete(@RequestParam("kode") String kode,
+			HttpSession session) throws Exception {
+
+		DtUser userLogin = (DtUser) session.getAttribute("userLogin");
+		if (userLogin == null) {
+			StandardJsonMessage res = new StandardJsonMessage(-1, null, null,
+					"Delete Gagal");
+			return res;
+		}
+
+		StandardJsonMessage res = null;
+		RefLokasi lokasi = null;
+		try {
+			lokasi = lokasiService.delete(kode);
+			if (lokasi != null) {
+				res = new StandardJsonMessage(1, lokasi, null, "Delete Success");
+			} else {
+				res = new StandardJsonMessage(1, lokasi, null, "Delete Gagal");
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			res = new StandardJsonMessage(1, lokasi, null, "Delete Gagal");
+		}
+		return res;
+	}
+
+	@RequestMapping(value = "/getLokasi.do", method = RequestMethod.GET)
+	public StandardJsonMessage getLokasi(@RequestParam("kode") String kode,
+			HttpSession session, ModelMap model) throws Exception {
+
+		DtUser userLogin = (DtUser) session.getAttribute("userLogin");
+		if (userLogin == null) {
+			StandardJsonMessage res = new StandardJsonMessage(-1, null, null,
+					"Get Lokasi Gagal");
+			return res;
+		}
+
+		StandardJsonMessage res = null;
+		RefLokasi lokasi = null;
+		try {
+			lokasi = lokasiService.findLokasiById(kode);
+			res = new StandardJsonMessage(1, lokasi, null, "Get Lokasi Success");
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			res = new StandardJsonMessage(1, lokasi, null, "Get Lokasi Gagal");
+		}
+
+		return res;
 	}
 
 }

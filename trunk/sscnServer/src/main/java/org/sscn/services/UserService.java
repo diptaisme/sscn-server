@@ -5,14 +5,17 @@ import java.util.List;
 import org.sscn.persistence.entities.DtUser;
 
 public interface UserService {
+	
 	List<DtUser> getAllUser(int... idx);
 
 	boolean editUser(DtUser user, String kodeInstansi);
 	
 	boolean addUser(DtUser user, String kodeInstansi);
 	
-	boolean deleteUser(String nip);
+	boolean deleteUserByUsername(String username);
 	
 	//
 	DtUser insertUser(DtUser user);
+	
+	List<DtUser> findByProperty(String name, String value, int...idx);
 }

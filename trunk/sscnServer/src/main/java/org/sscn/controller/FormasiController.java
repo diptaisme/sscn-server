@@ -207,11 +207,10 @@ public class FormasiController {
 			model.addAttribute("formasi", nformasi);
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			model.addAttribute("pesan", "Insert gagal");
+			model.addAttribute("pesan", "Get Formasi gagal");
 		}
 
 		return "formasi.do";
 	}
-
 
 }
