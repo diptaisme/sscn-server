@@ -9,7 +9,7 @@ import org.sscn.persistence.entities.DtPengumuman;
 
 @Repository("DtPengumumanDao")
 public class DtPengumumanDaoImpl extends CoreDaoImpl<DtPengumuman> implements
-		DtPengumumanDao {
+        DtPengumumanDao {
 	/**
 	 * Default constructor.
 	 * 
@@ -19,5 +19,10 @@ public class DtPengumumanDaoImpl extends CoreDaoImpl<DtPengumuman> implements
 	@Autowired
 	public DtPengumumanDaoImpl(SessionFactory sessionFactory) {
 		super(DtPengumuman.class, sessionFactory);
+	}
+
+	@Override
+	public void updatePengumuman(DtPengumuman dtPengumuman) {
+		update(dtPengumuman);
 	}
 }

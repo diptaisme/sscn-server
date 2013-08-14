@@ -9,4 +9,8 @@ public interface PengumumanService {
 	List<DtPengumuman> getPengumuman(int... idx);
 
 	List<RefInstansi> getInstansi(int... idx);
+
+	void updatePengumuman(DtPengumuman dtPengumuman);
+
+	void insertPengumuman(DtPengumuman dtPengumuman);
 }
