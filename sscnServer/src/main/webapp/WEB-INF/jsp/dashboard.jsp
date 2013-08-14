@@ -70,7 +70,22 @@
 
 						<h4>Welcome back ${userLogin.nama}</h4>
 						<p>							
-							Logged in as 
+							Logged in as <c:choose>
+								<c:when test="${userLogin.kewenangan == 1}">
+									Administrator
+								</c:when>
+								<c:when test="${userLogin.kewenangan == 2}">
+									Admin Instansi
+								</c:when>
+								<c:otherwise>
+									Verificator
+								</c:otherwise>
+							</c:choose>  
+						</p>
+						<p>
+							<form action="logout.do" method="POST" name="formLogout">
+								<input type="submit" value="logout" name="btnLogout"/>
+							</form>
 						</p>
 
 					</div>

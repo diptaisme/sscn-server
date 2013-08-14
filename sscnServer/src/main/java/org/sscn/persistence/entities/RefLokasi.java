@@ -43,7 +43,7 @@ public class RefLokasi implements java.io.Serializable {
 	}
 
 	@Id
-	@Column(name = "kode", unique = true, nullable = false, length = 10)
+	@Column(name = "kode", unique = true, nullable = false, length = 4)
 	public String getKode() {
 		return this.kode;
 	}
