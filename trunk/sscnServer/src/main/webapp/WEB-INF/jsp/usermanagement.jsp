@@ -249,7 +249,9 @@
 												<td>${user.username}</td>
 												<td>${user.refInstansi.nama}</td>
 												<td>Administrator</td>
-												<td>Edit | Delete</td>
+												<td><a href="#" onclick="prepareUbahForm(this,'${user.username }')"
+											class="btn btn-small btn-primary"><i class="icon-edit"></i>Edit</a> | <a href="#" onclick="confirmDelete(this,'${user.username}')"
+											class="btn btn-small btn-primary"><i class="icon-remove"></i>Delete</a></td>
 											</tr>
 										</c:forEach>
 									</tbody>
@@ -262,14 +264,14 @@
 									<div class="span6">
 										<div class="dataTables_paginate paging_bootstrap pagination">
 											<ul>
-												<li class="prev disabled"><a href="#">â Previous</a>
+												<li class="prev disabled"><a href="#">â? Previous</a>
 												</li>
 												<li class="active"><a href="#">1</a></li>
 												<li><a href="#">2</a></li>
 												<li><a href="#">3</a></li>
 												<li><a href="#">4</a></li>
 												<li><a href="#">5</a></li>
-												<li class="next"><a href="#">Next â </a></li>
+												<li class="next"><a href="#">Next â?? </a></li>
 											</ul>
 										</div>
 									</div>
@@ -305,7 +307,7 @@
 		<form class="form-horizontal" action="/sscnServer/userSave.do" method="post" id="formAddUser">
 				<fieldset>
 					<div id="loadingImage" style="display: none">
-						<img src="img/ajax-loader.gif" />
+						<img src="/resources/img/ajax-loader.gif" />
 					</div>
 					<div id="alert" class="alert alert-error" style="display: none">											
 					</div>
@@ -372,6 +374,96 @@
 				</fieldset>
 			</form>
 	</div>
+	
+	<div id="myModal2" title="Ubah user">
+		<p class="validateTips">All form fields are required.</p>
+		<form class="form-horizontal" action="/sscnServer/userUpdate.do" method="post" id="formUbahUser">
+				<fieldset>
+					<div id="loadingImage2" style="display: none">
+						<img src="/resources/img/ajax-loader.gif" />
+					</div>
+					<div id="alert2" class="alert alert-error" style="display: none">											
+					</div>
+					<div class="control-group">
+						<input type="hidden" class="input-large" id="edusername" name="username">
+						<label class="control-label" for="input01">Nama</label>
+						<div class="controls">
+							<input type="text" class="input-large" id="edname" name="name">
+							<p class="help-block">
+								<!--In addition to freeform text, any HTML5 text-based input appears like so.-->
+							</p>
+						</div>
+					</div>
+					
+					<!--  <div class="control-group">
+						<label class="control-label" for="input01">Password</label>
+						<div class="controls">
+							<input type="text" class="input-large" id="edpassword" name="password">
+						</div>
+					</div>-->
+					<div class="control-group">
+						<label class="control-label" for="input01">Instansi</label>
+						<div class="controls">
+							<div class="ui-widget">
+								<input type="hidden" name="instansi" id="edinstansiValue"/>
+								<input type="text" class="input-large" id="edinstansiLabel" name="instansiLabel">
+							</div>						
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="input01">Nip</label>
+						<div class="controls">
+							<div class="ui-widget">
+								<input type="text" class="input-large" id="ednip" name="nip">
+							</div>						
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="select01">Profile</label>
+						<div class="controls">
+							<select id="edprofile" name="profile">
+								<option value=1>Administrator</option>
+								<option value=2>Admin Instansi</option>
+								<option value=3>Verifikator</option>
+							</select>
+						</div>
+					</div>
+					
+					<div class="form-actions">
+						<button type="submit" class="btn btn-primary btn-large">
+							Save changes
+						</button>
+						<button class="btn btn-large" id="btnCancelFAddUser">
+							Cancel
+						</button>
+					</div>
+				</fieldset>
+			</form>
+	</div>
+	
+	<div id="myModal3" title="Create new user">
+		<p class="validateTips">All form fields are required.</p>
+		<form class="form-horizontal" action="/sscnServer/userDelete.do" method="post" id="formDeleteUser">
+				<fieldset>
+					<div id="loadingImage3" style="display: none">
+						<img src="/resources/img/ajax-loader.gif" />
+					</div>
+					<div id="alert3" class="alert alert-warning" >
+						Apakah anda yakin ingin menghapus data ini ?											
+					</div>
+					<input type="hidden" name="username" id="delusername"/>
+					
+					<div class="form-actions">
+						<button type="submit" class="btn btn-primary btn-large">
+							Ya
+						</button>
+						<button class="btn btn-large" id="btnCancelFAddUser">
+							Tidak
+						</button>
+					</div>
+				</fieldset>
+			</form>
+	</div>
 
 	<script>
 		jQuery(document).ready(function() {
@@ -383,6 +475,101 @@
 				modal : true
 			});
 
+			$("#myModal2").dialog({
+				autoOpen : false,
+				height : 350,
+				width : 500,
+				modal : true
+			});
+
+			$("#myModal3").dialog({
+				autoOpen : false,
+				height : 260,
+				width : 400,
+				modal : true
+			});
+
+			var selRowTable;
+			prepareUbahForm = function(elem, id) {
+				selRowTable = $(elem).closest('tr');
+				
+				$.ajax({
+				  type: "GET",
+				  url: "/sscnServer/getUser.do?username="+id,
+				  cache: false,
+				  success: function(data){
+					 
+					 $('#edusername').val(data.data.username);
+					 $('#edname').val(data.data.name);
+					 $('#ednip').val(data.data.nip);
+					 $('#edinstansiValue').val(data.data.refInstansi.kode);
+					 $('#edinstansiLabel').val(data.data.refInstansi.nama);
+					 $("#edprofile").val(data.data.kewenangan);
+				     $("#myModal2").dialog("open");
+				  },
+				  dataType:"json"
+				});
+				
+			};
+
+			confirmDelete = function(elem, id) {
+				selRowTable = $(elem).closest('tr');
+				 $('#delusername').val(id);				 
+			     $("#myModal3").dialog("open");				
+			};
+
+			$("#formDeleteUser").submit(function(event) {
+				 
+				  /* stop form from submitting normally */
+				  event.preventDefault();
+				  
+				  $('#loadingImage3').show();
+				 // $('#alert3').hide();
+				  //$('#alert').show();
+				 
+				  /* get some values from elements on the page: */
+				  var $form = $( this ),
+				      term = $(this).serialize(),
+				      url = $form.attr( 'action' );
+				 
+				  /* Send the data using post */
+				  var posting = $.post( url, term,"json"
+				  					  );
+				 
+				  /* Put the results in a div */
+				  posting.done(function( data ) {
+				  		$('#loadingImage3').hide();
+				  		if (data.result == 0){
+				  			var html = '<strong>Error!</strong> ' + data.message;
+							$('#alert3').html(html);	
+							$('#alert3').show();						
+				  		} 
+				  		
+				  		if (data.result == 1){
+				  			$("#myModal3").dialog("close");
+				  			$('#delusername').val('');
+				  			
+				  			refreshDeleteTable();
+			           		return false;
+				  		}
+
+				  		if (data.result == -1){
+					  		window.location = "/sscnServer/login.do";
+					  	}
+				  });
+				  
+				  posting.error(function(){
+			           alert('failure');        
+			      });   
+				});
+
+			function refreshDeleteTable(){
+				
+				var tesHtml = '';
+				
+				$(selRowTable).replaceWith(tesHtml);
+			}
+			
 			$('#addUserModal').click(function() {
 				$("#myModal").dialog("open");
 			});
@@ -390,19 +577,117 @@
 			$('#btnCancelFAddUser').click(function() {
 				$("#myModal").dialog("close");
 			});
+
+			$("#edinstansiLabel").autocomplete({
+				source : function(request, response) {
+					$.ajax({
+						url : "/sscnServer/findInstansiLikeByName.do",
+						dataType : "jsonp",
+						data : {
+							featureClass : "P",
+							style : "full",
+							maxRows : 12,
+							name_startsWith : request.term
+						},
+						success : function(data) {
+							response($.map(data.instansis, function(item) {
+								return {
+									code: item.kode,
+					                label: item.nama,
+					                value: item.nama
+					            }
+							}));
+						}
+					});
+				},
+				minLength : 2,
+				select : function(event, ui) {
+					$('#edinstansiValue').val(ui.item.code);
+				},
+				open : function() {
+					$(this).removeClass("ui-corner-all").addClass("ui-corner-top");
+				},
+				close : function() {
+					$(this).removeClass("ui-corner-top").addClass("ui-corner-all");
+				}
+			}); 
+
+			$("#formUbahUser").submit(function(event) {
+				 
+				  /* stop form from submitting normally */
+				  event.preventDefault();
+				  
+				  $('#loadingImage2').show();
+				  $('#alert2').hide();
+				  //$('#alert').show();
+				 
+				  /* get some values from elements on the page: */
+				  var $form = $( this ),
+				      term = $(this).serialize(),
+				      url = $form.attr( 'action' );
+				 
+				  /* Send the data using post */
+				  var posting = $.post( url, term,"json"
+				  					  );
+				 
+				  /* Put the results in a div */
+				  posting.done(function( data ) {
+				  		$('#loadingImage2').hide();
+				  		if (data.result == 0){
+				  			var html = '<strong>Error!</strong> ' + data.message;
+							$('#alert2').html(html);	
+							$('#alert2').show();						
+				  		} 
+				  		
+				  		if (data.result == 1){
+				  			$("#myModal2").dialog("close");
+				  			$('#edusername').val('');
+				  			$('#ednip').val('');
+				  			$('#edpassword').val('');
+				  			$('#edinstansiValue').val('');
+				  			$('#edinstansiLabel').val('');
+				  			//alert(data.message);
+				  			refreshUpdateTable(data.data);
+			           		return false;
+				  		}
+
+				  		if (data.result == -1){
+					  		window.location = "/sscnServer/login.do";
+					  	}
+				  });
+				  
+				  posting.error(function(){
+			           alert('failure');        
+			      });   
+				});
+
+			function refreshUpdateTable(data){
+				if (data.kewenangan == '1'){
+					profile = 'Administrator';
+				} else if (data.kewenangan == '2'){
+					profile = 'Admin Instansi';
+				} else if (data.kewenangan == '3'){
+					profile = 'Verifikator';
+				} else {
+					profile = 'unknown profile';
+				}
+				var tesHtml = '<tr class="odd gradeX"> '+
+					'<td>'+data.username+'</td> '+
+					'<td>'+data.refInstansi.nama+'</td> '+
+					'<td>'+profile+'</td> '+
+					'<td><a href="#" onclick="prepareUbahForm(this,\''+data.username+'\')" '+
+				'class="btn btn-small btn-primary"><i class="icon-edit"></i>Edit</a> | <a href="#" id="deleteUserModal" '+
+				'class="btn btn-small btn-primary" confirmDelete(this,\''+data.username+'\')><i class="icon-remove"></i>Delete</a></td> '+
+				'</tr>';
+				
+				$(selRowTable).replaceWith(tesHtml);
+			}
 		});
 	</script>
 	
 	<script>
 			jQuery(document).ready(function() {
-				$('#addFormasi').click(function() {
-					window.location.href = "http://localhost/scpns/addformasi.html";
-				});
-
-				function log(message) {
-					$("<div>").text(message).prependTo("#log");
-					$("#log").scrollTop(0);
-				}
+				
 
 				$("#formAddUser").submit(function(event) {
 					 
@@ -468,7 +753,9 @@
 					} else {
 						profile = 'unknown profile';
 					}
-					var newRowHtml = '<tr class="odd gradeX"><td>'+ data.username+'</td><td>'+ data.refInstansi.nama +'</td><td>'+profile+'</td><td>Edit | Delete</td></tr>';
+					var newRowHtml = '<tr class="odd gradeX"><td>'+ data.username+'</td><td>'+ data.refInstansi.nama +'</td><td>'+profile+'</td><td><a href="#" onclick="prepareUbahForm(this,\''+data.username+'\')" '+
+					'class="btn btn-small btn-primary"><i class="icon-edit"></i>Edit</a> | <a href="#" id="deleteUserModal" '+
+					'class="btn btn-small btn-primary" confirmDelete(this,\''+data.username+'\')><i class="icon-remove"></i>Delete</a></td></tr>';
 					row.innerHTML = newRowHtml;	
 				}
 				
