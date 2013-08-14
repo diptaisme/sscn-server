@@ -1,15 +1,13 @@
 package org.sscn.persistence.entities;
 
-// Generated Aug 12, 2013 12:44:57 PM by Hibernate Tools 3.4.0.CR1
-
-import java.util.HashSet;
-import java.util.Set;
+// Generated Aug 14, 2013 11:26:30 AM by Hibernate Tools 3.4.0.CR1
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
@@ -20,27 +18,28 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
  */
 @Entity
 @Table(name = "ref_lokasi", catalog = "dbseleksicpns")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class RefLokasi implements java.io.Serializable {
 
 	private String kode;
+	private RefInstansi refInstansi;
 	private String nama;
 	private String status;
-	private Set<MFormasi> MFormasis = new HashSet<MFormasi>(0);
 
 	public RefLokasi() {
 	}
 
-	public RefLokasi(String kode) {
+	public RefLokasi(String kode, RefInstansi refInstansi) {
 		this.kode = kode;
+		this.refInstansi = refInstansi;
 	}
 
-	public RefLokasi(String kode, String nama, String status,
-			Set<MFormasi> MFormasis) {
+	public RefLokasi(String kode, RefInstansi refInstansi, String nama,
+			String status) {
 		this.kode = kode;
+		this.refInstansi = refInstansi;
 		this.nama = nama;
 		this.status = status;
-		this.MFormasis = MFormasis;
 	}
 
 	@Id
@@ -51,6 +50,17 @@ public class RefLokasi implements java.io.Serializable {
 
 	public void setKode(String kode) {
 		this.kode = kode;
+	}
+
+	@JsonIgnore
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "INSTANSI", nullable = false)
+	public RefInstansi getRefInstansi() {
+		return this.refInstansi;
+	}
+
+	public void setRefInstansi(RefInstansi refInstansi) {
+		this.refInstansi = refInstansi;
 	}
 
 	@Column(name = "nama", length = 100)
@@ -69,16 +79,6 @@ public class RefLokasi implements java.io.Serializable {
 
 	public void setStatus(String status) {
 		this.status = status;
-	}
-
-	@JsonIgnore
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "refLokasi")
-	public Set<MFormasi> getMFormasis() {
-		return this.MFormasis;
-	}
-
-	public void setMFormasis(Set<MFormasi> MFormasis) {
-		this.MFormasis = MFormasis;
 	}
 
 }
