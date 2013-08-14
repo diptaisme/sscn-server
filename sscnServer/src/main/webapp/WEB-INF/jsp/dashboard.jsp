@@ -125,33 +125,11 @@
 							class="icon-home"></i> <span>Home</span> </a></li>
 
 					<li class="dropdown"><a href="/sscnServer/user.do">
-							<i class="icon-th"></i> User Management <b class="caret"></b> </a> <!--
-							<ul class="dropdown-menu">
-								<li>
-									<a href="forms.html">Forms</a>
-								</li>
-								<li>
-									<a href="ui-elements.html">UI Elements</a>
-								</li>
-								<li>
-									<a href="grid.html">Grid Layout</a>
-								</li>
-								<li>
-									<a href="tables.html">Tables</a>
-								</li>
-								<li>
-									<a href="widgets.html">Widget Boxes</a>
-								</li>
-								<li>
-									<a href="charts.html">Charts</a>
-								</li>
-								<li>
-									<a href="tabs.html">Tabs & Accordion</a>
-								</li>
-								<li>
-									<a href="buttons.html">Buttons</a>
-								</li>
-							</ul> --></li>
+							<i class="icon-th"></i> User Management <b class="caret"></b> </a> 
+							</li>
+							<li class="dropdown"><a href="/sscnServer/lokasi.do"
+						class="dropdown-toggle"> <i class="icon-th"></i> Lokasi
+							Management <b class="caret"></b> </a></li>
 
 					<li class="dropdown"><a href="/sscnServer/formasi.do"
 						class="dropdown-toggle"> <i class="icon-copy"></i> Formasi <b

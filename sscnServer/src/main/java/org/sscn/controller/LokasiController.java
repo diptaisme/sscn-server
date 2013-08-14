@@ -25,6 +25,20 @@ public class LokasiController {
 
 	@Inject
 	private LokasiService lokasiService;
+	
+	@RequestMapping(value = "/lokasi.do", method = RequestMethod.GET)
+	public String index(ModelMap model, HttpSession session) {
+		DtUser user = (DtUser) session.getAttribute("userLogin");
+		if (user == null) {
+			model.addAttribute("userLogin", user);
+			return "redirect:login.do";
+		}
+
+		List<RefLokasi> lokasis = lokasiService.findAllLokasi(null);
+		model.addAttribute("lokasis", lokasis);
+
+		return "lokasimanagement";
+	}
 
 	@RequestMapping(value = "/findLokasiLikeByName.do", method = RequestMethod.GET)
 	@ResponseBody
@@ -40,12 +54,11 @@ public class LokasiController {
 		return objectMapper.writeValueAsString(new JSONPObject(callBack,
 				resultMap));
 	}
-
-	// roberto
+	
 	@RequestMapping(value = "/lokasiSave.do", method = RequestMethod.POST)
 	@ResponseBody
 	public StandardJsonMessage save(@RequestParam("kode") String kode,
-			@RequestParam("name") String name,
+			@RequestParam("nama") String name,
 			@RequestParam("instansi") String instansiKd, HttpSession session)
 			throws Exception {
 

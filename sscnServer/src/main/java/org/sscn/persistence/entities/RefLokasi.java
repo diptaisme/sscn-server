@@ -10,7 +10,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 /**
@@ -52,9 +51,8 @@ public class RefLokasi implements java.io.Serializable {
 		this.kode = kode;
 	}
 
-	@JsonIgnore
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "INSTANSI", nullable = false)
+	@ManyToOne(fetch = FetchType.LAZY)	
+	@JoinColumn(name = "INSTANSI", nullable = false)	
 	public RefInstansi getRefInstansi() {
 		return this.refInstansi;
 	}

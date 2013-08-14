@@ -49,6 +49,7 @@ public class LokasiServiceImpl implements LokasiService {
 			lokasi = new RefLokasi();
 			lokasi.setKode(kode);
 			lokasi.setNama(name);
+			lokasi.setStatus("1");
 			RefInstansi instansi = refInstansiDao.findById(instansiKd);
 			lokasi.setRefInstansi(instansi);
 			lokasi = refLokasiDao.insert(lokasi);

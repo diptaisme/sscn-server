@@ -3,6 +3,7 @@ package org.sscn.controller;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -11,12 +12,15 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.map.util.JSONPObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.sscn.model.json.LokasiJson;
 import org.sscn.persistence.entities.DtPendaftaran;
 import org.sscn.persistence.entities.MFormasi;
 import org.sscn.persistence.entities.RefInstansi;
@@ -114,17 +118,21 @@ public class RegistrasiController {
 
 	@RequestMapping(value = "/ac_instansi.do", method = RequestMethod.GET)
 	@ResponseBody
-	public Map<String, List<RefInstansi>> getInstansis(
+	public String findInstansiLikeByName(
+			@RequestParam("callback") String callBack,
 			@RequestParam("maxRows") String maxRows,
-			@RequestParam("startsWith") String startsWith) {
+			@RequestParam("startsWith") String startsWith) throws Exception {
+		ObjectMapper objectMapper = new ObjectMapper();
 		List<RefInstansi> instansis = registrasiService.getInstansi(
 				Integer.parseInt(maxRows), startsWith);
-		Map<String, List<RefInstansi>> instansiMap = new HashMap<String, List<RefInstansi>>();
-		instansiMap.put("instansis", instansis);
-		return instansiMap;
-	}
 
-	@RequestMapping(value = "/cb_lokasi_by_instansi.do", method = RequestMethod.GET)
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("instansis", instansis);
+		return objectMapper.writeValueAsString(new JSONPObject(callBack,
+				resultMap));
+	}
+	
+	/*@RequestMapping(value = "/cb_lokasi_by_instansi.do", method = RequestMethod.GET)
 	@ResponseBody
 	public Map<String, List<RefLokasi>> getLokasis(
 			@RequestParam("instansi") String instansi) {
@@ -132,7 +140,24 @@ public class RegistrasiController {
 		List<RefLokasi> lokasis = registrasiService.getLokasi(instansi);
 		Map<String, List<RefLokasi>> lokasiMap = new HashMap<String, List<RefLokasi>>();
 		lokasiMap.put("lokasis", lokasis);
+		
 		return lokasiMap;
+	}*/
+
+	@RequestMapping(value = "/cb_lokasi_by_instansi.do", method = RequestMethod.GET)
+	@ResponseBody
+	public String getLokasis(@RequestParam("callback") String callBack,
+			@RequestParam("instansi") String instansi) throws Exception {
+		ObjectMapper objectMapper = new ObjectMapper();
+		List<RefLokasi> refLokasis = registrasiService.getLokasi(instansi);
+		List<LokasiJson> lokasis = new ArrayList<LokasiJson>();
+		for (RefLokasi refLokasi : refLokasis) {
+			lokasis.add(new LokasiJson(refLokasi.getKode(), refLokasi.getNama()));
+		}
+		Map<String, Object> lokasiMap = new HashMap<String, Object>();
+		lokasiMap.put("lokasis", lokasis);
+		return objectMapper.writeValueAsString(new JSONPObject(callBack,
+				lokasiMap));
 	}
 
 	@RequestMapping(value = "/cb_jabatan_by_instansi_lokasi.do", method = RequestMethod.GET)
