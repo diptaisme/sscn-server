@@ -16,9 +16,9 @@ public class DashboardController {
 	public String index(ModelMap model, HttpSession session){
 		DtUser user = (DtUser)session.getAttribute("userLogin");
 		if (user == null){
-			model.addAttribute("userLogin", user);
 			return "redirect:login.do";
 		} 
+		
 		
 		model.addAttribute("username", user.getNama());
 		return "dashboard";

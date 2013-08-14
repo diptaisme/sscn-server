@@ -1,9 +1,12 @@
 package org.sscn.controller;
 
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -24,6 +27,7 @@ import org.sscn.persistence.entities.MFormasi;
 import org.sscn.persistence.entities.RefJabatan;
 import org.sscn.persistence.entities.RefLokasi;
 import org.sscn.persistence.entities.RefPendidikan;
+import org.sscn.services.FormasiService;
 
 @Controller
 public class FormasiController {
@@ -47,9 +51,12 @@ public class FormasiController {
 
 	@Inject
 	private DtUserDao dtUserDao;
+	
+	@Inject
+	private FormasiService formasiService;
 
 	@RequestMapping(value = "/formasi.do", method = RequestMethod.GET)
-	public String index(ModelMap model, HttpSession session) {
+	public String index(ModelMap model, HttpSession session, HttpServletRequest request) {
 		DtUser user = (DtUser) session.getAttribute("userLogin");
 
 		if (user == null) {
@@ -60,14 +67,13 @@ public class FormasiController {
 			return "redirect:login.do";
 		}
 
-		// RefInstansi instansi =
-		// refInstansiDao.findById(user.getRefInstansi().getKode());
 		model.addAttribute("username", user.getNama());
 		DtUser userp = dtUserDao.findById(user.getUsername());
-		// RefInstansi instansi = user.getRefInstansi();
-		// Hibernate.initialize(user);
 		model.addAttribute("instansiNama", userp.getRefInstansi().getNama());
-
+		String pesan = request.getParameter("pesan");
+		if (pesan != null){
+			model.addAttribute("pesan", pesan);
+		}
 		List<MFormasi> formasis = mFormasiDao.findAll(null);
 		model.addAttribute("formasis", formasis);
 		return "formasi";
@@ -83,9 +89,6 @@ public class FormasiController {
 
 		DtUser userLogin = (DtUser) session.getAttribute("userLogin");
 		if (userLogin == null) {
-			// model.addAttribute("userLogin", userLogin);
-			// StandardJsonMessage res = new StandardJsonMessage(-1, null, null,
-			// "session empty");
 			return "redirect:login.do";
 		}
 
@@ -101,17 +104,17 @@ public class FormasiController {
 			nformasi.setRefInstansi(user.getRefInstansi());
 
 			nformasi.setJumlah(Integer.parseInt(jumlah));
-			mFormasiDao.insert(nformasi);
-
+			Set<DtFormasi> dtFormasis = new HashSet<DtFormasi>();	
 			for (int i = 0; i < pendidikan.length; i++) {
 				DtFormasi detFormasi = new DtFormasi(nformasi);
 				RefPendidikan objPendidikan = refPendidikanDao
 						.findById(pendidikan[i]);
 				detFormasi.setPendidikan(objPendidikan);
 				detFormasi.setJumlah(Integer.parseInt(pendidikanJml[i]));
-				dtFormasiDao.insert(detFormasi);
+				dtFormasis.add(detFormasi);
 			}
-
+			nformasi.setDtFormasis(dtFormasis);
+			formasiService.insertFormasi(nformasi);
 			model.addAttribute("pesan", "Insert berhasil");
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -133,9 +136,6 @@ public class FormasiController {
 
 		DtUser userLogin = (DtUser) session.getAttribute("userLogin");
 		if (userLogin == null) {
-			// model.addAttribute("userLogin", userLogin);
-			// StandardJsonMessage res = new StandardJsonMessage(-1, null, null,
-			// "session empty");
 			return "redirect:login.do";
 		}
 
@@ -151,19 +151,22 @@ public class FormasiController {
 			nformasi.setRefInstansi(user.getRefInstansi());
 
 			nformasi.setJumlah(Integer.parseInt(jumlah));
-			mFormasiDao.update(nformasi);
 
 			Iterator<DtFormasi> iterator = nformasi.getDtFormasis().iterator();
+			Set<DtFormasi> dtFormasis = new HashSet<DtFormasi>();
 			int i = 0;
 			while (iterator.hasNext()) {
-				DtFormasi detFormasi = (DtFormasi) iterator.next();
+				DtFormasi detFormasi = iterator.next();
 				RefPendidikan objPendidikan = refPendidikanDao
 						.findById(pendidikan[i]);
 				detFormasi.setPendidikan(objPendidikan);
 				detFormasi.setJumlah(Integer.parseInt(pendidikanJml[i]));
-				dtFormasiDao.update(detFormasi);
+				dtFormasis.add(detFormasi);
 				i++;
 			}
+			
+			nformasi.setDtFormasis(dtFormasis);
+			formasiService.updateFormasi(nformasi);
 			model.addAttribute("pesan", "update berhasil");
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -182,8 +185,7 @@ public class FormasiController {
 		}
 
 		try {
-			MFormasi instance = mFormasiDao.findById(id);
-			mFormasiDao.remove(instance);
+			formasiService.deleteFormasi(Integer.parseInt(id));
 			model.addAttribute("pesan", "delete berhasil");
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -193,7 +195,7 @@ public class FormasiController {
 		return "redirect:formasi.do";
 	}
 	
-	@RequestMapping(value = "/getFormasi.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/getFormasi.do", method = RequestMethod.POST)
 	public String getFormasi(@RequestParam("id") String id, HttpSession session,
 			ModelMap model) throws Exception {
 
@@ -201,16 +203,24 @@ public class FormasiController {
 		if (userLogin == null) {
 			return "redirect:login.do";
 		}
+		
+		model.addAttribute("username", userLogin.getNama());
+		DtUser userp = dtUserDao.findById(userLogin.getUsername());
+		model.addAttribute("instansiNama", userp.getRefInstansi().getNama());
+		
+		List<MFormasi> formasis = mFormasiDao.findAll(null);
+		model.addAttribute("formasis", formasis);
 
 		try {
-			MFormasi nformasi = mFormasiDao.findById(id);
+			MFormasi nformasi = mFormasiDao.findUniqueByProperty("id", Integer.parseInt(id), null, null);
 			model.addAttribute("formasi", nformasi);
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			model.addAttribute("pesan", "Get Formasi gagal");
+			model.addAttribute("pesan", "Insert gagal");
 		}
 
-		return "formasi.do";
+		return "formasi";
 	}
+
 
 }
