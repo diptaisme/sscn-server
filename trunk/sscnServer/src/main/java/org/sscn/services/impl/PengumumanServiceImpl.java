@@ -31,4 +31,16 @@ public class PengumumanServiceImpl implements PengumumanService {
 	public List<RefInstansi> getInstansi(int... idx) {
 		return refInstansiDao.findAll(idx);
 	}
+
+	@Override
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
+	public void updatePengumuman(DtPengumuman dtPengumuman) {
+		dtPengumumanDao.updatePengumuman(dtPengumuman);
+	}
+
+	@Override
+	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
+	public void insertPengumuman(DtPengumuman dtPengumuman) {
+		dtPengumumanDao.insert(dtPengumuman);
+	}
 }
