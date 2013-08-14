@@ -34,7 +34,7 @@ public class UserServiceImpl implements UserService {
 	@Transactional(readOnly = false)
 	public boolean editUser(DtUser user, String kodeInstansi) {
 		try {
-			user.setPassword(encryptPassword(user.getPassword()));
+			//user.setPassword(encryptPassword(user.getPassword()));
 			RefInstansi instansi = refInstansiDao.findById(kodeInstansi);
 			user.setRefInstansi(instansi);
 			dtUserDao.update(user);
@@ -94,8 +94,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
-	public List<DtUser> findByProperty(String name, String value, int... idx) {		
-		return findByProperty(name, value, idx);
+	public List<DtUser> findByProperty(String name, String value, int... idx) {
+		return dtUserDao.findByProperty(name, value, idx);
 	}
 }
