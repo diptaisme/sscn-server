@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.sscn.persistence.entities.DtUser;
+import org.sscn.persistence.entities.RefInstansi;
 import org.sscn.services.UserService;
 import org.sscn.util.json.StandardJsonMessage;
 
@@ -67,11 +68,11 @@ public class UserController {
 			if (userService.addUser(user, instansiKd)) {
 				res = new StandardJsonMessage(1, user, null, "Save Success");
 			} else {
-				res = new StandardJsonMessage(1, user, null, "Save Gagal");
+				res = new StandardJsonMessage(0, user, null, "Save Gagal");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			res = new StandardJsonMessage(1, user, null, "Save Gagal");
+			res = new StandardJsonMessage(0, user, null, "Save Gagal " + e.getMessage());
 		}
 		return res;
 	}
@@ -82,7 +83,6 @@ public class UserController {
 	public StandardJsonMessage update(
 			@RequestParam("username") String username,
 			@RequestParam("nip") String nip, @RequestParam("name") String name,
-			@RequestParam("password") String password,
 			@RequestParam("instansi") String instansiKd,
 			@RequestParam("profile") String profile, HttpSession session)
 			throws Exception {
@@ -103,20 +103,24 @@ public class UserController {
 			user.setNip(nip);
 			user.setNama(name);
 			user.setUsername(username);
-			user.setPassword(password);
+//			user.setPassword(password);
 			user.setKewenangan(profile);
 			user.setTglCreated(new Date());
 			user.setTglUpdated(new Date());
 			user.setNipAdmin(userLogin.getNip());
 
-			if (userService.addUser(user, instansiKd)) {
+			if (userService.editUser(user, instansiKd)) {
+				RefInstansi temp = new RefInstansi();
+				temp.setKode(user.getRefInstansi().getKode());
+				temp.setNama(user.getRefInstansi().getNama());
+				user.setRefInstansi(temp);
 				res = new StandardJsonMessage(1, user, null, "Update Success");
 			} else {
-				res = new StandardJsonMessage(1, user, null, "Update Gagal");
+				res = new StandardJsonMessage(0, null, null, "Update Gagal");
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			res = new StandardJsonMessage(1, user, null, "Update Gagal");
+			res = new StandardJsonMessage(0, null, null, "Update Gagal " + ex.getMessage());
 		}
 		return res;
 	}
@@ -152,9 +156,9 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/getUser.do", method = RequestMethod.GET)
+	@ResponseBody
 	public StandardJsonMessage getUser(
-			@RequestParam("username") String username, HttpSession session,
-			ModelMap model) throws Exception {
+			@RequestParam("username") String username, HttpSession session) throws Exception {
 
 		DtUser userLogin = (DtUser) session.getAttribute("userLogin");
 		if (userLogin == null) {
@@ -168,6 +172,12 @@ public class UserController {
 		try {
 			dtUser = userService.findByProperty("username", username, null)
 					.get(0);
+
+			RefInstansi pInstansi = new RefInstansi();
+			pInstansi.setKode(dtUser.getRefInstansi().getKode());
+			pInstansi.setNama(dtUser.getRefInstansi().getNama());
+			dtUser.setRefInstansi(pInstansi);
+			
 			res = new StandardJsonMessage(1, dtUser, null, "Get User Success");
 		} catch (Exception ex) {
 			ex.printStackTrace();
