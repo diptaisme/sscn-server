@@ -18,4 +18,6 @@ public interface UserService {
 	DtUser insertUser(DtUser user);
 	
 	List<DtUser> findByProperty(String name, String value, int...idx);
+	
+	boolean changePassword(DtUser user, String password);
 }

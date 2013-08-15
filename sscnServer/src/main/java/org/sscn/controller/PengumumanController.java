@@ -16,6 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.servlet.HandlerExceptionResolver;
@@ -77,7 +78,7 @@ public class PengumumanController implements HandlerExceptionResolver {
 	@RequestMapping(method = RequestMethod.POST)
 	public String processForm(HttpSession session,
 	        @ModelAttribute(value = "fileUploadCommand") FileUpload form,
-	        BindingResult result, ModelMap modelMap) {
+	        BindingResult result, ModelMap modelMap, @RequestParam("kodeInstansi") String kodeInstansi ) {
 		DtUser user = (DtUser) session.getAttribute("userLogin");
 		if (user == null) {
 			modelMap.addAttribute("pesan", "Session habis silahkan login kembali");
@@ -89,11 +90,11 @@ public class PengumumanController implements HandlerExceptionResolver {
 
 				// Dummy RefInstansi
 				RefInstansi refInstansi = new RefInstansi();
-				refInstansi.setKode("4011");
+				refInstansi.setKode(kodeInstansi);
 				DtPengumuman instance = new DtPengumuman(refInstansi, form.getFile()
 				        .getBytes(), "1");
 				// Cari RefInstansi, apakah sudah ada atau belum
-				List<DtPengumuman> dtPengumumans = pengumumanService.findByProperty("refInstansi.kode", "4011", null);
+				List<DtPengumuman> dtPengumumans = pengumumanService.findByProperty("refInstansi.kode", kodeInstansi, null);
 				// Cek jika laporan dengan instansi yg sama telah ada maka
 				// update.
 				if (dtPengumumans.size() >= 1) {

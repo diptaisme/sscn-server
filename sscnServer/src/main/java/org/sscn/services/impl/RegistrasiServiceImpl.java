@@ -1,11 +1,13 @@
 package org.sscn.services.impl;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -116,7 +118,8 @@ public class RegistrasiServiceImpl implements RegistrasiService {
 
 			String nama = request.getParameter("nama");
 			String tempatLahir = request.getParameter("tempat_lahir");
-			Date tglLahir = new Date(); // tgl lahir nanti
+			String strTglLahir = request.getParameter("datepickerTglLahir");			
+			Date tglLahir = new SimpleDateFormat("dd-MM-yyyy").parse(strTglLahir);
 			
 			String alamat = request.getParameter("alamat");
 			String kota = request.getParameter("kota");
@@ -144,11 +147,12 @@ public class RegistrasiServiceImpl implements RegistrasiService {
 			}
 
 			String noIjazah = request.getParameter("no_ijazah");
+			String jnsKelamin = request.getParameter("jenis_kelamin");
 			String status = ""; // status
 			String regStatus = ""; // regStatus
 			// belom ada di form
-			String jnsKelamin = "P"; //set dulu
-			String lembaga = "";
+			
+			String lembaga = request.getParameter("universitas");  //lembaga = universitas??
 			String akreditasi = "";
 			String nilaiIPK = "";
 			// memang tidak diisi

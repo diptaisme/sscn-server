@@ -66,6 +66,7 @@ public class ReportRegistrasiCommand extends ReportCommand {
 									request, response, mapParamater, fileName);
 						} catch (Exception ex) {
 							ex.printStackTrace();
+							cetakRegistrasiGagal(response);
 						}
 					}
 				} catch (Exception ex) {
