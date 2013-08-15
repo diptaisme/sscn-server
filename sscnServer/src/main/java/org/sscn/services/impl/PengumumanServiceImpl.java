@@ -39,8 +39,14 @@ public class PengumumanServiceImpl implements PengumumanService {
 	}
 
 	@Override
-	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
+	@Transactional(readOnly = false, propagation = Propagation.SUPPORTS)
 	public void insertPengumuman(DtPengumuman dtPengumuman) {
 		dtPengumumanDao.insert(dtPengumuman);
+	}
+	
+	@Override
+	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
+	public List<DtPengumuman> findByProperty(String name, String value, int...idx){
+		return dtPengumumanDao.findByProperty(name,value,idx);
 	}
 }
