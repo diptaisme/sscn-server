@@ -14,8 +14,14 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Component;
 import org.sscn.core.report.command.ReportCommand;
 import org.sscn.dao.DtPengumumanDao;
+import org.sscn.dao.RefInstansiDao;
 import org.sscn.persistence.entities.DtPengumuman;
+import org.sscn.persistence.entities.RefInstansi;
 
+/**
+ * @author efraim
+ * 
+ */
 @Component(value = "pengumumanReportCommand")
 public class PengumumanReportCommand extends ReportCommand {
 
@@ -27,10 +33,13 @@ public class PengumumanReportCommand extends ReportCommand {
 	@Inject
 	private DtPengumumanDao dtPengumumanDao;
 
+	@Inject
+	private RefInstansiDao refInstansiDao;
+
 	@Override
 	protected byte[] generateXls(Object[] pMyData, Map<String, Object> myMap)
 	        throws IOException {
-		// TODO Auto-generated method stub
+		// NOP
 		return null;
 	}
 
@@ -38,13 +47,12 @@ public class PengumumanReportCommand extends ReportCommand {
 	public void execute(HttpServletRequest request, HttpServletResponse response)
 	        throws ServletException {
 		String instansi = request.getParameter("instansi");
-		String typeReportString = request.getParameter("typeReport");
-
 		List<DtPengumuman> pengumumans = dtPengumumanDao.findByProperty(
 		        "refInstansi.kode", instansi, null);
-
 		if (pengumumans.size() > 0) {
 			DtPengumuman thePengumuman = pengumumans.get(0);
+			response.setHeader("Content-Disposition",
+			        "inline; filename=PengumumuanPendaftaran.pdf");
 			response.setContentType("application/pdf");
 			try {
 				ServletOutputStream servletOutputStream = response.getOutputStream();
@@ -55,16 +63,32 @@ public class PengumumanReportCommand extends ReportCommand {
 				e.printStackTrace();
 			}
 		} else {
-			response.setContentType("text/html");
-			PrintWriter out;
-			try {
-				out = response.getWriter();
-				out.println("<HTML><HEAD><TITLE>SSCN</TITLE>"
-				        + "</HEAD><BODY>Maaf, Laporan Pengumuman Belum Tersedia</BODY></HTML>");
-				out.close();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			RefInstansi refInstansi = refInstansiDao.findById(instansi);
+			if (refInstansi != null) {
+				String namaInstansi = refInstansi.getNama();
+				response.setContentType("text/html");
+				PrintWriter out;
+				try {
+					out = response.getWriter();
+					out.println("<HTML><HEAD><TITLE>Laporan Pengumuman</TITLE>"
+					        + "</HEAD><BODY>Maaf, Laporan Pengumuman Belum Tersedia.<br>Instansi Terpilih&nbsp;"
+					        + namaInstansi
+					        + "<hr size=\"1\">Sistem Seleksi CPNS 2013, Badan Kepegawaian Negara</BODY></HTML>");
+					out.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			} else {
+				response.setContentType("text/html");
+				PrintWriter out;
+				try {
+					out = response.getWriter();
+					out.println("<HTML><HEAD><TITLE>Laporan Pengumuman</TITLE>"
+					        + "</HEAD><BODY>Maaf, Silahkan memilih instansi<hr size=\"1\">Sistem Seleksi CPNS 2013, Badan Kepegawaian Negara</BODY></HTML>");
+					out.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
 		}
 	}
