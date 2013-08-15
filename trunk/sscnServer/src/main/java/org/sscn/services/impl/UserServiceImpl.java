@@ -99,4 +99,17 @@ public class UserServiceImpl implements UserService {
 		return dtUserDao.findByProperty(name, value, idx);
 	}
 
+	@Override
+	@Transactional(readOnly = false)
+	public boolean changePassword(DtUser user, String password) {
+		try {
+			user.setPassword(encryptPassword(password));
+			dtUserDao.update(user);
+			return true;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return false;
+		}
+	}
+
 }
