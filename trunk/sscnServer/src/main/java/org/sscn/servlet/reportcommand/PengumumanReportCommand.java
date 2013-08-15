@@ -64,10 +64,10 @@ public class PengumumanReportCommand extends ReportCommand {
 			}
 		} else {
 			RefInstansi refInstansi = refInstansiDao.findById(instansi);
+			response.setContentType("text/html");
+			PrintWriter out;
 			if (refInstansi != null) {
 				String namaInstansi = refInstansi.getNama();
-				response.setContentType("text/html");
-				PrintWriter out;
 				try {
 					out = response.getWriter();
 					out.println("<HTML><HEAD><TITLE>Laporan Pengumuman</TITLE>"
@@ -79,8 +79,6 @@ public class PengumumanReportCommand extends ReportCommand {
 					e.printStackTrace();
 				}
 			} else {
-				response.setContentType("text/html");
-				PrintWriter out;
 				try {
 					out = response.getWriter();
 					out.println("<HTML><HEAD><TITLE>Laporan Pengumuman</TITLE>"
