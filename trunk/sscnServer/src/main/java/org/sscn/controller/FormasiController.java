@@ -58,13 +58,13 @@ public class FormasiController {
 	@RequestMapping(value = "/formasi.do", method = RequestMethod.GET)
 	public String index(ModelMap model, HttpSession session, HttpServletRequest request) {
 		DtUser user = (DtUser) session.getAttribute("userLogin");
-
 		if (user == null) {
-			return "redirect:login.do";
+			model.addAttribute("pesan", "Session habis silahkan login kembali");
+			return "login";
 		}
-		if (!(user.getKewenangan().equalsIgnoreCase("1") || !user
-				.getKewenangan().equalsIgnoreCase("2"))) {
-			return "redirect:login.do";
+		if (user.getKewenangan().equalsIgnoreCase("3")) {
+			model.addAttribute("pesan", "Anda tidak berhak mengakses halaman ini");
+			return "login";
 		}
 
 		model.addAttribute("username", user.getNama());
@@ -89,7 +89,8 @@ public class FormasiController {
 
 		DtUser userLogin = (DtUser) session.getAttribute("userLogin");
 		if (userLogin == null) {
-			return "redirect:login.do";
+			model.addAttribute("pesan", "Session habis silahkan login kembali");
+			return "login";
 		}
 
 		try {
@@ -136,7 +137,8 @@ public class FormasiController {
 
 		DtUser userLogin = (DtUser) session.getAttribute("userLogin");
 		if (userLogin == null) {
-			return "redirect:login.do";
+			model.addAttribute("pesan", "Session habis silahkan login kembali");
+			return "login";
 		}
 
 		try {
@@ -181,7 +183,8 @@ public class FormasiController {
 
 		DtUser userLogin = (DtUser) session.getAttribute("userLogin");
 		if (userLogin == null) {
-			return "redirect:login.do";
+			model.addAttribute("pesan", "Session habis silahkan login kembali");
+			return "login";
 		}
 
 		try {
@@ -201,7 +204,8 @@ public class FormasiController {
 
 		DtUser userLogin = (DtUser) session.getAttribute("userLogin");
 		if (userLogin == null) {
-			return "redirect:login.do";
+			model.addAttribute("pesan", "Session habis silahkan login kembali");
+			return "login";
 		}
 		
 		model.addAttribute("username", userLogin.getNama());

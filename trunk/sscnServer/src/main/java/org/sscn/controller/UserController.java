@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -23,11 +24,11 @@ public class UserController {
 	private UserService userService;
 
 	@RequestMapping(value = "/user.do", method = RequestMethod.GET)
-	public String index(ModelMap model, HttpSession session) {
+	public String index(HttpServletRequest request, ModelMap model, HttpSession session) {
 		DtUser user = (DtUser) session.getAttribute("userLogin");
 		if (user == null) {
-			model.addAttribute("userLogin", user);
-			return "redirect:login.do";
+			request.setAttribute("pesan", "Session habis silahkan login kembali");
+			return "login";
 		}
 
 		List<DtUser> users = userService.getAllUser(null);
@@ -68,11 +69,12 @@ public class UserController {
 			if (userService.addUser(user, instansiKd)) {
 				res = new StandardJsonMessage(1, user, null, "Save Success");
 			} else {
-				res = new StandardJsonMessage(0, user, null, "Save Gagal");
+				res = new StandardJsonMessage(0, null, null, "Save Gagal");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			res = new StandardJsonMessage(0, user, null, "Save Gagal " + e.getMessage());
+			res = new StandardJsonMessage(0, null, null, "Save Gagal "
+					+ e.getMessage());
 		}
 		return res;
 	}
@@ -103,7 +105,7 @@ public class UserController {
 			user.setNip(nip);
 			user.setNama(name);
 			user.setUsername(username);
-//			user.setPassword(password);
+			// user.setPassword(password);
 			user.setKewenangan(profile);
 			user.setTglCreated(new Date());
 			user.setTglUpdated(new Date());
@@ -120,7 +122,8 @@ public class UserController {
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			res = new StandardJsonMessage(0, null, null, "Update Gagal " + ex.getMessage());
+			res = new StandardJsonMessage(0, null, null, "Update Gagal "
+					+ ex.getMessage());
 		}
 		return res;
 	}
@@ -141,16 +144,27 @@ public class UserController {
 		StandardJsonMessage res = null;
 		DtUser user = null;
 		try {
-			user = userService.findByProperty("username", username, null)
-					.get(0);
-			if (userService.deleteUserByUsername(user.getUsername())) {
-				res = new StandardJsonMessage(1, user, null, "Delete Success");
+			List<DtUser> listUser = userService.findByProperty("username",
+					username, null);
+			if (listUser.size() == 0) {
+				res = new StandardJsonMessage(0, null, null, "Delete Gagal");
 			} else {
-				res = new StandardJsonMessage(1, user, null, "Delete Gagal");
+				user = listUser.get(0);
+				
+				if (userService.deleteUserByUsername(user.getUsername())) {
+					RefInstansi temp = new RefInstansi();
+					temp.setKode(user.getRefInstansi().getKode());
+					temp.setNama(user.getRefInstansi().getNama());
+					user.setRefInstansi(temp);
+					res = new StandardJsonMessage(1, user, null,
+							"Delete Success");
+				} else {
+					res = new StandardJsonMessage(0, null, null, "Delete Gagal");
+				}
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			res = new StandardJsonMessage(1, user, null, "Delete Gagal");
+			res = new StandardJsonMessage(0, null, null, "Delete Gagal");
 		}
 		return res;
 	}
@@ -158,7 +172,8 @@ public class UserController {
 	@RequestMapping(value = "/getUser.do", method = RequestMethod.GET)
 	@ResponseBody
 	public StandardJsonMessage getUser(
-			@RequestParam("username") String username, HttpSession session) throws Exception {
+			@RequestParam("username") String username, HttpSession session)
+			throws Exception {
 
 		DtUser userLogin = (DtUser) session.getAttribute("userLogin");
 		if (userLogin == null) {
@@ -177,11 +192,11 @@ public class UserController {
 			pInstansi.setKode(dtUser.getRefInstansi().getKode());
 			pInstansi.setNama(dtUser.getRefInstansi().getNama());
 			dtUser.setRefInstansi(pInstansi);
-			
+
 			res = new StandardJsonMessage(1, dtUser, null, "Get User Success");
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			res = new StandardJsonMessage(1, dtUser, null, "Get User Gagal");
+			res = new StandardJsonMessage(0, null, null, "Get User Gagal");
 		}
 
 		return res;

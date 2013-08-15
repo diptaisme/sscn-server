@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.sscn.model.json.LokasiJson;
 import org.sscn.persistence.entities.DtPendaftaran;
 import org.sscn.persistence.entities.MFormasi;
 import org.sscn.persistence.entities.RefInstansi;
@@ -131,34 +130,40 @@ public class RegistrasiController {
 		return objectMapper.writeValueAsString(new JSONPObject(callBack,
 				resultMap));
 	}
-	
-	/*@RequestMapping(value = "/cb_lokasi_by_instansi.do", method = RequestMethod.GET)
+
+	@RequestMapping(value = "/cb_lokasi_by_instansi.do", method = RequestMethod.GET)
 	@ResponseBody
 	public Map<String, List<RefLokasi>> getLokasis(
 			@RequestParam("instansi") String instansi) {
 
 		List<RefLokasi> lokasis = registrasiService.getLokasi(instansi);
-		Map<String, List<RefLokasi>> lokasiMap = new HashMap<String, List<RefLokasi>>();
-		lokasiMap.put("lokasis", lokasis);
-		
-		return lokasiMap;
-	}*/
-
-	@RequestMapping(value = "/cb_lokasi_by_instansi.do", method = RequestMethod.GET)
-	@ResponseBody
-	public String getLokasis(@RequestParam("callback") String callBack,
-			@RequestParam("instansi") String instansi) throws Exception {
-		ObjectMapper objectMapper = new ObjectMapper();
-		List<RefLokasi> refLokasis = registrasiService.getLokasi(instansi);
-		List<LokasiJson> lokasis = new ArrayList<LokasiJson>();
-		for (RefLokasi refLokasi : refLokasis) {
-			lokasis.add(new LokasiJson(refLokasi.getKode(), refLokasi.getNama()));
+		List<RefLokasi> newLokasis = new ArrayList<RefLokasi>();
+		for (RefLokasi lokasi : lokasis) {
+			lokasi.setRefInstansi(null);
+			newLokasis.add(lokasi);
 		}
-		Map<String, Object> lokasiMap = new HashMap<String, Object>();
-		lokasiMap.put("lokasis", lokasis);
-		return objectMapper.writeValueAsString(new JSONPObject(callBack,
-				lokasiMap));
+		Map<String, List<RefLokasi>> lokasiMap = new HashMap<String, List<RefLokasi>>();
+		lokasiMap.put("lokasis", newLokasis);
+
+		return lokasiMap;
 	}
+
+	/*
+	 * @RequestMapping(value = "/cb_lokasi_by_instansi.do", method =
+	 * RequestMethod.GET)
+	 * 
+	 * @ResponseBody public String getLokasis(@RequestParam("callback") String
+	 * callBack,
+	 * 
+	 * @RequestParam("instansi") String instansi) throws Exception {
+	 * ObjectMapper objectMapper = new ObjectMapper(); List<RefLokasi>
+	 * refLokasis = registrasiService.getLokasi(instansi); List<LokasiJson>
+	 * lokasis = new ArrayList<LokasiJson>(); for (RefLokasi refLokasi :
+	 * refLokasis) { lokasis.add(new LokasiJson(refLokasi.getKode(),
+	 * refLokasi.getNama())); } Map<String, Object> lokasiMap = new
+	 * HashMap<String, Object>(); lokasiMap.put("lokasis", lokasis); return
+	 * objectMapper.writeValueAsString(new JSONPObject(callBack, lokasiMap)); }
+	 */
 
 	@RequestMapping(value = "/cb_jabatan_by_instansi_lokasi.do", method = RequestMethod.GET)
 	@ResponseBody
