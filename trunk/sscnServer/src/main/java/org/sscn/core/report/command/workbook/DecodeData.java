@@ -28,12 +28,7 @@ public final class DecodeData {
 
 	// Put Decoder objects and their corresponding reportType here.
 	static {
-		DECODER_MAP.put(GeneralReportUtil.RPT_TEST_CETAK_XLS.toLowerCase(),
-				new Decoder() {
-					public Object[] decode(Object object) {
-						return decodeTestSaja(object);
-					}
-				});		
+		
 	}
 
 	public static Object[] decodeObject(Object object, String reportType) {
