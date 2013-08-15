@@ -11,7 +11,9 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.sscn.core.util.PasswordUtil;
 import org.sscn.dao.DtUserDao;
+import org.sscn.dao.RefInstansiDao;
 import org.sscn.persistence.entities.DtUser;
+import org.sscn.persistence.entities.RefInstansi;
 import org.sscn.services.AuthenticateService;
 
 @Service("AuthenticateService")
@@ -19,6 +21,8 @@ public class AuthenticateServiceImpl implements AuthenticateService {
 
 	@Inject
 	private DtUserDao dtUserDao;
+	@Inject
+	private RefInstansiDao refInstansiDao;
 
 	@Override
 	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
@@ -54,6 +58,8 @@ public class AuthenticateServiceImpl implements AuthenticateService {
 		if (!isValid) {
 			return null;
 		} else {
+			RefInstansi instansi = refInstansiDao.findById(result.getRefInstansi().getKode());
+			result.setRefInstansi(instansi);
 			return result;
 		}
 

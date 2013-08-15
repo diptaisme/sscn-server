@@ -125,7 +125,7 @@ public class RegistrasiServiceImpl implements RegistrasiService {
 			String telpon = request.getParameter("area_telpon") + request.getParameter("telpon"); // belom pasti
 			String email = request.getParameter("email");
 
-			String instansi = request.getParameter("instansi");
+			String instansi = request.getParameter("instansiValue");
 			String jabatan = request.getParameter("jabatan");
 			String lokasiKerja = request.getParameter("lokasi_kerja");
 			String pendidikan = request.getParameter("pendidikan");

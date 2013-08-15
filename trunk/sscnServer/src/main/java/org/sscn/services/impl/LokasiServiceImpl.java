@@ -14,7 +14,6 @@ import org.sscn.dao.RefLokasiDao;
 import org.sscn.persistence.entities.RefInstansi;
 import org.sscn.persistence.entities.RefLokasi;
 import org.sscn.services.LokasiService;
-import org.sscn.util.json.StandardJsonMessage;
 
 @Service("LokasiService")
 public class LokasiServiceImpl implements LokasiService {
@@ -62,19 +61,19 @@ public class LokasiServiceImpl implements LokasiService {
 
 	@Override
 	@Transactional(readOnly = false)
-	public RefLokasi update(String kode, String name, String instansiKd) {
+	public RefLokasi update(String kode, String name) {
 		RefLokasi lokasi = null;
 		try {
-			lokasi = refLokasiDao.findById(kode);
-			lokasi.setKode(kode);
+			lokasi = refLokasiDao.findByProperty("kode", kode, null).get(0);
+			// lokasi.setKode(newKode);
 			lokasi.setNama(name);
-			RefInstansi instansi = refInstansiDao.findById(instansiKd);
-			lokasi.setRefInstansi(instansi);
+			// RefInstansi instansi = refInstansiDao.findById(instansiKd);
+			// lokasi.setRefInstansi(instansi);
 			lokasi = refLokasiDao.update(lokasi);
 		} catch (Exception e) {
 			e.printStackTrace();
 			lokasi = null;
-		}		
+		}
 		return lokasi;
 	}
 
@@ -84,7 +83,7 @@ public class LokasiServiceImpl implements LokasiService {
 		RefLokasi lokasi = null;
 		try {
 			lokasi = refLokasiDao.findByProperty("kode", kode, null).get(0);
-			if(!refLokasiDao.remove(lokasi)){
+			if (!refLokasiDao.remove(lokasi)) {
 				lokasi = null;
 			}
 		} catch (Exception ex) {
@@ -99,10 +98,10 @@ public class LokasiServiceImpl implements LokasiService {
 	public RefLokasi findLokasiById(String kode) {
 		RefLokasi refLokasi = null;
 		try {
-			refLokasi = refLokasiDao.findById(kode);			
+			refLokasi = refLokasiDao.findById(kode);
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			refLokasi =null;
+			refLokasi = null;
 		}
 		return refLokasi;
 	}
