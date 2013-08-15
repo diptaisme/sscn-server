@@ -94,7 +94,9 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<DtUser> findByProperty(String name, String value, int... idx) {
+	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
+	public List<DtUser> findByProperty(String name, String value, int... idx) {		
 		return dtUserDao.findByProperty(name, value, idx);
 	}
+
 }
