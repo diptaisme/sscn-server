@@ -433,7 +433,7 @@
 						<button type="submit" class="btn btn-primary btn-large">
 							Save changes
 						</button>
-						<button class="btn btn-large" id="btnCancelFAddUser">
+						<button class="btn btn-large" id="btnCancelFUbahUser">
 							Cancel
 						</button>
 					</div>
@@ -457,7 +457,7 @@
 						<button type="submit" class="btn btn-primary btn-large">
 							Ya
 						</button>
-						<button class="btn btn-large" id="btnCancelFAddUser">
+						<button class="btn btn-large" id="btnCancelFDeleteUser">
 							Tidak
 						</button>
 					</div>
@@ -518,6 +518,11 @@
 			     $("#myModal3").dialog("open");				
 			};
 
+			$('#btnCancelFDeleteUser').click(function(event) {
+				event.preventDefault();
+				$("#myModal3").dialog("close");
+			});
+
 			$("#formDeleteUser").submit(function(event) {
 				 
 				  /* stop form from submitting normally */
@@ -574,7 +579,8 @@
 				$("#myModal").dialog("open");
 			});
 
-			$('#btnCancelFAddUser').click(function() {
+			$('#btnCancelFAddUser').click(function(event) {
+				event.preventDefault();
 				$("#myModal").dialog("close");
 			});
 
@@ -612,6 +618,11 @@
 				}
 			}); 
 
+			$('#btnCancelFUbahUser').click(function(event) {
+				event.preventDefault();
+				$("#myModal2").dialog("close");
+			});
+				
 			$("#formUbahUser").submit(function(event) {
 				 
 				  /* stop form from submitting normally */
@@ -688,7 +699,8 @@
 	<script>
 			jQuery(document).ready(function() {
 				
-
+				
+				
 				$("#formAddUser").submit(function(event) {
 					 
 					  /* stop form from submitting normally */

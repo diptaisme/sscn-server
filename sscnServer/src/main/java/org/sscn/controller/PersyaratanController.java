@@ -76,7 +76,9 @@ public class PersyaratanController {
 			
 			DtPersyaratan resSyarat = syaratService.simpanPersyaratan(syarat);
 			if (resSyarat != null) {
-				res = new StandardJsonMessage(1, user, null, "Save Success");
+				resSyarat.setRefInstansi(null);
+				resSyarat.setUser(null);
+				res = new StandardJsonMessage(1, resSyarat, null, "Save Success");
 			} else {
 				res = new StandardJsonMessage(0, null, null, "Save Gagal");
 			}
@@ -111,16 +113,11 @@ public class PersyaratanController {
 			
 			Map<String, Object> propertiesMap  = new HashMap<String, Object>();
 			propertiesMap.put("refInstansi", user.getRefInstansi());			
-			syarat.setUrutan(syaratDao.countByMapOfProperties(propertiesMap) + 1);
 			syarat.setUser(user);
 			syarat.setRefInstansi(user.getRefInstansi());
 
 			if (syaratService.simpanPersyaratan(syarat) != null) {
-				RefInstansi temp = new RefInstansi();
-				temp.setKode(user.getRefInstansi().getKode());
-				temp.setNama(user.getRefInstansi().getNama());
-				user.setRefInstansi(temp);
-				res = new StandardJsonMessage(1, user, null, "Update Success");
+				res = new StandardJsonMessage(1, syarat, null, "Update Success");
 			} else {
 				res = new StandardJsonMessage(0, null, null, "Update Gagal");
 			}
@@ -140,22 +137,22 @@ public class PersyaratanController {
 		DtUser userLogin = (DtUser) session.getAttribute("userLogin");
 		if (userLogin == null) {
 			StandardJsonMessage res = new StandardJsonMessage(-1, null, null,
-					"Delete Gagal");
+					"Session null");
 			return res;
 		}
 
 		StandardJsonMessage res = null;
-		DtUser user = null;
+		//DtUser user = null;
 		try {
 			DtPersyaratan syarat = syaratDao.findUniqueByProperty("id", Integer.parseInt(id), null,null);
 			if (syaratService.delete(syarat)) {
-				res = new StandardJsonMessage(1, user, null, "Delete Success");
+				res = new StandardJsonMessage(1, null, null, "Delete Success");
 			} else {
-				res = new StandardJsonMessage(1, user, null, "Delete Gagal");
+				res = new StandardJsonMessage(0, null, null, "Delete Gagal");
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			res = new StandardJsonMessage(1, user, null, "Delete Gagal");
+			res = new StandardJsonMessage(0, null, null, "Delete Gagal " + ex.getMessage());
 		}
 		return res;
 	}
