@@ -5,28 +5,29 @@ import java.util.Map;
 
 import org.apache.commons.logging.LogFactory;
 import org.sscn.core.report.command.ReportCommand;
+import org.sscn.core.report.command.ReportRegistrasiCommand;
 import org.sscn.core.report.command.ReportTestCommand;
-import org.sscn.core.report.command.RptTestXlsCommand;
 import org.sscn.servlet.reportcommand.PengumumanReportCommand;
 
 public class GeneralReportFactory {
 	private static final org.apache.commons.logging.Log LOG = LogFactory
-	        .getLog(GeneralReportFactory.class);
+			.getLog(GeneralReportFactory.class);
 
 	/** The Constant RPT_TEST_CETAK. */
 	public static final String RPT_TEST_CETAK = "rptTestCetak";
-	/** The Constant RPT_TEST_CETAK_XLS. */
-	public static final String RPT_TEST_CETAK_XLS = "rptTestCetakXls";
-	/** The Constant RPT_TEST_CETAK_XLS. */
-	public static final String RPT_DUK_XLS = "rptDukXls";
+	/** The Constant RPT_REGISTRASI. */
+	public static final String RPT_REGISTRASI = "rptRegistrasi";
+	
+	/** The Constant REPORT_PENGUMUMAN. */
+	public static final String REPORT_PENGUMUMAN = "reportPengumuman";
 
 	private static final Map<String, Class<? extends ReportCommand>> REPORT_COMMANDS = new HashMap<String, Class<? extends ReportCommand>>(
-	        54, 1);
+			54, 1);
 
 	static {
 		REPORT_COMMANDS.put(RPT_TEST_CETAK, ReportTestCommand.class);
-		REPORT_COMMANDS.put(RPT_TEST_CETAK_XLS, RptTestXlsCommand.class);
-		REPORT_COMMANDS.put("reportPengumuman", PengumumanReportCommand.class);
+		REPORT_COMMANDS.put(RPT_REGISTRASI, ReportRegistrasiCommand.class);
+		REPORT_COMMANDS.put(REPORT_PENGUMUMAN, PengumumanReportCommand.class);
 	}
 
 	/**
@@ -49,7 +50,7 @@ public class GeneralReportFactory {
 	public static ReportCommand getReportCommand(String reportType) {
 		ReportCommand reportCommand = null;
 		Class<? extends ReportCommand> reportCommandClass = REPORT_COMMANDS
-		        .get(reportType);
+				.get(reportType);
 		if (reportCommandClass != null) {
 			try {
 				reportCommand = reportCommandClass.newInstance();
