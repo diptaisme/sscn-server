@@ -1,47 +1,217 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rptPengumumanInstansi" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
-	<property name="ireport.zoom" value="1.0"/>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report2" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3dfd7576-d7f7-4ac8-ab45-c5978aed0f29">
+	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
-	<parameter name="INSTANSI_KODE" class="java.lang.String"/>
-	<queryString>
-		<![CDATA[select * from ref_instansi]]>
-	</queryString>
+	<property name="ireport.y" value="92"/>
+	<parameter name="parameter1" class="java.lang.String"/>
+	<parameter name="parameter2" class="java.lang.String"/>
+	<parameter name="parameter3" class="java.lang.String"/>
+	<parameter name="parameter4" class="java.lang.String"/>
+	<parameter name="parameter5" class="java.lang.String"/>
+	<parameter name="parameter6" class="java.lang.String"/>
+	<parameter name="parameter7" class="java.lang.String"/>
+	<parameter name="parameter8" class="java.lang.String"/>
+	<parameter name="parameter9" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="79" splitType="Stretch">
+		<band height="34" splitType="Stretch">
 			<staticText>
-				<reportElement x="212" y="28" width="265" height="33"/>
-				<textElement>
-					<font size="16" isBold="true"/>
+				<reportElement uuid="0358e934-1937-47ab-85bd-cdc3bd52e486" x="0" y="0" width="555" height="31"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
 				</textElement>
-				<text><![CDATA[Pengumuman Instansi]]></text>
+				<text><![CDATA[KARTU / TANDA PESERTA UJIAN CPNS TAHUN 2013]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="405" y="28" width="100" height="20"/>
-				<textElement/>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{INSTANSI_KODE}]]></textFieldExpression>
-			</textField>
+			<line>
+				<reportElement uuid="800bda03-e39e-4035-b505-a61225341d1f" x="0" y="32" width="555" height="1"/>
+			</line>
 		</band>
 	</title>
-	<pageHeader>
-		<band height="41" splitType="Stretch"/>
-	</pageHeader>
-	<columnHeader>
-		<band height="27" splitType="Stretch"/>
-	</columnHeader>
 	<detail>
-		<band height="21" splitType="Stretch"/>
+		<band height="264" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="629ad1df-934d-4ea1-880a-6c9ccfb8fadf" x="0" y="12" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Nama]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8d704e1a-5590-4ba8-b224-ab686a203904" x="0" y="32" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Alamat]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="f5836d67-1609-4832-b570-1edd6f7e0dcf" x="0" y="52" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Instansi yang dilamar]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e7bf875e-1df7-4cd0-9ed2-a27b77ceaec6" x="0" y="72" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Nomor Pendaftar]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="859891f8-720f-45cd-acab-3e9d137bd760" x="0" y="92" width="132" height="20"/>
+				<textElement/>
+				<text><![CDATA[Nama Jabatan yang dilamar]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e1233999-dafe-413b-b0ff-af8ca56b968e" x="0" y="112" width="132" height="20"/>
+				<textElement/>
+				<text><![CDATA[Jenjang Pendidikan Pelamar]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="402ef20b-4a5e-45bf-8952-22daf6de18d3" x="0" y="132" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Hari / Tanggal]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0f3ffc04-fc58-495a-94d6-94267a1730ea" x="0" y="152" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Tempat tes]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="fe442705-bee0-44ed-8b56-acd901073b61" x="0" y="172" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Waktu]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0187b23e-8934-44dc-9fe6-8bc5dbe5e656" x="140" y="12" width="4" height="20"/>
+				<textElement/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6b4e37ad-0b04-4fbc-8f35-585170c6291a" x="140" y="52" width="4" height="20"/>
+				<textElement/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="72c9c8e0-aa5b-4439-a332-ec32a2cfac5c" x="140" y="32" width="4" height="20"/>
+				<textElement/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="f047d33c-0fda-4cd7-8b40-6438edc60c19" x="140" y="72" width="4" height="20"/>
+				<textElement/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="80183c67-1790-4691-93a0-a4b49709dedc" x="140" y="92" width="4" height="20"/>
+				<textElement/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="40d17e64-f44b-4a9c-8255-1effcbbb7e17" x="140" y="112" width="4" height="20"/>
+				<textElement/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="7beb9fdc-6e4a-4247-8ae9-7321f00ef39a" x="140" y="132" width="4" height="20"/>
+				<textElement/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="bce6562e-1b4f-4c50-a8ea-b7c0a9963ef9" x="140" y="152" width="4" height="20"/>
+				<textElement/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="644c6ab5-25ba-46b3-8d47-d129158fdc4c" x="140" y="172" width="4" height="20"/>
+				<textElement/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="55c4ebd5-2ecb-4bd9-aa63-b08c604e5eea" x="144" y="12" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{parameter1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="af565338-74cb-47e9-b811-3c7720e28a0c" x="144" y="32" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{parameter2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="197bdae1-8d07-4a5f-b562-f571ab2fc59c" x="144" y="52" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{parameter3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="37e242b3-a032-41f0-8f5d-fb0dc3a4ccbd" x="144" y="72" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{parameter4}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="9c63e25d-ac46-4a20-afc3-c2b4e403d4ce" x="144" y="92" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{parameter5}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="10e2f64d-6b6c-4751-af39-a4fdb11859db" x="144" y="112" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{parameter6}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="d1987d89-1324-43c1-b94e-a01171a06864" x="144" y="132" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{parameter7}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="6e8ec17d-03be-4178-9703-518c81e7b38e" x="144" y="152" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{parameter8}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="56167182-fe45-45d7-b39f-5b74fee3407d" x="144" y="172" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{parameter9}]]></textFieldExpression>
+			</textField>
+		</band>
 	</detail>
-	<columnFooter>
-		<band height="45" splitType="Stretch"/>
-	</columnFooter>
-	<pageFooter>
-		<band height="54" splitType="Stretch"/>
-	</pageFooter>
 	<summary>
-		<band height="42" splitType="Stretch"/>
+		<band height="120" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="2e0853c6-c9be-4c87-b893-0f8329499e25" x="0" y="0" width="191" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Catatan :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="efd15ae0-c493-41c3-83a2-6abe30f3ec40" x="0" y="13" width="240" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Saat pelaksanaan pengisian / ujian harap membawa :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d47b15b1-2bd1-4454-a9e2-7d370d53874d" x="0" y="26" width="191" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[1. pensil B2 asli]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c78fbb67-f7cf-4330-b777-d0984399966c" x="0" y="39" width="191" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[2. penghapus]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0fb6bd1b-da88-4060-a9fb-72fab6d38fc1" x="0" y="52" width="191" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[3. rautan / penajam pensil]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="cefce03c-954a-4da6-81e3-e75dfe5933aa" x="0" y="65" width="191" height="13"/>
+				<textElement verticalAlignment="Middle">
+					<font isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[4. alas tulis]]></text>
+			</staticText>
+		</band>
 	</summary>
 </jasperReport>
