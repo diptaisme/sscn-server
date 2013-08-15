@@ -12,4 +12,6 @@ public interface PersyaratanService {
 	 * @return DtPersyaratan
 	 */
 	DtPersyaratan simpanPersyaratan(DtPersyaratan persyaratan);
+	
+	boolean delete(DtPersyaratan persyaratan);
 }

@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.sscn.dao.DtPersyaratanDao;
 import org.sscn.persistence.entities.DtPersyaratan;
+import org.sscn.persistence.entities.DtUser;
 import org.sscn.services.PersyaratanService;
 
 /**
@@ -39,5 +40,15 @@ public class PersyaratanServiceImpl implements PersyaratanService {
 		}
 		return newInstance;
 	}
-
+	
+	@Override
+	@Transactional(readOnly = false)
+	public boolean delete(DtPersyaratan syarat) {
+		try {
+			persyaratanDao.remove(syarat);			
+			return true;
+		} catch (Exception ex) {
+			return false;
+		}
+	}
 }
