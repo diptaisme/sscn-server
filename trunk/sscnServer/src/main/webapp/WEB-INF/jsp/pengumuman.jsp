@@ -2,6 +2,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+
 <c:set var="userLogin" value="${sessionScope.userLogin}" />
 
 <!DOCTYPE html>
@@ -199,6 +201,7 @@
 					<div class="widget-content">
 						
 						<form:form action="" commandName="fileUploadCommand" method="POST" enctype="multipart/form-data">
+						
 							<fieldset>
 							    <div class="control-group">
 							      <label class="control-label">Maksimum file Laporan (pdf) sebesar 2MB</label>
@@ -206,6 +209,7 @@
 							      <label class="control-label" for="Laporan">Pilih File</label>
 							      <div class="controls">
 							      		<form:input type="file" path="file"/>
+							      		<input type="hidden" value="${userLogin.refInstansi.kode}" id="kodeInstansi" name="kodeInstansi"/>
 							        	<input type="submit" value="Upload File"><form:errors path="*" cssStyle="color : red;"/>&nbsp;&nbsp;${errors}							      		
 							      	<!--
 							      	<input type="hidden" class="input-large" name="Laporan" id="LaporanValue">
