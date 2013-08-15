@@ -26,20 +26,17 @@ import org.sscn.persistence.entities.DtPengumuman;
 import org.sscn.persistence.entities.DtUser;
 import org.sscn.persistence.entities.RefInstansi;
 import org.sscn.services.PengumumanService;
+import org.sscn.services.UserService;
 
 @Controller
 public class PengumumanController implements HandlerExceptionResolver {
 
 	@Inject
-	private DtUserDao dtUserDao;
-
-	@Inject
-	private DtPengumumanDao dtPengumumanDao;
-
-	@Inject
 	private PengumumanService pengumumanService;
-
-	// @RequestMapping(value = "/pengumuman.do", method = RequestMethod.GET)
+	
+	@Inject
+	private UserService userService;
+	
 	@RequestMapping(value = "/cb_instansi.do", method = RequestMethod.GET)
 	@ResponseBody
 	public Map<String, List<RefInstansi>> getInstansis() {
@@ -58,11 +55,11 @@ public class PengumumanController implements HandlerExceptionResolver {
 	public String index(ModelMap model, HttpSession session) {
 		DtUser user = (DtUser) session.getAttribute("userLogin");
 		if (user == null) {
-			model.addAttribute("userLogin", user);
-			return "redirect:login.do";
+			model.addAttribute("pesan", "Session habis silahkan login kembali");
+			return "login";
 		}
 
-		List<DtUser> users = dtUserDao.findAll(null);
+		List<DtUser> users = userService.getAllUser(null);
 		model.addAttribute("users", users);
 
 		FileUpload form = new FileUpload();
@@ -78,9 +75,14 @@ public class PengumumanController implements HandlerExceptionResolver {
 	 * @return String
 	 */
 	@RequestMapping(method = RequestMethod.POST)
-	public String processForm(
+	public String processForm(HttpSession session,
 	        @ModelAttribute(value = "fileUploadCommand") FileUpload form,
 	        BindingResult result, ModelMap modelMap) {
+		DtUser user = (DtUser) session.getAttribute("userLogin");
+		if (user == null) {
+			modelMap.addAttribute("pesan", "Session habis silahkan login kembali");
+			return "login";
+		}
 		if (!result.hasErrors()) {
 			String mimeTypeString = form.getFile().getFileItem().getContentType();
 			if (mimeTypeString.equals("application/pdf")) {
@@ -91,8 +93,7 @@ public class PengumumanController implements HandlerExceptionResolver {
 				DtPengumuman instance = new DtPengumuman(refInstansi, form.getFile()
 				        .getBytes(), "1");
 				// Cari RefInstansi, apakah sudah ada atau belum
-				List<DtPengumuman> dtPengumumans = dtPengumumanDao.findByProperty(
-				        "refInstansi.kode", "4011", null);
+				List<DtPengumuman> dtPengumumans = pengumumanService.findByProperty("refInstansi.kode", "4011", null);
 				// Cek jika laporan dengan instansi yg sama telah ada maka
 				// update.
 				if (dtPengumumans.size() >= 1) {
@@ -136,7 +137,7 @@ public class PengumumanController implements HandlerExceptionResolver {
 			        + ((MaxUploadSizeExceededException) exception).getMaxUploadSize()
 			        + " byte.");
 		} else {
-
+			exception.printStackTrace();
 			model.put("errors", "Unexpected error: " + exception.getMessage());
 		}
 		model.put("fileUploadCommand", new FileUpload());

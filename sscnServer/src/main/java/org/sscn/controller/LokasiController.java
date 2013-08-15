@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.sscn.persistence.entities.DtUser;
+import org.sscn.persistence.entities.RefInstansi;
 import org.sscn.persistence.entities.RefLokasi;
 import org.sscn.services.LokasiService;
 import org.sscn.util.json.StandardJsonMessage;
@@ -30,8 +31,8 @@ public class LokasiController {
 	public String index(ModelMap model, HttpSession session) {
 		DtUser user = (DtUser) session.getAttribute("userLogin");
 		if (user == null) {
-			model.addAttribute("userLogin", user);
-			return "redirect:login.do";
+			model.addAttribute("pesan", "Session habis silahkan login kembali");
+			return "login";
 		}
 
 		List<RefLokasi> lokasis = lokasiService.findAllLokasi(null);
@@ -76,11 +77,11 @@ public class LokasiController {
 			if (lokasi != null) {
 				res = new StandardJsonMessage(1, lokasi, null, "Save Success");
 			} else {
-				res = new StandardJsonMessage(1, lokasi, null, "Save Gagal");
+				res = new StandardJsonMessage(0, null, null, "Save Gagal");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			res = new StandardJsonMessage(1, lokasi, null, "Save Gagal");
+			res = new StandardJsonMessage(0, null, null, "Save Gagal");
 		}
 		return res;
 	}
@@ -88,8 +89,7 @@ public class LokasiController {
 	@RequestMapping(value = "/lokasiUpdate.do", method = RequestMethod.POST)
 	@ResponseBody
 	public StandardJsonMessage update(@RequestParam("kode") String kode,
-			@RequestParam("name") String name,
-			@RequestParam("instansi") String instansiKd, HttpSession session)
+			@RequestParam("nama") String name, HttpSession session)
 			throws Exception {
 
 		DtUser userLogin = (DtUser) session.getAttribute("userLogin");
@@ -102,15 +102,19 @@ public class LokasiController {
 		StandardJsonMessage res = null;
 		RefLokasi lokasi = null;
 		try {
-			lokasi = lokasiService.update(kode, name, instansiKd);
-			if ((lokasi) != null) {
+			lokasi = lokasiService.update(kode, name);
+			if (lokasi != null) {			
+				RefInstansi pInstansi = new RefInstansi();
+				pInstansi.setKode(lokasi.getRefInstansi().getKode());
+				pInstansi.setNama(lokasi.getRefInstansi().getNama());
+				lokasi.setRefInstansi(pInstansi);
 				res = new StandardJsonMessage(1, lokasi, null, "Update Success");
 			} else {
-				res = new StandardJsonMessage(1, lokasi, null, "Update Gagal");
+				res = new StandardJsonMessage(0, null, null, "Update Gagal");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			res = new StandardJsonMessage(1, lokasi, null, "Update Gagal");
+			res = new StandardJsonMessage(0, null, null, "Update Gagal");
 		}
 		return res;
 	}
@@ -132,20 +136,25 @@ public class LokasiController {
 		try {
 			lokasi = lokasiService.delete(kode);
 			if (lokasi != null) {
+				RefInstansi temp = new RefInstansi();
+				temp.setKode(lokasi.getRefInstansi().getKode());
+				temp.setNama(lokasi.getRefInstansi().getNama());
+				lokasi.setRefInstansi(temp);
 				res = new StandardJsonMessage(1, lokasi, null, "Delete Success");
 			} else {
-				res = new StandardJsonMessage(1, lokasi, null, "Delete Gagal");
+				res = new StandardJsonMessage(0, null, null, "Delete Gagal");
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			res = new StandardJsonMessage(1, lokasi, null, "Delete Gagal");
+			res = new StandardJsonMessage(0, null, null, "Delete Gagal");
 		}
 		return res;
 	}
 
 	@RequestMapping(value = "/getLokasi.do", method = RequestMethod.GET)
+	@ResponseBody
 	public StandardJsonMessage getLokasi(@RequestParam("kode") String kode,
-			HttpSession session, ModelMap model) throws Exception {
+			HttpSession session) throws Exception {
 
 		DtUser userLogin = (DtUser) session.getAttribute("userLogin");
 		if (userLogin == null) {
@@ -158,10 +167,14 @@ public class LokasiController {
 		RefLokasi lokasi = null;
 		try {
 			lokasi = lokasiService.findLokasiById(kode);
+			RefInstansi pInstansi = new RefInstansi();
+			pInstansi.setKode(lokasi.getRefInstansi().getKode());
+			pInstansi.setNama(lokasi.getRefInstansi().getNama());
+			lokasi.setRefInstansi(pInstansi);
 			res = new StandardJsonMessage(1, lokasi, null, "Get Lokasi Success");
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			res = new StandardJsonMessage(1, lokasi, null, "Get Lokasi Gagal");
+			res = new StandardJsonMessage(0, null, null, "Get Lokasi Gagal");
 		}
 
 		return res;

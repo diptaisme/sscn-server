@@ -25,18 +25,18 @@ public class InstansiController {
 	@Inject
 	private InstansiService instansiService;
 
-	@RequestMapping(value = "/instansi.do", method = RequestMethod.GET)
+	/*@RequestMapping(value = "/instansi.do", method = RequestMethod.GET)
 	public String index(ModelMap model, HttpSession session) {
 		DtUser user = (DtUser) session.getAttribute("userLogin");
 		if (user == null) {
-			model.addAttribute("userLogin", user);
-			return "redirect:login.do";
+			model.addAttribute("pesan", "Session habis silahkan login kembali");
+			return "login";
 		}
 
 		List<RefInstansi> instansis = instansiService.findAllInstansi(null);
 		model.addAttribute("instansis", instansis);
 		return "instansimanagement";
-	}
+	}*/
 
 	@RequestMapping(value = "/findInstansiLikeByName.do", method = RequestMethod.GET)
 	@ResponseBody
