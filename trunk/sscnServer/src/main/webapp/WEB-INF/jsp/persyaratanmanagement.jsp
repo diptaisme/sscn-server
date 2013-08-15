@@ -234,8 +234,8 @@
 									class="table table-striped table-bordered table-highlight" id="myTable">
 									<thead>
 										<tr>
-											<th>No</th>
-											<th>Text</th>											
+											<th>Persyaratan</th>
+											<th>No Urut</th>											
 											<th>Action(s)</th>
 										</tr>
 									</thead>
@@ -243,8 +243,8 @@
 										<c:set var="i" value="0"/>					
 										<c:forEach items="${reqs}" var="req">
 											<tr class="odd gradeX">
-												<td>${i++}</td>
-												<td>${req.syarat}</td>												
+												<td>${req.syarat}</td>
+												<td>${req.urutan}</td>																						
 												<td><a href="#" onclick="prepareUbahForm(this,'${req.id }')"
 											class="btn btn-small btn-primary"><i class="icon-edit"></i>Edit</a> | <a href="#" onclick="confirmDelete(this,'${req.id}')"
 											class="btn btn-small btn-primary"><i class="icon-remove"></i>Delete</a></td>
@@ -299,7 +299,7 @@
 	<!-- /#footer -->
 
 	<div id="myModal" title="Tambah Persyaratan">
-		<form class="form-horizontal" action="/sscnServer/reqSave.do" method="post" id="formAdd">
+		<form class="form-horizontal" method="post" id="formAdd">
 				<fieldset>
 					<div id="loadingImage" style="display: none">
 						<img src="/resources/img/ajax-loader.gif" />
@@ -312,12 +312,12 @@
 							<textarea rows="3" id="syarat" name="syarat" class="input-large"></textarea>
 						</div>
 					</div>
-										
+					
 					<div class="form-actions">
 						<button type="submit" class="btn btn-primary btn-large">
 							Save changes
 						</button>
-						<button class="btn btn-large" id="btnCancelFAddSyarat">
+						<button class="btn btn-large" id="btnCancelFAdd">
 							Cancel
 						</button>
 					</div>
@@ -333,8 +333,8 @@
 					</div>
 					<div id="alert2" class="alert alert-error" style="display: none">											
 					</div>
-										
-										<div class="control-group">
+					<input type="hidden" id="syaratId" name="id">					
+					<div class="control-group">
 						<label class="control-label" for="input01">Nama</label>
 						<div class="controls">
 							<textarea rows="3" id="edsyarat" name="syarat" class="input-large"></textarea>
@@ -345,7 +345,7 @@
 						<button type="submit" class="btn btn-primary btn-large">
 							Save changes
 						</button>
-						<button class="btn btn-large" id="btnCancelFEditSyarat">
+						<button class="btn btn-large" id="btnCancelFEdit">
 							Cancel
 						</button>
 					</div>
@@ -363,7 +363,7 @@
 					<div id="alert3" class="alert alert-warning" >
 						Apakah anda yakin ingin menghapus data ini ?											
 					</div>
-					<input type="hidden" name="id" id="syaratId"/>
+					<input type="hidden" name="id" id="delId"/>
 					
 					<div class="form-actions">
 						<button type="submit" class="btn btn-primary btn-large">
@@ -410,6 +410,7 @@
 				  url: "/sscnServer/getSyarat.do?id="+id,
 				  cache: false,
 				  success: function(data){
+					 $('#syaratId').val(data.data.id); 
 					 $('#edsyarat').val(data.data.syarat);
 					 $("#myModal2").dialog("open");
 				  },
@@ -449,6 +450,7 @@
 				  			$('#edsyarat').val('');
 				  			
 				  			refreshUpdateTable(data.data);
+				  			alert(data.message);
 			           		return false;
 				  		}
 
@@ -465,8 +467,8 @@
 			function refreshUpdateTable(data){
 				
 				var tesHtml = '<tr class="odd gradeX"> '+
-					'<td>'+data.urutan+'</td> '+
 					'<td>'+data.syarat+'</td> '+
+					'<td>'+data.urutan+'</td> '+					
 					'<td><a href="#" onclick="prepareUbahForm(this,\''+data.id+'\')" '+
 				'class="btn btn-small btn-primary"><i class="icon-edit"></i>Edit</a> | <a href="#" id="deleteUserModal" '+
 				'class="btn btn-small btn-primary" confirmDelete(this,\''+data.id+'\')><i class="icon-remove"></i>Delete</a></td> '+
@@ -478,7 +480,7 @@
 			
 			confirmDelete = function(elem, id) {
 				selRowTable = $(elem).closest('tr');
-				 $('#syaratId').val(id);				 
+				 $('#delId').val(id);				 
 			     $("#myModal3").dialog("open");				
 			};
 
@@ -509,9 +511,9 @@
 				  		
 				  		if (data.result == 1){
 				  			$("#myModal3").dialog("close");
-				  			$('#syaratId').val('');
 				  			
-				  			refreshDeleteTable();
+							refreshDeleteTable();
+							alert(data.message);
 			           		return false;
 				  		}
 
@@ -536,8 +538,19 @@
 				$("#myModal").dialog("open");
 			});
 
-			$('#btnCancelFAddSyarat').click(function() {
+			$('#btnCancelFAdd').click(function(event) {
+				event.preventDefault();
 				$("#myModal").dialog("close");
+			});
+
+			$('#btnCancelFUbah').click(function(event) {
+				event.preventDefault();
+				$("#myModal2").dialog("close");
+			});
+
+			$('#btnCancelFDelete').click(function(event) {
+				event.preventDefault();
+				$("#myModal3").dialog("close");
 			});
 			
 		});
@@ -546,7 +559,7 @@
 	<script>
 			jQuery(document).ready(function() {				
 
-				$("#formAddUser").submit(function(event) {
+				$("#formAdd").submit(function(event) {
 					 
 					  /* stop form from submitting normally */
 					  event.preventDefault();
@@ -557,11 +570,10 @@
 					 
 					  /* get some values from elements on the page: */
 					  var $form = $( this ),
-					      term = $(this).serialize(),
-					      url = $form.attr( 'action' );
+					      term = $(this).serialize();
 					 
 					  /* Send the data using post */
-					  var posting = $.post( "http://localhost:8080/sscnServer/userSave.do", term,"json"
+					  var posting = $.post( "/sscnServer/syaratSave.do", term,"json"
 					  					  );
 					 
 					  /* Put the results in a div */
@@ -575,11 +587,7 @@
 					  		
 					  		if (data.result == 1){
 					  			$("#myModal").dialog("close");
-					  			$('#username').val('');
-					  			$('#nip').val('');
-					  			$('#password').val('');
-					  			$('#instansiValue').val('');
-					  			$('#instansi').val('');
+					  			$('#syarat').val('');
 					  			alert(data.message);
 					  			refreshTable(data.data);
 				           		return false;
@@ -600,57 +608,14 @@
 					var lenRow = table.rows.length;
 					var row = table.insertRow(lenRow);
 					var colCount = table.rows[0].cells.length;
-					var profile = '';
-					if (data.kewenangan == '1'){
-						profile = 'Administrator';
-					} else if (data.kewenangan == '2'){
-						profile = 'Admin Instansi';
-					} else if (data.kewenangan == '3'){
-						profile = 'Verifikator';
-					} else {
-						profile = 'unknown profile';
-					}
-					var newRowHtml = '<tr class="odd gradeX"><td>'+ data.username+'</td><td>'+ data.refInstansi.nama +'</td><td>'+profile+'</td><td><a href="#" onclick="prepareUbahForm(this,\''+data.username+'\')" '+
+					
+					var newRowHtml = '<tr class="odd gradeX"><td>'+ data.syarat +'</td><td>'+ data.urutan+'</td><td><a href="#" onclick="prepareUbahForm(this,\''+data.username+'\')" '+
 					'class="btn btn-small btn-primary"><i class="icon-edit"></i>Edit</a> | <a href="#" id="deleteUserModal" '+
-					'class="btn btn-small btn-primary" confirmDelete(this,\''+data.username+'\')><i class="icon-remove"></i>Delete</a></td></tr>';
+					'class="btn btn-small btn-primary" confirmDelete(this,\''+data.id+'\')><i class="icon-remove"></i>Delete</a></td></tr>';
 					row.innerHTML = newRowHtml;	
 				}
 				
-				$("#instansi").autocomplete({
-					source : function(request, response) {
-						$.ajax({
-							//url : "http://ws.geonames.org/searchJSON",
-							url : "http://localhost:8080/sscnServer/findInstansiLikeByName.do",
-							dataType : "jsonp",
-							data : {
-								featureClass : "P",
-								style : "full",
-								maxRows : 12,
-								name_startsWith : request.term
-							},
-							success : function(data) {
-								response($.map(data.instansis, function(item) {
-									return {
-										code: item.kode,
-						                label: item.nama,
-						                value: item.nama
-						            }
-								}));
-							}
-						});
-					},
-					minLength : 2,
-					select : function(event, ui) {
-						log(ui.item ? "Selected: " + ui.item.label : "Nothing selected, input was " + this.value);
-						$('#instansiValue').val(ui.item.code);
-					},
-					open : function() {
-						$(this).removeClass("ui-corner-all").addClass("ui-corner-top");
-					},
-					close : function() {
-						$(this).removeClass("ui-corner-top").addClass("ui-corner-all");
-					}
-				}); 
+				
 			});
 		</script>
 </body>
