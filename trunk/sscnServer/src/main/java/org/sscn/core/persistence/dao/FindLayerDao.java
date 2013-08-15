@@ -5,7 +5,6 @@ import java.util.Map;
 
 import org.hibernate.LockMode;
 import org.hibernate.NonUniqueResultException;
-import org.sscn.core.persistence.domain.CoreDomain;
 import org.sscn.core.persistence.tools.PropCriteriaAndValue;
 import org.sscn.core.persistence.tools.QueryOrder;
 
@@ -24,6 +23,17 @@ public interface FindLayerDao<T> extends CountLayerDao<T> {
 	 *         exception if no instance is found.
 	 */
 	T findById(String id);
+
+	/**
+	 * Finds an instance by its Id
+	 * 
+	 * @author efraim
+	 * @param id
+	 *            the id
+	 * @returnT The instance which id is the one passed by parameter. An
+	 *          exception if no instance is found.
+	 */
+	T findById(Integer id);
 
 	/**
 	 * Finds an instance by its Id, eagerly fetching specific child objects.
@@ -64,7 +74,7 @@ public interface FindLayerDao<T> extends CountLayerDao<T> {
 	 * @return List<T>
 	 */
 	List<T> findAll(List<String> leftJoinFetchColumns, List<QueryOrder> orders,
-			final int... rowStartIdxAndCount);
+	        final int... rowStartIdxAndCount);
 
 	/**
 	 * Finds instances by a property. Set query string as constant IS NULL if
@@ -82,7 +92,7 @@ public interface FindLayerDao<T> extends CountLayerDao<T> {
 	 * @return List<T>
 	 */
 	List<T> findByProperty(String propertyName, Object value,
-			final int... rowStartIdxAndCount);
+	        final int... rowStartIdxAndCount);
 
 	/**
 	 * Find unique by property.
@@ -100,7 +110,7 @@ public interface FindLayerDao<T> extends CountLayerDao<T> {
 	 *             if there is more than one matching result
 	 */
 	T findUniqueByProperty(String propertyName, Object value,
-			List<String> leftJoinFetchColumns, LockMode lockMode);
+	        List<String> leftJoinFetchColumns, LockMode lockMode);
 
 	/**
 	 * Finds instances by a property. Set query string as constant IS NULL if
@@ -119,8 +129,8 @@ public interface FindLayerDao<T> extends CountLayerDao<T> {
 	 *            number of results to return.
 	 * @return List<T>
 	 */
-	List<T> findByProperty(String propertyName, Object value,
-			List<QueryOrder> orders, final int... rowStartIdxAndCount);
+	List<T> findByProperty(String propertyName, Object value, List<QueryOrder> orders,
+	        final int... rowStartIdxAndCount);
 
 	/**
 	 * Finds ordered instances by a property, and set the lock mode.
@@ -140,9 +150,8 @@ public interface FindLayerDao<T> extends CountLayerDao<T> {
 	 *            number of results to return.
 	 * @return List<T>
 	 */
-	List<T> findByProperty(String propertyName, Object value,
-			List<QueryOrder> orders, LockMode lockMode,
-			final int... rowStartIdxAndCount);
+	List<T> findByProperty(String propertyName, Object value, List<QueryOrder> orders,
+	        LockMode lockMode, final int... rowStartIdxAndCount);
 
 	/**
 	 * Finds ordered instances by a property, fetches child objects eagerly, and
@@ -167,8 +176,8 @@ public interface FindLayerDao<T> extends CountLayerDao<T> {
 	 * @return List<T>
 	 */
 	List<T> findByProperty(String propertyName, Object value,
-			List<String> leftJoinFetchColumns, List<QueryOrder> orders,
-			LockMode lockMode, final int... rowStartIdxAndCount);
+	        List<String> leftJoinFetchColumns, List<QueryOrder> orders,
+	        LockMode lockMode, final int... rowStartIdxAndCount);
 
 	/**
 	 * Finds elements such that a string property is like the parameter given.
@@ -187,7 +196,7 @@ public interface FindLayerDao<T> extends CountLayerDao<T> {
 	 * @return List<T>
 	 */
 	List<T> findLikeProperty(String propertyName, Object value,
-			final int... rowStartIdxAndCount);
+	        final int... rowStartIdxAndCount);
 
 	/**
 	 * Finds elements such that a string property is like the parameter given.
@@ -207,8 +216,8 @@ public interface FindLayerDao<T> extends CountLayerDao<T> {
 	 *            number of results to return.
 	 * @return List<T>
 	 */
-	List<T> findLikeProperty(String propertyName, Object value,
-			List<QueryOrder> orders, final int... rowStartIdxAndCount);
+	List<T> findLikeProperty(String propertyName, Object value, List<QueryOrder> orders,
+	        final int... rowStartIdxAndCount);
 
 	/**
 	 * Finds elements such that a string property is like the parameter given.
@@ -231,8 +240,8 @@ public interface FindLayerDao<T> extends CountLayerDao<T> {
 	 * @return List<T>
 	 */
 	List<T> findLikeProperty(String propertyName, Object value,
-			List<String> leftJoinFetchColumns, List<QueryOrder> orders,
-			final int... rowStartIdxAndCount);
+	        List<String> leftJoinFetchColumns, List<QueryOrder> orders,
+	        final int... rowStartIdxAndCount);
 
 	/**
 	 * Filters instances by several criteria <br>
@@ -292,7 +301,7 @@ public interface FindLayerDao<T> extends CountLayerDao<T> {
 	 * @see org.sscn.core.persistence.tools.PropCriteriaAndValue
 	 */
 	List<T> findUsingFilter(List<PropCriteriaAndValue> filter,
-			final int... rowStartIdxAndCount);
+	        final int... rowStartIdxAndCount);
 
 	/**
 	 * Filters instances by several criteria <br>
@@ -354,8 +363,8 @@ public interface FindLayerDao<T> extends CountLayerDao<T> {
 	 * @return List<T>
 	 * @see org.sscn.core.persistence.tools.PropCriteriaAndValue
 	 */
-	List<T> findUsingFilter(List<PropCriteriaAndValue> filter,
-			List<QueryOrder> orders, final int... rowStartIdxAndCount);
+	List<T> findUsingFilter(List<PropCriteriaAndValue> filter, List<QueryOrder> orders,
+	        final int... rowStartIdxAndCount);
 
 	/**
 	 * Filters instances by several criteria <br>
@@ -420,8 +429,8 @@ public interface FindLayerDao<T> extends CountLayerDao<T> {
 	 * @see org.sscn.core.persistence.tools.PropCriteriaAndValue
 	 */
 	List<T> findUsingFilter(List<String> leftJoinFetch,
-			List<PropCriteriaAndValue> filter, List<QueryOrder> orders,
-			final int... rowStartIdxAndCount);
+	        List<PropCriteriaAndValue> filter, List<QueryOrder> orders,
+	        final int... rowStartIdxAndCount);
 
 	/**
 	 * Finds instances by a map of properties in an specific order. All
@@ -442,7 +451,7 @@ public interface FindLayerDao<T> extends CountLayerDao<T> {
 	 * @return List<T>
 	 */
 	List<T> findByMapOfProperties(Map<String, ? extends Object> propertiesMap,
-			List<QueryOrder> orders, final int... rowStartIdxAndCount);
+	        List<QueryOrder> orders, final int... rowStartIdxAndCount);
 
 	/**
 	 * Finds instances by a map of properties. In case that one of the
@@ -467,8 +476,8 @@ public interface FindLayerDao<T> extends CountLayerDao<T> {
 	 * @return List<T>
 	 */
 	List<T> findByMapOfProperties(Map<String, ? extends Object> propertiesMap,
-			List<String> leftJoinFetchColumns, List<QueryOrder> orders,
-			LockMode lockMode, final int... rowStartIdxAndCount);
+	        List<String> leftJoinFetchColumns, List<QueryOrder> orders,
+	        LockMode lockMode, final int... rowStartIdxAndCount);
 
 	/**
 	 * Finds instances like a map of propertis. All properties should be members
@@ -486,9 +495,8 @@ public interface FindLayerDao<T> extends CountLayerDao<T> {
 	 *            number of results to return.
 	 * @return List<T>
 	 */
-	List<T> findLikeMapOfProperties(
-			Map<String, ? extends Object> propertiesMap,
-			final int... rowStartIdxAndCount);
+	List<T> findLikeMapOfProperties(Map<String, ? extends Object> propertiesMap,
+	        final int... rowStartIdxAndCount);
 
 	/**
 	 * Finds instances like a map of propertis. All properties should be members
@@ -508,9 +516,8 @@ public interface FindLayerDao<T> extends CountLayerDao<T> {
 	 *            number of results to return.
 	 * @return List<T>
 	 */
-	List<T> findLikeMapOfProperties(
-			Map<String, ? extends Object> propertiesMap,
-			List<QueryOrder> orders, final int... rowStartIdxAndCount);
+	List<T> findLikeMapOfProperties(Map<String, ? extends Object> propertiesMap,
+	        List<QueryOrder> orders, final int... rowStartIdxAndCount);
 
 	/**
 	 * Finds instances like a map of propertis. All properties should be members
@@ -532,8 +539,7 @@ public interface FindLayerDao<T> extends CountLayerDao<T> {
 	 *            number of results to return.
 	 * @return List<T>
 	 */
-	List<T> findLikeMapOfProperties(
-			Map<String, ? extends Object> propertiesMap,
-			List<String> leftJoinFetchColumns, List<QueryOrder> orders,
-			final int... rowStartIdxAndCount);
+	List<T> findLikeMapOfProperties(Map<String, ? extends Object> propertiesMap,
+	        List<String> leftJoinFetchColumns, List<QueryOrder> orders,
+	        final int... rowStartIdxAndCount);
 }

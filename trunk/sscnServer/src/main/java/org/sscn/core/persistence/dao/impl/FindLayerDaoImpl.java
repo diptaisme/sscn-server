@@ -9,7 +9,6 @@ import org.hibernate.NonUniqueResultException;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.sscn.core.persistence.dao.FindLayerDao;
-import org.sscn.core.persistence.domain.CoreDomain;
 import org.sscn.core.persistence.exception.CoreExceptionText;
 import org.sscn.core.persistence.exception.CorePersistenceException;
 import org.sscn.core.persistence.tools.PropCriteriaAndValue;
@@ -21,8 +20,7 @@ import org.sscn.core.util.SqlUtil;
  * @author Roberto
  * 
  */
-public class FindLayerDaoImpl<T> extends
-		CountLayerDaoImpl<T> implements FindLayerDao<T> {
+public class FindLayerDaoImpl<T> extends CountLayerDaoImpl<T> implements FindLayerDao<T> {
 
 	/**
 	 * constructor.
@@ -36,8 +34,7 @@ public class FindLayerDaoImpl<T> extends
 	 *            the bean. Remember to annotate the constructor with @Autowired
 	 *            annotation
 	 */
-	public FindLayerDaoImpl(Class clazz,
-			SessionFactory sessionFactory) {
+	public FindLayerDaoImpl(Class clazz, SessionFactory sessionFactory) {
 		super(clazz, sessionFactory);
 	}
 
@@ -48,14 +45,33 @@ public class FindLayerDaoImpl<T> extends
 	 *            the id
 	 * @return the t {@inheritDoc}
 	 */
+	@Override
 	@SuppressWarnings(UNCHECKED)
 	public T findById(String id) {
 		try {
 			return (T) getCurrentSession().get(clazz.getName(), id);
 		} catch (Exception re) {
 			LOG.error(I18N_FIND + I18N_FAILED, re);
-			throw new CorePersistenceException(
-					CoreExceptionText.I18N_OPERATION_FAILED, re);
+			throw new CorePersistenceException(CoreExceptionText.I18N_OPERATION_FAILED,
+			        re);
+		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.sscn.core.persistence.dao.FindLayerDao#findById(java.lang.Integer)
+	 */
+	@Override
+	@SuppressWarnings(UNCHECKED)
+	public T findById(Integer id) {
+		try {
+			return (T) getCurrentSession().get(clazz.getName(), id);
+		} catch (Exception re) {
+			LOG.error(I18N_FIND + I18N_FAILED, re);
+			throw new CorePersistenceException(CoreExceptionText.I18N_OPERATION_FAILED,
+			        re);
 		}
 	}
 
@@ -68,6 +84,7 @@ public class FindLayerDaoImpl<T> extends
 	 *            the left join fetch names
 	 * @return the t {@inheritDoc}
 	 */
+	@Override
 	@SuppressWarnings(UNCHECKED)
 	public T findById(String id, String... leftJoinFetchNames) {
 		StringBuilder sb = new StringBuilder(getSelectFindQuery());
@@ -85,6 +102,7 @@ public class FindLayerDaoImpl<T> extends
 	 *            the row start idx and count
 	 * @return the list {@inheritDoc}
 	 */
+	@Override
 	public List<T> findAll(final int... rowStartIdxAndCount) {
 		return findAll(null, null, rowStartIdxAndCount);
 	}
@@ -100,9 +118,10 @@ public class FindLayerDaoImpl<T> extends
 	 *            the row start idx and count
 	 * @return the list {@inheritDoc}
 	 */
+	@Override
 	@SuppressWarnings(UNCHECKED)
-	public List<T> findAll(List<String> leftJoinFetchColumns,
-			List<QueryOrder> orders, final int... rowStartIdxAndCount) {
+	public List<T> findAll(List<String> leftJoinFetchColumns, List<QueryOrder> orders,
+	        final int... rowStartIdxAndCount) {
 		StringBuilder sqlString = new StringBuilder(getSelectFindQuery());
 		// left join fetch phrase
 		sqlString.append(createLeftJoinFetchPhrase(leftJoinFetchColumns));
@@ -113,8 +132,8 @@ public class FindLayerDaoImpl<T> extends
 			return (List<T>) SqlUtil.doQuery(query, rowStartIdxAndCount);
 		} catch (Exception re) {
 			LOG.error(I18N_FIND + I18N_FAILED, re);
-			throw new CorePersistenceException(
-					CoreExceptionText.I18N_OPERATION_FAILED, re);
+			throw new CorePersistenceException(CoreExceptionText.I18N_OPERATION_FAILED,
+			        re);
 		}
 	}
 
@@ -129,11 +148,11 @@ public class FindLayerDaoImpl<T> extends
 	 *            the row start idx and count
 	 * @return the list {@inheritDoc}
 	 */
-	public List<T> findByMapOfProperties(
-			Map<String, ? extends Object> propertiesMap,
-			List<QueryOrder> orders, final int... rowStartIdxAndCount) {
+	@Override
+	public List<T> findByMapOfProperties(Map<String, ? extends Object> propertiesMap,
+	        List<QueryOrder> orders, final int... rowStartIdxAndCount) {
 		return findByMapOfProperties(propertiesMap, null, orders, null,
-				rowStartIdxAndCount);
+		        rowStartIdxAndCount);
 	}
 
 	/**
@@ -151,16 +170,16 @@ public class FindLayerDaoImpl<T> extends
 	 *            the row start idx and count
 	 * @return the list {@inheritDoc}
 	 */
-	public List<T> findByMapOfProperties(
-			Map<String, ? extends Object> propertiesMap,
-			List<String> leftJoinFetchColumns, List<QueryOrder> orders,
-			LockMode lockMode, final int... rowStartIdxAndCount) {
+	@Override
+	public List<T> findByMapOfProperties(Map<String, ? extends Object> propertiesMap,
+	        List<String> leftJoinFetchColumns, List<QueryOrder> orders,
+	        LockMode lockMode, final int... rowStartIdxAndCount) {
 		StringBuilder queryString = new StringBuilder(getSelectFindQuery());
 		// Create LEFT JOIN FETCH phrase
 		queryString.append(createLeftJoinFetchPhrase(leftJoinFetchColumns));
 		queryString.append(WHERE);
 		return doQueryForMaps(queryString.toString(), QueryComparator.EQUALS,
-				propertiesMap, orders, lockMode, null, rowStartIdxAndCount);
+		        propertiesMap, orders, lockMode, null, rowStartIdxAndCount);
 	}
 
 	/**
@@ -172,9 +191,9 @@ public class FindLayerDaoImpl<T> extends
 	 *            the row start idx and count
 	 * @return the list {@inheritDoc}
 	 */
-	public List<T> findLikeMapOfProperties(
-			Map<String, ? extends Object> propertiesMap,
-			final int... rowStartIdxAndCount) {
+	@Override
+	public List<T> findLikeMapOfProperties(Map<String, ? extends Object> propertiesMap,
+	        final int... rowStartIdxAndCount) {
 		return findLikeMapOfProperties(propertiesMap, null, rowStartIdxAndCount);
 	}
 
@@ -189,11 +208,10 @@ public class FindLayerDaoImpl<T> extends
 	 *            the row start idx and count
 	 * @return the list {@inheritDoc}
 	 */
-	public List<T> findLikeMapOfProperties(
-			Map<String, ? extends Object> propertiesMap,
-			List<QueryOrder> orders, final int... rowStartIdxAndCount) {
-		return findLikeMapOfProperties(propertiesMap, null, orders,
-				rowStartIdxAndCount);
+	@Override
+	public List<T> findLikeMapOfProperties(Map<String, ? extends Object> propertiesMap,
+	        List<QueryOrder> orders, final int... rowStartIdxAndCount) {
+		return findLikeMapOfProperties(propertiesMap, null, orders, rowStartIdxAndCount);
 	}
 
 	/**
@@ -209,15 +227,15 @@ public class FindLayerDaoImpl<T> extends
 	 *            the row start idx and count
 	 * @return the list {@inheritDoc}
 	 */
-	public List<T> findLikeMapOfProperties(
-			Map<String, ? extends Object> propertiesMap,
-			List<String> leftJoinFetchColumns, List<QueryOrder> orders,
-			final int... rowStartIdxAndCount) {
+	@Override
+	public List<T> findLikeMapOfProperties(Map<String, ? extends Object> propertiesMap,
+	        List<String> leftJoinFetchColumns, List<QueryOrder> orders,
+	        final int... rowStartIdxAndCount) {
 		StringBuilder queryString = new StringBuilder(getSelectFindQuery());
 		queryString.append(createLeftJoinFetchPhrase(leftJoinFetchColumns));
 		queryString.append(WHERE);
 		return doQueryForMaps(queryString.toString(), QueryComparator.LIKE,
-				propertiesMap, orders, null, null, rowStartIdxAndCount);
+		        propertiesMap, orders, null, null, rowStartIdxAndCount);
 	}
 
 	/**
@@ -231,10 +249,10 @@ public class FindLayerDaoImpl<T> extends
 	 *            the row start idx and count
 	 * @return the list {@inheritDoc}
 	 */
+	@Override
 	public List<T> findByProperty(String propertyName, Object value,
-			final int... rowStartIdxAndCount) {
-		return findByProperty(propertyName, value, null, null, null,
-				rowStartIdxAndCount);
+	        final int... rowStartIdxAndCount) {
+		return findByProperty(propertyName, value, null, null, null, rowStartIdxAndCount);
 	}
 
 	/**
@@ -250,10 +268,11 @@ public class FindLayerDaoImpl<T> extends
 	 *            the row start idx and count
 	 * @return the list {@inheritDoc}
 	 */
+	@Override
 	public List<T> findByProperty(String propertyName, Object value,
-			List<QueryOrder> orders, final int... rowStartIdxAndCount) {
+	        List<QueryOrder> orders, final int... rowStartIdxAndCount) {
 		return findByProperty(propertyName, value, null, orders, null,
-				rowStartIdxAndCount);
+		        rowStartIdxAndCount);
 	}
 
 	/**
@@ -271,11 +290,11 @@ public class FindLayerDaoImpl<T> extends
 	 *            the row start idx and count
 	 * @return the list {@inheritDoc}
 	 */
+	@Override
 	public List<T> findByProperty(String propertyName, Object value,
-			List<QueryOrder> orders, LockMode lockMode,
-			final int... rowStartIdxAndCount) {
+	        List<QueryOrder> orders, LockMode lockMode, final int... rowStartIdxAndCount) {
 		return findByProperty(propertyName, value, null, orders, lockMode,
-				rowStartIdxAndCount);
+		        rowStartIdxAndCount);
 	}
 
 	/**
@@ -289,8 +308,9 @@ public class FindLayerDaoImpl<T> extends
 	 *            the row start idx and count
 	 * @return the list {@inheritDoc}
 	 */
+	@Override
 	public List<T> findLikeProperty(String propertyName, Object value,
-			final int... rowStartIdxAndCount) {
+	        final int... rowStartIdxAndCount) {
 		return findLikeProperty(propertyName, value, null, rowStartIdxAndCount);
 	}
 
@@ -307,10 +327,10 @@ public class FindLayerDaoImpl<T> extends
 	 *            the row start idx and count
 	 * @return the list {@inheritDoc}
 	 */
+	@Override
 	public List<T> findLikeProperty(String propertyName, Object value,
-			List<QueryOrder> orders, final int... rowStartIdxAndCount) {
-		return findLikeProperty(propertyName, value, null, orders,
-				rowStartIdxAndCount);
+	        List<QueryOrder> orders, final int... rowStartIdxAndCount) {
+		return findLikeProperty(propertyName, value, null, orders, rowStartIdxAndCount);
 	}
 
 	/**
@@ -328,13 +348,13 @@ public class FindLayerDaoImpl<T> extends
 	 *            the row start idx and count
 	 * @return the list {@inheritDoc}
 	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	public List<T> findLikeProperty(String propertyName, Object value,
-			List<String> leftJoinFetchColumns, List<QueryOrder> orders,
-			final int... rowStartIdxAndCount) {
-		return (List<T>) findGenericUsingProperty(propertyName,
-				QueryComparator.LIKE, value, leftJoinFetchColumns, orders,
-				null, null, rowStartIdxAndCount);
+	        List<String> leftJoinFetchColumns, List<QueryOrder> orders,
+	        final int... rowStartIdxAndCount) {
+		return (List<T>) findGenericUsingProperty(propertyName, QueryComparator.LIKE,
+		        value, leftJoinFetchColumns, orders, null, null, rowStartIdxAndCount);
 	}
 
 	/**
@@ -354,13 +374,13 @@ public class FindLayerDaoImpl<T> extends
 	 *            the row start idx and count
 	 * @return the list {@inheritDoc}
 	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	public List<T> findByProperty(String propertyName, Object value,
-			List<String> leftJoinFetchColumns, List<QueryOrder> orders,
-			LockMode lockMode, final int... rowStartIdxAndCount) {
-		return (List<T>) findGenericUsingProperty(propertyName,
-				QueryComparator.EQUALS, value, leftJoinFetchColumns, orders,
-				lockMode, null, rowStartIdxAndCount);
+	        List<String> leftJoinFetchColumns, List<QueryOrder> orders,
+	        LockMode lockMode, final int... rowStartIdxAndCount) {
+		return (List<T>) findGenericUsingProperty(propertyName, QueryComparator.EQUALS,
+		        value, leftJoinFetchColumns, orders, lockMode, null, rowStartIdxAndCount);
 	}
 
 	/**
@@ -379,12 +399,12 @@ public class FindLayerDaoImpl<T> extends
 	 * @throws NonUniqueResultException
 	 *             if there is more than one matching result
 	 */
+	@Override
 	@SuppressWarnings("unchecked")
 	public T findUniqueByProperty(String propertyName, Object value,
-			List<String> leftJoinFetchColumns, LockMode lockMode) {
-		return (T) findGenericUsingProperty(propertyName,
-				QueryComparator.EQUALS, value, leftJoinFetchColumns, null,
-				lockMode, true);
+	        List<String> leftJoinFetchColumns, LockMode lockMode) {
+		return (T) findGenericUsingProperty(propertyName, QueryComparator.EQUALS, value,
+		        leftJoinFetchColumns, null, lockMode, true);
 	}
 
 	/**
@@ -404,10 +424,9 @@ public class FindLayerDaoImpl<T> extends
 	 *             if there is more than one matching result
 	 */
 	private Object findGenericUsingProperty(String propertyName,
-			QueryComparator comparator, Object value,
-			List<String> leftJoinFetchColumns, List<QueryOrder> orders,
-			LockMode lockMode, Boolean uniqueResult,
-			final int... rowStartIdxAndCount) {
+	        QueryComparator comparator, Object value, List<String> leftJoinFetchColumns,
+	        List<QueryOrder> orders, LockMode lockMode, Boolean uniqueResult,
+	        final int... rowStartIdxAndCount) {
 		if (uniqueResult == null) {
 			uniqueResult = false;
 		}
@@ -416,10 +435,9 @@ public class FindLayerDaoImpl<T> extends
 		queryString.append(createLeftJoinFetchPhrase(leftJoinFetchColumns));
 		queryString.append(WHERE);
 		queryString.append(SqlUtil.createSingleWhereClause(propertyName, value,
-				comparator));
+		        comparator));
 		// sorting orders
-		if (uniqueResult == false
-				&& (lockMode == null || lockMode == LockMode.NONE)) {
+		if (uniqueResult == false && (lockMode == null || lockMode == LockMode.NONE)) {
 			queryString.append(createQueryOrderPhrase(orders));
 		}
 		try {
@@ -427,16 +445,15 @@ public class FindLayerDaoImpl<T> extends
 			if (lockMode != null) {
 				query.setLockMode("model", lockMode);
 			}
-			setsParamToValueOrToLowercaseValue(query, propertyName, comparator,
-					value, 0);
+			setsParamToValueOrToLowercaseValue(query, propertyName, comparator, value, 0);
 			if (uniqueResult) {
 				return query.uniqueResult();
 			}
 			return SqlUtil.doQuery(query, rowStartIdxAndCount);
 		} catch (Exception re) {
 			LOG.error(I18N_FIND + I18N_FAILED, re);
-			throw new CorePersistenceException(
-					CoreExceptionText.I18N_OPERATION_FAILED, re);
+			throw new CorePersistenceException(CoreExceptionText.I18N_OPERATION_FAILED,
+			        re);
 		}
 		// dbejar: Calling findByMapOfProperties is much less efficient!!!
 	}
@@ -450,8 +467,9 @@ public class FindLayerDaoImpl<T> extends
 	 *            the row start idx and count
 	 * @return the list {@inheritDoc}
 	 */
+	@Override
 	public List<T> findUsingFilter(List<PropCriteriaAndValue> filter,
-			final int... rowStartIdxAndCount) {
+	        final int... rowStartIdxAndCount) {
 		return findUsingFilter(filter, null, rowStartIdxAndCount);
 	}
 
@@ -466,11 +484,12 @@ public class FindLayerDaoImpl<T> extends
 	 *            the row start idx and count
 	 * @return the list {@inheritDoc}
 	 */
+	@Override
 	@SuppressWarnings(UNCHECKED)
 	public List<T> findUsingFilter(List<PropCriteriaAndValue> filter,
-			List<QueryOrder> orders, final int... rowStartIdxAndCount) {
+	        List<QueryOrder> orders, final int... rowStartIdxAndCount) {
 		Criteria criteria = createHibernateCriteriaObject(null, filter, orders,
-				rowStartIdxAndCount);
+		        rowStartIdxAndCount);
 		return criteria.list();
 	}
 
@@ -487,12 +506,13 @@ public class FindLayerDaoImpl<T> extends
 	 *            the row start idx and count
 	 * @return the list {@inheritDoc}
 	 */
+	@Override
 	@SuppressWarnings(UNCHECKED)
 	public List<T> findUsingFilter(List<String> leftJoinFetch,
-			List<PropCriteriaAndValue> filter, List<QueryOrder> orders,
-			final int... rowStartIdxAndCount) {
-		Criteria criteria = createHibernateCriteriaObject(leftJoinFetch,
-				filter, orders, rowStartIdxAndCount);
+	        List<PropCriteriaAndValue> filter, List<QueryOrder> orders,
+	        final int... rowStartIdxAndCount) {
+		Criteria criteria = createHibernateCriteriaObject(leftJoinFetch, filter, orders,
+		        rowStartIdxAndCount);
 		return criteria.list();
 	}
 
