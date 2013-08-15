@@ -13,4 +13,6 @@ public interface PengumumanService {
 	void updatePengumuman(DtPengumuman dtPengumuman);
 
 	void insertPengumuman(DtPengumuman dtPengumuman);
+	
+	List<DtPengumuman> findByProperty(String name, String value, int...idx);
 }

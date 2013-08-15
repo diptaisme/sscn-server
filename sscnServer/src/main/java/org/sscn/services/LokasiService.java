@@ -12,7 +12,7 @@ public interface LokasiService {
 
 	RefLokasi save(String kode, String name, String instansiKd);
 
-	RefLokasi update(String kode, String name, String instansiKd);
+	RefLokasi update(String kode, String name);
 	
 	RefLokasi delete(String kode);
 	
