@@ -28,6 +28,7 @@ public class ReportTestCommand extends ReportCommand {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException {
-			}
+		
+	}
 
 }

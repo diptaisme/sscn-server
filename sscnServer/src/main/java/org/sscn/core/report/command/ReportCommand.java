@@ -764,7 +764,7 @@ public abstract class ReportCommand implements Serializable {
 	 * @return the input stream
 	 * 
 	 */
-	protected static InputStream loadDefaultLogo(HttpServletRequest request) {
+	/*protected static InputStream loadDefaultLogo(HttpServletRequest request) {
 		InputStream logoStream = null;
 		// INSTANSI, USUL, JENISPENGADAAN, FORMASI, TAHUNANGGARAN, LOGO
 		try {
@@ -778,7 +778,7 @@ public abstract class ReportCommand implements Serializable {
 					+ GeneralReportUtil.PATH_TO_GARUDA_LOGO + ".", e.getCause());
 		}
 		return logoStream;
-	}
+	}*/
 
 	/**
 	 * Get base directory name.
