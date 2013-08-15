@@ -31,7 +31,6 @@ import org.sscn.core.util.SqlUtil;
  * @param <T>
  *            the generic type
  * @see org.sscn.core.persistence.domain.CoreDomain
- * @see org.sscn.core.persistence.domain.CoreDao
  * @author Roberto
  */
 public abstract class CoreDaoImpl<T> extends
