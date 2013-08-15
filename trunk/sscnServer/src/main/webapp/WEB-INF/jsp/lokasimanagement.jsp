@@ -1,14 +1,14 @@
-<%@page language="java" session="true" %>
+<%@page language="java" session="true"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<c:set var="userlogin" value="${sessionScope.userlogin}" />
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<c:set var="userLogin" value="${sessionScope.userLogin}" />
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>SSCN | Lokasi Management</title>
+<title>Administrasi Sistem Seleksi CPNS Nasional 2013</title>
 
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -16,18 +16,25 @@
 
 <!-- Styles -->
 <link href="/sscnServer/resources/css/bootstrap.css" rel="stylesheet">
-<link href="/sscnServer/resources/css/bootstrap-responsive.css" rel="stylesheet">
-<link href="/sscnServer/resources/css/bootstrap-overrides.css" rel="stylesheet">
+<link href="/sscnServer/resources/css/bootstrap-responsive.css"
+	rel="stylesheet">
+<link href="/sscnServer/resources/css/bootstrap-overrides.css"
+	rel="stylesheet">
 
-<link href="/sscnServer/resources/css/ui-lightness/jquery.ui.all.css" rel="stylesheet">
+<link href="/sscnServer/resources/css/ui-lightness/jquery.ui.all.css"
+	rel="stylesheet">
 <!--<link href="css/ui-lightness/jquery.ui.dialog.css" rel="stylesheet">
 		<link href="css/ui-lightness/jquery.ui.resizable.css" rel="stylesheet">-->
-<link href="/sscnServer/resources/js/plugins/datatables/DT_bootstrap.css" rel="stylesheet">
-<link href="/sscnServer/resources/js/plugins/responsive-tables/responsive-tables.css"
+<link
+	href="/sscnServer/resources/js/plugins/datatables/DT_bootstrap.css"
+	rel="stylesheet">
+<link
+	href="/sscnServer/resources/js/plugins/responsive-tables/responsive-tables.css"
 	rel="stylesheet">
 
 <link href="/sscnServer/resources/css/slate.css" rel="stylesheet">
-<link href="/sscnServer/resources/css/slate-responsive.css" rel="stylesheet">
+<link href="/sscnServer/resources/css/slate-responsive.css"
+	rel="stylesheet">
 
 <!-- Javascript -->
 <script src="/sscnServer/resources/js/jquery-1.7.2.min.js"></script>
@@ -39,9 +46,12 @@
 <script src="/sscnServer/resources/js/jquery.ui.touch-punch.min.js"></script>
 <script src="/sscnServer/resources/js/bootstrap.js"></script>
 
-<script src="/sscnServer/resources/js/plugins/datatables/jquery.dataTables.js"></script>
-<script src="/sscnServer/resources/js/plugins/datatables/DT_bootstrap.js"></script>
-<script src="/sscnServer/resources/js/plugins/responsive-tables/responsive-tables.js"></script>
+<script
+	src="/sscnServer/resources/js/plugins/datatables/jquery.dataTables.js"></script>
+<script
+	src="/sscnServer/resources/js/plugins/datatables/DT_bootstrap.js"></script>
+<script
+	src="/sscnServer/resources/js/plugins/responsive-tables/responsive-tables.js"></script>
 
 <script src="/sscnServer/resources/js/Slate.js"></script>
 
@@ -61,7 +71,7 @@
 		<div class="container">
 
 			<h1>
-				<a href="default.htm">Slate Admin 2.0</a>
+				<a href="/sscnServer/dashboard.do">Administrasi SSCN 2013</a>
 			</h1>
 
 			<div id="info">
@@ -72,22 +82,34 @@
 				<div id="info-menu">
 
 					<div class="info-details">
-
-						<h4>Welcome back ${userLogin.nama}</h4>
-
+						<h4>Selamat Datang ${userLogin.nama}</h4>
 						<p>
-							Logged in as 
+							Login sebagai
+							<c:choose>
+								<c:when test="${userLogin.kewenangan == 1}">
+									Administrator
+								</c:when>
+								<c:when test="${userLogin.kewenangan == 2}">
+									Admin Instansi
+								</c:when>
+								<c:otherwise>
+									Verificator
+								</c:otherwise>
+							</c:choose>
+							${userLogin.refInstansi.nama}
 						</p>
-
+						<p>
+						<form action="gantiPassword.do" method="POST"
+							name="formGantiPassword">
+							<input type="submit" value="Ganti Password"
+								name="btnGantiPassword" />
+						</form>
+						<form action="logout.do" method="POST" name="formLogout">
+							<input type="submit" value="logout" name="btnLogout" />
+						</form>
+						</p>
 					</div>
 					<!-- /.info-details -->
-
-					<div class="info-avatar">
-
-						<img src="img/avatar.jpg" alt="avatar">
-
-					</div>
-					<!-- /.info-avatar -->
 
 				</div>
 				<!-- /#info-menu -->
@@ -106,27 +128,32 @@
 		<div class="container">
 
 			<a href="javascript:;" class="btn-navbar" data-toggle="collapse"
-				data-target=".nav-collapse"> <i class="icon-reorder"></i> </a>
+				data-target=".nav-collapse"> <i class="icon-reorder"></i>
+			</a>
 
 			<div class="nav-collapse">
 
 				<ul class="nav">
 
-					<li class="nav-icon active"><a href="index.html"> <i
-							class="icon-home"></i> <span>Home</span> </a></li>
+					<li class="nav-icon active"><a href="/sscnServer/dashboard.do">
+							<i class="icon-home"></i> <span>Home</span>
+					</a></li>
 
 					<li class="dropdown"><a href="/sscnServer/user.do"
 						class="dropdown-toggle"> <i class="icon-th"></i> User
-							Management <b class="caret"></b> </a></li>
-							
+							Management <b class="caret"></b>
+					</a></li>
+
 					<li class="dropdown"><a href="/sscnServer/lokasi.do"
 						class="dropdown-toggle"> <i class="icon-th"></i> Lokasi
-							Management <b class="caret"></b> </a></li>
-							
+							Management <b class="caret"></b>
+					</a></li>
+
 
 					<li class="dropdown"><a href="/sscnServer/formasi.do"
 						class="dropdown-toggle"> <i class="icon-copy"></i> Formasi <b
-							class="caret"></b> </a></li>
+							class="caret"></b>
+					</a></li>
 
 					<li class="dropdown"><a href="javascript:;"
 						class="dropdown-toggle" data-toggle="dropdown"> <i
@@ -138,7 +165,8 @@
 							<li><a href="signup.html">Signup</a></li>
 							<li><a href="error.html">Error</a></li>
 							<li class="dropdown"><a href="javascript:;"> Dropdown
-									Menu <i class="icon-chevron-right sub-menu-caret"></i> </a>
+									Menu <i class="icon-chevron-right sub-menu-caret"></i>
+							</a>
 
 								<ul class="dropdown-menu sub-menu">
 									<li><a href="javascript:;">Dropdown #1</a></li>
@@ -148,22 +176,10 @@
 								</ul></li>
 						</ul></li>
 
-					<li class="dropdown"><a href="javascript:;"
-						class="dropdown-toggle" data-toggle="dropdown"> <i
-							class="icon-external-link"></i> Pengumuman <b class="caret"></b>
+					<li class="dropdown"><a href="/sscnServer/pengumuman.do"
+						class="dropdown-toggle"> <i class="icon-copy"></i> Pengumuman
+							<b class="caret"></b>
 					</a></li>
-				</ul>
-
-				<ul class="nav pull-right">
-
-					<li class="">
-						<form class="navbar-search pull-left">
-							<input type="text" class="search-query" placeholder="Search">
-							<button class="search-btn">
-								<i class="icon-search"></i>
-							</button>
-						</form></li>
-
 				</ul>
 
 			</div>
@@ -181,7 +197,7 @@
 			<div id="page-title" class="clearfix">
 
 				<ul class="breadcrumb">
-					<li><a href="../../default.htm">Home</a><span class="divider">/</span>
+					<li><a href="dashboard.do">Home</a><span class="divider">/</span>
 					</li>
 					<li><a href="#">Lokasi Management</a><span class="divider">/</span>
 					</li>
@@ -215,13 +231,15 @@
 													<option value="25">25</option>
 													<option value="50">50</option>
 													<option value="100">100</option>
-											</select> records per page</label>
+											</select> records per page
+											</label>
 										</div>
 									</div>
 									<div class="span6">
 										<div class="dataTables_filter">
 											<label>Search: <input type="text"
-												aria-controls="example"> </label>
+												aria-controls="example">
+											</label>
 										</div>
 									</div>
 								</div>
@@ -231,11 +249,12 @@
 										<a href="#" id="addLokasiModal"
 											class="btn btn-small btn-primary"><i class="icon-plus"></i>Add
 											New Lokasi</a>
-										
+
 									</div>
 								</div>
 								<table
-									class="table table-striped table-bordered table-highlight" id="myTable">
+									class="table table-striped table-bordered table-highlight"
+									id="myTable">
 									<thead>
 										<tr>
 											<th>Kode</th>
@@ -244,13 +263,20 @@
 											<th>Action(s)</th>
 										</tr>
 									</thead>
-									<tbody>										
+									<tbody>
 										<c:forEach items="${lokasis}" var="lokasi">
 											<tr class="odd gradeX">
 												<td>${lokasi.kode}</td>
 												<td>${lokasi.refInstansi.nama}</td>
-												<td>${lokasi.nama} </td>
-												<td>Edit | Delete</td>
+												<td>${lokasi.nama}</td>
+												<!-- <td>Edit | Delete</td>-->
+												<td><a href="#"
+													onclick="prepareUbahForm(this,'${lokasi.kode }')"
+													class="btn btn-small btn-primary"><i class="icon-edit"></i>Edit</a>
+													| <a href="#"
+													onclick="confirmDelete(this,'${lokasi.kode}')"
+													class="btn btn-small btn-primary"><i
+														class="icon-remove"></i>Delete</a></td>
 											</tr>
 										</c:forEach>
 									</tbody>
@@ -303,176 +329,427 @@
 
 	<div id="myModal" title="Create new lokasi">
 		<p class="validateTips">All form fields are required.</p>
-		<form class="form-horizontal" action="/sscnServer/lokasiSave.do" method="post" id="formAddLokasi">
-				<fieldset>
-					<div id="loadingImage" style="display: none">
-						<img src="img/ajax-loader.gif" />
+		<form class="form-horizontal" action="/sscnServer/lokasiSave.do"
+			method="post" id="formAddLokasi">
+			<fieldset>
+				<div id="loadingImage" style="display: none">
+					<img src="img/ajax-loader.gif" />
+				</div>
+				<div id="alert" class="alert alert-error" style="display: none">
+				</div>
+				<div class="control-group">
+					<label class="control-label">Instansi
+						${userLogin.refInstansi.nama}</label>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="input01">Kode</label>
+					<div class="controls">
+						<input type="text" class="input-large" id="kode" name="kode"
+							size="4">
+						<p class="help-block">
+							<!--In addition to freeform text, any HTML5 text-based input appears like so.-->
+						</p>
 					</div>
-					<div id="alert" class="alert alert-error" style="display: none">											
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="input01">Nama</label>
+					<div class="controls">
+						<input type="text" class="input-large" id="nama" name="nama">
+						<p class="help-block">
+							<!--In addition to freeform text, any HTML5 text-based input appears like so.-->
+						</p>
 					</div>
-					<div class="control-group">
-						<label class="control-label" for="input01">Kode</label>
-						<div class="controls">
-							<input type="text" class="input-large" id="kode" name="kode" size="4">
-							<p class="help-block">
-								<!--In addition to freeform text, any HTML5 text-based input appears like so.-->
-							</p>
+				</div>
+
+				<div class="control-group">
+					<!--  <label class="control-label" for="input01">Instansi</label> -->
+					<div class="controls">
+						<div class="ui-widget">
+							<input type="hidden" name="instansi" id="instansiValue"
+								value="${userLogin.refInstansi.kode}" />
+							<!--  <input type="text" class="input-large" id="instansi" name="instansiLabel">-->
 						</div>
 					</div>
-					<div class="control-group">
-						<label class="control-label" for="input01">Nama</label>
-						<div class="controls">
-							<input type="text" class="input-large" id="nama" name="nama">
-							<p class="help-block">
-								<!--In addition to freeform text, any HTML5 text-based input appears like so.-->
-							</p>
-						</div>
+				</div>
+
+				<div class="form-actions">
+					<button type="submit" class="btn btn-primary btn-large">
+						Save changes</button>
+					<button class="btn btn-large" id="btnCancelFAddLokasi">
+						Cancel</button>
+				</div>
+			</fieldset>
+		</form>
+	</div>
+	<div id="myModal2" title="Ubah Lokasi">
+		<p class="validateTips">All form fields are required.</p>
+		<form class="form-horizontal" action="/sscnServer/lokasiUpdate.do"
+			method="post" id="formUbahLokasi">
+			<fieldset>
+				<div id="loadingImage2" style="display: none">
+					<img src="/resources/img/ajax-loader.gif" />
+				</div>
+				<div id="alert2" class="alert alert-error" style="display: none">
+				</div>
+				<div class="control-group">
+					<!-- <input type="hidden" class="input-large" id="edkode" name="kode">-->
+					<label class="control-label">Kode</label>
+					<div class="controls">
+						<input type="text" class="input-large" id="edkode" name="kode" readonly="readonly">
+						<p class="help-block">
+							<!--In addition to freeform text, any HTML5 text-based input appears like so.-->
+						</p>
 					</div>
-					
-					<div class="control-group">
-						<label class="control-label" for="input01">Instansi</label>
-						<div class="controls">
-							<div class="ui-widget">
-								<input type="hidden" name="instansi" id="instansiValue"/>
-								<input type="text" class="input-large" id="instansi" name="instansiLabel">
-							</div>						
-						</div>
+					<label class="control-label" for="input01">Nama</label>
+					<div class="controls">
+						<input type="text" class="input-large" id="ednama" name="nama">
+						<p class="help-block">
+							<!--In addition to freeform text, any HTML5 text-based input appears like so.-->
+						</p>
 					</div>
-					
-					<div class="form-actions">
-						<button type="submit" class="btn btn-primary btn-large">
-							Save changes
-						</button>
-						<button class="btn btn-large" id="btnCancelFAddLokasi">
-							Cancel
-						</button>
-					</div>
-				</fieldset>
-			</form>
+				</div>
+
+				<div class="form-actions">
+					<button type="submit" class="btn btn-primary btn-large">
+						Save changes</button>
+					<button class="btn btn-large" id="btnCancelFEditLokasi">
+						Cancel</button>
+				</div>
+			</fieldset>
+		</form>
+	</div>
+
+	<div id="myModal3" title="Delete Lokasi">
+		<form class="form-horizontal" action="/sscnServer/lokasiDelete.do"
+			method="post" id="formDeleteLokasi">
+			<fieldset>
+				<div id="loadingImage3" style="display: none">
+					<img src="/resources/img/ajax-loader.gif" />
+				</div>
+				<div id="alert3" class="alert alert-warning">Apakah anda
+					yakin ingin menghapus data ini ?</div>
+				<input type="hidden" name="kode" id="delkode" />
+
+				<div class="form-actions">
+					<button type="submit" class="btn btn-primary btn-large">
+						Ya</button>
+					<button class="btn btn-large" id="btnCancelFDeleteLokasi">
+						Tidak</button>
+				</div>
+			</fieldset>
+		</form>
 	</div>
 
 	<script>
-		jQuery(document).ready(function() {
+		jQuery(document)
+				.ready(
+						function() {
 
-			$("#myModal").dialog({
-				autoOpen : false,
-				height : 350,
-				width : 500,
-				modal : true
-			});
+							$("#myModal").dialog({
+								autoOpen : false,
+								height : 350,
+								width : 500,
+								modal : true
+							});
+							$("#myModal2").dialog({
+								autoOpen : false,
+								height : 350,
+								width : 500,
+								modal : true
+							});
 
-			$('#addLokasiModal').click(function() {
-				$("#myModal").dialog("open");
-			});
+							$("#myModal3").dialog({
+								autoOpen : false,
+								height : 260,
+								width : 400,
+								modal : true
+							});
 
-			$('#btnCancelFAddLokasi').click(function() {
-				$("#myModal").dialog("close");
-			});
-		});
-	</script>
-	
-	<script>
-			jQuery(document).ready(function() {				
+							var selRowTable;
+							prepareUbahForm = function(elem, id) {
+								selRowTable = $(elem).closest('tr');
 
-				function log(message) {
-					$("<div>").text(message).prependTo("#log");
-					$("#log").scrollTop(0);
-				}
+								$.ajax({
+											type : "GET",
+											url : "/sscnServer/getLokasi.do?kode="
+													+ id,
+											cache : false,
+											success : function(data) {
 
-				$("#formAddLokasi").submit(function(event) {
-					 
-					  /* stop form from submitting normally */
-					  event.preventDefault();
-					  
-					  $('#loadingImage').show();
-					  $('#alert').hide();
-					  //$('#alert').show();
-					 
-					  /* get some values from elements on the page: */
-					  var $form = $( this ),
-					      term = $(this).serialize(),
-					      url = $form.attr( 'action' );
-					 
-					  /* Send the data using post */
-					  var posting = $.post( "http://localhost:8080/sscnServer/lokasiSave.do", term,"json"
-					  					  );
-					 
-					  /* Put the results in a div */
-					  posting.done(function( data ) {
-					  		$('#loadingImage').hide();
-					  		if (data.result == 0){
-					  			var html = '<strong>Error!</strong> ' + data.message;
-								$('#alert').html(html);	
-								$('#alert').show();						
-					  		} 
-					  		
-					  		if (data.result == 1){
-					  			$("#myModal").dialog("close");
-					  			$('#kode').val('');
-					  			$('#nama').val('');
-					  			$('#instansiValue').val('');
-					  			$('#instansi').val('');
-					  			alert(data.message);
-					  			refreshTable(data.data);
-				           		return false;
-					  		}
+												$('#edkode')
+														.val(data.data.kode);
+												$('#ednama')
+														.val(data.data.nama);
+												$("#myModal2").dialog("open");
+											},
+											dataType : "json"
+										});
 
-					  		if (data.result == -1){
-						  		window.location = "http://localhost/sscnServer/login.do";
-						  	}
-					  });
-					  
-					  posting.error(function(){
-				           alert('failure');        
-				      });   
-					});
+							};
 
-				function refreshTable(data){
-					var table = document.getElementById('myTable');
-					var lenRow = table.rows.length;
-					var row = table.insertRow(lenRow);
-					var colCount = table.rows[0].cells.length;
-					var profile = '';					
-					var newRowHtml = '<tr class="odd gradeX"><td>'+ data.kode+'</td><td>'+ data.refInstansi.nama +'</td><td>'+data.nama+'</td><td>Edit | Delete</td></tr>';
-					row.innerHTML = newRowHtml;	
-				}
-				
-				$("#instansi").autocomplete({
-					source : function(request, response) {
-						$.ajax({
-							//url : "http://ws.geonames.org/searchJSON",
-							url : "http://localhost:8080/sscnServer/findInstansiLikeByName.do",
-							dataType : "jsonp",
-							data : {
-								featureClass : "P",
-								style : "full",
-								maxRows : 12,
-								name_startsWith : request.term
-							},
-							success : function(data) {
-								response($.map(data.instansis, function(item) {
-									return {
-										code: item.kode,
-						                label: item.nama,
-						                value: item.nama
-						            }
-								}));
+							confirmDelete = function(elem, id) {
+								selRowTable = $(elem).closest('tr');
+								$('#delkode').val(id);
+								$("#myModal3").dialog("open");
+							};
+
+							$("#formDeleteLokasi")
+									.submit(
+											function(event) {
+
+												/* stop form from submitting normally */
+												event.preventDefault();
+
+												$('#loadingImage3').show();
+												 //$('#alert3').hide();
+												//$('#alert').show();
+
+												/* get some values from elements on the page: */
+												var $form = $(this), term = $(
+														this).serialize(), url = $form
+														.attr('action');
+
+												/* Send the data using post */
+												var posting = $.post(url, term,
+														"json");
+
+												/* Put the results in a div */
+												posting
+														.done(function(data) {
+															$('#loadingImage3')
+																	.hide();
+															if (data.result == 0) {
+																var html = '<strong>Error!</strong> '
+																		+ data.message;
+																$('#alert3')
+																		.html(
+																				html);
+																$('#alert3')
+																		.show();
+															}
+
+															if (data.result == 1) {
+																$("#myModal3")
+																		.dialog(
+																				"close");
+																$('#delkode')
+																		.val('');
+
+																refreshDeleteTable();
+																return false;
+															}
+
+															if (data.result == -1) {
+																window.location = "/sscnServer/login.do";
+															}
+														});
+
+												posting.error(function(e) {
+													alert('failure' + e);
+												});
+											});
+
+							function refreshDeleteTable() {
+
+								var tesHtml = '';
+
+								$(selRowTable).replaceWith(tesHtml);
+							}
+
+							$('#btnCancelFDeleteLokasi').click(function() {
+								$("#myModal3").dialog("close");
+							});
+
+							$('#addLokasiModal').click(function() {
+								$("#myModal").dialog("open");
+							});
+
+							$('#btnCancelFAddLokasi').click(function() {
+								$("#myModal").dialog("close");
+							});
+
+							$("#formUbahLokasi")
+									.submit(
+											function(event) {
+
+												/* stop form from submitting normally */
+												event.preventDefault();
+
+												$('#loadingImage2').show();
+												$('#alert2').hide();
+												//$('#alert').show();
+
+												/* get some values from elements on the page: */
+												var $form = $(this), term = $(
+														this).serialize(), url = $form
+														.attr('action');
+
+												/* Send the data using post */
+												var posting = $.post(url, term,
+														"json");
+
+												/* Put the results in a div */
+												posting
+														.done(function(data) {
+															$('#loadingImage2')
+																	.hide();
+															if (data.result == 0) {
+																var html = '<strong>Error!</strong> '
+																		+ data.message;
+																$('#alert2')
+																		.html(
+																				html);
+																$('#alert2')
+																		.show();
+															}
+
+															if (data.result == 1) {
+																$("#myModal2")
+																		.dialog(
+																				"close");
+																$('#edkode')
+																		.val('');
+																$('#ednama')
+																		.val('');
+																//alert(data.message);
+																refreshUpdateTable(data.data);
+																return false;
+															}
+
+															if (data.result == -1) {
+																window.location = "/sscnServer/login.do";
+															}
+														});
+
+												posting.error(function() {
+													alert('failure');
+												});
+											});
+
+							function refreshUpdateTable(data) {
+								var tesHtml = '<tr class="odd gradeX"> '
+										+ '<td>'
+										+ data.kode
+										+ '</td> '
+										+ '<td>'
+										+ data.refInstansi.nama
+										+ '</td> '
+										+ '<td>'
+										+ data.nama
+										+ '</td> '
+										+ '<td><a href="#" onclick="prepareUbahForm(this,\''
+										+ data.kode
+										+ '\')" '
+										+ 'class="btn btn-small btn-primary"><i class="icon-edit"></i>Edit</a> | <a href="#" '
+										+ 'class="btn btn-small btn-primary" onclick="confirmDelete(this,\''
+										+ data.kode
+										+ '\')"><i class="icon-remove"></i>Delete</a></td> '
+										+ '</tr>';
+
+								$(selRowTable).replaceWith(tesHtml);
 							}
 						});
-					},
-					minLength : 2,
-					select : function(event, ui) {
-						log(ui.item ? "Selected: " + ui.item.label : "Nothing selected, input was " + this.value);
-						$('#instansiValue').val(ui.item.code);
-					},
-					open : function() {
-						$(this).removeClass("ui-corner-all").addClass("ui-corner-top");
-					},
-					close : function() {
-						$(this).removeClass("ui-corner-top").addClass("ui-corner-all");
-					}
-				}); 
-			});
-		</script>
+	</script>
+
+	<script>
+		jQuery(document)
+				.ready(
+						function() {
+
+							function log(message) {
+								$("<div>").text(message).prependTo("#log");
+								$("#log").scrollTop(0);
+							}
+
+							$("#formAddLokasi")
+									.submit(
+											function(event) {
+
+												/* stop form from submitting normally */
+												event.preventDefault();
+
+												$('#loadingImage').show();
+												$('#alert').hide();
+												//$('#alert').show();
+
+												/* get some values from elements on the page: */
+												var $form = $(this), term = $(
+														this).serialize(), url = $form
+														.attr('action');
+
+												/* Send the data using post */
+												var posting = $
+														.post(
+																"http://localhost:8080/sscnServer/lokasiSave.do",
+																term, "json");
+
+												/* Put the results in a div */
+												posting
+														.done(function(data) {
+															$('#loadingImage')
+																	.hide();
+															if (data.result == 0) {
+																var html = '<strong>Error!</strong> '
+																		+ data.message;
+																$('#alert')
+																		.html(
+																				html);
+																$('#alert')
+																		.show();
+															}
+
+															if (data.result == 1) {
+																$("#myModal")
+																		.dialog(
+																				"close");
+																$('#kode').val(
+																		'');
+																$('#nama').val(
+																		'');
+																alert(data.message);
+																refreshTable(data.data);
+																return false;
+															}
+
+															if (data.result == -1) {
+																window.location = "/sscnServer/login.do";
+															}
+														});
+
+												posting.error(function() {
+													alert('failure');
+												});
+											});
+
+							function refreshTable(data) {
+								var table = document.getElementById('myTable');
+								var lenRow = table.rows.length;
+								var row = table.insertRow(lenRow);
+								var colCount = table.rows[0].cells.length;
+								var profile = '';
+								var tesHtml = '<tr class="odd gradeX"> '
+									+ '<td>'
+									+ data.kode
+									+ '</td> '
+									+ '<td>'
+									+ data.refInstansi.nama
+									+ '</td> '
+									+ '<td>'
+									+ data.nama
+									+ '</td> '
+									+ '<td><a href="#" onclick="prepareUbahForm(this,\''
+									+ data.kode
+									+ '\')" '
+									+ 'class="btn btn-small btn-primary"><i class="icon-edit"></i>Edit</a> | <a href="#" '
+									+ 'class="btn btn-small btn-primary" onclick="confirmDelete(this,\''
+									+ data.kode
+									+ '\')"><i class="icon-remove"></i>Delete</a></td> '
+									+ '</tr>';								
+								
+								row.innerHTML = tesHtml;	
+							}
+
+						});
+	</script>
 </body>
 </html>

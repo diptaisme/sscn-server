@@ -2,13 +2,13 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<c:set var="userlogin" value="${sessionScope.userlogin}" />
+<c:set var="userLogin" value="${sessionScope.userLogin}" />
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Dashboard | Slate Admin 2.0</title>
+<title>Administrasi Sistem Seleksi CPNS Nasional 2013</title>
 
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -56,7 +56,7 @@
 		<div class="container">
 
 			<h1>
-				<a href="default.htm">Slate Admin 2.0</a>
+				<a href="/sscnServer/dashboard.do">Administrasi SSCN 2013</a>
 			</h1>
 
 			<div id="info">
@@ -67,10 +67,9 @@
 				<div id="info-menu">
 
 					<div class="info-details">
-
-						<h4>Welcome back ${userLogin.nama}</h4>
+						<h4>Selamat Datang ${userLogin.nama}</h4>
 						<p>							
-							Logged in as <c:choose>
+							Login sebagai <c:choose>
 								<c:when test="${userLogin.kewenangan == 1}">
 									Administrator
 								</c:when>
@@ -80,23 +79,18 @@
 								<c:otherwise>
 									Verificator
 								</c:otherwise>
-							</c:choose>  
+							</c:choose>
+							  ${userLogin.refInstansi.nama}
 						</p>
 						<p>
+							<form action="gantiPassword.do" method="POST" name="formGantiPassword">
+								<input type="submit" value="Ganti Password" name="btnGantiPassword"/>
+							</form>
 							<form action="logout.do" method="POST" name="formLogout">
 								<input type="submit" value="logout" name="btnLogout"/>
 							</form>
 						</p>
-
 					</div>
-					<!-- /.info-details -->
-
-					<div class="info-avatar">
-
-						<img src="img/avatar.jpg" alt="avatar">
-
-					</div>
-					<!-- /.info-avatar -->
 
 				</div>
 				<!-- /#info-menu -->
@@ -121,7 +115,7 @@
 
 				<ul class="nav">
 
-					<li class="nav-icon active"><a href="index.html"> <i
+					<li class="nav-icon active"><a href="/sscnServer/dashboard.do"> <i
 							class="icon-home"></i> <span>Home</span> </a></li>
 
 					<li class="dropdown"><a href="/sscnServer/user.do">
@@ -155,24 +149,11 @@
 								</ul></li>
 						</ul></li>
 
-					<li class="dropdown"><a href="javascript:;"
-						class="dropdown-toggle" data-toggle="dropdown"> <i
-							class="icon-external-link"></i> Pengumuman <b class="caret"></b>
-					</a></li>
+					<li class="dropdown"><a href="/sscnServer/pengumuman.do"
+						class="dropdown-toggle"> <i class="icon-copy"></i> Pengumuman <b
+							class="caret"></b> </a></li>
 				</ul>
-
-				<ul class="nav pull-right">
-
-					<li class="">
-						<form class="navbar-search pull-left">
-							<input type="text" class="search-query" placeholder="Search">
-							<button class="search-btn">
-								<i class="icon-search"></i>
-							</button>
-						</form></li>
-
-				</ul>
-
+				
 			</div>
 			<!-- /.nav-collapse -->
 

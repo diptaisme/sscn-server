@@ -2,13 +2,13 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<c:set var="userlogin" value="${sessionScope.userlogin}" />
+<c:set var="userLogin" value="${sessionScope.userLogin}" />
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>SSCN | User Management</title>
+<title>Administrasi Sistem Seleksi CPNS Nasional 2013</title>
 
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -61,7 +61,7 @@
 		<div class="container">
 
 			<h1>
-				<a href="default.htm">Slate Admin 2.0</a>
+				<a href="/sscnServer/dashboard.do">Administrasi SSCN 2013</a>
 			</h1>
 
 			<div id="info">
@@ -72,22 +72,31 @@
 				<div id="info-menu">
 
 					<div class="info-details">
-
-						<h4>Welcome back ${userLogin.nama}</h4>
-
-						<p>
-							Logged in as 
+						<h4>Selamat Datang ${userLogin.nama}</h4>
+						<p>							
+							Login sebagai <c:choose>
+								<c:when test="${userLogin.kewenangan == 1}">
+									Administrator
+								</c:when>
+								<c:when test="${userLogin.kewenangan == 2}">
+									Admin Instansi
+								</c:when>
+								<c:otherwise>
+									Verificator
+								</c:otherwise>								
+							</c:choose>
+							${userLogin.refInstansi.nama}  
 						</p>
-
+						<p>
+							<form action="gantiPassword.do" method="POST" name="formGantiPassword">
+								<input type="submit" value="Ganti Password" name="btnGantiPassword"/>
+							</form>
+							<form action="logout.do" method="POST" name="formLogout">
+								<input type="submit" value="logout" name="btnLogout"/>
+							</form>
+						</p>
 					</div>
 					<!-- /.info-details -->
-
-					<div class="info-avatar">
-
-						<img src="img/avatar.jpg" alt="avatar">
-
-					</div>
-					<!-- /.info-avatar -->
 
 				</div>
 				<!-- /#info-menu -->
@@ -112,7 +121,7 @@
 
 				<ul class="nav">
 
-					<li class="nav-icon active"><a href="index.html"> <i
+					<li class="nav-icon active"><a href="/sscnServer/dashboard.do"> <i
 							class="icon-home"></i> <span>Home</span> </a></li>
 
 					<li class="dropdown"><a href="/sscnServer/user.do"
@@ -146,24 +155,10 @@
 								</ul></li>
 						</ul></li>
 
-					<li class="dropdown"><a href="javascript:;"
-						class="dropdown-toggle" data-toggle="dropdown"> <i
-							class="icon-external-link"></i> Pengumuman <b class="caret"></b>
-					</a></li>
+					<li class="dropdown"><a href="/sscnServer/pengumuman.do"
+						class="dropdown-toggle"> <i class="icon-copy"></i> Pengumuman <b
+							class="caret"></b> </a></li>
 				</ul>
-
-				<ul class="nav pull-right">
-
-					<li class="">
-						<form class="navbar-search pull-left">
-							<input type="text" class="search-query" placeholder="Search">
-							<button class="search-btn">
-								<i class="icon-search"></i>
-							</button>
-						</form></li>
-
-				</ul>
-
 			</div>
 			<!-- /.nav-collapse -->
 
@@ -179,7 +174,7 @@
 			<div id="page-title" class="clearfix">
 
 				<ul class="breadcrumb">
-					<li><a href="../../default.htm">Home</a><span class="divider">/</span>
+					<li><a href="dashboard.do">Home</a><span class="divider">/</span>
 					</li>
 					<li><a href="#">User Management</a><span class="divider">/</span>
 					</li>
@@ -433,7 +428,7 @@
 						<button type="submit" class="btn btn-primary btn-large">
 							Save changes
 						</button>
-						<button class="btn btn-large" id="btnCancelFUbahUser">
+						<button class="btn btn-large" id="btnCancelFAddUser">
 							Cancel
 						</button>
 					</div>
@@ -441,7 +436,7 @@
 			</form>
 	</div>
 	
-	<div id="myModal3" title="Create new user">
+	<div id="myModal3" title="Delete user">
 		<p class="validateTips">All form fields are required.</p>
 		<form class="form-horizontal" action="/sscnServer/userDelete.do" method="post" id="formDeleteUser">
 				<fieldset>
@@ -500,7 +495,7 @@
 				  success: function(data){
 					 
 					 $('#edusername').val(data.data.username);
-					 $('#edname').val(data.data.name);
+					 $('#edname').val(data.data.nama);
 					 $('#ednip').val(data.data.nip);
 					 $('#edinstansiValue').val(data.data.refInstansi.kode);
 					 $('#edinstansiLabel').val(data.data.refInstansi.nama);
@@ -514,14 +509,9 @@
 
 			confirmDelete = function(elem, id) {
 				selRowTable = $(elem).closest('tr');
-				 $('#delusername').val(id);				 
-			     $("#myModal3").dialog("open");				
+				 $('#delusername').val(id);			
+				 $("#myModal3").dialog("open");				
 			};
-
-			$('#btnCancelFDeleteUser').click(function(event) {
-				event.preventDefault();
-				$("#myModal3").dialog("close");
-			});
 
 			$("#formDeleteUser").submit(function(event) {
 				 
@@ -563,8 +553,8 @@
 					  	}
 				  });
 				  
-				  posting.error(function(){
-			           alert('failure');        
+				  posting.error(function(e){
+			           alert('failure'+e);        
 			      });   
 				});
 
@@ -575,12 +565,15 @@
 				$(selRowTable).replaceWith(tesHtml);
 			}
 			
+			$('#btnCancelFDeleteUser').click(function() {
+				$("#myModal3").dialog("close");
+			});
+			
 			$('#addUserModal').click(function() {
 				$("#myModal").dialog("open");
 			});
 
-			$('#btnCancelFAddUser').click(function(event) {
-				event.preventDefault();
+			$('#btnCancelFAddUser').click(function() {
 				$("#myModal").dialog("close");
 			});
 
@@ -618,11 +611,6 @@
 				}
 			}); 
 
-			$('#btnCancelFUbahUser').click(function(event) {
-				event.preventDefault();
-				$("#myModal2").dialog("close");
-			});
-				
 			$("#formUbahUser").submit(function(event) {
 				 
 				  /* stop form from submitting normally */
@@ -687,7 +675,7 @@
 					'<td>'+data.refInstansi.nama+'</td> '+
 					'<td>'+profile+'</td> '+
 					'<td><a href="#" onclick="prepareUbahForm(this,\''+data.username+'\')" '+
-				'class="btn btn-small btn-primary"><i class="icon-edit"></i>Edit</a> | <a href="#" id="deleteUserModal" '+
+				'class="btn btn-small btn-primary"><i class="icon-edit"></i>Edit</a> | <a href="#" '+
 				'class="btn btn-small btn-primary" confirmDelete(this,\''+data.username+'\')><i class="icon-remove"></i>Delete</a></td> '+
 				'</tr>';
 				
@@ -699,8 +687,7 @@
 	<script>
 			jQuery(document).ready(function() {
 				
-				
-				
+
 				$("#formAddUser").submit(function(event) {
 					 
 					  /* stop form from submitting normally */
@@ -730,6 +717,7 @@
 					  		
 					  		if (data.result == 1){
 					  			$("#myModal").dialog("close");
+					  			$('#name').val('');
 					  			$('#username').val('');
 					  			$('#nip').val('');
 					  			$('#password').val('');
@@ -741,7 +729,7 @@
 					  		}
 
 					  		if (data.result == -1){
-						  		window.location = "http://localhost/sscnServer/login.do";
+						  		window.location = "/sscnServer/login.do";
 						  	}
 					  });
 					  
@@ -766,8 +754,8 @@
 						profile = 'unknown profile';
 					}
 					var newRowHtml = '<tr class="odd gradeX"><td>'+ data.username+'</td><td>'+ data.refInstansi.nama +'</td><td>'+profile+'</td><td><a href="#" onclick="prepareUbahForm(this,\''+data.username+'\')" '+
-					'class="btn btn-small btn-primary"><i class="icon-edit"></i>Edit</a> | <a href="#" id="deleteUserModal" '+
-					'class="btn btn-small btn-primary" confirmDelete(this,\''+data.username+'\')><i class="icon-remove"></i>Delete</a></td></tr>';
+					'class="btn btn-small btn-primary"><i class="icon-edit"></i>Edit</a> | <a href="#" '+
+					'class="btn btn-small btn-primary" onclick="confirmDelete(this,\''+data.username+'\')"><i class="icon-remove"></i>Delete</a></td></tr>';
 					row.innerHTML = newRowHtml;	
 				}
 				
@@ -795,8 +783,7 @@
 						});
 					},
 					minLength : 2,
-					select : function(event, ui) {
-						log(ui.item ? "Selected: " + ui.item.label : "Nothing selected, input was " + this.value);
+					select : function(event, ui) {						
 						$('#instansiValue').val(ui.item.code);
 					},
 					open : function() {

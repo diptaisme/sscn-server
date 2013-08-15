@@ -1,10 +1,14 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@page language="java" session="true" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<c:set var="userLogin" value="${sessionScope.userLogin}" />
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>SSCN | Formasi Management</title>
+<title>Administrasi Sistem Seleksi CPNS Nasional 2013</title>
 
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -58,7 +62,7 @@
 		<div class="container">
 
 			<h1>
-				<a href="default.htm">Slate Admin 2.0</a>
+				<a href="/sscnServer/dashboard.do">Administrasi SSCN 2013</a>
 			</h1>
 
 			<div id="info">
@@ -69,23 +73,30 @@
 				<div id="info-menu">
 
 					<div class="info-details">
-
-						<h4>Welcome back, John D.</h4>
-
-						<p>
-							Logged in as Admin. <br> You have <a href="javascript:;">5
-								messages.</a>
+						<h4>Selamat Datang ${userLogin.nama}</h4>
+						<p>							
+							Login sebagai <c:choose>
+								<c:when test="${userLogin.kewenangan == 1}">
+									Administrator
+								</c:when>
+								<c:when test="${userLogin.kewenangan == 2}">
+									Admin Instansi
+								</c:when>
+								<c:otherwise>
+									Verificator
+								</c:otherwise>								
+							</c:choose>  
+							${userLogin.refInstansi.nama}
 						</p>
-
+						<p>
+							<form action="gantiPassword.do" method="POST" name="formGantiPassword">
+								<input type="submit" value="Ganti Password" name="btnGantiPassword"/>
+							</form>
+							<form action="logout.do" method="POST" name="formLogout">
+								<input type="submit" value="logout" name="btnLogout"/>
+							</form>
+						</p>
 					</div>
-					<!-- /.info-details -->
-
-					<div class="info-avatar">
-
-						<img src="img/avatar.jpg" alt="avatar">
-
-					</div>
-					<!-- /.info-avatar -->
 
 				</div>
 				<!-- /#info-menu -->
@@ -111,45 +122,21 @@
 
 				<ul class="nav">
 
-					<li class="nav-icon active"><a href="index.html"> <i
+					<li class="nav-icon active"><a href="dashboard.do"> <i
 							class="icon-home"></i> <span>Home</span>
 					</a></li>
-
-					<li class="dropdown"><a href="usermanagement.html"
+					<li class="dropdown"><a href="/sscnServer/user.do"
 						class="dropdown-toggle"> <i class="icon-th"></i> User
-							Management <b class="caret"></b>
-					</a> <!--
-							<ul class="dropdown-menu">
-							<li>
-							<a href="forms.html">Forms</a>
-							</li>
-							<li>
-							<a href="ui-elements.html">UI Elements</a>
-							</li>
-							<li>
-							<a href="grid.html">Grid Layout</a>
-							</li>
-							<li>
-							<a href="tables.html">Tables</a>
-							</li>
-							<li>
-							<a href="widgets.html">Widget Boxes</a>
-							</li>
-							<li>
-							<a href="charts.html">Charts</a>
-							</li>
-							<li>
-							<a href="tabs.html">Tabs & Accordion</a>
-							</li>
-							<li>
-							<a href="buttons.html">Buttons</a>
-							</li>
-							</ul>--></li>
+							Management <b class="caret"></b> </a></li>
+							
+					<li class="dropdown"><a href="/sscnServer/lokasi.do"
+						class="dropdown-toggle"> <i class="icon-th"></i> Lokasi
+							Management <b class="caret"></b> </a></li>
+							
 
 					<li class="dropdown"><a href="/sscnServer/formasi.do"
 						class="dropdown-toggle"> <i class="icon-copy"></i> Formasi <b
-							class="caret"></b>
-					</a></li>
+							class="caret"></b> </a></li>
 
 					<li class="dropdown"><a href="javascript:;"
 						class="dropdown-toggle" data-toggle="dropdown"> <i
@@ -161,8 +148,7 @@
 							<li><a href="signup.html">Signup</a></li>
 							<li><a href="error.html">Error</a></li>
 							<li class="dropdown"><a href="javascript:;"> Dropdown
-									Menu <i class="icon-chevron-right sub-menu-caret"></i>
-							</a>
+									Menu <i class="icon-chevron-right sub-menu-caret"></i> </a>
 
 								<ul class="dropdown-menu sub-menu">
 									<li><a href="javascript:;">Dropdown #1</a></li>
@@ -173,24 +159,10 @@
 						</ul></li>
 
 					<li class="dropdown"><a href="/sscnServer/pengumuman.do"
-						class="dropdown-toggle" data-toggle="dropdown"> <i
-							class="icon-external-link"></i> Pengumuman <b class="caret"></b>
-					</a></li>
+						class="dropdown-toggle"> <i class="icon-copy"></i> Pengumuman <b
+							class="caret"></b> </a></li>
+					
 				</ul>
-
-				<ul class="nav pull-right">
-
-					<li class="">
-						<form class="navbar-search pull-left">
-							<input type="text" class="search-query" placeholder="Search">
-							<button class="search-btn">
-								<i class="icon-search"></i>
-							</button>
-						</form>
-					</li>
-
-				</ul>
-
 			</div>
 			<!-- /.nav-collapse -->
 
@@ -206,9 +178,9 @@
 			<div id="page-title" class="clearfix">
 
 				<ul class="breadcrumb">
-					<li><a href="../../default.htm">Home</a><span class="divider">/</span>
+					<li><a href="../../default.htm">Home</a>
 					</li>
-					<li><a href="#">User Management</a><span class="divider">/</span>
+					<li><span class="divider">/</span>
 					</li>
 					<li class="active">Pengumuman</li>
 				</ul>
@@ -231,7 +203,7 @@
 							    <div class="control-group">
 							      <label class="control-label">Maksimum file Laporan (pdf) sebesar 2MB</label>
 									<br>
-							      <label class="control-label" for="Laporan">Pilih Laporan</label>
+							      <label class="control-label" for="Laporan">Pilih File</label>
 							      <div class="controls">
 							      		<form:input type="file" path="file"/>
 							        	<input type="submit" value="Upload File"><form:errors path="*" cssStyle="color : red;"/>&nbsp;&nbsp;${errors}							      		
