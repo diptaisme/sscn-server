@@ -1,11 +1,11 @@
 package org.sscn.controller;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -18,9 +18,7 @@ import org.sscn.dao.DtPersyaratanDao;
 import org.sscn.dao.DtUserDao;
 import org.sscn.persistence.entities.DtPersyaratan;
 import org.sscn.persistence.entities.DtUser;
-import org.sscn.persistence.entities.RefInstansi;
 import org.sscn.services.PersyaratanService;
-import org.sscn.services.UserService;
 import org.sscn.util.json.StandardJsonMessage;
 
 @Controller
@@ -35,10 +33,11 @@ public class PersyaratanController {
 	private DtUserDao userDao;
 
 	@RequestMapping(value = "/syarat.do", method = RequestMethod.GET)
-	public String index(ModelMap model, HttpSession session) {
+	public String index(ModelMap model, HttpSession session,HttpServletRequest request) {
 		DtUser user = (DtUser) session.getAttribute("userLogin");
 		if (user == null) {
-			return "redirect:login.do";
+			request.setAttribute("pesan", "Session habis silahkan login kembali");
+			return "login";
 		}
 
 		List<DtPersyaratan> syarats = syaratDao.findByProperty("refInstansi", user.getRefInstansi());

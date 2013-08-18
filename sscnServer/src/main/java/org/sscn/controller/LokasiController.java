@@ -35,7 +35,7 @@ public class LokasiController {
 			return "login";
 		}
 
-		List<RefLokasi> lokasis = lokasiService.findAllLokasi(null);
+		List<RefLokasi> lokasis = lokasiService.findAllLokasiByInstansi(user.getRefInstansi().getKode(), null);
 		model.addAttribute("lokasis", lokasis);
 
 		return "lokasimanagement";
