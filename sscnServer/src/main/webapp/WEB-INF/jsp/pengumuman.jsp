@@ -208,7 +208,7 @@
 									<br>
 							      <label class="control-label" for="Laporan">Pilih File</label>
 							      <div class="controls">
-							      		<form:input type="file" path="file"/>
+							      		<form:input type="file" path="file" accept="application/pdf" class="required"/>
 							      		<input type="hidden" value="${userLogin.refInstansi.kode}" id="kodeInstansi" name="kodeInstansi"/>
 							        	<input type="submit" value="Upload File"><form:errors path="*" cssStyle="color : red;"/>&nbsp;&nbsp;${errors}							      		
 							      	<!--
