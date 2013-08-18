@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 import org.sscn.core.report.command.ReportCommand;
 import org.sscn.dao.DtPengumumanDao;
 import org.sscn.dao.RefInstansiDao;
+import org.sscn.manager.Constanta;
 import org.sscn.persistence.entities.DtPengumuman;
 import org.sscn.persistence.entities.RefInstansi;
 
@@ -74,7 +75,9 @@ public class PengumumanReportCommand extends ReportCommand {
 					out.println("<HTML><HEAD><TITLE>Laporan Pengumuman</TITLE>"
 					        + "</HEAD><BODY>Maaf, Laporan Pengumuman Belum Tersedia.<br>Instansi Terpilih&nbsp;"
 					        + namaInstansi
-					        + "<hr size=\"1\">Sistem Seleksi CPNS 2013, Badan Kepegawaian Negara</BODY></HTML>");
+					        + "<hr size=\"1\">" +
+					        "Klik <a href='"+ Constanta.URL_WEB_SSCN+ "'>link ini </a> untuk kembali"+
+					        "<hr size=\"1\">Sistem Seleksi CPNS 2013, Badan Kepegawaian Negara</BODY></HTML>");
 					out.close();
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -83,7 +86,9 @@ public class PengumumanReportCommand extends ReportCommand {
 				try {
 					out = response.getWriter();
 					out.println("<HTML><HEAD><TITLE>Laporan Pengumuman</TITLE>"
-					        + "</HEAD><BODY>Maaf, Silahkan memilih instansi<hr size=\"1\">Sistem Seleksi CPNS 2013, Badan Kepegawaian Negara</BODY></HTML>");
+					        + "</HEAD><BODY>Maaf, Silahkan memilih instansi<hr size=\"1\">" +
+					        "Klik <a href='"+ Constanta.URL_WEB_SSCN+ "'>link ini </a> untuk kembali"+
+					        "<hr size=\"1\">Sistem Seleksi CPNS 2013, Badan Kepegawaian Negara</BODY></HTML>");
 					out.close();
 				} catch (IOException e) {
 					e.printStackTrace();
