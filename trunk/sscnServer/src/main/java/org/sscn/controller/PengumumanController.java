@@ -21,8 +21,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
-import org.sscn.dao.DtPengumumanDao;
-import org.sscn.dao.DtUserDao;
 import org.sscn.persistence.entities.DtPengumuman;
 import org.sscn.persistence.entities.DtUser;
 import org.sscn.persistence.entities.RefInstansi;
@@ -53,10 +51,11 @@ public class PengumumanController implements HandlerExceptionResolver {
 	 * @return String
 	 */
 	@RequestMapping(value = "/pengumuman.do", method = RequestMethod.GET)
-	public String index(ModelMap model, HttpSession session) {
+	public String index(ModelMap model, HttpSession session,HttpServletRequest request) {
 		DtUser user = (DtUser) session.getAttribute("userLogin");
 		if (user == null) {
 			model.addAttribute("pesan", "Session habis silahkan login kembali");
+			request.setAttribute("pesan", "Session habis silahkan login kembali");
 			return "login";
 		}
 

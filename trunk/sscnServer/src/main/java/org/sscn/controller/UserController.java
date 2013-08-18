@@ -206,7 +206,8 @@ public class UserController {
 	@ResponseBody
 	public StandardJsonMessage changePassword(
 			@RequestParam("username") String username,
-			@RequestParam("password") String password, HttpSession session)
+			@RequestParam("password") String password,
+			@RequestParam("old_password") String oldPassword, HttpSession session)
 			throws Exception {
 
 		DtUser userLogin = (DtUser) session.getAttribute("userLogin");
@@ -223,16 +224,20 @@ public class UserController {
 					.get(0);						
 			user.setTglUpdated(new Date());
 			
-
-			if (userService.changePassword(user, password)) {
-				RefInstansi temp = new RefInstansi();
-				temp.setKode(user.getRefInstansi().getKode());
-				temp.setNama(user.getRefInstansi().getNama());
-				user.setRefInstansi(temp);
-				res = new StandardJsonMessage(1, user, null, "Update Password Success");
-			} else {
-				res = new StandardJsonMessage(0, null, null, "Update Password Gagal");
+			if(userService.isSamePassword(oldPassword, user.getPassword())){
+				if (userService.changePassword(user, password)) {
+					RefInstansi temp = new RefInstansi();
+					temp.setKode(user.getRefInstansi().getKode());
+					temp.setNama(user.getRefInstansi().getNama());
+					user.setRefInstansi(temp);
+					res = new StandardJsonMessage(1, user, null, "Update Password Success");
+				} else {
+					res = new StandardJsonMessage(0, null, null, "Update Password Gagal");
+				}
+			}else{
+				res = new StandardJsonMessage(0, null, null, "Password lama salah");
 			}
+			
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			res = new StandardJsonMessage(0, null, null, "Update Password Gagal"
