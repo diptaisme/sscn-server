@@ -471,7 +471,7 @@
 					'<td>'+data.urutan+'</td> '+					
 					'<td><a href="#" onclick="prepareUbahForm(this,\''+data.id+'\')" '+
 				'class="btn btn-small btn-primary"><i class="icon-edit"></i>Edit</a> | <a href="#" id="deleteUserModal" '+
-				'class="btn btn-small btn-primary" confirmDelete(this,\''+data.id+'\')><i class="icon-remove"></i>Delete</a></td> '+
+				'class="btn btn-small btn-primary" onclick="confirmDelete(this,\''+data.id+'\')"><i class="icon-remove"></i>Delete</a></td> '+
 				'</tr>';
 				
 				$(selRowTable).replaceWith(tesHtml);
@@ -543,7 +543,7 @@
 				$("#myModal").dialog("close");
 			});
 
-			$('#btnCancelFUbah').click(function(event) {
+			$('#btnCancelFEdit').click(function(event) {
 				event.preventDefault();
 				$("#myModal2").dialog("close");
 			});
@@ -611,7 +611,7 @@
 					
 					var newRowHtml = '<tr class="odd gradeX"><td>'+ data.syarat +'</td><td>'+ data.urutan+'</td><td><a href="#" onclick="prepareUbahForm(this,\''+data.username+'\')" '+
 					'class="btn btn-small btn-primary"><i class="icon-edit"></i>Edit</a> | <a href="#" id="deleteUserModal" '+
-					'class="btn btn-small btn-primary" confirmDelete(this,\''+data.id+'\')><i class="icon-remove"></i>Delete</a></td></tr>';
+					'class="btn btn-small btn-primary" onclick="confirmDelete(this,\''+data.id+'\')"><i class="icon-remove"></i>Delete</a></td></tr>';
 					row.innerHTML = newRowHtml;	
 				}
 				

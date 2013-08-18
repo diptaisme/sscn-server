@@ -56,7 +56,7 @@ public class RegistrasiController {
 		pendaftaran.setJnsKelamin("P");
 		pendaftaran.setKeterangan("sdsadsa keterangan");
 		pendaftaran.setLembaga("lem");
-		pendaftaran.setMFormasi(new MFormasi());
+		pendaftaran.setFormasi(new MFormasi());
 		pendaftaran.setLokasiTest("lokT");
 
 		int minute = Calendar.getInstance().getTime().getMinutes();

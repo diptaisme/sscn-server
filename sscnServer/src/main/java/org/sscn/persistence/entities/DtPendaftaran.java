@@ -24,7 +24,7 @@ import javax.persistence.UniqueConstraint;
 public class DtPendaftaran implements java.io.Serializable {
 
 	private Long id;
-	private MFormasi MFormasi;
+	private MFormasi formasi;
 	private String noNik;
 	private String noRegister;
 	private String nama;
@@ -56,7 +56,7 @@ public class DtPendaftaran implements java.io.Serializable {
 	public DtPendaftaran() {
 	}
 
-	public DtPendaftaran(MFormasi MFormasi, String noNik, String noRegister,
+	public DtPendaftaran(MFormasi mFormasi, String noNik, String noRegister,
 			String nama, String tmpLahir, Date tglLahir, String jnsKelamin,
 			String alamat, String kodePos, String propinsi, String kota,
 			String telpon, String email, String pendidikan, String lembaga,
@@ -64,7 +64,7 @@ public class DtPendaftaran implements java.io.Serializable {
 			Date tglTest, String lokasiTest, Date tglCreated, Date tglUpdated,
 			String userValidate, Date tglValidate, String keterangan,
 			String akreditasi, String nilaiIpk) {
-		this.MFormasi = MFormasi;
+		this.formasi = mFormasi;
 		this.noNik = noNik;
 		this.noRegister = noRegister;
 		this.nama = nama;
@@ -107,12 +107,12 @@ public class DtPendaftaran implements java.io.Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "FORMASI_ID", nullable = false)
-	public MFormasi getMFormasi() {
-		return this.MFormasi;
+	public MFormasi getFormasi() {
+		return this.formasi;
 	}
 
-	public void setMFormasi(MFormasi MFormasi) {
-		this.MFormasi = MFormasi;
+	public void setFormasi(MFormasi formasi) {
+		this.formasi = formasi;
 	}
 
 	@Column(name = "NO_NIK", nullable = false, length = 16)

@@ -20,19 +20,19 @@ import javax.persistence.Table;
 public class DtFormasi implements java.io.Serializable {
 
 	private Integer id;
-	private MFormasi MFormasi;
+	private MFormasi formasi;
 	private RefPendidikan pendidikan;
 	private Integer jumlah;
 
 	public DtFormasi() {
 	}
 
-	public DtFormasi(MFormasi MFormasi) {
-		this.MFormasi = MFormasi;
+	public DtFormasi(MFormasi formasi) {
+		this.formasi = formasi;
 	}
 
 	public DtFormasi(MFormasi MFormasi, RefPendidikan pendidikan, Integer jumlah) {
-		this.MFormasi = MFormasi;
+		this.formasi = MFormasi;
 		this.pendidikan = pendidikan;
 		this.jumlah = jumlah;
 	}
@@ -50,12 +50,12 @@ public class DtFormasi implements java.io.Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "FORMASI", nullable = false)
-	public MFormasi getMFormasi() {
-		return this.MFormasi;
+	public MFormasi getFormasi() {
+		return this.formasi;
 	}
 
-	public void setMFormasi(MFormasi MFormasi) {
-		this.MFormasi = MFormasi;
+	public void setFormasi(MFormasi formasi) {
+		this.formasi = formasi;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
