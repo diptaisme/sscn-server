@@ -7,7 +7,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Locale;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +18,7 @@ import org.sscn.dao.DtPendaftaranDao;
 import org.sscn.dao.MFormasiDao;
 import org.sscn.dao.RefInstansiDao;
 import org.sscn.dao.RefLokasiDao;
+import org.sscn.dao.RefPendidikanDao;
 import org.sscn.persistence.entities.DtFormasi;
 import org.sscn.persistence.entities.DtPendaftaran;
 import org.sscn.persistence.entities.MFormasi;
@@ -38,6 +38,9 @@ public class RegistrasiServiceImpl implements RegistrasiService {
 	private RefLokasiDao refLokasiDao;
 	@Inject
 	private MFormasiDao mFormasiDao;
+
+	@Inject
+	private RefPendidikanDao refPendidikanDao;
 
 	@Transactional(readOnly = false)
 	public DtPendaftaran insertNewRegistrasi(DtPendaftaran dtPendaftaran) {
@@ -118,20 +121,25 @@ public class RegistrasiServiceImpl implements RegistrasiService {
 
 			String nama = request.getParameter("nama");
 			String tempatLahir = request.getParameter("tempat_lahir");
-			String strTglLahir = request.getParameter("datepickerTglLahir");			
-			Date tglLahir = new SimpleDateFormat("dd-MM-yyyy").parse(strTglLahir);
-			
+			String strTglLahir = request.getParameter("datepickerTglLahir");
+			Date tglLahir = new SimpleDateFormat("dd-MM-yyyy")
+					.parse(strTglLahir);
+
 			String alamat = request.getParameter("alamat");
 			String kota = request.getParameter("kota");
 			String propinsi = request.getParameter("propinsi");
 			String kodePos = request.getParameter("kode_pos");
-			String telpon = request.getParameter("area_telpon") + request.getParameter("telpon"); // belom pasti
+			String telpon = request.getParameter("area_telpon")
+					+ request.getParameter("telpon"); // belom pasti
 			String email = request.getParameter("email");
 
 			String instansi = request.getParameter("instansiValue");
 			String jabatan = request.getParameter("jabatan");
 			String lokasiKerja = request.getParameter("lokasi_kerja");
-			String pendidikan = request.getParameter("pendidikan");
+			// String pendidikan = request.getParameter("pendidikan"); ??
+			String pendidikan = refPendidikanDao
+					.findByProperty("kode", request.getParameter("pendidikan"),
+							null).get(0).getNama();
 
 			MFormasi mFormasi = null; // formasi nanti, sudah
 			HashMap<String, String> propertiesMap = new HashMap<String, String>();
@@ -142,7 +150,7 @@ public class RegistrasiServiceImpl implements RegistrasiService {
 					propertiesMap, null, null);
 			if (listFormasi == null || listFormasi.size() == 0) {
 				return null;
-			}else{
+			} else {
 				mFormasi = listFormasi.get(0);
 			}
 
@@ -151,10 +159,11 @@ public class RegistrasiServiceImpl implements RegistrasiService {
 			String status = ""; // status
 			String regStatus = ""; // regStatus
 			// belom ada di form
-			
-			String lembaga = request.getParameter("universitas");  //lembaga = universitas??
-			String akreditasi = "";
-			String nilaiIPK = "";
+
+			String lembaga = request.getParameter("universitas"); // lembaga =
+																	// universitas??
+			String akreditasi = request.getParameter("akreditasi");
+			String nilaiIPK = request.getParameter("nilai_ipk");
 			// memang tidak diisi
 			Date tglTest = new Date();
 			String lokasiTest = "";
@@ -174,6 +183,8 @@ public class RegistrasiServiceImpl implements RegistrasiService {
 																			// example
 			String noRegister = "" + y + day + minute + x + second; // random
 																	// example
+
+			// String noRegister= generateNoRegistrasi(instansi, jabatan);
 			if (noPeserta.length() > 10) {
 				noPeserta = noPeserta.substring(0, 10);
 			}
@@ -183,19 +194,35 @@ public class RegistrasiServiceImpl implements RegistrasiService {
 			// noRegister = ""; // generate no register
 			// noPeserta = ""; // kosong
 
-			DtPendaftaran pendaftaran = new DtPendaftaran(mFormasi, noNik, noRegister,
-					nama, tempatLahir, tglLahir, jnsKelamin,
-					alamat, kodePos, propinsi, kota,
-					telpon, email, pendidikan, lembaga,
-					noIjazah, status, regStatus, noPeserta,
-					tglTest, lokasiTest,tglCreated, tglUpdated,
-					userValidate, tglValidate, keterangan,
-					akreditasi, nilaiIPK);
+			DtPendaftaran pendaftaran = new DtPendaftaran(mFormasi, noNik,
+					noRegister, nama, tempatLahir, tglLahir, jnsKelamin,
+					alamat, kodePos, propinsi, kota, telpon, email, pendidikan,
+					lembaga, noIjazah, status, regStatus, noPeserta, tglTest,
+					lokasiTest, tglCreated, tglUpdated, userValidate,
+					tglValidate, keterangan, akreditasi, nilaiIPK);
 			dtPendaftaranDao.insert(pendaftaran);
 			return pendaftaran;
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			return null;
 		}
+	}
+
+	// tanpa tingkat pendidikan dulu
+	// private String generateNoRegistrasi(String kodeInstansi, String
+	// tingkatPendidikan, String kodeJabatan){
+	private String generateNoRegistrasi(String kodeInstansi, String kodeJabatan) {
+		String result = "";
+		String noUrut = "";
+
+		String max = dtPendaftaranDao.getnoUrutPendaftaran(result);
+		if (max.equals("")) {
+			noUrut = "000001";
+		} else {
+			int maxInt = Integer.parseInt(max);
+			noUrut = "00000" + (++maxInt);
+		}
+		result = kodeInstansi + kodeJabatan + noUrut;
+		return result;
 	}
 }

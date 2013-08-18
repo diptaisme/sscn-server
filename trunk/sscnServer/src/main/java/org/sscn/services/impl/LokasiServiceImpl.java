@@ -29,6 +29,12 @@ public class LokasiServiceImpl implements LokasiService {
 	public List<RefLokasi> findAllLokasi(int... idx) {
 		return refLokasiDao.findAll(idx);
 	}
+	
+	@Override
+	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
+	public List<RefLokasi> findAllLokasiByInstansi(String kodeInstansi,int... idx) {
+		return refLokasiDao.findByProperty("refInstansi.kode", kodeInstansi, null, idx);
+	}
 
 	@Override
 	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
