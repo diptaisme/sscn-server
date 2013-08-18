@@ -51,9 +51,10 @@ public class PengumumanReportCommand extends ReportCommand {
 		        "refInstansi.kode", instansi, null);
 		if (pengumumans.size() > 0) {
 			DtPengumuman thePengumuman = pengumumans.get(0);
-			response.setHeader("Content-Disposition",
+			response.setHeader("Content-disposition",
 			        "inline; filename=PengumumuanPendaftaran.pdf");
 			response.setContentType("application/pdf");
+			response.setContentLength(thePengumuman.getBerita().length);
 			try {
 				ServletOutputStream servletOutputStream = response.getOutputStream();
 				servletOutputStream.write(thePengumuman.getBerita());
