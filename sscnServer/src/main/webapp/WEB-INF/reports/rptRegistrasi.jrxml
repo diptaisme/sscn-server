@@ -1,47 +1,223 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rptRegistrasi" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
-	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
-	<queryString language="SQL">
-		<![CDATA[SELECT
-     t_barang.`code_barang` AS t_barang_code_barang,
-     t_barang.`nama` AS t_barang_nama,
-     t_barang.`description` AS t_barang_description,
-     t_vendor.`name` AS t_vendor_name
-FROM
-     `t_vendor` t_vendor INNER JOIN `t_barang` t_barang ON t_vendor.`id` = t_barang.`vendor_id`]]>
-	</queryString>
+	<property name="ireport.y" value="442"/>
+	<parameter name="NO_REGISTRASI" class="java.lang.String"/>
+	<parameter name="NAMA" class="java.lang.String"/>
+	<parameter name="TTL" class="java.lang.String"/>
+	<parameter name="NIK" class="java.lang.String"/>
+	<parameter name="UNIVERSITAS" class="java.lang.String"/>
+	<parameter name="PENDIDIKAN" class="java.lang.String"/>
+	<parameter name="NO_IJAZAH" class="java.lang.String"/>
+	<parameter name="AKREDITAS" class="java.lang.String"/>
+	<parameter name="JABATAN" class="java.lang.String"/>
+	<parameter name="INSTANSI" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="79" splitType="Stretch">
+		<band height="34" splitType="Stretch">
 			<staticText>
-				<reportElement x="212" y="28" width="140" height="33"/>
-				<textElement>
-					<font size="16" isBold="true"/>
+				<reportElement x="0" y="0" width="555" height="31"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
 				</textElement>
-				<text><![CDATA[Registrasi CPNS]]></text>
+				<text><![CDATA[KARTU / TANDA PESERTA UJIAN CPNS TAHUN 2013]]></text>
 			</staticText>
+			<line>
+				<reportElement x="0" y="32" width="555" height="1"/>
+			</line>
 		</band>
 	</title>
-	<pageHeader>
-		<band height="41" splitType="Stretch"/>
-	</pageHeader>
-	<columnHeader>
-		<band height="27" splitType="Stretch"/>
-	</columnHeader>
 	<detail>
-		<band height="21" splitType="Stretch"/>
+		<band height="264" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="11" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[NO REGISTRASI]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="31" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[NAMA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="51" width="141" height="20"/>
+				<textElement/>
+				<text><![CDATA[TEMPAT / TANGGAL LAHIR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="71" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[NO. IDENTITAS KTP]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="91" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[UNIVERSITAS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="111" width="141" height="20"/>
+				<textElement/>
+				<text><![CDATA[KUALIFIKASI PENDIDIKAN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="131" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[NO. IJAZAH]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="151" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[AKREDITAS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="171" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[JABATAN FORMASI]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="141" y="51" width="4" height="20"/>
+				<textElement/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="141" y="31" width="4" height="20"/>
+				<textElement/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="141" y="11" width="4" height="20"/>
+				<textElement/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="141" y="71" width="4" height="20"/>
+				<textElement/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="141" y="91" width="4" height="20"/>
+				<textElement/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="141" y="111" width="4" height="20"/>
+				<textElement/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="141" y="131" width="4" height="20"/>
+				<textElement/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="141" y="151" width="4" height="20"/>
+				<textElement/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="141" y="171" width="4" height="20"/>
+				<textElement/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="145" y="11" width="175" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{NO_REGISTRASI}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="145" y="31" width="175" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{NAMA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="145" y="51" width="175" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{TTL}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="145" y="71" width="175" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{NIK}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="145" y="91" width="175" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{UNIVERSITAS}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="145" y="111" width="175" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{PENDIDIKAN}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="145" y="131" width="175" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{NO_IJAZAH}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="145" y="151" width="175" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{AKREDITAS}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="145" y="171" width="175" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{JABATAN}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="191" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[INSTANSI]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="145" y="191" width="175" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{INSTANSI}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="141" y="191" width="4" height="20"/>
+				<textElement/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+		</band>
 	</detail>
-	<columnFooter>
-		<band height="45" splitType="Stretch"/>
-	</columnFooter>
-	<pageFooter>
-		<band height="54" splitType="Stretch"/>
-	</pageFooter>
 	<summary>
-		<band height="42" splitType="Stretch"/>
+		<band height="120" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="48" height="13"/>
+				<textElement>
+					<font isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Catatan :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="13" width="189" height="13"/>
+				<textElement/>
+				<text><![CDATA[Saat pelaksanaan pengisian / ujian harap membawa :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="26" width="100" height="13"/>
+				<textElement/>
+				<text><![CDATA[1. pensil B2 asli]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="39" width="100" height="13"/>
+				<textElement/>
+				<text><![CDATA[2. penghapus]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="52" width="100" height="13"/>
+				<textElement/>
+				<text><![CDATA[3. rautan / penajam pensil]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="65" width="100" height="13"/>
+				<textElement/>
+				<text><![CDATA[4. alas tulis]]></text>
+			</staticText>
+		</band>
 	</summary>
 </jasperReport>

@@ -1,7 +1,7 @@
-<%@page language="java" session="true" %>
+<%@page language="java" session="true"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <c:set var="userLogin" value="${sessionScope.userLogin}" />
 
 <!DOCTYPE html>
@@ -84,8 +84,9 @@
 
 					<div class="info-details">
 						<h4>Selamat Datang ${userLogin.nama}</h4>
-						<p>							
-							Login sebagai <c:choose>
+						<p>
+							Login sebagai
+							<c:choose>
 								<c:when test="${userLogin.kewenangan == 1}">
 									Administrator
 								</c:when>
@@ -96,18 +97,16 @@
 									Verificator
 								</c:otherwise>
 							</c:choose>
-							${userLogin.refInstansi.nama}  
+							${userLogin.refInstansi.nama}
 						</p>
 						<p>
-							<form action="gantiPassword.do" method="POST" name="formGantiPassword">
-								<input type="submit" value="Ganti Password" name="btnGantiPassword"/>
-							</form>
-							<form action="logout.do" method="POST" name="formLogout">
-								<input type="submit" value="logout" name="btnLogout"/>
-							</form>
+						<form action="logout.do" method="POST" name="formLogout">
+							<input class="btn btn-small btn-primary" type="submit"
+								value="logout" name="btnLogout" />
+						</form>
 						</p>
 					</div>
-					
+
 				</div>
 				<!-- /#info-menu -->
 
@@ -131,47 +130,39 @@
 			<div class="nav-collapse">
 
 				<ul class="nav">
-
-					<li class="nav-icon active"><a href="/sscnServer/dashboard.do"> <i
-							class="icon-home"></i> <span>Home</span>
+					<li class="nav-icon active"><a href="/sscnServer/dashboard.do">
+							<i class="icon-home"></i> <span>Home</span>
 					</a></li>
-					<li class="dropdown"><a href="/sscnServer/user.do"
-						class="dropdown-toggle"> <i class="icon-th"></i> User
-							Management <b class="caret"></b> </a></li>
-							
-					<li class="dropdown"><a href="/sscnServer/lokasi.do"
-						class="dropdown-toggle"> <i class="icon-th"></i> Lokasi
-							Management <b class="caret"></b> </a></li>
-							
+					<c:if test="${userLogin.kewenangan != 3}">
+						<li class="dropdown"><a href="/sscnServer/user.do"> <i
+								class="icon-th"></i> User Management <b class="caret"></b>
+						</a></li>
 
-					<li class="dropdown"><a href="/sscnServer/formasi.do"
-						class="dropdown-toggle"> <i class="icon-copy"></i> Formasi <b
-							class="caret"></b> </a></li>
 
-					<li class="dropdown"><a href="javascript:;"
-						class="dropdown-toggle" data-toggle="dropdown"> <i
-							class="icon-external-link"></i> Verifikasi <b class="caret"></b>
-					</a>
+						<li class="dropdown"><a href="/sscnServer/lokasi.do"
+							class="dropdown-toggle"> <i class="icon-th"></i> Lokasi
+								Management <b class="caret"></b>
+						</a></li>
 
-						<ul class="dropdown-menu">
-							<li><a href="login.html">Login</a></li>
-							<li><a href="signup.html">Signup</a></li>
-							<li><a href="error.html">Error</a></li>
-							<li class="dropdown"><a href="javascript:;"> Dropdown
-									Menu <i class="icon-chevron-right sub-menu-caret"></i> </a>
+						<li class="dropdown"><a href="/sscnServer/syarat.do"
+							class="dropdown-toggle"> <i class="icon-copy"></i> Syarat
+								Pendaftaran <b class="caret"></b>
+						</a></li>
 
-								<ul class="dropdown-menu sub-menu">
-									<li><a href="javascript:;">Dropdown #1</a></li>
-									<li><a href="javascript:;">Dropdown #2</a></li>
-									<li><a href="javascript:;">Dropdown #3</a></li>
-									<li><a href="javascript:;">Dropdown #4</a></li>
-								</ul></li>
-						</ul></li>
+						<li class="dropdown"><a href="/sscnServer/formasi.do"
+							class="dropdown-toggle"> <i class="icon-copy"></i> Formasi <b
+								class="caret"></b>
+						</a></li>
 
-					<li class="dropdown"><a href="/sscnServer/pengumuman.do"
-						class="dropdown-toggle"> <i class="icon-copy"></i> Pengumuman <b
-							class="caret"></b> </a></li>
-					
+						<li class="dropdown"><a href="/sscnServer/pengumuman.do"
+							class="dropdown-toggle"> <i class="icon-copy"></i> Pengumuman
+								<b class="caret"></b>
+						</a></li>
+					</c:if>
+					<li class="dropdown"><a href="/sscnServer/verifikasi.do"
+						class="dropdown-toggle"> <i class="icon-copy"></i> Verfikasi <b
+							class="caret"></b>
+					</a></li>
 
 				</ul>
 			</div>
@@ -189,10 +180,10 @@
 			<div id="page-title" class="clearfix">
 
 				<ul class="breadcrumb">
-					<li><a href="/sscnServer/dashboard.do">Home</a><span class="divider">/</span>
-					</li>
-					<li><a href="/sscnServer/formasi.do">Formasi Management</a><span class="divider">/</span>
-					</li>
+					<li><a href="/sscnServer/dashboard.do">Home</a><span
+						class="divider">/</span></li>
+					<li><a href="/sscnServer/formasi.do">Formasi Management</a><span
+						class="divider">/</span></li>
 					<li class="active">List</li>
 				</ul>
 
@@ -214,12 +205,12 @@
 						<div class="widget-content">
 							<c:if test="${pesan != null}">
 								<div class="alert alert-error" id="mainAlert">
-								  <a href="#" data-dismiss="alert" class="close">×</a>
-								  <h4 class="alert-heading">Info!</h4>
-								  		${pesan }
+									<a href="#" data-dismiss="alert" class="close">×</a>
+									<h4 class="alert-heading">Info!</h4>
+									${pesan }
 								</div>
-							</c:if>	
-							
+							</c:if>
+
 							<div id="example_wrapper" class="dataTables_wrapper form-inline"
 								role="grid">
 								<div class="row">
@@ -268,15 +259,24 @@
 
 											<tr class="odd gradeX">
 												<td>${formasi.refJabatan.nama}</td>
-												<c:set var="i" value="${0}" />												
-												<td>												
-											 	<c:forEach items="${formasi.dtFormasis}" var="dtFormasi">
-														<c:out value="${dtFormasi.pendidikan.nama}" /> (<c:out value="${dtFormasi.jumlah}" />) <br/>	  
-												</c:forEach></td>
+												<c:set var="i" value="${0}" />
+												<td><c:forEach items="${formasi.dtFormasis}"
+														var="dtFormasi">
+														<c:out value="${dtFormasi.pendidikan.nama}" /> (<c:out
+															value="${dtFormasi.jumlah}" />) <br />
+													</c:forEach></td>
 												<td>${formasi.jumlah}</td>
 												<td>${formasi.refLokasi.nama}</td>
 												<td>
-												  <form action="/sscnServer/getFormasi.do" method="post"><input type="hidden" name="id" value="${formasi.id}"><button class="btn btn-primary btn-mini" type="submit">Edit</button></form><form action="/sscnServer/formasiDelete.do" method="post"><input type="hidden" name="id" value="${formasi.id}"><button class="btn btn-primary btn-mini" type="submit">Delete</button></form></td>
+													<form action="/sscnServer/getFormasi.do" method="post">
+														<input type="hidden" name="id" value="${formasi.id}">
+														<button class="btn btn-primary btn-mini" type="submit">Edit</button>
+													</form>
+													<form action="/sscnServer/formasiDelete.do" method="post">
+														<input type="hidden" name="id" value="${formasi.id}">
+														<button class="btn btn-primary btn-mini" type="submit">Delete</button>
+													</form>
+												</td>
 												</td>
 											</tr>
 										</c:forEach>
@@ -334,121 +334,154 @@
 								Submit the below form to view the live form validation with
 								integrated Bootstrap error messages.
 							</div>
-					<c:if test="${formasi != null}">
-							<form action="/sscnServer/formasiUpdate.do" method="POST"
-								id="formasiForm" class="form-horizontal" novalidate="novalidate">
-								<fieldset>
-									<div class="control-group">
-										<label class="control-label" for="lokasi">Lokasi</label>
-										<div class="controls">
-											<input type="hidden" class="input-large" name="lokasi"
-												id="lokasiValue" value="${formasi.refLokasi.kode}"> <input type="text"
-												class="input-large" name="lokasiLabel" id="lokasiLabel" onchange="validasiLokasi()" value="${formasi.refLokasi.nama}"> <span class="help-inline" style="display:none;color: #b94a48;" id="lokasiAlert">Something may have gone wrong</span>
+							<c:if test="${formasi != null}">
+								<form action="/sscnServer/formasiUpdate.do" method="POST"
+									id="formasiForm" class="form-horizontal"
+									novalidate="novalidate">
+									<fieldset>
+										<div class="control-group">
+											<label class="control-label" for="lokasi">Lokasi</label>
+											<div class="controls">
+												<input type="hidden" class="input-large" name="lokasi"
+													id="lokasiValue" value="${formasi.refLokasi.kode}">
+												<input type="text" class="input-large" name="lokasiLabel"
+													id="lokasiLabel" onchange="validasiLokasi()"
+													value="${formasi.refLokasi.nama}"> <span
+													class="help-inline" style="display: none; color: #b94a48;"
+													id="lokasiAlert">Something may have gone wrong</span>
+											</div>
 										</div>
-									</div>
-									<div class="control-group">
-										<label class="control-label" for="jabatan">Jabatan</label>
-										<div class="controls">
-											<input type="hidden" class="input-large" name="jabatan"
-												id="jabatanValue" value="${formasi.refJabatan.kode}"> <input type="text"
-												class="input-large" name="jabatanLabel" id="jabatanLabel" onchange="validasiJabatan()" value="${formasi.refJabatan.nama}"> <span class="help-inline" style="display:none;color: #b94a48;" id="jabatanAlert">Something may have gone wrong</span>												
-										</div>										
-									</div>
-									<c:set var="i" value="0" />
-									<c:forEach items="${formasi.dtFormasis}"
-														var="dtFormasi">
-										<c:if test="${i==0}">
-											<div class="control-group" id="pendidikanRow">
-												<label class="control-label" for="pendidikan">Pendidikan</label>
-												<div class="controls">
-													<input type="hidden" class="input-large" name="pendidikan[]" value="${dtFormasi.pendidikan.kode}"
-														id="pendidikanValue"> <input type="text"
-														class="input-large" name="pendidikanLabel[]" value="${dtFormasi.pendidikan.nama}"
-														id="pendidikanLabel" onchange="validasiPendidikan(this)"> <input type="text"
-														class="input-mini" name="pendidikanJmlh[]" value="${dtFormasi.jumlah }"
-														id="pendidikanJmlh" onChange="hitungUlang()">
-													<button id="btnAddPddkn" class="btn btn-primary btn-small">Add</button><span class="help-inline" style="display:none;color: #b94a48;" id="pendidikanAlert">Something may have gone wrong</span>
+										<div class="control-group">
+											<label class="control-label" for="jabatan">Jabatan</label>
+											<div class="controls">
+												<input type="hidden" class="input-large" name="jabatan"
+													id="jabatanValue" value="${formasi.refJabatan.kode}">
+												<input type="text" class="input-large" name="jabatanLabel"
+													id="jabatanLabel" onchange="validasiJabatan()"
+													value="${formasi.refJabatan.nama}"> <span
+													class="help-inline" style="display: none; color: #b94a48;"
+													id="jabatanAlert">Something may have gone wrong</span>
+											</div>
+										</div>
+										<c:set var="i" value="0" />
+										<c:forEach items="${formasi.dtFormasis}" var="dtFormasi">
+											<c:if test="${i==0}">
+												<div class="control-group" id="pendidikanRow">
+													<label class="control-label" for="pendidikan">Pendidikan</label>
+													<div class="controls">
+														<input type="hidden" class="input-large"
+															name="pendidikan[]" value="${dtFormasi.pendidikan.kode}"
+															id="pendidikanValue"> <input type="text"
+															class="input-large" name="pendidikanLabel[]"
+															value="${dtFormasi.pendidikan.nama}" id="pendidikanLabel"
+															onchange="validasiPendidikan(this)"> <input
+															type="text" class="input-mini" name="pendidikanJmlh[]"
+															value="${dtFormasi.jumlah }" id="pendidikanJmlh"
+															onChange="hitungUlang()">
+														<button id="btnAddPddkn" class="btn btn-primary btn-small">Add</button>
+														<span class="help-inline"
+															style="display: none; color: #b94a48;"
+															id="pendidikanAlert">Something may have gone wrong</span>
+													</div>
 												</div>
-											</div>	
-										</c:if>
-										<c:if test="${i>0}">
-											<div class="control-group" id="pendidikanRow${i}">
-												<label class="control-label" for="pendidikan">Pendidikan</label>
-												<div class="controls">
-													<input type="hidden" class="input-large" name="pendidikan[]" value="${dtFormasi.pendidikan.kode}"
-														id="pendidikanValue${i}"> <input type="text"
-														class="input-large" name="pendidikanLabel[]" value="${dtFormasi.pendidikan.nama}"
-														id="pendidikanLabel${i}" onchange="validasiPendidikan(this)"> <input type="text"
-														class="input-mini" name="pendidikanJmlh[]" value="${dtFormasi.jumlah }"
-														id="pendidikanJmlh${i}" onChange="hitungUlang()">
-													<button id="btnDelPddkn" onClick="delPddkn(event, this)" class="btn btn-primary btn-small">X</button><span class="help-inline" style="display:none;color: #b94a48;">Something may have gone wrong</span>
+											</c:if>
+											<c:if test="${i>0}">
+												<div class="control-group" id="pendidikanRow${i}">
+													<label class="control-label" for="pendidikan">Pendidikan</label>
+													<div class="controls">
+														<input type="hidden" class="input-large"
+															name="pendidikan[]" value="${dtFormasi.pendidikan.kode}"
+															id="pendidikanValue${i}"> <input type="text"
+															class="input-large" name="pendidikanLabel[]"
+															value="${dtFormasi.pendidikan.nama}"
+															id="pendidikanLabel${i}"
+															onchange="validasiPendidikan(this)"> <input
+															type="text" class="input-mini" name="pendidikanJmlh[]"
+															value="${dtFormasi.jumlah }" id="pendidikanJmlh${i}"
+															onChange="hitungUlang()">
+														<button id="btnDelPddkn" onClick="delPddkn(event, this)"
+															class="btn btn-primary btn-small">X</button>
+														<span class="help-inline"
+															style="display: none; color: #b94a48;">Something
+															may have gone wrong</span>
+													</div>
 												</div>
-											</div>	
-										</c:if>
-										<c:set var="i" value="${i+1}"/>																
-										
-									</c:forEach>
-									<div class="control-group">
-										<label class="control-label" for="jumlah">Jumlah</label>
-										<div class="controls">
-											<input type="text" class="input-mini" name="jumlah"
-												id="jumlah" value="${formasi.jumlah }">
-										</div>
-									</div>
+											</c:if>
+											<c:set var="i" value="${i+1}" />
 
-									<div class="form-actions">
-										<button class="btn btn-primary btn-large" type="submit">Tambah</button>										
-										<!-- <button type="reset" class="btn btn-large">Reset</button>  -->
-									</div>
-								</fieldset>
-							</form>
-						</c:if>
-						<c:if test="${formasi == null}">	
-							<form action="/sscnServer/formasiSave.do" method="POST"
-								id="formasiForm" class="form-horizontal" novalidate="novalidate">
-								<fieldset>
-									<div class="control-group">
-										<label class="control-label" for="lokasi">Lokasi</label>
-										<div class="controls">
-											<input type="hidden" class="input-large" name="lokasi"
-												id="lokasiValue"> <input type="text"
-												class="input-large" name="lokasiLabel" id="lokasiLabel" onchange="validasiLokasi()"> <span class="help-inline" style="display:none;color: #b94a48;" id="lokasiAlert">Something may have gone wrong</span>
+										</c:forEach>
+										<div class="control-group">
+											<label class="control-label" for="jumlah">Jumlah</label>
+											<div class="controls">
+												<input type="text" class="input-mini" name="jumlah"
+													id="jumlah" value="${formasi.jumlah }">
+											</div>
 										</div>
-									</div>
-									<div class="control-group">
-										<label class="control-label" for="jabatan">Jabatan</label>
-										<div class="controls">
-											<input type="hidden" class="input-large" name="jabatan"
-												id="jabatanValue"> <input type="text"
-												class="input-large" name="jabatanLabel" id="jabatanLabel" onchange="validasiJabatan()"> <span class="help-inline" style="display:none;color: #b94a48;" id="jabatanAlert">Something may have gone wrong</span>
-										</div>
-									</div>
-									<div class="control-group" id="pendidikanRow">
-										<label class="control-label" for="pendidikan">Pendidikan</label>
-										<div class="controls">
-											<input type="hidden" class="input-large" name="pendidikan[]"
-												id="pendidikanValue"> <input type="text"
-												class="input-large" name="pendidikanLabel[]"
-												id="pendidikanLabel" onchange="validasiPendidikan(this)"> <input type="text"
-												class="input-mini" name="pendidikanJmlh[]"
-												id="pendidikanJmlh" onChange="hitungUlang()">
-											<button id="btnAddPddkn" class="btn btn-primary btn-small">Add</button><span class="help-inline" style="display:none;color: #b94a48;" id="pendidikanAlert">Something may have gone wrong</span>
-										</div>
-									</div>
-									<div class="control-group">
-										<label class="control-label" for="jumlah">Jumlah</label>
-										<div class="controls">
-											<input type="text" class="input-mini" name="jumlah"
-												id="jumlah" >
-										</div>
-									</div>
 
-									<div class="form-actions">
-										<button class="btn btn-primary btn-large" type="submit">Tambah</button>										
-										<!-- <button type="reset" class="btn btn-large">Reset</button>  -->
-									</div>
-								</fieldset>
-							</form>
+										<div class="form-actions">
+											<button class="btn btn-primary btn-large" type="submit">Tambah</button>
+											<!-- <button type="reset" class="btn btn-large">Reset</button>  -->
+										</div>
+									</fieldset>
+								</form>
+							</c:if>
+							<c:if test="${formasi == null}">
+								<form action="/sscnServer/formasiSave.do" method="POST"
+									id="formasiForm" class="form-horizontal"
+									novalidate="novalidate">
+									<fieldset>
+										<div class="control-group">
+											<label class="control-label" for="lokasi">Lokasi</label>
+											<div class="controls">
+												<input type="hidden" class="input-large" name="lokasi"
+													id="lokasiValue"> <input type="text"
+													class="input-large" name="lokasiLabel" id="lokasiLabel"
+													onchange="validasiLokasi()"> <span
+													class="help-inline" style="display: none; color: #b94a48;"
+													id="lokasiAlert">Something may have gone wrong</span>
+											</div>
+										</div>
+										<div class="control-group">
+											<label class="control-label" for="jabatan">Jabatan</label>
+											<div class="controls">
+												<input type="hidden" class="input-large" name="jabatan"
+													id="jabatanValue"> <input type="text"
+													class="input-large" name="jabatanLabel" id="jabatanLabel"
+													onchange="validasiJabatan()"> <span
+													class="help-inline" style="display: none; color: #b94a48;"
+													id="jabatanAlert">Something may have gone wrong</span>
+											</div>
+										</div>
+										<div class="control-group" id="pendidikanRow">
+											<label class="control-label" for="pendidikan">Pendidikan</label>
+											<div class="controls">
+												<input type="hidden" class="input-large" name="pendidikan[]"
+													id="pendidikanValue"> <input type="text"
+													class="input-large" name="pendidikanLabel[]"
+													id="pendidikanLabel" onchange="validasiPendidikan(this)">
+												<input type="text" class="input-mini"
+													name="pendidikanJmlh[]" id="pendidikanJmlh"
+													onChange="hitungUlang()">
+												<button id="btnAddPddkn" class="btn btn-primary btn-small">Add</button>
+												<span class="help-inline"
+													style="display: none; color: #b94a48;" id="pendidikanAlert">Something
+													may have gone wrong</span>
+											</div>
+										</div>
+										<div class="control-group">
+											<label class="control-label" for="jumlah">Jumlah</label>
+											<div class="controls">
+												<input type="text" class="input-mini" name="jumlah"
+													id="jumlah">
+											</div>
+										</div>
+
+										<div class="form-actions">
+											<button class="btn btn-primary btn-large" type="submit">Tambah</button>
+											<!-- <button type="reset" class="btn btn-large">Reset</button>  -->
+										</div>
+									</fieldset>
+								</form>
 							</c:if>
 						</div>
 						<!-- /widget-content -->
@@ -465,8 +498,9 @@
 
 	<div id="footer">
 
-		<div class="container">&copy; 2012 Propel UI, all rights
-			reserved.</div>
+		<div class="container">
+			Hak Cipta  &copy;  2013 Badan Kepegawaian Negara. Semua Hak Dilindungi.
+		</div>
 		<!-- /.container -->
 
 	</div>

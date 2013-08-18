@@ -87,12 +87,9 @@
 							</c:choose>
 							${userLogin.refInstansi.nama}  
 						</p>
-						<p>
-							<form action="gantiPassword.do" method="POST" name="formGantiPassword">
-								<input type="submit" value="Ganti Password" name="btnGantiPassword"/>
-							</form>
-							<form action="logout.do" method="POST" name="formLogout">
-								<input type="submit" value="logout" name="btnLogout"/>
+						<p>							
+							<form action="logout.do" method="POST" name="formLogout">								
+								<input class="btn btn-small btn-primary" type="submit" value="logout" name="btnLogout"/>
 							</form>
 						</p>
 					</div>
@@ -120,44 +117,40 @@
 			<div class="nav-collapse">
 
 				<ul class="nav">
+					<li class="nav-icon active"><a href="/sscnServer/dashboard.do">
+							<i class="icon-home"></i> <span>Home</span>
+					</a></li>
+					<c:if test="${userLogin.kewenangan != 3}">
+						<li class="dropdown"><a href="/sscnServer/user.do"> <i
+								class="icon-th"></i> User Management <b class="caret"></b>
+						</a></li>
 
-					<li class="nav-icon active"><a href="/sscnServer/dashboard.do"> <i
-							class="icon-home"></i> <span>Home</span> </a></li>
 
-					<li class="dropdown"><a href="/sscnServer/user.do"
-						class="dropdown-toggle"> <i class="icon-th"></i> User
-							Management <b class="caret"></b> </a></li>
-							<li class="dropdown"><a href="/sscnServer/lokasi.do"
-						class="dropdown-toggle"> <i class="icon-th"></i> Lokasi
-							Management <b class="caret"></b> </a></li>
+						<li class="dropdown"><a href="/sscnServer/lokasi.do"
+							class="dropdown-toggle"> <i class="icon-th"></i> Lokasi
+								Management <b class="caret"></b>
+						</a></li>
 
-					<li class="dropdown"><a href="/sscnServer/formasi.do"
-						class="dropdown-toggle"> <i class="icon-copy"></i> Formasi <b
-							class="caret"></b> </a></li>
+						<li class="dropdown"><a href="/sscnServer/syarat.do"
+							class="dropdown-toggle"> <i class="icon-copy"></i> Syarat
+								Pendaftaran <b class="caret"></b>
+						</a></li>
 
-					<li class="dropdown"><a href="javascript:;"
-						class="dropdown-toggle" data-toggle="dropdown"> <i
-							class="icon-external-link"></i> Verifikasi <b class="caret"></b>
-					</a>
+						<li class="dropdown"><a href="/sscnServer/formasi.do"
+							class="dropdown-toggle"> <i class="icon-copy"></i> Formasi <b
+								class="caret"></b>
+						</a></li>
 
-						<ul class="dropdown-menu">
-							<li><a href="login.html">Login</a></li>
-							<li><a href="signup.html">Signup</a></li>
-							<li><a href="error.html">Error</a></li>
-							<li class="dropdown"><a href="javascript:;"> Dropdown
-									Menu <i class="icon-chevron-right sub-menu-caret"></i> </a>
-
-								<ul class="dropdown-menu sub-menu">
-									<li><a href="javascript:;">Dropdown #1</a></li>
-									<li><a href="javascript:;">Dropdown #2</a></li>
-									<li><a href="javascript:;">Dropdown #3</a></li>
-									<li><a href="javascript:;">Dropdown #4</a></li>
-								</ul></li>
-						</ul></li>
-
-					<li class="dropdown"><a href="/sscnServer/pengumuman.do"
-						class="dropdown-toggle"> <i class="icon-copy"></i> Pengumuman <b
-							class="caret"></b> </a></li>
+						<li class="dropdown"><a href="/sscnServer/pengumuman.do"
+							class="dropdown-toggle"> <i class="icon-copy"></i> Pengumuman
+								<b class="caret"></b>
+						</a></li>
+					</c:if>
+					<li class="dropdown"><a href="/sscnServer/verifikasi.do"
+						class="dropdown-toggle"> <i class="icon-copy"></i> Verfikasi <b
+							class="caret"></b>
+					</a></li>
+					
 				</ul>
 			</div>
 			<!-- /.nav-collapse -->
@@ -176,9 +169,8 @@
 				<ul class="breadcrumb">
 					<li><a href="dashboard.do">Home</a><span class="divider">/</span>
 					</li>
-					<li><a href="#">User Management</a><span class="divider">/</span>
+					<li><a href="#">Verfikasi Pendaftaran</a>
 					</li>
-					<li class="active">List</li>
 				</ul>
 
 			</div>
@@ -191,7 +183,7 @@
 
 						<div class="widget-header">
 							<h3>
-								<i class="icon-th-list"></i> User Management
+								<i class="icon-th-list"></i> Verfikasi Pendaftaran
 							</h3>
 						</div>
 						<!-- /widget-header -->
@@ -276,8 +268,9 @@
 
 	<div id="footer">
 
-		<div class="container">&copy; 2012 Propel UI, all rights
-			reserved.</div>
+		<div class="container">
+			Hak Cipta  &copy;  2013 Badan Kepegawaian Negara. Semua Hak Dilindungi.
+		</div>
 		<!-- /.container -->
 
 	</div>

@@ -87,12 +87,9 @@
 							</c:choose>
 							${userLogin.refInstansi.nama}  
 						</p>
-						<p>
-							<form action="gantiPassword.do" method="POST" name="formGantiPassword">
-								<input type="submit" value="Ganti Password" name="btnGantiPassword"/>
-							</form>
+						<p>							
 							<form action="logout.do" method="POST" name="formLogout">
-								<input type="submit" value="logout" name="btnLogout"/>
+								<input class="btn btn-small btn-primary" type="submit" value="logout" name="btnLogout"/>
 							</form>
 						</p>
 					</div>
@@ -120,44 +117,40 @@
 			<div class="nav-collapse">
 
 				<ul class="nav">
+					<li class="nav-icon active"><a href="/sscnServer/dashboard.do">
+							<i class="icon-home"></i> <span>Home</span>
+					</a></li>
+					<c:if test="${userLogin.kewenangan != 3}">
+						<li class="dropdown"><a href="/sscnServer/user.do"> <i
+								class="icon-th"></i> User Management <b class="caret"></b>
+						</a></li>
 
-					<li class="nav-icon active"><a href="/sscnServer/dashboard.do"> <i
-							class="icon-home"></i> <span>Home</span> </a></li>
 
-					<li class="dropdown"><a href="/sscnServer/user.do"
-						class="dropdown-toggle"> <i class="icon-th"></i> User
-							Management <b class="caret"></b> </a></li>
-							<li class="dropdown"><a href="/sscnServer/lokasi.do"
-						class="dropdown-toggle"> <i class="icon-th"></i> Lokasi
-							Management <b class="caret"></b> </a></li>
+						<li class="dropdown"><a href="/sscnServer/lokasi.do"
+							class="dropdown-toggle"> <i class="icon-th"></i> Lokasi
+								Management <b class="caret"></b>
+						</a></li>
 
-					<li class="dropdown"><a href="/sscnServer/formasi.do"
-						class="dropdown-toggle"> <i class="icon-copy"></i> Formasi <b
-							class="caret"></b> </a></li>
+						<li class="dropdown"><a href="/sscnServer/syarat.do"
+							class="dropdown-toggle"> <i class="icon-copy"></i> Syarat
+								Pendaftaran <b class="caret"></b>
+						</a></li>
 
-					<li class="dropdown"><a href="javascript:;"
-						class="dropdown-toggle" data-toggle="dropdown"> <i
-							class="icon-external-link"></i> Verifikasi <b class="caret"></b>
-					</a>
+						<li class="dropdown"><a href="/sscnServer/formasi.do"
+							class="dropdown-toggle"> <i class="icon-copy"></i> Formasi <b
+								class="caret"></b>
+						</a></li>
 
-						<ul class="dropdown-menu">
-							<li><a href="login.html">Login</a></li>
-							<li><a href="signup.html">Signup</a></li>
-							<li><a href="error.html">Error</a></li>
-							<li class="dropdown"><a href="javascript:;"> Dropdown
-									Menu <i class="icon-chevron-right sub-menu-caret"></i> </a>
-
-								<ul class="dropdown-menu sub-menu">
-									<li><a href="javascript:;">Dropdown #1</a></li>
-									<li><a href="javascript:;">Dropdown #2</a></li>
-									<li><a href="javascript:;">Dropdown #3</a></li>
-									<li><a href="javascript:;">Dropdown #4</a></li>
-								</ul></li>
-						</ul></li>
-
-					<li class="dropdown"><a href="/sscnServer/pengumuman.do"
-						class="dropdown-toggle"> <i class="icon-copy"></i> Pengumuman <b
-							class="caret"></b> </a></li>
+						<li class="dropdown"><a href="/sscnServer/pengumuman.do"
+							class="dropdown-toggle"> <i class="icon-copy"></i> Pengumuman
+								<b class="caret"></b>
+						</a></li>
+					</c:if>
+					<li class="dropdown"><a href="/sscnServer/verifikasi.do"
+						class="dropdown-toggle"> <i class="icon-copy"></i> Verfikasi <b
+							class="caret"></b>
+					</a></li>
+					
 				</ul>
 			</div>
 			<!-- /.nav-collapse -->
@@ -243,9 +236,20 @@
 											<tr class="odd gradeX">
 												<td>${user.username}</td>
 												<td>${user.refInstansi.nama}</td>
-												<td>Administrator</td>
+												<c:choose>
+													<c:when test="${user.kewenangan == 1}">
+														<td>Administrator</td>
+														</c:when>
+													<c:when test="${user.kewenangan == 2}">
+														<td>Admin Instansi</td>
+													</c:when>
+													<c:otherwise>
+														<td>Verificator</td>	
+													</c:otherwise>								
+												</c:choose>
+												
 												<td><a href="#" onclick="prepareUbahForm(this,'${user.username }')"
-											class="btn btn-small btn-primary"><i class="icon-edit"></i>Edit</a> | <a href="#" onclick="confirmDelete(this,'${user.username}')"
+											class="btn btn-small btn-primary"><i class="icon-edit"></i>Edit</a> | <a href="#" onclick="confirmDelete(this,'${user.username}',${user.kewenangan})"
 											class="btn btn-small btn-primary"><i class="icon-remove"></i>Delete</a></td>
 											</tr>
 										</c:forEach>
@@ -290,8 +294,9 @@
 
 	<div id="footer">
 
-		<div class="container">&copy; 2012 Propel UI, all rights
-			reserved.</div>
+		<div class="container">
+			Hak Cipta  &copy;  2013 Badan Kepegawaian Negara. Semua Hak Dilindungi.
+		</div>
 		<!-- /.container -->
 
 	</div>
@@ -351,9 +356,19 @@
 						<label class="control-label" for="select01">Profile</label>
 						<div class="controls">
 							<select id="profile" name="profile">
-								<option value=1>Administrator</option>
-								<option value=2>Admin Instansi</option>
-								<option value=3>Verifikator</option>
+								<c:choose>
+									<c:when test="${userLogin.kewenangan == 1}">
+										<option value=1>Administrator</option>
+										<option value=2>Admin Instansi</option>
+										<option value=3>Verifikator</option>
+									</c:when>
+									<c:when test="${userLogin.kewenangan == 2}">
+										<option value=3>Verifikator</option>
+									</c:when>
+									<c:otherwise>
+										<option>NOT AVAILABLE</option>	
+									</c:otherwise>								
+								</c:choose>								
 							</select>
 						</div>
 					</div>
@@ -417,10 +432,20 @@
 						<label class="control-label" for="select01">Profile</label>
 						<div class="controls">
 							<select id="edprofile" name="profile">
-								<option value=1>Administrator</option>
-								<option value=2>Admin Instansi</option>
-								<option value=3>Verifikator</option>
-							</select>
+								<c:choose>
+									<c:when test="${userLogin.kewenangan == 1}">
+										<option value=1>Administrator</option>
+										<option value=2>Admin Instansi</option>
+										<option value=3>Verifikator</option>
+									</c:when>
+									<c:when test="${userLogin.kewenangan == 2}">
+										<option value=3>Verifikator</option>
+									</c:when>
+									<c:otherwise>
+										<option>NOT AVAILABLE</option>	
+									</c:otherwise>								
+								</c:choose>	
+							</select>							
 						</div>
 					</div>
 					
@@ -488,29 +513,49 @@
 			prepareUbahForm = function(elem, id) {
 				selRowTable = $(elem).closest('tr');
 				
-				$.ajax({
-				  type: "GET",
-				  url: "/sscnServer/getUser.do?username="+id,
-				  cache: false,
-				  success: function(data){
-					 
-					 $('#edusername').val(data.data.username);
-					 $('#edname').val(data.data.nama);
-					 $('#ednip').val(data.data.nip);
-					 $('#edinstansiValue').val(data.data.refInstansi.kode);
-					 $('#edinstansiLabel').val(data.data.refInstansi.nama);
-					 $("#edprofile").val(data.data.kewenangan);
-				     $("#myModal2").dialog("open");
-				  },
-				  dataType:"json"
-				});
-				
+					$.ajax({
+						  type: "GET",
+						  url: "/sscnServer/getUser.do?username="+id,
+						  cache: false,
+						  success: function(data){							 
+							 $('#edusername').val(data.data.username);
+							 $('#edname').val(data.data.nama);
+							 $('#ednip').val(data.data.nip);
+							 $('#edinstansiValue').val(data.data.refInstansi.kode);
+							 $('#edinstansiLabel').val(data.data.refInstansi.nama);
+							 $("#edprofile").val(data.data.kewenangan);
+							 if(${userLogin.kewenangan == 1}){								 
+									 $("#myModal2").dialog("open"); 
+							 }else if(${userLogin.kewenangan == 2}){
+								 if(data.data.kewenangan != 1){
+									 $("#myModal2").dialog("open");	 
+								 }else{
+									 alert("tidak bisa");	 
+								 }
+							}else{
+								alert("tidak bisa");
+							}						     
+						  },
+						  dataType:"json"
+						});								
+								
 			};
 
-			confirmDelete = function(elem, id) {
+			confirmDelete = function(elem, id, kewenangan) {
 				selRowTable = $(elem).closest('tr');
-				 $('#delusername').val(id);			
-				 $("#myModal3").dialog("open");				
+				 $('#delusername').val(id);		
+				 if(${userLogin.kewenangan == 1}){
+					 $("#myModal3").dialog("open");
+				 }else if(${userLogin.kewenangan == 2}){
+					if(kewenangan == 1){
+						alert("tidak bisa");
+					}else{
+						$("#myModal3").dialog("open");	
+					}	 
+				}else{
+					alert("tidak bisa");
+				}			 
+				 				
 			};
 
 			$("#formDeleteUser").submit(function(event) {
@@ -676,7 +721,7 @@
 					'<td>'+profile+'</td> '+
 					'<td><a href="#" onclick="prepareUbahForm(this,\''+data.username+'\')" '+
 				'class="btn btn-small btn-primary"><i class="icon-edit"></i>Edit</a> | <a href="#" '+
-				'class="btn btn-small btn-primary" confirmDelete(this,\''+data.username+'\')><i class="icon-remove"></i>Delete</a></td> '+
+				'class="btn btn-small btn-primary" confirmDelete(this,\''+data.username+'\,\''+data.kewenangan+'\')><i class="icon-remove"></i>Delete</a></td> '+
 				'</tr>';
 				
 				$(selRowTable).replaceWith(tesHtml);
@@ -755,7 +800,7 @@
 					}
 					var newRowHtml = '<tr class="odd gradeX"><td>'+ data.username+'</td><td>'+ data.refInstansi.nama +'</td><td>'+profile+'</td><td><a href="#" onclick="prepareUbahForm(this,\''+data.username+'\')" '+
 					'class="btn btn-small btn-primary"><i class="icon-edit"></i>Edit</a> | <a href="#" '+
-					'class="btn btn-small btn-primary" onclick="confirmDelete(this,\''+data.username+'\')"><i class="icon-remove"></i>Delete</a></td></tr>';
+					'class="btn btn-small btn-primary" onclick="confirmDelete(this,\''+data.username+'\','+data.kewenangan+')"><i class="icon-remove"></i>Delete</a></td></tr>';
 					row.innerHTML = newRowHtml;	
 				}
 				
