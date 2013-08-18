@@ -20,4 +20,6 @@ public interface UserService {
 	List<DtUser> findByProperty(String name, String value, int...idx);
 	
 	boolean changePassword(DtUser user, String password);
+	
+	boolean isSamePassword(String password, String currentPassword);
 }

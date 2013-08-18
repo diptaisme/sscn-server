@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.TypedQuery;
 
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -42,5 +43,23 @@ public class DtPendaftaranDaoImpl extends CoreDaoImpl<DtPendaftaran> implements 
 		
 		query.setParameter("refInstansiId", instansi.getKode());
 		return doQuery(query, idxAndCount);
+	}
+	
+	@Override
+	//public String getnoUrutPendaftaran(String tigaBelasDigitPertama) {
+	public String getnoUrutPendaftaran(String sebelasDigitPertama) {
+		StringBuilder sqlText = new StringBuilder(
+				"select  max(substr(NO_REGISTER,0,11)) from DT_PENDAFTARAN where NO_REGISTER LIKE '%"
+						+ sebelasDigitPertama + "'");
+
+		SQLQuery query = createSqlQuery(sqlText);
+		List<String> listResult = query.list();
+		if (listResult.size() == 0) {
+			return "";
+		} else {
+			String result = listResult.get(0);
+			System.out.println("ress" + result);
+			return result;
+		}
 	}
 }

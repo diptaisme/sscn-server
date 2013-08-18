@@ -7,6 +7,8 @@ import org.sscn.persistence.entities.RefLokasi;
 public interface LokasiService {
 
 	List<RefLokasi> findAllLokasi(int... idx);
+	
+	List<RefLokasi> findAllLokasiByInstansi(String kodeInstansi, int... idx);
 
 	List<RefLokasi> findLokasiByLikeName(String name);
 

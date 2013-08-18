@@ -1,11 +1,13 @@
 package org.sscn.services.impl;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 import javax.inject.Inject;
 
+import org.apache.commons.codec.DecoderException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -110,6 +112,18 @@ public class UserServiceImpl implements UserService {
 			ex.printStackTrace();
 			return false;
 		}
+	}
+
+	@Override
+	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
+	public boolean isSamePassword(String password, String currentPassword) {		
+		PasswordUtil passwordUtil = new PasswordUtil();
+		try {
+			return passwordUtil.isPasswordEqual(password, currentPassword);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}				
 	}
 
 }
