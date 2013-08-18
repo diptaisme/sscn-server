@@ -101,7 +101,7 @@ public class MFormasi implements java.io.Serializable {
 		this.jumlah = jumlah;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "MFormasi")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "formasi")
 	public Set<DtPendaftaran> getDtPendaftarans() {
 		return this.dtPendaftarans;
 	}
@@ -110,7 +110,7 @@ public class MFormasi implements java.io.Serializable {
 		this.dtPendaftarans = dtPendaftarans;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "MFormasi")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "formasi")
 	public Set<DtFormasi> getDtFormasis() {
 		return this.dtFormasis;
 	}

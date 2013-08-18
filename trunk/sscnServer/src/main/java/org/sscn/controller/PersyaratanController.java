@@ -115,8 +115,10 @@ public class PersyaratanController {
 			propertiesMap.put("refInstansi", user.getRefInstansi());			
 			syarat.setUser(user);
 			syarat.setRefInstansi(user.getRefInstansi());
-
-			if (syaratService.simpanPersyaratan(syarat) != null) {
+			DtPersyaratan resSyarat = syaratService.simpanPersyaratan(syarat); 	
+			if (resSyarat != null) {
+				resSyarat.setRefInstansi(null);
+				resSyarat.setUser(null);
 				res = new StandardJsonMessage(1, syarat, null, "Update Success");
 			} else {
 				res = new StandardJsonMessage(0, null, null, "Update Gagal");
