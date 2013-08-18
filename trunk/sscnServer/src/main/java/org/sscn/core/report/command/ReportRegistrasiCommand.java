@@ -2,6 +2,7 @@ package org.sscn.core.report.command;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -28,37 +29,26 @@ public class ReportRegistrasiCommand extends ReportCommand {
 	 */
 
 	private static final long serialVersionUID = -599742719308669945L;
-	
+
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException {
 		if (request.getParameter("formID") != null) {
 			// check form id dari form Pendaftaran web SSCN
 			if (request.getParameter("formID").equals("32063786011852")) {
-				System.out.println("instansi = "
-						+ request.getParameter("instansiValue"));
-				System.out.println("jabatan = "
-						+ request.getParameter("jabatan"));
-				System.out.println("lokasi_kerja = "
-						+ request.getParameter("lokasi_kerja"));
-				System.out.println("pendidikan = "
-						+ request.getParameter("pendidikan"));
 				try {
-					DtPendaftaran pendafataran = registrasiService
+					DtPendaftaran pendaftaran = registrasiService
 							.insertPendaftaran(request);
-					if (pendafataran == null) {
+					if (pendaftaran == null) {
 						cetakRegistrasiGagal(response);
 					} else {
 						// generate pdf :)
-						byte[] byteStream = null;
-						String instansi = "test saja kok";
 						try {
-							Map<String, Object> mapParamater = new HashMap<String, Object>();
-							mapParamater.put("INSTANSI_KODE", instansi);
+							Map<String, Object> mapParamater = generateParameterToReport(pendaftaran);
+
 							String baseDir = getBaseDirectory(request);
 							String fileName = baseDir
-									+ GeneralReportUtil
-											.getRptRegistrasi();
+									+ GeneralReportUtil.getRptRegistrasi();
 
 							List<Map<String, Object>> listResult = new ArrayList<Map<String, Object>>();
 							listResult.add(mapParamater);
@@ -115,6 +105,28 @@ public class ReportRegistrasiCommand extends ReportCommand {
 			throws IOException {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	private Map<String, Object> generateParameterToReport(
+			DtPendaftaran pendaftaran) {
+		Map<String, Object> mapParamater = new HashMap<String, Object>();
+		mapParamater.put("NO_REGISTRASI", pendaftaran.getNoRegister());
+		mapParamater.put("NAMA", pendaftaran.getNama());
+		String tempatLahir = pendaftaran.getTmpLahir();
+		SimpleDateFormat formatDateJava = new SimpleDateFormat("dd-MM-yyyy");
+		String tglLahir = formatDateJava.format(pendaftaran.getTglLahir());
+		mapParamater.put("TTL", tempatLahir + " / " + tglLahir);
+		mapParamater.put("NIK", pendaftaran.getNoNik());
+		mapParamater.put("UNIVERSITAS", pendaftaran.getLembaga());
+		mapParamater.put("PENDIDIKAN", pendaftaran.getPendidikan());
+		mapParamater.put("NO_IJAZAH", pendaftaran.getNoIjazah());
+		mapParamater.put("AKREDITAS", pendaftaran.getAkreditasi());
+		mapParamater.put("JABATAN", pendaftaran.getFormasi().getRefJabatan()
+				.getNama());
+		mapParamater.put("INSTANSI", pendaftaran.getFormasi().getRefInstansi()
+				.getNama());
+
+		return mapParamater;
 	}
 
 }

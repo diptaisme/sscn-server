@@ -3,8 +3,6 @@ package org.sscn.core.report.command;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -43,7 +41,6 @@ import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
-import org.sscn.core.report.GeneralReportUtil;
 
 /**
  * The Class ReportCommand.
@@ -764,21 +761,16 @@ public abstract class ReportCommand implements Serializable {
 	 * @return the input stream
 	 * 
 	 */
-	/*protected static InputStream loadDefaultLogo(HttpServletRequest request) {
-		InputStream logoStream = null;
-		// INSTANSI, USUL, JENISPENGADAAN, FORMASI, TAHUNANGGARAN, LOGO
-		try {
-			logoStream = new FileInputStream(request
-					.getSession()
-					.getServletContext()
-					.getRealPath(
-							"/WEB-INF" + GeneralReportUtil.PATH_TO_GARUDA_LOGO));
-		} catch (FileNotFoundException e) {
-			LOG.error("Default logo not found in "
-					+ GeneralReportUtil.PATH_TO_GARUDA_LOGO + ".", e.getCause());
-		}
-		return logoStream;
-	}*/
+	/*
+	 * protected static InputStream loadDefaultLogo(HttpServletRequest request)
+	 * { InputStream logoStream = null; // INSTANSI, USUL, JENISPENGADAAN,
+	 * FORMASI, TAHUNANGGARAN, LOGO try { logoStream = new
+	 * FileInputStream(request .getSession() .getServletContext() .getRealPath(
+	 * "/WEB-INF" + GeneralReportUtil.PATH_TO_GARUDA_LOGO)); } catch
+	 * (FileNotFoundException e) { LOG.error("Default logo not found in " +
+	 * GeneralReportUtil.PATH_TO_GARUDA_LOGO + ".", e.getCause()); } return
+	 * logoStream; }
+	 */
 
 	/**
 	 * Get base directory name.
