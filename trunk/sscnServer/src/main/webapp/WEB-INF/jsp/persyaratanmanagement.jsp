@@ -8,7 +8,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>SSCN | Persyaratan</title>
+<title>Administrasi Sistem Seleksi CPNS Nasional 2013</title>
 
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -59,7 +59,7 @@
 		<div class="container">
 
 			<h1>
-				<a href="default.htm">Slate Admin 2.0</a>
+				<a href="/sscnServer/dashboard.do">Administrasi SSCN 2013</a>
 			</h1>
 
 			<div id="info">
@@ -70,23 +70,28 @@
 				<div id="info-menu">
 
 					<div class="info-details">
-
-						<h4>Welcome back ${userLogin.nama}</h4>
-
-						<p>
-							Logged in as 
+						<h4>Selamat Datang ${userLogin.nama}</h4>
+						<p>							
+							Login sebagai <c:choose>
+								<c:when test="${userLogin.kewenangan == 1}">
+									Administrator
+								</c:when>
+								<c:when test="${userLogin.kewenangan == 2}">
+									Admin Instansi
+								</c:when>
+								<c:otherwise>
+									Verificator
+								</c:otherwise>								
+							</c:choose>
+							${userLogin.refInstansi.nama}  
 						</p>
-
+						<p>							
+							<form action="logout.do" method="POST" name="formLogout">
+								<input class="btn btn-small btn-primary" type="submit" value="logout" name="btnLogout"/>
+							</form>
+						</p>
 					</div>
 					<!-- /.info-details -->
-
-					<div class="info-avatar">
-
-						<img src="img/avatar.jpg" alt="avatar">
-
-					</div>
-					<!-- /.info-avatar -->
-
 				</div>
 				<!-- /#info-menu -->
 
@@ -109,60 +114,42 @@
 			<div class="nav-collapse">
 
 				<ul class="nav">
-
-					<li class="nav-icon active"><a href="index.html"> <i
-							class="icon-home"></i> <span>Home</span> </a></li>
-
-					<li class="dropdown"><a href="/sscnServer/user.do"
-						class="dropdown-toggle"> <i class="icon-th"></i> User
-							Management <b class="caret"></b> </a></li>
-							<li class="dropdown"><a href="/sscnServer/lokasi.do"
-						class="dropdown-toggle"> <i class="icon-th"></i> Lokasi
-							Management <b class="caret"></b> </a></li>
-
-					<li class="dropdown"><a href="/sscnServer/formasi.do"
-						class="dropdown-toggle"> <i class="icon-copy"></i> Formasi <b
-							class="caret"></b> </a></li>
-
-					<li class="dropdown"><a href="javascript:;"
-						class="dropdown-toggle" data-toggle="dropdown"> <i
-							class="icon-external-link"></i> Verifikasi <b class="caret"></b>
-					</a>
-
-						<ul class="dropdown-menu">
-							<li><a href="login.html">Login</a></li>
-							<li><a href="signup.html">Signup</a></li>
-							<li><a href="error.html">Error</a></li>
-							<li class="dropdown"><a href="javascript:;"> Dropdown
-									Menu <i class="icon-chevron-right sub-menu-caret"></i> </a>
-
-								<ul class="dropdown-menu sub-menu">
-									<li><a href="javascript:;">Dropdown #1</a></li>
-									<li><a href="javascript:;">Dropdown #2</a></li>
-									<li><a href="javascript:;">Dropdown #3</a></li>
-									<li><a href="javascript:;">Dropdown #4</a></li>
-								</ul></li>
-						</ul></li>
-
-					<li class="dropdown"><a href="javascript:;"
-						class="dropdown-toggle" data-toggle="dropdown"> <i
-							class="icon-external-link"></i> Pengumuman <b class="caret"></b>
+					<li class="nav-icon active"><a href="/sscnServer/dashboard.do">
+							<i class="icon-home"></i> <span>Home</span>
 					</a></li>
+					<c:if test="${userLogin.kewenangan != 3}">
+						<li class="dropdown"><a href="/sscnServer/user.do"> <i
+								class="icon-th"></i> User Management <b class="caret"></b>
+						</a></li>
+
+
+						<li class="dropdown"><a href="/sscnServer/lokasi.do"
+							class="dropdown-toggle"> <i class="icon-th"></i> Lokasi
+								Management <b class="caret"></b>
+						</a></li>
+
+						<li class="dropdown"><a href="/sscnServer/syarat.do"
+							class="dropdown-toggle"> <i class="icon-copy"></i> Syarat
+								Pendaftaran <b class="caret"></b>
+						</a></li>
+
+						<li class="dropdown"><a href="/sscnServer/formasi.do"
+							class="dropdown-toggle"> <i class="icon-copy"></i> Formasi <b
+								class="caret"></b>
+						</a></li>
+
+						<li class="dropdown"><a href="/sscnServer/pengumuman.do"
+							class="dropdown-toggle"> <i class="icon-copy"></i> Pengumuman
+								<b class="caret"></b>
+						</a></li>
+					</c:if>
+					<li class="dropdown"><a href="/sscnServer/verifikasi.do"
+						class="dropdown-toggle"> <i class="icon-copy"></i> Verfikasi <b
+							class="caret"></b>
+					</a></li>
+					
 				</ul>
-
-				<ul class="nav pull-right">
-
-					<li class="">
-						<form class="navbar-search pull-left">
-							<input type="text" class="search-query" placeholder="Search">
-							<button class="search-btn">
-								<i class="icon-search"></i>
-							</button>
-						</form></li>
-
-				</ul>
-
-			</div>
+							</div>
 			<!-- /.nav-collapse -->
 
 		</div>
@@ -177,7 +164,7 @@
 			<div id="page-title" class="clearfix">
 
 				<ul class="breadcrumb">
-					<li><a href="../../default.htm">Home</a><span class="divider">/</span>
+					<li><a href="/sscnServer/dashboard.do">Home</a><span class="divider">/</span>
 					</li>
 					<li><a href="#">Persyaratan</a><span class="divider">/</span>
 					</li>
@@ -185,6 +172,7 @@
 				</ul>
 
 			</div>
+
 			<!-- /.page-title -->
 
 			<div class="row">
@@ -291,8 +279,7 @@
 
 	<div id="footer">
 
-		<div class="container">&copy; 2012 Propel UI, all rights
-			reserved.</div>
+		<div class="container">Hak Cipta  &copy;  2013 Badan Kepegawaian Negara. Semua Hak Dilindungi.</div>
 		<!-- /.container -->
 
 	</div>
