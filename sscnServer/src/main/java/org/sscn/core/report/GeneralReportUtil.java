@@ -5,11 +5,9 @@ public class GeneralReportUtil {
 	private static String defaultDirectory = "/reports/";
 	/** The rpt Test. */
 	private static String rptTest = defaultDirectory + "rptTest.jasper";
-	// private static String rptRegistrasi = defaultDirectory
-	// + "rptPengumumanInstansi.jasper";
-
+	/** The rpt Registrasi. */
 	private static String rptRegistrasi = defaultDirectory
-			+ "rptRegistrasijasper";
+			+ "rptRegistrasi.jasper";
 
 	public static String getRptTest() {
 		return rptTest;
