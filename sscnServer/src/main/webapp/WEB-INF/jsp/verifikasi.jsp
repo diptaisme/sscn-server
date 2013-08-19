@@ -223,13 +223,15 @@
 										<c:forEach items="${pendaftars}" var="pendaftar">
 											<tr class="odd gradeX">
 												<td>${pendaftar.nama}</td>
-												<c:if test="${pendaftar.status == null}">
-													<td><a href="#" onclick="verifikasi(this,'${pendaftar.id }')"
-											class="btn btn-small btn-primary"><i class="icon-edit"></i>Verifikasi</a></td>
-												</c:if>
-												<c:if test="${pendaftar.status != null}">
-													<td>Sudah diverifikasi</td>
-												</c:if>
+												<c:choose>
+												    <c:when test="${pendaftar.status == null || pendaftar.status == ''}">
+														<td><a href="#" onclick="verifikasi(this,'${pendaftar.id }')"
+											class="btn btn-small btn-primary"><i class="icon-edit"></i>Verifikasi</a></td>        
+												    </c:when>
+												    <c:otherwise>
+														<td>Sudah diverifikasi</td>
+												    </c:otherwise>
+												</c:choose>
 												
 											</tr>
 										</c:forEach>
@@ -380,8 +382,9 @@
 			      });
 
 				function refresh(){
-						var tesHtml = '';
-						$(selRowTable).replaceWith(tesHtml);
+						var tesHtml = '<td>Sudah diverifikasi</td>';
+						var lasttd = $(selRowTable).find('td:last-child');
+						lasttd.replaceWith(tesHtml);
 				}
 					         
 			});
