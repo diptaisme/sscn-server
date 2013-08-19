@@ -223,8 +223,14 @@
 										<c:forEach items="${pendaftars}" var="pendaftar">
 											<tr class="odd gradeX">
 												<td>${pendaftar.nama}</td>
-												<td><a href="#" onclick="verifikasi(this,'${pendaftar.id }')"
+												<c:if test="${pendaftar.status == null}">
+													<td><a href="#" onclick="verifikasi(this,'${pendaftar.id }')"
 											class="btn btn-small btn-primary"><i class="icon-edit"></i>Verifikasi</a></td>
+												</c:if>
+												<c:if test="${pendaftar.status != null}">
+													<td>Sudah diverifikasi</td>
+												</c:if>
+												
 											</tr>
 										</c:forEach>
 									</tbody>
