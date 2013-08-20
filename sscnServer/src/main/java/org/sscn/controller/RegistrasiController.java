@@ -20,6 +20,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.sscn.model.json.JabatanJson;
+import org.sscn.model.json.LokasiJson;
+import org.sscn.model.json.PendidikanJson;
 import org.sscn.persistence.entities.DtPendaftaran;
 import org.sscn.persistence.entities.MFormasi;
 import org.sscn.persistence.entities.RefInstansi;
@@ -133,20 +136,37 @@ public class RegistrasiController {
 
 	@RequestMapping(value = "/cb_lokasi_by_instansi.do", method = RequestMethod.GET)
 	@ResponseBody
-	public Map<String, List<RefLokasi>> getLokasis(
+	public Map<String, List<LokasiJson>> getLokasis(
 			@RequestParam("instansi") String instansi) {
 
 		List<RefLokasi> lokasis = registrasiService.getLokasi(instansi);
-		List<RefLokasi> newLokasis = new ArrayList<RefLokasi>();
+		List<LokasiJson> newLokasis = new ArrayList<LokasiJson>();
 		for (RefLokasi lokasi : lokasis) {
-			lokasi.setRefInstansi(null);
-			newLokasis.add(lokasi);
+			// lokasi.setRefInstansi(null);http://localhost:8080/sscnServer/dashboard.dohttp://localhost:8080/sscnServer/dashboard.do
+			newLokasis.add(new LokasiJson(lokasi.getKode(), lokasi.getNama()));
 		}
-		Map<String, List<RefLokasi>> lokasiMap = new HashMap<String, List<RefLokasi>>();
+		Map<String, List<LokasiJson>> lokasiMap = new HashMap<String, List<LokasiJson>>();
 		lokasiMap.put("lokasis", newLokasis);
 
 		return lokasiMap;
 	}
+
+	/*
+	 * @RequestMapping(value = "/cb_lokasi_by_instansi.do", method =
+	 * RequestMethod.GET)
+	 * 
+	 * @ResponseBody public Map<String, List<RefLokasi>> getLokasis(
+	 * 
+	 * @RequestParam("instansi") String instansi) {
+	 * 
+	 * List<RefLokasi> lokasis = registrasiService.getLokasi(instansi);
+	 * List<RefLokasi> newLokasis = new ArrayList<RefLokasi>(); for (RefLokasi
+	 * lokasi : lokasis) { lokasi.setRefInstansi(null); newLokasis.add(lokasi);
+	 * } Map<String, List<RefLokasi>> lokasiMap = new HashMap<String,
+	 * List<RefLokasi>>(); lokasiMap.put("lokasis", newLokasis);
+	 * 
+	 * return lokasiMap; }
+	 */
 
 	/*
 	 * @RequestMapping(value = "/cb_lokasi_by_instansi.do", method =
@@ -165,20 +185,41 @@ public class RegistrasiController {
 	 * objectMapper.writeValueAsString(new JSONPObject(callBack, lokasiMap)); }
 	 */
 
+	/*
+	 * @RequestMapping(value = "/cb_jabatan_by_instansi_lokasi.do", method =
+	 * RequestMethod.GET)
+	 * 
+	 * @ResponseBody public Map<String, List<RefJabatan>> getJabatans(
+	 * 
+	 * @RequestParam("instansi") String instansi,
+	 * 
+	 * @RequestParam("lokasi") String lokasi) {
+	 * 
+	 * List<RefJabatan> jabatans = registrasiService.getJabatan(instansi,
+	 * lokasi); Map<String, List<RefJabatan>> lokasiMap = new HashMap<String,
+	 * List<RefJabatan>>(); lokasiMap.put("jabatans", jabatans); return
+	 * lokasiMap; }
+	 */
+
 	@RequestMapping(value = "/cb_jabatan_by_instansi_lokasi.do", method = RequestMethod.GET)
 	@ResponseBody
-	public Map<String, List<RefJabatan>> getJabatans(
+	public Map<String, List<JabatanJson>> getJabatans(
 			@RequestParam("instansi") String instansi,
 			@RequestParam("lokasi") String lokasi) {
 
 		List<RefJabatan> jabatans = registrasiService.getJabatan(instansi,
 				lokasi);
-		Map<String, List<RefJabatan>> lokasiMap = new HashMap<String, List<RefJabatan>>();
-		lokasiMap.put("jabatans", jabatans);
+		List<JabatanJson> newJabatans = new ArrayList<JabatanJson>();
+		for (RefJabatan jabatan : jabatans) {
+			newJabatans.add(new JabatanJson(jabatan.getKode(), jabatan
+					.getNama()));
+		}
+		Map<String, List<JabatanJson>> lokasiMap = new HashMap<String, List<JabatanJson>>();
+		lokasiMap.put("jabatans", newJabatans);
 		return lokasiMap;
 	}
 
-	@RequestMapping(value = "/cb_pendidikan_by_instansi_lokasi_jabatan.do", method = RequestMethod.GET)
+	/*@RequestMapping(value = "/cb_pendidikan_by_instansi_lokasi_jabatan.do", method = RequestMethod.GET)
 	@ResponseBody
 	public Map<String, List<RefPendidikan>> getPendidikans(
 			@RequestParam("instansi") String instansi,
@@ -190,6 +231,25 @@ public class RegistrasiController {
 		Map<String, List<RefPendidikan>> pendidikanMap = new HashMap<String, List<RefPendidikan>>();
 		pendidikanMap.put("pendidikans", pendidikans);
 		return pendidikanMap;
+	}*/
+	@RequestMapping(value = "/cb_pendidikan_by_instansi_lokasi_jabatan.do", method = RequestMethod.GET)
+	@ResponseBody
+	public Map<String, List<PendidikanJson>> getPendidikans(
+			@RequestParam("instansi") String instansi,
+			@RequestParam("lokasi") String lokasi,
+			@RequestParam("jabatan") String jabatan) {
+
+		List<RefPendidikan> pendidikans = registrasiService.getPendidikan(
+				instansi, lokasi, jabatan);
+		List<PendidikanJson> newPendidikans = new ArrayList<PendidikanJson>();
+		for (RefPendidikan pendidikan : pendidikans) {
+			newPendidikans.add(new PendidikanJson(pendidikan.getKode(), pendidikan
+					.getNama(), pendidikan.getTingkat()));
+		}
+		Map<String, List<PendidikanJson>> pendidikanMap = new HashMap<String, List<PendidikanJson>>();
+		pendidikanMap.put("pendidikans", newPendidikans);
+		return pendidikanMap;
 	}
+
 
 }

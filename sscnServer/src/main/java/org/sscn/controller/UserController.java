@@ -31,7 +31,13 @@ public class UserController {
 			return "login";
 		}
 
-		List<DtUser> users = userService.getAllUser(null);
+		List<DtUser> users = null;
+		if(user.getKewenangan().equals("1")){
+			users = userService.getAllUser(null);
+		}else{
+			users = userService.getAllUserByInstansi(user.getRefInstansi().getKode(),null);
+		}
+		
 		model.addAttribute("users", users);
 
 		return "usermanagement";
@@ -67,6 +73,10 @@ public class UserController {
 			user.setNipAdmin(userLogin.getNip());
 
 			if (userService.addUser(user, instansiKd)) {
+				RefInstansi pInstansi = new RefInstansi();
+				pInstansi.setKode(user.getRefInstansi().getKode());
+				pInstansi.setNama(user.getRefInstansi().getNama());
+				user.setRefInstansi(pInstansi);
 				res = new StandardJsonMessage(1, user, null, "Save Success");
 			} else {
 				res = new StandardJsonMessage(0, null, null, "Save Gagal");

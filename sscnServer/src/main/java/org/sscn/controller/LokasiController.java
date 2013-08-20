@@ -1,5 +1,6 @@
 package org.sscn.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -49,6 +50,9 @@ public class LokasiController {
 		ObjectMapper objectMapper = new ObjectMapper();
 
 		List<RefLokasi> lokasis = lokasiService.findLokasiByLikeName(name);
+		for(int i=0;i<lokasis.size();i++){
+			lokasis.get(i).setRefInstansi(null);
+		}
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap.put("lokasis", lokasis);
 
@@ -75,6 +79,10 @@ public class LokasiController {
 		try {
 			lokasi = lokasiService.save(kode, name, instansiKd);
 			if (lokasi != null) {
+				RefInstansi pInstansi = new RefInstansi();
+				pInstansi.setKode(lokasi.getRefInstansi().getKode());
+				pInstansi.setNama(lokasi.getRefInstansi().getNama());
+				lokasi.setRefInstansi(pInstansi);
 				res = new StandardJsonMessage(1, lokasi, null, "Save Success");
 			} else {
 				res = new StandardJsonMessage(0, null, null, "Save Gagal");
