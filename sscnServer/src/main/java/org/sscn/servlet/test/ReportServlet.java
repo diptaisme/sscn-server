@@ -26,8 +26,7 @@ public class ReportServlet extends HttpServlet {
 	/** The application context. */
 	private ApplicationContext applicationContext;
 
-	public void setApplicationContext(
-			ApplicationContext currentApplicationContext) {
+	public void setApplicationContext(ApplicationContext currentApplicationContext) {
 		applicationContext = currentApplicationContext;
 	}
 
@@ -40,13 +39,13 @@ public class ReportServlet extends HttpServlet {
 	@Override
 	public void init() throws ServletException {
 		setApplicationContext(WebApplicationContextUtils
-				.getRequiredWebApplicationContext(this.getServletContext()));
+		        .getRequiredWebApplicationContext(this.getServletContext()));
 	}
 
 	@Override
-	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub -> untuk cek session nanti		
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+	        throws ServletException, IOException {
+		// TODO Auto-generated method stub -> untuk cek session nanti
 		/*
 		 * HttpSession session = request.getSession(); FlexSession sessionFlex =
 		 * FlexContext.getFlexSession(); if (session.getAttribute("user") ==
@@ -59,30 +58,49 @@ public class ReportServlet extends HttpServlet {
 		 */
 		ReportCommand reportCommand = null;
 		String reportType = request.getParameter("typeReport");
-		reportCommand = GeneralReportFactory.getReportCommand(reportType);
-		Class<? extends ReportCommand>[] clazzez = ClassUtils
-				.toClass(new Object[] { reportCommand });
-		Class<? extends ReportCommand> clazz = clazzez[0];
-		// This creates/instantiates the bean injecting the properties marked
-		// for injection
-		reportCommand = (ReportCommand) applicationContext
-				.getAutowireCapableBeanFactory().createBean(clazz,
-						AutowireCapableBeanFactory.AUTOWIRE_BY_NAME, false);
-		if (reportCommand == null) {
-			printException(response, reportType);
-			return;
-		}
-		try {
-			reportCommand.execute(request, response);
-		} catch (ReportException e) {
-			printException(response, e);
+		// cek reportType untuk menghindari direct akses ke /ReportServlet
+		if (reportType != null) {
+			reportCommand = GeneralReportFactory.getReportCommand(reportType);
+			Class<? extends ReportCommand>[] clazzez = ClassUtils
+			        .toClass(new Object[] { reportCommand });
+			Class<? extends ReportCommand> clazz = clazzez[0];
+			// This creates/instantiates the bean injecting the properties
+			// marked
+			// for injection
+			reportCommand = (ReportCommand) applicationContext
+			        .getAutowireCapableBeanFactory().createBean(clazz,
+			                AutowireCapableBeanFactory.AUTOWIRE_BY_NAME, false);
+			if (reportCommand == null) {
+				printException(response, reportType);
+				return;
+			}
+			try {
+				reportCommand.execute(request, response);
+			} catch (ReportException e) {
+				printException(response, e);
+			}
+		} else {
+			printIllegalAkses(response);
 		}
 	}
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
+	        throws ServletException, IOException {
 		doPost(req, resp);
+	}
+
+	public void printIllegalAkses(HttpServletResponse response) throws IOException {
+		ServletOutputStream servletOutputStream = response.getOutputStream();
+		servletOutputStream.print("<html>");
+		servletOutputStream.print("<header>");
+		servletOutputStream.print("</header>");
+		servletOutputStream.print("<body>");
+		servletOutputStream.print("Error: Illegal Akses...");
+		servletOutputStream.print("</body>");
+		servletOutputStream.print("</html>");
+		servletOutputStream.flush();
+		servletOutputStream.close();
 	}
 
 	/**
@@ -97,14 +115,14 @@ public class ReportServlet extends HttpServlet {
 	 *             Signals that an I/O exception has occurred.
 	 */
 	public void printException(HttpServletResponse response, String reportType)
-			throws IOException {
+	        throws IOException {
 		ServletOutputStream servletOutputStream = response.getOutputStream();
 		servletOutputStream.print("<html>");
 		servletOutputStream.print("<header>");
 		servletOutputStream.print("</header>");
 		servletOutputStream.print("<body>");
 		servletOutputStream.print("	Mohon maaf, Laporan " + reportType
-				+ " tidak ditemukan!");
+		        + " tidak ditemukan!");
 		servletOutputStream.print("</body>");
 		servletOutputStream.print("</html>");
 		servletOutputStream.flush();
@@ -123,7 +141,7 @@ public class ReportServlet extends HttpServlet {
 	 *             Signals that an I/O exception has occurred.
 	 */
 	public void printException(HttpServletResponse response, Exception e)
-			throws IOException {
+	        throws IOException {
 		ServletOutputStream servletOutputStream = response.getOutputStream();
 		servletOutputStream.print("<html>");
 		servletOutputStream.print("<header>");
