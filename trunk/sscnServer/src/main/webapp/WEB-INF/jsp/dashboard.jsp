@@ -84,7 +84,7 @@
 											/* Send the data using post */
 											var posting = $
 													.post(
-															"http://localhost:8080/sscnServer/userChangePassword.do",
+															"/sscnServer/userChangePassword.do",
 															term, "json");
 
 											/* Put the results in a div */

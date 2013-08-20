@@ -581,7 +581,7 @@
 					  		}
 
 					  		if (data.result == -1){
-						  		window.location = "http://localhost/sscnServer/login.do";
+						  		window.location = "/sscnServer/login.do";
 						  	}
 					  });
 					  
