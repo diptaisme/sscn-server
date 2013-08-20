@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -181,10 +182,9 @@ public class RegistrasiServiceImpl implements RegistrasiService {
 			int y = noNik.length() % 2 > 7 ? 0 : 1;
 			String noPeserta = "" + x + minute + "0" + day + y + second; // random
 																			// example
-			String noRegister = "" + y + day + minute + x + second; // random
-																	// example
+	
 
-			// String noRegister= generateNoRegistrasi(instansi, jabatan);
+			String noRegister= generateNoRegistrasi();
 			if (noPeserta.length() > 10) {
 				noPeserta = noPeserta.substring(0, 10);
 			}
@@ -211,18 +211,13 @@ public class RegistrasiServiceImpl implements RegistrasiService {
 	// tanpa tingkat pendidikan dulu
 	// private String generateNoRegistrasi(String kodeInstansi, String
 	// tingkatPendidikan, String kodeJabatan){
-	private String generateNoRegistrasi(String kodeInstansi, String kodeJabatan) {
-		String result = "";
-		String noUrut = "";
-
-		String max = dtPendaftaranDao.getnoUrutPendaftaran(result);
-		if (max.equals("")) {
-			noUrut = "000001";
-		} else {
-			int maxInt = Integer.parseInt(max);
-			noUrut = "00000" + (++maxInt);
+	private String generateNoRegistrasi() {
+		Random r = new Random(System.nanoTime());
+		long resut = 1000000000 + r.nextInt(2000000000);
+		if (resut < 0) {
+			resut = resut * -1;
 		}
-		result = kodeInstansi + kodeJabatan + noUrut;
-		return result;
+		Long finalResult = Long.valueOf(resut);
+		return finalResult.toString();
 	}
 }
