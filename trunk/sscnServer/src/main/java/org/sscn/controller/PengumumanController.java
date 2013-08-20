@@ -1,5 +1,6 @@
 package org.sscn.controller;
 
+import java.util.ArrayList;
 import java.util.Formatter;
 import java.util.HashMap;
 import java.util.List;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
+import org.sscn.model.json.InstansiJson;
 import org.sscn.persistence.entities.DtPengumuman;
 import org.sscn.persistence.entities.DtUser;
 import org.sscn.persistence.entities.RefInstansi;
@@ -38,10 +40,15 @@ public class PengumumanController implements HandlerExceptionResolver {
 	
 	@RequestMapping(value = "/cb_instansi.do", method = RequestMethod.GET)
 	@ResponseBody
-	public Map<String, List<RefInstansi>> getInstansis() {
+	public Map<String, List<InstansiJson>> getInstansis() {
 		List<RefInstansi> instansis = pengumumanService.getInstansi(null);
-		Map<String, List<RefInstansi>> instansiMap = new HashMap<String, List<RefInstansi>>();
-		instansiMap.put("instansis", instansis);
+		List<InstansiJson> newInstansis = new ArrayList<InstansiJson>();
+		for(RefInstansi instansi:instansis){
+			newInstansis.add(new InstansiJson(instansi.getKode(), instansi.getNama()));			
+		}
+		
+		Map<String, List<InstansiJson>> instansiMap = new HashMap<String, List<InstansiJson>>();
+		instansiMap.put("instansis", newInstansis);
 		return instansiMap;
 	}
 
