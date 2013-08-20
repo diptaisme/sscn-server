@@ -124,7 +124,7 @@ public class DtPendaftaran implements java.io.Serializable {
 		this.noNik = noNik;
 	}
 
-	@Column(name = "NO_REGISTER", unique = true, nullable = false, length = 19)
+	@Column(name = "NO_REGISTER", unique = true, nullable = false, length = 10)
 	public String getNoRegister() {
 		return this.noRegister;
 	}
@@ -269,7 +269,7 @@ public class DtPendaftaran implements java.io.Serializable {
 		this.regStatus = regStatus;
 	}
 
-	@Column(name = "NO_PESERTA", nullable = false, length = 10)
+	@Column(name = "NO_PESERTA", nullable = false, length = 11)
 	public String getNoPeserta() {
 		return this.noPeserta;
 	}
