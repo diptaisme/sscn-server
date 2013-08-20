@@ -7,6 +7,8 @@ import org.sscn.persistence.entities.DtUser;
 public interface UserService {
 	
 	List<DtUser> getAllUser(int... idx);
+	
+	List<DtUser> getAllUserByInstansi(String kodeInstansi, int... idx);
 
 	boolean editUser(DtUser user, String kodeInstansi);
 	
