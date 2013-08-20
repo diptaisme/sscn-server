@@ -360,8 +360,7 @@
 				<div class="form-actions">
 					<button type="submit" class="btn btn-primary btn-large">
 						Save changes</button>
-					<button class="btn btn-large" id="btnCancelFAddLokasi">
-						Cancel</button>
+					
 				</div>
 			</fieldset>
 		</form>
@@ -398,8 +397,7 @@
 				<div class="form-actions">
 					<button type="submit" class="btn btn-primary btn-large">
 						Save changes</button>
-					<button class="btn btn-large" id="btnCancelFEditLokasi">
-						Cancel</button>
+					
 				</div>
 			</fieldset>
 		</form>
@@ -419,8 +417,7 @@
 				<div class="form-actions">
 					<button type="submit" class="btn btn-primary btn-large">
 						Ya</button>
-					<button class="btn btn-large" id="btnCancelFDeleteLokasi">
-						Tidak</button>
+					
 				</div>
 			</fieldset>
 		</form>
@@ -521,7 +518,7 @@
 																				"close");
 																$('#delkode')
 																		.val('');
-
+																alert(data.message);
 																refreshDeleteTable();
 																return false;
 															}
@@ -541,19 +538,11 @@
 								var tesHtml = '';
 
 								$(selRowTable).replaceWith(tesHtml);
-							}
-
-							$('#btnCancelFDeleteLokasi').click(function() {
-								$("#myModal3").dialog("close");
-							});
+							}							
 
 							$('#addLokasiModal').click(function() {
 								$("#myModal").dialog("open");
-							});
-
-							$('#btnCancelFAddLokasi').click(function() {
-								$("#myModal").dialog("close");
-							});
+							});							
 
 							$("#formUbahLokasi")
 									.submit(
@@ -598,7 +587,7 @@
 																		.val('');
 																$('#ednama')
 																		.val('');
-																//alert(data.message);
+																alert(data.message);
 																refreshUpdateTable(data.data);
 																return false;
 															}
@@ -667,7 +656,7 @@
 												/* Send the data using post */
 												var posting = $
 														.post(
-																"http://localhost:8080/sscnServer/lokasiSave.do",
+																"/sscnServer/lokasiSave.do",
 																term, "json");
 
 												/* Put the results in a div */

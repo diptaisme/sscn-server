@@ -1,7 +1,7 @@
-<%@page language="java" session="true" %>
+<%@page language="java" session="true"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <c:set var="userLogin" value="${sessionScope.userLogin}" />
 
 <!DOCTYPE html>
@@ -16,18 +16,25 @@
 
 <!-- Styles -->
 <link href="/sscnServer/resources/css/bootstrap.css" rel="stylesheet">
-<link href="/sscnServer/resources/css/bootstrap-responsive.css" rel="stylesheet">
-<link href="/sscnServer/resources/css/bootstrap-overrides.css" rel="stylesheet">
+<link href="/sscnServer/resources/css/bootstrap-responsive.css"
+	rel="stylesheet">
+<link href="/sscnServer/resources/css/bootstrap-overrides.css"
+	rel="stylesheet">
 
-<link href="/sscnServer/resources/css/ui-lightness/jquery.ui.all.css" rel="stylesheet">
+<link href="/sscnServer/resources/css/ui-lightness/jquery.ui.all.css"
+	rel="stylesheet">
 <!--<link href="css/ui-lightness/jquery.ui.dialog.css" rel="stylesheet">
 		<link href="css/ui-lightness/jquery.ui.resizable.css" rel="stylesheet">-->
-<link href="/sscnServer/resources/js/plugins/datatables/DT_bootstrap.css" rel="stylesheet">
-<link href="/sscnServer/resources/js/plugins/responsive-tables/responsive-tables.css"
+<link
+	href="/sscnServer/resources/js/plugins/datatables/DT_bootstrap.css"
+	rel="stylesheet">
+<link
+	href="/sscnServer/resources/js/plugins/responsive-tables/responsive-tables.css"
 	rel="stylesheet">
 
 <link href="/sscnServer/resources/css/slate.css" rel="stylesheet">
-<link href="/sscnServer/resources/css/slate-responsive.css" rel="stylesheet">
+<link href="/sscnServer/resources/css/slate-responsive.css"
+	rel="stylesheet">
 
 <!-- Javascript -->
 <script src="/sscnServer/resources/js/jquery-1.7.2.min.js"></script>
@@ -39,9 +46,12 @@
 <script src="/sscnServer/resources/js/jquery.ui.touch-punch.min.js"></script>
 <script src="/sscnServer/resources/js/bootstrap.js"></script>
 
-<script src="/sscnServer/resources/js/plugins/datatables/jquery.dataTables.js"></script>
-<script src="/sscnServer/resources/js/plugins/datatables/DT_bootstrap.js"></script>
-<script src="/sscnServer/resources/js/plugins/responsive-tables/responsive-tables.js"></script>
+<script
+	src="/sscnServer/resources/js/plugins/datatables/jquery.dataTables.js"></script>
+<script
+	src="/sscnServer/resources/js/plugins/datatables/DT_bootstrap.js"></script>
+<script
+	src="/sscnServer/resources/js/plugins/responsive-tables/responsive-tables.js"></script>
 
 <script src="/sscnServer/resources/js/Slate.js"></script>
 
@@ -73,8 +83,9 @@
 
 					<div class="info-details">
 						<h4>Selamat Datang ${userLogin.nama}</h4>
-						<p>							
-							Login sebagai <c:choose>
+						<p>
+							Login sebagai
+							<c:choose>
 								<c:when test="${userLogin.kewenangan == 1}">
 									Administrator
 								</c:when>
@@ -83,14 +94,15 @@
 								</c:when>
 								<c:otherwise>
 									Verificator
-								</c:otherwise>								
+								</c:otherwise>
 							</c:choose>
-							${userLogin.refInstansi.nama}  
+							${userLogin.refInstansi.nama}
 						</p>
-						<p>							
-							<form action="logout.do" method="POST" name="formLogout">
-								<input class="btn btn-small btn-primary" type="submit" value="logout" name="btnLogout"/>
-							</form>
+						<p>
+						<form action="logout.do" method="POST" name="formLogout">
+							<input class="btn btn-small btn-primary" type="submit"
+								value="logout" name="btnLogout" />
+						</form>
 						</p>
 					</div>
 					<!-- /.info-details -->
@@ -112,7 +124,8 @@
 		<div class="container">
 
 			<a href="javascript:;" class="btn-navbar" data-toggle="collapse"
-				data-target=".nav-collapse"> <i class="icon-reorder"></i> </a>
+				data-target=".nav-collapse"> <i class="icon-reorder"></i>
+			</a>
 
 			<div class="nav-collapse">
 
@@ -150,7 +163,7 @@
 						class="dropdown-toggle"> <i class="icon-copy"></i> Verfikasi <b
 							class="caret"></b>
 					</a></li>
-					
+
 				</ul>
 			</div>
 			<!-- /.nav-collapse -->
@@ -201,13 +214,15 @@
 													<option value="25">25</option>
 													<option value="50">50</option>
 													<option value="100">100</option>
-											</select> records per page</label>
+											</select> records per page
+											</label>
 										</div>
 									</div>
 									<div class="span6">
 										<div class="dataTables_filter">
 											<label>Search: <input type="text"
-												aria-controls="example"> </label>
+												aria-controls="example">
+											</label>
 										</div>
 									</div>
 								</div>
@@ -222,35 +237,44 @@
 									</div>
 								</div>
 								<table
-									class="table table-striped table-bordered table-highlight" id="myTable">
+									class="table table-striped table-bordered table-highlight"
+									id="myTable">
 									<thead>
 										<tr>
 											<th>Username</th>
+											<th>NIP</th>
+											<th>Nama</th>
 											<th>Instansi</th>
 											<th>Profile</th>
 											<th>Action(s)</th>
 										</tr>
 									</thead>
-									<tbody>										
+									<tbody>
 										<c:forEach items="${users}" var="user">
 											<tr class="odd gradeX">
 												<td>${user.username}</td>
+												<td>${user.nip}</td>
+												<td>${user.nama}</td>
 												<td>${user.refInstansi.nama}</td>
 												<c:choose>
 													<c:when test="${user.kewenangan == 1}">
 														<td>Administrator</td>
-														</c:when>
+													</c:when>
 													<c:when test="${user.kewenangan == 2}">
 														<td>Admin Instansi</td>
 													</c:when>
 													<c:otherwise>
-														<td>Verificator</td>	
-													</c:otherwise>								
+														<td>Verificator</td>
+													</c:otherwise>
 												</c:choose>
-												
-												<td><a href="#" onclick="prepareUbahForm(this,'${user.username }')"
-											class="btn btn-small btn-primary"><i class="icon-edit"></i>Edit</a> | <a href="#" onclick="confirmDelete(this,'${user.username}',${user.kewenangan})"
-											class="btn btn-small btn-primary"><i class="icon-remove"></i>Delete</a></td>
+
+												<td><a href="#"
+													onclick="prepareUbahForm(this,'${user.username }',${user.kewenangan})"
+													class="btn btn-small btn-primary"><i class="icon-edit"></i>Edit</a>
+													| <a href="#"
+													onclick="confirmDelete(this,'${user.username}',${user.kewenangan})"
+													class="btn btn-small btn-primary"><i
+														class="icon-remove"></i>Delete</a></td>
 											</tr>
 										</c:forEach>
 									</tbody>
@@ -294,9 +318,8 @@
 
 	<div id="footer">
 
-		<div class="container">
-			Hak Cipta  &copy;  2013 Badan Kepegawaian Negara. Semua Hak Dilindungi.
-		</div>
+		<div class="container">Hak Cipta &copy; 2013 Badan Kepegawaian
+			Negara. Semua Hak Dilindungi.</div>
 		<!-- /.container -->
 
 	</div>
@@ -304,185 +327,214 @@
 
 	<div id="myModal" title="Create new user">
 		<p class="validateTips">All form fields are required.</p>
-		<form class="form-horizontal" action="/sscnServer/userSave.do" method="post" id="formAddUser">
-				<fieldset>
-					<div id="loadingImage" style="display: none">
-						<img src="/resources/img/ajax-loader.gif" />
+		<form class="form-horizontal" action="/sscnServer/userSave.do"
+			method="post" id="formAddUser">
+			<fieldset>
+				<div id="loadingImage" style="display: none">
+					<img src="/resources/img/ajax-loader.gif" />
+				</div>
+				<div id="alert" class="alert alert-error" style="display: none">
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="input01">Nama</label>
+					<div class="controls">
+						<input type="text" class="input-large" id="name" name="name">
+						<p class="help-block">
+							<!--In addition to freeform text, any HTML5 text-based input appears like so.-->
+						</p>
 					</div>
-					<div id="alert" class="alert alert-error" style="display: none">											
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="input01">Username</label>
+					<div class="controls">
+						<input type="password" class="input-large" id="username"
+							name="username">
+						<p class="help-block">
+							<!--In addition to freeform text, any HTML5 text-based input appears like so.-->
+						</p>
 					</div>
-					<div class="control-group">
-						<label class="control-label" for="input01">Nama</label>
-						<div class="controls">
-							<input type="text" class="input-large" id="name" name="name">
-							<p class="help-block">
-								<!--In addition to freeform text, any HTML5 text-based input appears like so.-->
-							</p>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="input01">Password</label>
+					<div class="controls">
+						<input type="text" class="input-large" id="password"
+							name="password">
+					</div>
+				</div>
+				<div class="control-group">
+					<c:choose>
+						<c:when test="${userLogin.kewenangan == 1}">
+							<label class="control-label">Instansi</label>
+							<div class="controls">
+								<div class="ui-widget">
+									<input type="hidden" name="instansi" id="instansiValue" /> <input
+										type="text" class="input-large" id="instansi"
+										name="instansiLabel">
+								</div>
+							</div>
+						</c:when>
+						<c:when test="${userLogin.kewenangan == 2}">
+							<label class="control-label">Instansi</label>
+							<div class="controls">
+								<div class="ui-widget">
+									<input type="hidden" name="instansi" id="instansiValue" value="${userLogin.refInstansi.kode}"/> <input value="${userLogin.refInstansi.nama}"
+										type="text" class="input-large" id="instansi" readonly="readonly"
+										name="instansiLabel">
+								</div>
+							</div>	
+						</c:when>
+						<c:otherwise>
+							<option>NOT AVAILABLE</option>
+						</c:otherwise>
+					</c:choose>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="input01">Nip</label>
+					<div class="controls">
+						<div class="ui-widget">
+							<input type="text" class="input-large" id="nip" name="nip">
 						</div>
 					</div>
-					<div class="control-group">
-						<label class="control-label" for="input01">Username</label>
-						<div class="controls">
-							<input type="text" class="input-large" id="username" name="username">
-							<p class="help-block">
-								<!--In addition to freeform text, any HTML5 text-based input appears like so.-->
-							</p>
-						</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="select01">Profile</label>
+					<div class="controls">
+						<select id="profile" name="profile">
+							<c:choose>
+								<c:when test="${userLogin.kewenangan == 1}">
+									<option value=1>Administrator</option>
+									<option value=2>Admin Instansi</option>
+									<option value=3>Verifikator</option>
+								</c:when>
+								<c:when test="${userLogin.kewenangan == 2}">
+									<option value=3>Verifikator</option>
+								</c:when>
+								<c:otherwise>
+									<option>NOT AVAILABLE</option>
+								</c:otherwise>
+							</c:choose>
+						</select>
 					</div>
-					<div class="control-group">
-						<label class="control-label" for="input01">Password</label>
-						<div class="controls">
-							<input type="text" class="input-large" id="password" name="password">
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="input01">Instansi</label>
-						<div class="controls">
-							<div class="ui-widget">
-								<input type="hidden" name="instansi" id="instansiValue"/>
-								<input type="text" class="input-large" id="instansi" name="instansiLabel">
-							</div>						
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="input01">Nip</label>
-						<div class="controls">
-							<div class="ui-widget">
-								<input type="text" class="input-large" id="nip" name="nip">
-							</div>						
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="select01">Profile</label>
-						<div class="controls">
-							<select id="profile" name="profile">
-								<c:choose>
-									<c:when test="${userLogin.kewenangan == 1}">
-										<option value=1>Administrator</option>
-										<option value=2>Admin Instansi</option>
-										<option value=3>Verifikator</option>
-									</c:when>
-									<c:when test="${userLogin.kewenangan == 2}">
-										<option value=3>Verifikator</option>
-									</c:when>
-									<c:otherwise>
-										<option>NOT AVAILABLE</option>	
-									</c:otherwise>								
-								</c:choose>								
-							</select>
-						</div>
-					</div>
-					
-					<div class="form-actions">
-						<button type="submit" class="btn btn-primary btn-large">
-							Save changes
-						</button>
-						<button class="btn btn-large" id="btnCancelFAddUser">
-							Cancel
-						</button>
-					</div>
-				</fieldset>
-			</form>
+				</div>
+
+				<div class="form-actions">
+					<button type="submit" class="btn btn-primary btn-large">
+						Save changes</button>
+				</div>
+			</fieldset>
+		</form>
 	</div>
-	
+
 	<div id="myModal2" title="Ubah user">
 		<p class="validateTips">All form fields are required.</p>
-		<form class="form-horizontal" action="/sscnServer/userUpdate.do" method="post" id="formUbahUser">
-				<fieldset>
-					<div id="loadingImage2" style="display: none">
-						<img src="/resources/img/ajax-loader.gif" />
+		<form class="form-horizontal" action="/sscnServer/userUpdate.do"
+			method="post" id="formUbahUser">
+			<fieldset>
+				<div id="loadingImage2" style="display: none">
+					<img src="/resources/img/ajax-loader.gif" />
+				</div>
+				<div id="alert2" class="alert alert-error" style="display: none">
+				</div>
+				<div class="control-group">
+					<input type="hidden" class="input-large" id="edusername"
+						name="username"> <label class="control-label"
+						for="input01">Nama</label>
+					<div class="controls">
+						<input type="text" class="input-large" id="edname" name="name">
+						<p class="help-block">
+							<!--In addition to freeform text, any HTML5 text-based input appears like so.-->
+						</p>
 					</div>
-					<div id="alert2" class="alert alert-error" style="display: none">											
-					</div>
-					<div class="control-group">
-						<input type="hidden" class="input-large" id="edusername" name="username">
-						<label class="control-label" for="input01">Nama</label>
-						<div class="controls">
-							<input type="text" class="input-large" id="edname" name="name">
-							<p class="help-block">
-								<!--In addition to freeform text, any HTML5 text-based input appears like so.-->
-							</p>
-						</div>
-					</div>
-					
-					<!--  <div class="control-group">
+				</div>
+
+				<!--  <div class="control-group">
 						<label class="control-label" for="input01">Password</label>
 						<div class="controls">
 							<input type="text" class="input-large" id="edpassword" name="password">
 						</div>
 					</div>-->
-					<div class="control-group">
-						<label class="control-label" for="input01">Instansi</label>
-						<div class="controls">
-							<div class="ui-widget">
-								<input type="hidden" name="instansi" id="edinstansiValue"/>
-								<input type="text" class="input-large" id="edinstansiLabel" name="instansiLabel">
-							</div>						
+				<div class="control-group">
+					<c:choose>
+						<c:when test="${userLogin.kewenangan == 1}">
+							<label class="control-label">Instansi</label>
+							<div class="controls">
+								<div class="ui-widget">
+									<input type="hidden" name="instansi" id="edinstansiValue" /> <input
+										type="text" class="input-large" id="edinstansiLabel"
+										name="edinstansiLabel">
+								</div>
+							</div>
+						</c:when>
+						<c:when test="${userLogin.kewenangan == 2}">
+							<label class="control-label">Instansi</label>
+							<div class="controls">
+								<div class="ui-widget">
+									<input type="hidden" name="instansi" id="instansiValue" value="${userLogin.refInstansi.kode}"/> <input value="${userLogin.refInstansi.nama}"
+										type="text" class="input-large" id="edinstansiLabel" readonly="readonly"
+										name="edinstansiLabel">
+								</div>
+							</div>	
+						</c:when>
+						<c:otherwise>
+							<option>NOT AVAILABLE</option>
+						</c:otherwise>
+					</c:choose>					
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="input01">Nip</label>
+					<div class="controls">
+						<div class="ui-widget">
+							<input type="text" class="input-large" id="ednip" name="nip">
 						</div>
 					</div>
-					<div class="control-group">
-						<label class="control-label" for="input01">Nip</label>
-						<div class="controls">
-							<div class="ui-widget">
-								<input type="text" class="input-large" id="ednip" name="nip">
-							</div>						
-						</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="select01">Profile</label>
+					<div class="controls">
+						<select id="edprofile" name="profile">
+							<c:choose>
+								<c:when test="${userLogin.kewenangan == 1}">
+									<option value=1>Administrator</option>
+									<option value=2>Admin Instansi</option>
+									<option value=3>Verifikator</option>
+								</c:when>
+								<c:when test="${userLogin.kewenangan == 2}">
+									<option value=3>Verifikator</option>
+								</c:when>
+								<c:otherwise>
+									<option>NOT AVAILABLE</option>
+								</c:otherwise>
+							</c:choose>
+						</select>
 					</div>
-					<div class="control-group">
-						<label class="control-label" for="select01">Profile</label>
-						<div class="controls">
-							<select id="edprofile" name="profile">
-								<c:choose>
-									<c:when test="${userLogin.kewenangan == 1}">
-										<option value=1>Administrator</option>
-										<option value=2>Admin Instansi</option>
-										<option value=3>Verifikator</option>
-									</c:when>
-									<c:when test="${userLogin.kewenangan == 2}">
-										<option value=3>Verifikator</option>
-									</c:when>
-									<c:otherwise>
-										<option>NOT AVAILABLE</option>	
-									</c:otherwise>								
-								</c:choose>	
-							</select>							
-						</div>
-					</div>
-					
-					<div class="form-actions">
-						<button type="submit" class="btn btn-primary btn-large">
-							Save changes
-						</button>
-						<button class="btn btn-large" id="btnCancelFAddUser">
-							Cancel
-						</button>
-					</div>
-				</fieldset>
-			</form>
+				</div>
+
+				<div class="form-actions">
+					<button type="submit" class="btn btn-primary btn-large">
+						Save changes</button>
+				</div>
+			</fieldset>
+		</form>
 	</div>
-	
+
 	<div id="myModal3" title="Delete user">
 		<p class="validateTips">All form fields are required.</p>
-		<form class="form-horizontal" action="/sscnServer/userDelete.do" method="post" id="formDeleteUser">
-				<fieldset>
-					<div id="loadingImage3" style="display: none">
-						<img src="/resources/img/ajax-loader.gif" />
-					</div>
-					<div id="alert3" class="alert alert-warning" >
-						Apakah anda yakin ingin menghapus data ini ?											
-					</div>
-					<input type="hidden" name="username" id="delusername"/>
-					
-					<div class="form-actions">
-						<button type="submit" class="btn btn-primary btn-large">
-							Ya
-						</button>
-						<button class="btn btn-large" id="btnCancelFDeleteUser">
-							Tidak
-						</button>
-					</div>
-				</fieldset>
-			</form>
+		<form class="form-horizontal" action="/sscnServer/userDelete.do"
+			method="post" id="formDeleteUser">
+			<fieldset>
+				<div id="loadingImage3" style="display: none">
+					<img src="/resources/img/ajax-loader.gif" />
+				</div>
+				<div id="alert3" class="alert alert-warning">Apakah anda
+					yakin ingin menghapus data ini ?</div>
+				<input type="hidden" name="username" id="delusername" />
+
+				<div class="form-actions">
+					<button type="submit" class="btn btn-primary btn-large">
+						Ya</button>
+				</div>
+			</fieldset>
+		</form>
 	</div>
 
 	<script>
@@ -588,7 +640,7 @@
 				  		if (data.result == 1){
 				  			$("#myModal3").dialog("close");
 				  			$('#delusername').val('');
-				  			
+				  			alert(data.message);
 				  			refreshDeleteTable();
 			           		return false;
 				  		}
@@ -608,18 +660,11 @@
 				var tesHtml = '';
 				
 				$(selRowTable).replaceWith(tesHtml);
-			}
+			}			
 			
-			$('#btnCancelFDeleteUser').click(function() {
-				$("#myModal3").dialog("close");
-			});
 			
 			$('#addUserModal').click(function() {
 				$("#myModal").dialog("open");
-			});
-
-			$('#btnCancelFAddUser').click(function() {
-				$("#myModal").dialog("close");
 			});
 
 			$("#edinstansiLabel").autocomplete({
@@ -690,7 +735,7 @@
 				  			$('#edpassword').val('');
 				  			$('#edinstansiValue').val('');
 				  			$('#edinstansiLabel').val('');
-				  			//alert(data.message);
+				  			alert(data.message);
 				  			refreshUpdateTable(data.data);
 			           		return false;
 				  		}
@@ -717,18 +762,20 @@
 				}
 				var tesHtml = '<tr class="odd gradeX"> '+
 					'<td>'+data.username+'</td> '+
+					'<td>'+data.nip+'</td> '+
+					'<td>'+data.nama+'</td> '+
 					'<td>'+data.refInstansi.nama+'</td> '+
 					'<td>'+profile+'</td> '+
-					'<td><a href="#" onclick="prepareUbahForm(this,\''+data.username+'\')" '+
+					'<td><a href="#" onclick="prepareUbahForm(this,\''+data.username+'\','+data.kewenangan+')" '+
 				'class="btn btn-small btn-primary"><i class="icon-edit"></i>Edit</a> | <a href="#" '+
-				'class="btn btn-small btn-primary" confirmDelete(this,\''+data.username+'\,\''+data.kewenangan+'\')><i class="icon-remove"></i>Delete</a></td> '+
-				'</tr>';
+				'class="btn btn-small btn-primary" onclick="confirmDelete(this,\''+data.username+'\','+data.kewenangan+')"><i class="icon-remove"></i>Delete</a></td> '+
+				'</tr>'; 
 				
 				$(selRowTable).replaceWith(tesHtml);
 			}
 		});
 	</script>
-	
+
 	<script>
 			jQuery(document).ready(function() {
 				
@@ -748,7 +795,7 @@
 					      url = $form.attr( 'action' );
 					 
 					  /* Send the data using post */
-					  var posting = $.post( "http://localhost:8080/sscnServer/userSave.do", term,"json"
+					  var posting = $.post( "/sscnServer/userSave.do", term,"json"
 					  					  );
 					 
 					  /* Put the results in a div */
@@ -798,7 +845,7 @@
 					} else {
 						profile = 'unknown profile';
 					}
-					var newRowHtml = '<tr class="odd gradeX"><td>'+ data.username+'</td><td>'+ data.refInstansi.nama +'</td><td>'+profile+'</td><td><a href="#" onclick="prepareUbahForm(this,\''+data.username+'\')" '+
+					var newRowHtml = '<tr class="odd gradeX"><td>'+ data.username+'</td><td>'+ data.nip+'</td><td>'+ data.nama+'</td><td>'+ data.refInstansi.nama +'</td><td>'+profile+'</td><td><a href="#" onclick="prepareUbahForm(this,\''+data.username+'\','+data.kewenangan+')" '+
 					'class="btn btn-small btn-primary"><i class="icon-edit"></i>Edit</a> | <a href="#" '+
 					'class="btn btn-small btn-primary" onclick="confirmDelete(this,\''+data.username+'\','+data.kewenangan+')"><i class="icon-remove"></i>Delete</a></td></tr>';
 					row.innerHTML = newRowHtml;	
@@ -807,8 +854,7 @@
 				$("#instansi").autocomplete({
 					source : function(request, response) {
 						$.ajax({
-							//url : "http://ws.geonames.org/searchJSON",
-							url : "http://localhost:8080/sscnServer/findInstansiLikeByName.do",
+							url : "/sscnServer/findInstansiLikeByName.do",
 							dataType : "jsonp",
 							data : {
 								featureClass : "P",

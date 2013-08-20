@@ -307,7 +307,7 @@
 								source : function(request, response) {
 									$.ajax({
 										
-										url : "http://localhost:8080/sscnServer/findLokasiLikeByName.do",
+										url : "/sscnServer/findLokasiLikeByName.do",
 										dataType : "jsonp",
 										data : {
 											featureClass : "P",
@@ -343,7 +343,7 @@
 								source : function(request, response) {
 									$.ajax({
 										
-										url : "http://localhost:8080/sscnServer/findJabatanLikeByName.do",
+										url : "/sscnServer/findJabatanLikeByName.do",
 										dataType : "jsonp",
 										data : {
 											featureClass : "P",
@@ -379,7 +379,7 @@
 								source : function(request, response) {
 									$.ajax({
 										
-										url : "http://localhost:8080/sscnServer/findPendidikanLikeByName.do",
+										url : "/sscnServer/findPendidikanLikeByName.do",
 										dataType : "jsonp",
 										data : {
 											featureClass : "P",
