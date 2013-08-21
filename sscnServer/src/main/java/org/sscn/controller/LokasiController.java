@@ -46,10 +46,18 @@ public class LokasiController {
 	@ResponseBody
 	public String findInstansiLikeByName(
 			@RequestParam("callback") String callBack,
-			@RequestParam("name_startsWith") String name) throws Exception {
+			@RequestParam("name_startsWith") String name , HttpSession session) throws Exception {
 		ObjectMapper objectMapper = new ObjectMapper();
-
-		List<RefLokasi> lokasis = lokasiService.findLokasiByLikeName(name);
+		
+		DtUser userLogin = (DtUser) session.getAttribute("userLogin");
+		if (userLogin == null) {
+			StandardJsonMessage res = new StandardJsonMessage(-1, null, null,
+					"Session habis");
+			return objectMapper.writeValueAsString(new JSONPObject(callBack,
+					res));
+		}
+		
+		List<RefLokasi> lokasis = lokasiService.findLokasiByLikeNameInstansi(name, userLogin.getRefInstansi().getKode());
 		for(int i=0;i<lokasis.size();i++){
 			lokasis.get(i).setRefInstansi(null);
 		}
