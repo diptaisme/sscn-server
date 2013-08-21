@@ -631,7 +631,7 @@
 														response) {
 													$
 															.ajax({
-
+																
 																url : "/sscnServer/findLokasiLikeByName.do",
 																dataType : "jsonp",
 																data : {
@@ -661,9 +661,6 @@
 												select : function(event, ui, data) {
 													$('#lokasiValue').val(
 															ui.item.code);
-													
-													//log(ui.item ? "Selected: " + ui.item.label : "Nothing selected, input was " + this.value);
-													
 												},
 												open : function() {
 													$(this)
@@ -695,7 +692,6 @@
 														response) {
 													$
 															.ajax({
-
 																url : "/sscnServer/findJabatanLikeByName.do",
 																dataType : "jsonp",
 																data : {
@@ -723,7 +719,6 @@
 												},
 												minLength : 2,
 												select : function(event, ui) {
-													//log(ui.item ? "Selected: " + ui.item.label : "Nothing selected, input was " + this.value);
 													$('#jabatanValue').val(
 															ui.item.code);
 												},
@@ -778,7 +773,6 @@
 												},
 												minLength : 2,
 												select : function(event, ui) {
-													//log(ui.item ? "Selected: " + ui.item.label : "Nothing selected, input was " + this.value);
 													$('#pendidikanValue').val(
 															ui.item.code);
 												},
