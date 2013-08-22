@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.sscn.core.persistence.tools.QueryOrder;
 import org.sscn.persistence.entities.DtPersyaratan;
-import org.sscn.persistence.entities.DtUser;
 
 /**
  * @author efraim

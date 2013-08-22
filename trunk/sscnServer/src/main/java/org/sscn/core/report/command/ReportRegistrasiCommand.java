@@ -3,7 +3,6 @@ package org.sscn.core.report.command;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +16,8 @@ import org.springframework.stereotype.Component;
 import org.sscn.core.report.GeneralReportUtil;
 import org.sscn.manager.Constanta;
 import org.sscn.persistence.entities.DtPendaftaran;
+import org.sscn.persistence.entities.DtPersyaratan;
+import org.sscn.services.PersyaratanService;
 import org.sscn.services.RegistrasiService;
 
 @Component("ReportRegistrasiCommand")
@@ -24,6 +25,9 @@ public class ReportRegistrasiCommand extends ReportCommand {
 
 	@Inject
 	private RegistrasiService registrasiService;
+	
+	@Inject
+	private PersyaratanService persyaratanService;
 	/**
 	 * serialVersionUID
 	 */
@@ -50,9 +54,10 @@ public class ReportRegistrasiCommand extends ReportCommand {
 							String fileName = baseDir
 									+ GeneralReportUtil.getRptRegistrasi();
 
-							List<Map<String, Object>> listResult = new ArrayList<Map<String, Object>>();
-							listResult.add(mapParamater);
-							this.generalPDFReports(listResult.toArray(),
+							List<DtPersyaratan> listPersyaratans = persyaratanService.findByProperty("refInstansi.kode", pendaftaran.getFormasi().getRefInstansi().getKode(), null, null);
+							Object[] arrResult = listPersyaratans.toArray();							
+							
+							this.generalPDFReports(arrResult,
 									request, response, mapParamater, fileName);
 						} catch (Exception ex) {
 							ex.printStackTrace();

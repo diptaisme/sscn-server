@@ -5,12 +5,10 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.sscn.core.persistence.tools.QueryOrder;
 import org.sscn.dao.DtPersyaratanDao;
 import org.sscn.persistence.entities.DtPersyaratan;
-import org.sscn.persistence.entities.DtUser;
 import org.sscn.services.PersyaratanService;
 
 /**
@@ -31,7 +29,7 @@ public class PersyaratanServiceImpl implements PersyaratanService {
 	 * .entities.DtPersyaratan)
 	 */
 	@Override
-	@Transactional(readOnly = false, propagation = Propagation.SUPPORTS)
+	@Transactional(readOnly = false)
 	public DtPersyaratan simpanPersyaratan(DtPersyaratan persyaratan) {
 		DtPersyaratan newInstance = null;
 		if (persyaratan != null) {
@@ -43,21 +41,22 @@ public class PersyaratanServiceImpl implements PersyaratanService {
 		}
 		return newInstance;
 	}
-	
+
 	@Override
 	@Transactional(readOnly = false)
 	public boolean delete(DtPersyaratan syarat) {
 		try {
-			persyaratanDao.remove(syarat);			
+			persyaratanDao.remove(syarat);
 			return true;
 		} catch (Exception ex) {
 			return false;
 		}
 	}
-	
+
 	@Override
-	@Transactional(readOnly = false)
-	public List<DtPersyaratan> findByProperty(String name, Object value,List<QueryOrder> orders, int...idx){
+	@Transactional(readOnly = true)
+	public List<DtPersyaratan> findByProperty(String name, Object value,
+			List<QueryOrder> orders, int... idx) {
 		return persyaratanDao.findByProperty(name, value, orders, idx);
 	}
 }
