@@ -76,6 +76,11 @@ public class FormasiController {
 		}
 		List<MFormasi> formasis = mFormasiDao.findAll(null);
 		model.addAttribute("formasis", formasis);
+		RefLokasi lastInputLokasi;
+		MFormasi forms = formasis.get(formasis.size()-1);
+		lastInputLokasi = forms.getRefLokasi();
+		model.addAttribute("lastInputLokasi", lastInputLokasi);
+		
 		return "formasi";
 	}
 
