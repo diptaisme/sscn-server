@@ -432,10 +432,10 @@
 										<div class="control-group">
 											<label class="control-label" for="lokasi">Lokasi</label>
 											<div class="controls">
-												<input type="hidden" class="input-large" name="lokasi"
+												<input type="hidden" class="input-large" name="lokasi" value="${lastInputLokasi.kode}"
 													id="lokasiValue"> <input type="text"
 													class="input-large" name="lokasiLabel" id="lokasiLabel"
-													onchange="validasiLokasi()"> <span
+													onchange="validasiLokasi()" value="${lastInputLokasi.nama}"> <span
 													class="help-inline" style="display: none; color: #b94a48;"
 													id="lokasiAlert">Something may have gone wrong</span>
 											</div>
