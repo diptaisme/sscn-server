@@ -1,18 +1,21 @@
 package org.sscn.util.json;
 
+import java.util.List;
 import java.util.Map;
 
 public class StandardJsonMessage {
-	public StandardJsonMessage(int result, Object data, Map<String, Object> listData, String message) {
+	public StandardJsonMessage(int result, Object data, Map<String, Object> mapData, String message) {
 		super();
 		this.result = result;
 		this.data = data;
-		this.listData = listData;
 		this.message = message;
+		this.mapData = mapData;
 	}
+	
+	
 	private int result;
 	private Object data;
-	private Map<String, Object> listData;
+	private Map<String, Object> mapData;
 	private String message;
 	/**
 	 * @return the result
@@ -38,18 +41,7 @@ public class StandardJsonMessage {
 	public void setData(Object data) {
 		this.data = data;
 	}
-	/**
-	 * @return the listData
-	 */
-	public Map<String, Object> getListData() {
-		return listData;
-	}
-	/**
-	 * @param listData the listData to set
-	 */
-	public void setListData(Map<String, Object> listData) {
-		this.listData = listData;
-	}
+	
 	/**
 	 * @return the message
 	 */
@@ -61,6 +53,18 @@ public class StandardJsonMessage {
 	 */
 	public void setMessage(String message) {
 		this.message = message;
+	}
+	/**
+	 * @return the mapData
+	 */
+	public Map<String, Object> getMapData() {
+		return mapData;
+	}
+	/**
+	 * @param mapData the mapData to set
+	 */
+	public void setMapData(Map<String, Object> mapData) {
+		this.mapData = mapData;
 	}
 	
 	

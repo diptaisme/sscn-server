@@ -14,4 +14,6 @@ import org.sscn.persistence.entities.RefInstansi;
 public interface VerfikasiService {
 	
 	boolean simpanHasilVerifikasi(DtPendaftaran pendaftaran, List<DtVerifikasiNok> verNok);
+	
+	List<DtVerifikasiNok> findVerifikasiNoksByPendaftar(DtPendaftaran pendaftarId);
 }

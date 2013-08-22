@@ -62,4 +62,10 @@ public class VerfikasiServiceImpl implements VerfikasiService {
 		}
 	}
 
+	@Override
+	public List<DtVerifikasiNok> findVerifikasiNoksByPendaftar(DtPendaftaran pendaftar) {
+		
+		return dtVerifikasiNokDao.findByProperty("pendaftar", pendaftar, null);
+	}
+
 }
