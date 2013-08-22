@@ -7,6 +7,8 @@ var Slate = function () {
 	
 	return { start: start, chartColors: chartColors };
 	
+	
+	
 	function start () {
 
 		nav = $('#nav');
@@ -112,5 +114,28 @@ var Slate = function () {
 $(function () {
 
 	Slate.start ();
+	
+	// PAGING BEGIN
+	handleGoToPage = function(el, page) {
+		el.preventDefault();
+		numpage = $('#paging_numpage').val();
+		$('#numPage').val(numpage);
+		$('#searchPage').val(0);
+		if ($('#defaultSearchField').val() != ""){
+			alert('kadiyeu');
+			$('#activePageBar').val(page);
+			$('#searchForm').submit();	
+		} else {
+			alert('kaditu');
+			$('#activePage').val(page);
+			$('#pagingForm').submit();	
+		}
+	};
+
+	// PAGING END
+	submitSearch = function(ev){
+		ev.preventDefault();
+		$('#searchForm').submit();
+	};	
 
 });

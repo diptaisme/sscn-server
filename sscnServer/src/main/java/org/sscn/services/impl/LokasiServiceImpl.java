@@ -45,6 +45,18 @@ public class LokasiServiceImpl implements LokasiService {
 				null);
 		return lokasis;
 	}
+	
+	@Override
+	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
+	public List<RefLokasi> findLokasiByLikeNameInstansi(String name, String instansiKd) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("nama", name);
+		RefInstansi pinstansi = refInstansiDao.findById(instansiKd);
+		map.put("refInstansi", pinstansi);
+		List<RefLokasi> lokasis = refLokasiDao.findLikeMapOfProperties(map,
+				null);
+		return lokasis;
+	}
 
 	@Override
 	@Transactional(readOnly = false)
