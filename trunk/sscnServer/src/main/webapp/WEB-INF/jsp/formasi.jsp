@@ -215,7 +215,7 @@
 								<div class="row">
 									<div class="span6">
 										<div class="dataTables_length">
-											<label> <select name="example_length" size="1"
+											<label> <select name="example_length" size="1" id="paging_numpage"
 												aria-controls="example">
 													<option value="10" selected="selected">10</option>
 													<option value="25">25</option>
@@ -227,9 +227,9 @@
 									</div>
 									<div class="span6">
 										<div class="dataTables_filter">
-											<label>Search: <input type="text"
+										<!--  	<label>Search: <input type="text"
 												aria-controls="example">
-											</label>
+											</label> -->
 										</div>
 									</div>
 								</div>
@@ -267,14 +267,14 @@
 												<td>${formasi.jumlah}</td>
 												<td>${formasi.refLokasi.nama}</td>
 												<td>
-													<form action="/sscnServer/getFormasi.do" method="post">
-														<input type="hidden" name="id" value="${formasi.id}">
-														<button class="btn btn-primary btn-mini" type="submit">Edit</button>
-													</form>
+													<!--  <form action="/sscnServer/getFormasi.do" method="post">
+														<input type="hidden" name="id" value="${formasi.id}"> -->
+														<button class="btn btn-primary btn-mini" onclick="editFormasi('${formasi.id}')">Edit</button>
+													<!--  </form>
 													<form action="/sscnServer/formasiDelete.do" method="post">
-														<input type="hidden" name="id" value="${formasi.id}">
-														<button class="btn btn-primary btn-mini" type="submit">Delete</button>
-													</form>
+														<input type="hidden" name="id" value="${formasi.id}">-->
+														<button class="btn btn-primary btn-mini" onclick="deleteFormasi('${formasi.id}')">Delete</button>
+													<!--  </form> -->
 												</td>
 												</td>
 											</tr>
@@ -282,24 +282,7 @@
 									</tbody>
 								</table>
 								<div class="row">
-									<div class="span6">
-										<div class="dataTables_info" id="example_info">Showing 1
-											to 10 of 57 entries</div>
-									</div>
-									<div class="span6">
-										<div class="dataTables_paginate paging_bootstrap pagination">
-											<ul>
-												<li class="prev disabled"><a href="#">â Previous</a>
-												</li>
-												<li class="active"><a href="#">1</a></li>
-												<li><a href="#">2</a></li>
-												<li><a href="#">3</a></li>
-												<li><a href="#">4</a></li>
-												<li><a href="#">5</a></li>
-												<li class="next"><a href="#">Next â </a></li>
-											</ul>
-										</div>
-									</div>
+									<jsp:include page="paging.jsp" />
 								</div>
 
 							</div>
@@ -472,6 +455,9 @@
 											<div class="controls">
 												<input type="text" class="input-mini" name="jumlah"
 													id="jumlah">
+												<span class="help-inline"
+													style="display: none; color: #b94a48;">Something
+													may have gone wrong</span>	
 											</div>
 										</div>
 
@@ -879,8 +865,7 @@
 									x++;
 								}
 								if (found){
-									$('#pendidikanValue').val(selValue);
-		
+									$('#pendidikanValue').val(selValue);		
 								} else {
 									$('#pendidikanValue').val("");
 									$('#pendidikanLabel').val("");
@@ -889,9 +874,6 @@
 									$("#pendidikanAlert").delay(3200).fadeOut(300);
 								}	
 							}
-
-							
-							
 							
 							hitungUlang = function(){
 								var jmlP = $('#pendidikanJmlh').val();
@@ -912,7 +894,39 @@
 								$('#jumlah').val(jmlTot);								
 							}
 
+							editFormasi = function(event, id){
+								event.preventDefault();
+								window.location = '/sscnServer/getFormasi.do?id='+id;
+							}
+
+							deleteFormasi = function(event, id){
+								event.preventDefault();
+								window.location = '/sscnServer/formasiDelete.do?id='+id;
+							}
+
+							$("#formasiForm").submit(function(event) {
+								 
+								  /* stop form from submitting normally */
+								  //event.preventDefault();
+								  var valid = true;
+								  $("#formasiForm :input").each(function(){
+									  var input = $(this); // This is the jquery object of the input, do what you will
+									  //alert($(input).attr('name') + " -> " +  $(input).val());
+									  if (typeof($(input).attr('name')) != "undefined"){
+										   if ($(input).val() == ""){											  
+											   var alert2 = $(input).siblings('.help-inline');
+											   $(alert2).html("input tidak boleh kosong");
+											   $(alert2).show();											   				
+											   valid = false;							   
+										   }
+									  }
+								  });
+								  if (!valid){
+									  return false;
+								  }
+							});	  
 						});
+		
 	</script>
 </body>
 </html>
