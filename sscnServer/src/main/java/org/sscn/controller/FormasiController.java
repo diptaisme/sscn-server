@@ -74,7 +74,35 @@ public class FormasiController {
 		if (pesan != null){
 			model.addAttribute("pesan", pesan);
 		}
-		List<MFormasi> formasis = mFormasiDao.findAll(null);
+		
+		
+		int indexAndCount[] = new int[2]; 
+		int numRow = 10;		
+		indexAndCount[0] = 1;
+		String index = request.getParameter("activePage");
+		if (index != null && !index.contentEquals("")){
+			indexAndCount[0] = Integer.parseInt(index);			
+		} 
+		indexAndCount[0] = (indexAndCount[0] - 1) * numRow;			
+		indexAndCount[1] = numRow;
+		
+		List<MFormasi> formasis = mFormasiDao.findAll(indexAndCount);
+		Integer count = mFormasiDao.countAll();
+		
+		int numPage = (int) Math.ceil((double)count/indexAndCount[1]);		
+		int activePage = (int) Math.ceil((double)(indexAndCount[0] + 1)/ indexAndCount[1]);
+		int part2;
+		if ((activePage * indexAndCount[1]) >= count){
+			part2 = count;
+		} else {
+			part2 = activePage * indexAndCount[1];
+		}		
+		
+		model.addAttribute("count",count);
+		model.addAttribute("part2", part2);
+		model.addAttribute("numpage",numPage);
+		model.addAttribute("indexAndCount", indexAndCount);
+		model.addAttribute("activePage", activePage);		
 		model.addAttribute("formasis", formasis);
 		RefLokasi lastInputLokasi;
 		MFormasi forms = formasis.get(formasis.size()-1);
@@ -182,7 +210,7 @@ public class FormasiController {
 		return "redirect:formasi.do";
 	}
 
-	@RequestMapping(value = "/formasiDelete.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/formasiDelete.do", method = RequestMethod.GET)
 	public String delete(@RequestParam("id") String id, HttpSession session,
 			ModelMap model) throws Exception {
 
@@ -203,7 +231,7 @@ public class FormasiController {
 		return "redirect:formasi.do";
 	}
 	
-	@RequestMapping(value = "/getFormasi.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/getFormasi.do", method = RequestMethod.GET)
 	public String getFormasi(@RequestParam("id") String id, HttpSession session,
 			ModelMap model) throws Exception {
 
