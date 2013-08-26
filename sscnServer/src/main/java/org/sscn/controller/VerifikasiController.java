@@ -11,7 +11,6 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,15 +18,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.sscn.dao.DtPendaftaranDao;
-import org.sscn.model.json.InstansiJson;
-import org.sscn.model.json.JabatanJson;
-import org.sscn.model.json.LokasiJson;
 import org.sscn.persistence.entities.DtPendaftaran;
 import org.sscn.persistence.entities.DtPersyaratan;
 import org.sscn.persistence.entities.DtUser;
 import org.sscn.persistence.entities.DtVerifikasiNok;
-import org.sscn.persistence.entities.MFormasi;
-import org.sscn.persistence.entities.RefInstansi;
 import org.sscn.services.PersyaratanService;
 import org.sscn.services.UserService;
 import org.sscn.services.VerfikasiService;
@@ -253,7 +247,7 @@ public class VerifikasiController {
 		DtUser userLogin = (DtUser) session.getAttribute("userLogin");
 		if (userLogin == null) {
 			StandardJsonMessage res = new StandardJsonMessage(-1, null, null,
-					"Get User Gagal");
+					"Get Pendaftaran Gagal");
 			return res;
 		}
 
@@ -293,10 +287,10 @@ public class VerifikasiController {
 			}
 			
 			infoPendaftar.setFormasi(null);
-			res = new StandardJsonMessage(1, infoPendaftar, mob, "Get User Success");
+			res = new StandardJsonMessage(1, infoPendaftar, mob, "Get Pendaftaran Success");
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			res = new StandardJsonMessage(0, null, null, "Get User Gagal " + ex.getMessage());
+			res = new StandardJsonMessage(0, null, null, "Get Pendaftaran Gagal " + ex.getMessage());
 		}
 
 		return res;
