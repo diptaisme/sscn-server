@@ -233,15 +233,25 @@
 										</div>
 									</div>
 								</div>
-								<!-- 
+								 
 								<div class="row">
 									<div class="span6 pull-right">
-										<a href="#" id="addFormasiModal"
-											class="btn btn-small btn-primary"><i class="icon-plus"></i>Add
+										<c:choose>
+											<c:when test="${formasi!=null}">
+												<a href="/sscnServer/formasi.do#tambah" id="addFormasiModal"
+											class="btn btn-small btn-primary"><i class="icon-plus"></i>Tambah
 											Formasi</a>
+											</c:when>
+											<c:otherwise>
+												<a href="#tambah" id="addFormasiModal"
+											class="btn btn-small btn-primary"><i class="icon-plus"></i>Tambah
+											Formasi</a>
+											</c:otherwise>
+										</c:choose>
+										
 									</div>
 								</div>
-							 -->
+							 
 								<table
 									class="table table-striped table-bordered table-highlight">
 									<thead>
@@ -269,11 +279,11 @@
 												<td>
 													<!--  <form action="/sscnServer/getFormasi.do" method="post">
 														<input type="hidden" name="id" value="${formasi.id}"> -->
-														<button class="btn btn-primary btn-mini" onclick="editFormasi('${formasi.id}')">Edit</button>
+														<button class="btn btn-primary btn-mini" onclick="editFormasi(event, '${formasi.id}')">Edit</button>
 													<!--  </form>
 													<form action="/sscnServer/formasiDelete.do" method="post">
 														<input type="hidden" name="id" value="${formasi.id}">-->
-														<button class="btn btn-primary btn-mini" onclick="deleteFormasi('${formasi.id}')">Delete</button>
+														<button class="btn btn-primary btn-mini" onclick="deleteFormasi(event, '${formasi.id}')">Delete</button>
 													<!--  </form> -->
 												</td>
 												</td>
@@ -282,7 +292,7 @@
 									</tbody>
 								</table>
 								<div class="row">
-									<jsp:include page="paging.jsp" />
+									 <jsp:include page="paging.jsp" /> 
 								</div>
 
 							</div>
@@ -299,11 +309,15 @@
 
 			<div class="row">
 				<div class="span12">
-					<div id="validation" class="widget highlight widget-form">
-
+					<div id="validation" class="widget highlight widget-form">							
 						<div class="widget-header">
-							<h3>
-								<i class="icon-pencil"></i> Tambah Formasi
+							<h3><a name="tambah"></a>
+								<c:choose>
+									<c:when test="${formasi != null}"><i class="icon-pencil"></i> Ubah Formasi</c:when>
+									<c:otherwise><i class="icon-pencil"></i> Tambah Formasi</c:otherwise>
+								</c:choose>
+								
+								
 							</h3>
 						</div>
 						<!-- /widget-header -->
@@ -324,6 +338,7 @@
 										<div class="control-group">
 											<label class="control-label" for="lokasi">Lokasi</label>
 											<div class="controls">
+												<input type="hidden" value="${formasi.id}" name="id" />
 												<input type="hidden" class="input-large" name="lokasi"
 													id="lokasiValue" value="${formasi.refLokasi.kode}">
 												<input type="text" class="input-large" name="lokasiLabel"
@@ -401,7 +416,7 @@
 										</div>
 
 										<div class="form-actions">
-											<button class="btn btn-primary btn-large" type="submit">Tambah</button>
+											<button class="btn btn-primary btn-large" type="submit">Simpan</button>
 											<!-- <button type="reset" class="btn btn-large">Reset</button>  -->
 										</div>
 									</fieldset>

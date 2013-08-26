@@ -51,21 +51,13 @@ public class DtPendaftaranDaoImpl extends CoreDaoImpl<DtPendaftaran> implements
 
 		SQLQuery query = createSqlQuery(sqlText);
 		Object myResult = query.uniqueResult();
-		// List<String> listResult = query.list();
+
 		if (myResult == null) {
 			return "";
 		} else {
 			String result = String.valueOf(myResult);
-			// System.out.println("ress" + result);
 			return result;
 		}
-		// if (listResult.size() <= 0 || listResult == null) {
-		// return "";
-		// } else {
-		// String result = String.valueOf(listResult.get(0));
-		// System.out.println("ress" + result);
-		// return result;
-		// }
 	}
 
 	@Override
