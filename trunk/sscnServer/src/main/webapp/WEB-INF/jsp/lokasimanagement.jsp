@@ -400,7 +400,7 @@ label.error {
 					</div>
 					<label class="control-label" for="input01">Nama</label>
 					<div class="controls">
-						<input type="text" class="input-large" id="ednama" name="ednama">
+						<input type="text" class="input-large" id="ednama" name="nama">
 						<p class="help-block">
 							<!--In addition to freeform text, any HTML5 text-based input appears like so.-->
 						</p>
