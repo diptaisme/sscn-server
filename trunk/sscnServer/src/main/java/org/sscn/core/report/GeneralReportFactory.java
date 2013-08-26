@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.commons.logging.LogFactory;
 import org.sscn.core.report.command.ReportCommand;
+import org.sscn.core.report.command.ReportPesertaUjianCommand;
 import org.sscn.core.report.command.ReportRegistrasiCommand;
 import org.sscn.core.report.command.ReportTestCommand;
 import org.sscn.servlet.reportcommand.PengumumanReportCommand;
@@ -17,6 +18,8 @@ public class GeneralReportFactory {
 	public static final String RPT_TEST_CETAK = "rptTestCetak";
 	/** The Constant RPT_REGISTRASI. */
 	public static final String RPT_REGISTRASI = "rptRegistrasi";
+	/** The Constant RPT_PESERTA_UJIAN. */
+	public static final String RPT_PESERTA_UJIAN = "rptPesertaUjian";
 	
 	/** The Constant REPORT_PENGUMUMAN. */
 	public static final String REPORT_PENGUMUMAN = "reportPengumuman";
@@ -28,6 +31,7 @@ public class GeneralReportFactory {
 		REPORT_COMMANDS.put(RPT_TEST_CETAK, ReportTestCommand.class);
 		REPORT_COMMANDS.put(RPT_REGISTRASI, ReportRegistrasiCommand.class);
 		REPORT_COMMANDS.put(REPORT_PENGUMUMAN, PengumumanReportCommand.class);
+		REPORT_COMMANDS.put(RPT_PESERTA_UJIAN, ReportPesertaUjianCommand.class);
 	}
 
 	/**
