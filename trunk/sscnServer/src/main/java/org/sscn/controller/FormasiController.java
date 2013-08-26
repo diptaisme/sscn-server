@@ -1,5 +1,6 @@
 package org.sscn.controller;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -14,6 +15,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.sscn.core.persistence.tools.QueryOrder;
 import org.sscn.dao.DtFormasiDao;
 import org.sscn.dao.DtUserDao;
 import org.sscn.dao.MFormasiDao;
@@ -86,7 +88,12 @@ public class FormasiController {
 		indexAndCount[0] = (indexAndCount[0] - 1) * numRow;			
 		indexAndCount[1] = numRow;
 		
-		List<MFormasi> formasis = mFormasiDao.findAll(indexAndCount);
+		
+		List<QueryOrder> orders = new ArrayList<QueryOrder>();
+		orders.add(new QueryOrder("refLokasi.kode"));
+		orders.add(new QueryOrder("refJabatan.nama"));
+		
+		List<MFormasi> formasis = mFormasiDao.findAll(null, orders, indexAndCount);
 		Integer count = mFormasiDao.countAll();
 		
 		int numPage = (int) Math.ceil((double)count/indexAndCount[1]);		
