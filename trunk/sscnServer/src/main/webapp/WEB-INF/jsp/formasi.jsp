@@ -684,6 +684,7 @@
 								var pdiv = $(elem).closest('div').parent('div'); 
 								$(pdiv).remove();
 								i--;
+								hitungUlang();
 							};
 
 							$("#jabatanLabel")
