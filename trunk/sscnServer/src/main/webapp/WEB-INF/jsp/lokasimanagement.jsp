@@ -57,11 +57,29 @@
 
 <script src="/sscnServer/resources/js/demos/demo.tables.js"></script>
 
+<script type="text/javascript"
+	src="/sscnServer/resources/js/jquery.validate.js"></script>
 <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
 <!--[if lt IE 9]>
 		<script src="../../../html5shim.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
+<style>
+/*css validation*/
+label.valid {
+	width: 24px;
+	height: 24px;
+	background: url(assets/img/valid.png) center center no-repeat;
+	display: inline-block;
+	text-indent: -9999px;
+}
 
+label.error {
+	font-weight: bold;
+	color: red;
+	padding: 2px 8px;
+	margin-top: 2px;
+}
+</style>
 </head>
 
 <body>
@@ -128,41 +146,39 @@
 			</a>
 
 			<div class="nav-collapse">
-								<ul class="nav">
+				<ul class="nav">
 
 					<li class="nav-icon active"><a href="/sscnServer/dashboard.do">
 							<i class="icon-home"></i> <span>Home</span>
 					</a></li>
 					<c:if test="${userLogin.kewenangan != 3}">
 						<li class="dropdown"><a href="javascript:;"
-								class="dropdown-toggle" data-toggle="dropdown"> <i
-									class="icon-external-link"></i> Manajemen <b class="caret"></b>
-							</a>
-								<ul class="dropdown-menu">
-									<li><a href="/sscnServer/user.do">User</a></li>
-									<li><a href="/sscnServer/lokasi.do">Lokasi</a></li>
-									<li><a href="/sscnServer/syarat.do">Syarat Pendaftaran</a></li>
-								</ul>
-							</li>
-							<li class="dropdown"><a href="/sscnServer/pengumuman.do"
-								class="dropdown-toggle"> <i class="icon-copy"></i> Pengumuman
-									<b class="caret"></b>
-							</a></li>								
-							<li class="dropdown"><a href="/sscnServer/formasi.do"
-								class="dropdown-toggle"> <i class="icon-copy"></i> Formasi <b
-									class="caret"></b>
-								</a>
-							</li>
-							<li class="dropdown"><a href="/sscnServer/downloadData.do"
-						class="dropdown-toggle"> <i class="icon-copy"></i> Download Data <b
-							class="caret"></b>
-					</a></li>						
+							class="dropdown-toggle" data-toggle="dropdown"> <i
+								class="icon-external-link"></i> Manajemen <b class="caret"></b>
+						</a>
+							<ul class="dropdown-menu">
+								<li><a href="/sscnServer/user.do">User</a></li>
+								<li><a href="/sscnServer/lokasi.do">Lokasi</a></li>
+								<li><a href="/sscnServer/syarat.do">Syarat Pendaftaran</a></li>
+							</ul></li>
+						<li class="dropdown"><a href="/sscnServer/pengumuman.do"
+							class="dropdown-toggle"> <i class="icon-copy"></i> Pengumuman
+								<b class="caret"></b>
+						</a></li>
+						<li class="dropdown"><a href="/sscnServer/formasi.do"
+							class="dropdown-toggle"> <i class="icon-copy"></i> Formasi <b
+								class="caret"></b>
+						</a></li>
+						<li class="dropdown"><a href="/sscnServer/downloadData.do"
+							class="dropdown-toggle"> <i class="icon-copy"></i> Download
+								Data <b class="caret"></b>
+						</a></li>
 					</c:if>
 					<li class="dropdown"><a href="/sscnServer/verifikasi.do"
 						class="dropdown-toggle"> <i class="icon-copy"></i> Verfikasi <b
 							class="caret"></b>
 					</a></li>
-					
+
 				</ul>
 			</div>
 			<!-- /.nav-collapse -->
@@ -302,9 +318,8 @@
 
 	<div id="footer">
 
-		<div class="container">
-			Hak Cipta  &copy;  2013 Badan Kepegawaian Negara. Semua Hak Dilindungi.
-		</div>
+		<div class="container">Hak Cipta &copy; 2013 Badan Kepegawaian
+			Negara. Semua Hak Dilindungi.</div>
 		<!-- /.container -->
 
 	</div>
@@ -327,8 +342,8 @@
 				<div class="control-group">
 					<label class="control-label" for="input01">Kode</label>
 					<div class="controls">
-						<input type="text" class="input-large" id="kode" name="kode"
-							size="4">
+						<input type="number" class="input-large" id="kode" name="kode"
+							size="4" maxlength="4">
 						<p class="help-block">
 							<!--In addition to freeform text, any HTML5 text-based input appears like so.-->
 						</p>
@@ -358,7 +373,7 @@
 				<div class="form-actions">
 					<button type="submit" class="btn btn-primary btn-large">
 						Save changes</button>
-					
+
 				</div>
 			</fieldset>
 		</form>
@@ -385,7 +400,7 @@
 					</div>
 					<label class="control-label" for="input01">Nama</label>
 					<div class="controls">
-						<input type="text" class="input-large" id="ednama" name="nama">
+						<input type="text" class="input-large" id="ednama" name="ednama">
 						<p class="help-block">
 							<!--In addition to freeform text, any HTML5 text-based input appears like so.-->
 						</p>
@@ -395,7 +410,7 @@
 				<div class="form-actions">
 					<button type="submit" class="btn btn-primary btn-large">
 						Save changes</button>
-					
+
 				</div>
 			</fieldset>
 		</form>
@@ -415,7 +430,7 @@
 				<div class="form-actions">
 					<button type="submit" class="btn btn-primary btn-large">
 						Ya</button>
-					
+
 				</div>
 			</fieldset>
 		</form>
@@ -724,6 +739,53 @@
 							}
 
 						});
+	</script>
+	<!-- validation -->
+	<script>
+			$(document).ready(
+				function() {
+				$('#formAddLokasi').validate(
+						{
+							rules : {
+								kode : {
+									required : true,							
+								},
+								nama : {
+									required : true
+								},
+								
+							},
+							highlight : function(element) {
+								$(element).closest('.control-group')
+										.removeClass('success').addClass(
+												'error');
+							},
+							success : function(element) {
+								element.text('OK!').addClass('valid').closest(
+										'.control-group').removeClass('error')
+										.addClass('success');
+							}
+						});	
+			$('#formUbahLokasi').validate(
+					{
+						rules : {
+							ednama : {
+								required : true
+							},
+							
+						},
+						highlight : function(element) {
+							$(element).closest('.control-group')
+									.removeClass('success').addClass(
+											'error');
+						},
+						success : function(element) {
+							element.text('OK!').addClass('valid').closest(
+									'.control-group').removeClass('error')
+									.addClass('success');
+						}
+					});	
+		});
 	</script>
 </body>
 </html>

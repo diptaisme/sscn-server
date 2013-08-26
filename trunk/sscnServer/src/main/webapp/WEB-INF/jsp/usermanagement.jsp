@@ -57,11 +57,34 @@
 
 <script src="/sscnServer/resources/js/demos/demo.tables.js"></script>
 
+<script type="text/javascript"
+	src="/sscnServer/resources/js/jquery.validate.js"></script>
+
 <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
 <!--[if lt IE 9]>
 		<script src="../../../html5shim.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
+<style>
+	#instansi {color: blue;}
+	#edinstansiLabel {color: blue;} 
+</style>
+<style>
+/*css validation*/
+label.valid {
+	width: 24px;
+	height: 24px;
+	background: url(assets/img/valid.png) center center no-repeat;
+	display: inline-block;
+	text-indent: -9999px;
+}
 
+label.error {
+	font-weight: bold;
+	color: red;
+	padding: 2px 8px;
+	margin-top: 2px;
+}
+</style>
 </head>
 
 <body>
@@ -356,7 +379,7 @@
 				<div class="control-group">
 					<label class="control-label" for="input01">Password</label>
 					<div class="controls">
-						<input type="text" class="input-large" id="password"
+						<input type="password" class="input-large" id="password"
 							name="password">
 					</div>
 				</div>
@@ -391,7 +414,7 @@
 					<label class="control-label" for="input01">Nip</label>
 					<div class="controls">
 						<div class="ui-widget">
-							<input type="text" class="input-large" id="nip" name="nip">
+							<input type="number" class="input-large" id="nip" name="nip">
 						</div>
 					</div>
 				</div>
@@ -439,7 +462,7 @@
 						name="username"> <label class="control-label"
 						for="input01">Nama</label>
 					<div class="controls">
-						<input type="text" class="input-large" id="edname" name="name">
+						<input type="text" class="input-large" id="edname" name="edname">
 						<p class="help-block">
 							<!--In addition to freeform text, any HTML5 text-based input appears like so.-->
 						</p>
@@ -483,7 +506,7 @@
 					<label class="control-label" for="input01">Nip</label>
 					<div class="controls">
 						<div class="ui-widget">
-							<input type="text" class="input-large" id="ednip" name="nip">
+							<input type="number" class="input-large" id="ednip" name="nip">
 						</div>
 					</div>
 				</div>
@@ -885,5 +908,66 @@
 				}); 
 			});
 		</script>
+		<!-- validation -->
+	<script>
+			$(document).ready(
+				function() {
+				$('#formAddUser').validate(
+						{
+							rules : {								
+								name : {
+									required : true
+								},
+								username : {
+									required : true
+								},
+								password : {
+									required : true
+								},
+								instansiLabel : {
+									required : true
+								},
+								nip : {
+									required : true
+								},
+							},
+							highlight : function(element) {
+								$(element).closest('.control-group')
+										.removeClass('success').addClass(
+												'error');
+							},
+							success : function(element) {
+								element.text('OK!').addClass('valid').closest(
+										'.control-group').removeClass('error')
+										.addClass('success');
+							}
+						});	
+			$('#formUbahUser').validate(
+					{
+						rules : {
+							edname : {
+								required : true
+							},
+							edinstansiLabel : {
+								required : true
+							},
+							ednip : {
+								required : true
+							},
+							
+						},
+						highlight : function(element) {
+							$(element).closest('.control-group')
+									.removeClass('success').addClass(
+											'error');
+						},
+						success : function(element) {
+							element.text('OK!').addClass('valid').closest(
+									'.control-group').removeClass('error')
+									.addClass('success');
+						}
+					});	
+		});
+	</script>
 </body>
 </html>
