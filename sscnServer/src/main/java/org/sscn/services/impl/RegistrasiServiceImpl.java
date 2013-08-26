@@ -207,7 +207,17 @@ public class RegistrasiServiceImpl implements RegistrasiService {
 			return null;
 		}
 	}
-
+	
+	@Override
+	public DtPendaftaran getPendaftaranByNoRegistrasi(String noRegister){		
+		List<DtPendaftaran> listPendaftarans = dtPendaftaranDao.findByProperty("noRegister", noRegister, null);
+		if(listPendaftarans.size() > 0){
+			return listPendaftarans.get(0);
+		}else{
+			return null;
+		}
+	}
+	
 	// tanpa tingkat pendidikan dulu
 	// private String generateNoRegistrasi(String kodeInstansi, String
 	// tingkatPendidikan, String kodeJabatan){

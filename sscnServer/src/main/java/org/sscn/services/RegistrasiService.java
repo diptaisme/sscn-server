@@ -23,4 +23,6 @@ public interface RegistrasiService {
 			String jabatan);
 
 	DtPendaftaran insertPendaftaran(HttpServletRequest request);
+	
+	DtPendaftaran getPendaftaranByNoRegistrasi(String noRegister);
 }
