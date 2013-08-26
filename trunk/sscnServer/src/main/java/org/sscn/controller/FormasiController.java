@@ -88,7 +88,6 @@ public class FormasiController {
 		indexAndCount[0] = (indexAndCount[0] - 1) * numRow;			
 		indexAndCount[1] = numRow;
 		
-		
 		List<QueryOrder> orders = new ArrayList<QueryOrder>();
 		orders.add(new QueryOrder("refLokasi.kode"));
 		orders.add(new QueryOrder("refJabatan.nama"));
@@ -182,7 +181,8 @@ public class FormasiController {
 		}
 
 		try {
-			MFormasi nformasi = mFormasiDao.findById(id);
+			MFormasi nformasi = mFormasiDao.findUniqueByProperty("id", Integer.parseInt(id), null, null);
+			MFormasi oldFormasi = mFormasiDao.findUniqueByProperty("id", Integer.parseInt(id), null, null);
 			RefLokasi refLokasi = refLokasiDao.findById(lokasi);
 			nformasi.setRefLokasi(refLokasi);
 
@@ -194,21 +194,19 @@ public class FormasiController {
 
 			nformasi.setJumlah(Integer.parseInt(jumlah));
 
-			Iterator<DtFormasi> iterator = nformasi.getDtFormasis().iterator();
+			//Iterator<DtFormasi> iterator = nformasi.getDtFormasis().iterator();
 			Set<DtFormasi> dtFormasis = new HashSet<DtFormasi>();
-			int i = 0;
-			while (iterator.hasNext()) {
-				DtFormasi detFormasi = iterator.next();
+			for (int i = 0; i < pendidikan.length; i++) {
+				DtFormasi detFormasi = new DtFormasi(nformasi);
 				RefPendidikan objPendidikan = refPendidikanDao
 						.findById(pendidikan[i]);
 				detFormasi.setPendidikan(objPendidikan);
 				detFormasi.setJumlah(Integer.parseInt(pendidikanJml[i]));
 				dtFormasis.add(detFormasi);
-				i++;
 			}
 			
-			nformasi.setDtFormasis(dtFormasis);
-			formasiService.updateFormasi(nformasi);
+//			nformasi.setDtFormasis(dtFormasis);
+			formasiService.updateFormasi(oldFormasi, dtFormasis);
 			model.addAttribute("pesan", "update berhasil");
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -232,14 +230,14 @@ public class FormasiController {
 			model.addAttribute("pesan", "delete berhasil");
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			model.addAttribute("pesan", "delete gagal");
+			model.addAttribute("pesan", "delete gagal " + ex.getMessage());
 		}
 
 		return "redirect:formasi.do";
 	}
 	
 	@RequestMapping(value = "/getFormasi.do", method = RequestMethod.GET)
-	public String getFormasi(@RequestParam("id") String id, HttpSession session,
+	public String getFormasi(HttpServletRequest request, HttpSession session,
 			ModelMap model) throws Exception {
 
 		DtUser userLogin = (DtUser) session.getAttribute("userLogin");
@@ -247,12 +245,37 @@ public class FormasiController {
 			model.addAttribute("pesan", "Session habis silahkan login kembali");
 			return "login";
 		}
-		
+		String id = request.getParameter("id");
 		model.addAttribute("username", userLogin.getNama());
 		DtUser userp = dtUserDao.findById(userLogin.getUsername());
 		model.addAttribute("instansiNama", userp.getRefInstansi().getNama());
+		int indexAndCount[] = new int[2]; 
+		int numRow = 10;		
+		indexAndCount[0] = 1;
+		String index = request.getParameter("activePage");
+		if (index != null && !index.contentEquals("")){
+			indexAndCount[0] = Integer.parseInt(index);			
+		} 
+		indexAndCount[0] = (indexAndCount[0] - 1) * numRow;			
+		indexAndCount[1] = numRow;
 		
-		List<MFormasi> formasis = mFormasiDao.findAll(null);
+		List<MFormasi> formasis = mFormasiDao.findAll(indexAndCount);
+		Integer count = mFormasiDao.countAll();
+		
+		int numPage = (int) Math.ceil((double)count/indexAndCount[1]);		
+		int activePage = (int) Math.ceil((double)(indexAndCount[0] + 1)/ indexAndCount[1]);
+		int part2;
+		if ((activePage * indexAndCount[1]) >= count){
+			part2 = count;
+		} else {
+			part2 = activePage * indexAndCount[1];
+		}		
+		
+		model.addAttribute("count",count);
+		model.addAttribute("part2", part2);
+		model.addAttribute("numpage",numPage);
+		model.addAttribute("indexAndCount", indexAndCount);
+		model.addAttribute("activePage", activePage);		
 		model.addAttribute("formasis", formasis);
 
 		try {

@@ -15,5 +15,5 @@ public interface VerfikasiService {
 
 	List<DtVerifikasiNok> findVerifikasiNoksByPendaftar(DtPendaftaran pendaftarId);
 
-	String getNoUrutPeserta(String stringDigit);
+	String getNoUrutPeserta(DtPendaftaran pendaftar);
 }

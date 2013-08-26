@@ -284,13 +284,19 @@
 																class="icon-edit"></i>Verifikasi</a>&nbsp;<a href="#"
 															onclick="info(this,'${pendaftar.id }')"
 															class="btn btn-small btn-primary"><i
-																class="icon-edit"></i>Info</a></td>
+																class="icon-edit"></i>Info</a>&nbsp;<a href="#"
+															onclick="cetak(this,'${pendaftar.id }')"
+															class="btn btn-small btn-primary"><i
+																class="icon-edit"></i>Cetak</a></td>
 													</c:when>
 													<c:otherwise>
 														<td>Sudah diverifikasi &nbsp;<a href="#"
 															onclick="info(this,'${pendaftar.id }')"
 															class="btn btn-small btn-primary"><i
-																class="icon-edit"></i>Info</a></td>
+																class="icon-edit"></i>Info</a>&nbsp;<a href="#"
+															onclick="cetak(this,'${pendaftar.id }')"
+															class="btn btn-small btn-primary"><i
+																class="icon-edit"></i>Cetak</a></td>
 													</c:otherwise>
 												</c:choose>
 
