@@ -288,6 +288,4 @@ public class FormasiController {
 
 		return "formasi";
 	}
-
-
 }

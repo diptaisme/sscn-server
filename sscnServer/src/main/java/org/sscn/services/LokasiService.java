@@ -8,6 +8,8 @@ public interface LokasiService {
 
 	List<RefLokasi> findAllLokasi(int... idx);
 	
+	Integer countFindAllLokasiByInstansi(String kodeInstansi);
+	
 	List<RefLokasi> findAllLokasiByInstansi(String kodeInstansi, int... idx);
 
 	List<RefLokasi> findLokasiByLikeName(String name);

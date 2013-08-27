@@ -203,13 +203,13 @@
 								<div class="row">
 									<div class="span6">
 										<div class="dataTables_length">
-											<label> <select id='paging_numpage'
+											<label><!-- <select id='paging_numpage'
 												name="example_length" size="1" aria-controls="example">
 													<option value="10" selected="selected">10</option>
 													<option value="25">25</option>
 													<option value="50">50</option>
 													<option value="100">100</option>
-											</select> records per page
+											</select> --> 10 records per page
 											</label>
 										</div>
 									</div>

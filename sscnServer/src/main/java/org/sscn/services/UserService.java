@@ -8,7 +8,11 @@ public interface UserService {
 	
 	List<DtUser> getAllUser(int... idx);
 	
+	Integer countAllUser();
+	
 	List<DtUser> getAllUserByInstansi(String kodeInstansi, int... idx);
+	
+	Integer countAllUserByInstansi(String kodeInstansi);
 
 	boolean editUser(DtUser user, String kodeInstansi);
 	

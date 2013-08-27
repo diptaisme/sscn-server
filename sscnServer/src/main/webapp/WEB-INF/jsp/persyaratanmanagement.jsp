@@ -192,19 +192,19 @@
 								<div class="row">
 									<div class="span6">
 										<div class="dataTables_length">
-											<label> <select name="example_length" size="1"
+											<label><!-- <select name="example_length" size="1"
 												aria-controls="example">
 													<option value="10" selected="selected">10</option>
 													<option value="25">25</option>
 													<option value="50">50</option>
 													<option value="100">100</option>
-											</select> records per page</label>
+											</select> -->10 records per page</label>
 										</div>
 									</div>
 									<div class="span6">
 										<div class="dataTables_filter">
-											<label>Search: <input type="text"
-												aria-controls="example"> </label>
+											<!-- <label>Search: <input type="text"
+												aria-controls="example"> </label> -->
 										</div>
 									</div>
 								</div>
@@ -240,24 +240,7 @@
 									</tbody>
 								</table>
 								<div class="row">
-									<div class="span6">
-										<div class="dataTables_info" id="example_info">Showing 1
-											to 10 of 57 entries</div>
-									</div>
-									<div class="span6">
-										<div class="dataTables_paginate paging_bootstrap pagination">
-											<ul>
-												<li class="prev disabled"><a href="#">â? Previous</a>
-												</li>
-												<li class="active"><a href="#">1</a></li>
-												<li><a href="#">2</a></li>
-												<li><a href="#">3</a></li>
-												<li><a href="#">4</a></li>
-												<li><a href="#">5</a></li>
-												<li class="next"><a href="#">Next â?? </a></li>
-											</ul>
-										</div>
-									</div>
+									<jsp:include page="paging.jsp" />
 								</div>
 
 							</div>
@@ -462,7 +445,6 @@
 				
 				$(selRowTable).replaceWith(tesHtml);
 			}
-
 			
 			confirmDelete = function(elem, id) {
 				selRowTable = $(elem).closest('tr');

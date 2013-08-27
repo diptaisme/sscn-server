@@ -124,4 +124,11 @@ public class LokasiServiceImpl implements LokasiService {
 		return refLokasi;
 	}
 
+	@Override
+	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
+	public Integer countFindAllLokasiByInstansi(String kodeInstansi) {
+		// TODO Auto-generated method stub
+		return refLokasiDao.countByProperty("refInstansi.kode", kodeInstansi);
+	}
+
 }
