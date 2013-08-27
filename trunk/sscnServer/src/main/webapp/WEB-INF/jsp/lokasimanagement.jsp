@@ -449,14 +449,14 @@ label.error {
 							});
 							$("#myModal2").dialog({
 								autoOpen : false,
-								height : 350,
+								height : 250,
 								width : 500,
 								modal : true
 							});
 
 							$("#myModal3").dialog({
 								autoOpen : false,
-								height : 260,
+								height : 220,
 								width : 400,
 								modal : true
 							});

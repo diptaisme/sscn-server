@@ -369,7 +369,7 @@ label.error {
 				<div class="control-group">
 					<label class="control-label" for="input01">Username</label>
 					<div class="controls">
-						<input type="password" class="input-large" id="username"
+						<input type="text" class="input-large" id="username"
 							name="username">
 						<p class="help-block">
 							<!--In addition to freeform text, any HTML5 text-based input appears like so.-->
@@ -462,7 +462,7 @@ label.error {
 						name="username"> <label class="control-label"
 						for="input01">Nama</label>
 					<div class="controls">
-						<input type="text" class="input-large" id="edname" name="edname">
+						<input type="text" class="input-large" id="edname" name="name">
 						<p class="help-block">
 							<!--In addition to freeform text, any HTML5 text-based input appears like so.-->
 						</p>
@@ -539,8 +539,7 @@ label.error {
 		</form>
 	</div>
 
-	<div id="myModal3" title="Delete user">
-		<p class="validateTips">All form fields are required.</p>
+	<div id="myModal3" title="Delete user">		
 		<form class="form-horizontal" action="/sscnServer/userDelete.do"
 			method="post" id="formDeleteUser">
 			<fieldset>
@@ -564,7 +563,7 @@ label.error {
 
 			$("#myModal").dialog({
 				autoOpen : false,
-				height : 350,
+				height : 470,
 				width : 500,
 				modal : true
 			});
@@ -578,7 +577,7 @@ label.error {
 
 			$("#myModal3").dialog({
 				autoOpen : false,
-				height : 260,
+				height : 200,
 				width : 400,
 				modal : true
 			});
