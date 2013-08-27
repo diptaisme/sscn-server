@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rptPesertaUjian" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="494"/>
+	<property name="ireport.y" value="614"/>
 	<parameter name="NOMOR_PESERTA" class="java.lang.String"/>
 	<parameter name="NAMA" class="java.lang.String"/>
 	<parameter name="TTL" class="java.lang.String"/>
@@ -19,7 +19,7 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="49" splitType="Stretch">
+		<band height="47" splitType="Stretch">
 			<staticText>
 				<reportElement x="-30" y="0" width="555" height="46"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -29,12 +29,12 @@
 FORMASI UMUM]]></text>
 			</staticText>
 			<line>
-				<reportElement x="0" y="46" width="396" height="1"/>
+				<reportElement x="0" y="46" width="555" height="1"/>
 			</line>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="319">
+		<band height="350">
 			<staticText>
 				<reportElement x="1" y="47" width="100" height="20"/>
 				<textElement/>
@@ -162,7 +162,7 @@ FORMASI UMUM]]></text>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{JENIS_KELAMIN}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="370" y="172" width="166" height="84"/>
+				<reportElement x="370" y="172" width="166" height="62"/>
 				<textElement>
 					<font isUnderline="false"/>
 				</textElement>
@@ -176,35 +176,40 @@ FORMASI UMUM]]></text>
 ]]></text>
 			</staticText>
 			<line>
-				<reportElement x="10" y="318" width="396" height="1"/>
+				<reportElement x="2" y="347" width="553" height="1"/>
 			</line>
 			<image>
 				<reportElement x="10" y="-61" width="63" height="59"/>
 				<imageExpression class="java.io.InputStream"><![CDATA[$P{LOGO}]]></imageExpression>
 			</image>
 			<image>
-				<reportElement x="8" y="256" width="63" height="59"/>
+				<reportElement x="8" y="287" width="63" height="59"/>
 				<imageExpression class="java.io.InputStream"><![CDATA[$P{LOGO}]]></imageExpression>
 			</image>
 			<staticText>
-				<reportElement x="436" y="5" width="100" height="122"/>
+				<reportElement x="447" y="5" width="89" height="102"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
 				<textElement>
 					<font isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[
 
 
-
-          Pas Photo
-             4 x 6]]></text>
+         Pas Photo
+            4 x 6]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="29" y="167" width="166" height="84"/>
+				<reportElement x="29" y="167" width="156" height="67"/>
 				<textElement>
 					<font isUnderline="false"/>
 				</textElement>
-				<text><![CDATA[                     Peserta
-
+				<text><![CDATA[                  Peserta
 
 
 
@@ -212,10 +217,16 @@ FORMASI UMUM]]></text>
 ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="71" y="251" width="99" height="22"/>
+				<reportElement x="61" y="240" width="99" height="22"/>
 				<textElement/>
 				<text><![CDATA[Lembar Panitia]]></text>
 			</staticText>
+			<line>
+				<reportElement x="1" y="280" width="554" height="1"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
 		</band>
 	</pageHeader>
 	<detail>
@@ -369,16 +380,22 @@ FORMASI UMUM]]></text>
 FORMASI UMUM]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="447" y="22" width="89" height="115"/>
+				<reportElement x="447" y="15" width="89" height="102"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
 				<textElement>
 					<font isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[
 
 
-
-          Pas Photo
-             4 x 6]]></text>
+         Pas Photo
+            4 x 6]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="10" y="182" width="175" height="79"/>
