@@ -46,7 +46,7 @@ public class ReportPesertaUjianCommand extends ReportCommand {
 			// 14636
 			String noPendaftaran = request.getParameter("no_pendaftaran");
 			DtPendaftaran pendaftaran = registrasiService
-					.getPendaftaranByNoRegistrasi("14636");
+					.getPendaftaranByNoRegistrasi(noPendaftaran);
 
 			if (pendaftaran == null) {
 				cetakRegistrasiGagal(response);
