@@ -11,9 +11,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.sscn.dao.DtPendaftaranDao;
 import org.sscn.dao.DtVerifikasiNokDao;
+import org.sscn.dao.RefPendidikanDao;
 import org.sscn.persistence.entities.DtFormasi;
 import org.sscn.persistence.entities.DtPendaftaran;
 import org.sscn.persistence.entities.DtVerifikasiNok;
+import org.sscn.persistence.entities.RefPendidikan;
 import org.sscn.services.VerfikasiService;
 
 /**
@@ -28,6 +30,9 @@ public class VerfikasiServiceImpl implements VerfikasiService {
 
 	@Inject
 	private DtVerifikasiNokDao dtVerifikasiNokDao;
+	
+	@Inject
+	private RefPendidikanDao refPendidikanDao;
 
 	@Override
 	@Transactional(readOnly = false)
@@ -67,16 +72,20 @@ public class VerfikasiServiceImpl implements VerfikasiService {
 	public String getNoUrutPeserta(DtPendaftaran pendaftar) {
 		
 		String instansi = pendaftar.getFormasi().getRefInstansi().getKode();
-		Set<DtFormasi> dtForms = pendaftar.getFormasi().getDtFormasis();
-		DtFormasi forms = dtForms.iterator().next();
-		String pendidikan = forms.getPendidikan().getKode();
-		String jabatan = pendaftar.getFormasi().getRefJabatan().getKode();
-		String stringDigit = instansi+pendidikan+jabatan;
+		RefPendidikan pend = refPendidikanDao.findById(pendaftar.getPendidikan()); 
+		String pendidikan = pend.getTingkat();
+
+		String stringDigit = instansi+pendidikan.substring(0,1);
 		String nourut = dtPendaftaranDao.getnoUrutPendaftaran(stringDigit);
 		if (nourut.contentEquals("")){
-			nourut = "0";
+			nourut = "00000";
+		} else {
+			int x = Integer.parseInt(nourut) + 1;
+			nourut = String.format("%05d", x);
 		}
-		return stringDigit+nourut;
+		
+		Integer varMod = Integer.parseInt(nourut) % 8;
+		return stringDigit+nourut+varMod;
 	}
 
 }

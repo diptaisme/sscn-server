@@ -284,19 +284,20 @@
 																class="icon-edit"></i>Verifikasi</a>&nbsp;<a href="#"
 															onclick="info(this,'${pendaftar.id }')"
 															class="btn btn-small btn-primary"><i
-																class="icon-edit"></i>Info</a>&nbsp;<a href="#"
-															onclick="cetak(this,'${pendaftar.id }')"
-															class="btn btn-small btn-primary"><i
-																class="icon-edit"></i>Cetak</a></td>
+																class="icon-edit"></i>Info</a>&nbsp;</td>
 													</c:when>
 													<c:otherwise>
 														<td>Sudah diverifikasi &nbsp;<a href="#"
 															onclick="info(this,'${pendaftar.id }')"
 															class="btn btn-small btn-primary"><i
-																class="icon-edit"></i>Info</a>&nbsp;<a href="#"
-															onclick="cetak(this,'${pendaftar.id }')"
+																class="icon-edit"></i>Info</a>&nbsp;
+															<c:if test="${pendaftar.noPeserta != null && pemdaftar.noPeserta != ''}">
+																<a href="#"
+															onclick="cetak(this,'${pendaftar.noRegister }')"
 															class="btn btn-small btn-primary"><i
-																class="icon-edit"></i>Cetak</a></td>
+																class="icon-edit"></i>Cetak </a>
+															</c:if>																
+														</td>
 													</c:otherwise>
 												</c:choose>
 
@@ -383,8 +384,12 @@
 				<button class="btn btn-large" id="btnCancelInfo">Tutup</button>
 			</div>
 		</fieldset>
-
 	</div>
+	
+	<form action="/sscnServer/ReportServlet" method="post" id="cetak" target="_blank">
+		<input type="hidden" name="typeReport" value="rptPesertaUjian"/>
+		<input type="hidden" name="no_pendaftaran" id="rptNoPendaftaran"/>
+	</form>
 
 	<script>
 		jQuery(document)
@@ -395,6 +400,7 @@
 								autoOpen : false,
 								height : 350,
 								width : 600,
+								position : { my: "center", at: "top", of: window },
 								modal : true
 							});
 
@@ -411,6 +417,11 @@
 								selRowTable = $(elem).closest('tr');
 								$('#pendaftarId').val(id);
 								$("#myModal").dialog("open");
+							}
+
+							cetak = function(elem, id){
+								$('#rptNoPendaftaran').val(id);
+								$('#cetak').submit();
 							}
 
 							info = function(elem, id){
