@@ -137,10 +137,10 @@ public class RegistrasiServiceImpl implements RegistrasiService {
 			String instansi = request.getParameter("instansiValue");
 			String jabatan = request.getParameter("jabatan");
 			String lokasiKerja = request.getParameter("lokasi_kerja");
-			// String pendidikan = request.getParameter("pendidikan"); ??
-			String pendidikan = refPendidikanDao
-					.findByProperty("kode", request.getParameter("pendidikan"),
-							null).get(0).getNama();
+			String pendidikan = request.getParameter("pendidikan"); //kode yg disimpan
+			//String pendidikan = refPendidikanDao
+				//	.findByProperty("kode", request.getParameter("pendidikan"),
+					//		null).get(0).getNama();
 
 			MFormasi mFormasi = null; // formasi nanti, sudah
 			HashMap<String, String> propertiesMap = new HashMap<String, String>();
@@ -158,11 +158,9 @@ public class RegistrasiServiceImpl implements RegistrasiService {
 			String noIjazah = request.getParameter("no_ijazah");
 			String jnsKelamin = request.getParameter("jenis_kelamin");
 			String status = ""; // status
-			String regStatus = ""; // regStatus
-			// belom ada di form
+			String regStatus = ""; // regStatus			
 
-			String lembaga = request.getParameter("universitas"); // lembaga =
-																	// universitas??
+			String lembaga = request.getParameter("universitas"); // lembaga = universitas??
 			String akreditasi = request.getParameter("akreditasi");
 			String nilaiIPK = request.getParameter("nilai_ipk");
 			// memang tidak diisi
@@ -173,16 +171,11 @@ public class RegistrasiServiceImpl implements RegistrasiService {
 			String userValidate = "";
 			Date tglValidate = new Date();
 			String keterangan = "";
-
-			// asal-asal dulu biar unik
-			int minute = Calendar.getInstance().getTime().getMinutes();
-			int day = Calendar.getInstance().getTime().getDay();
-			int second = Calendar.getInstance().getTime().getSeconds();
-			int x = noNik.length() > 7 ? 2 : 3;
-			int y = noNik.length() % 2 > 7 ? 0 : 1;
-			String noPeserta = "" + x + minute + "0" + day + y + second; // random
-																			// example
-	
+			
+			// noRegister = ""; // generate no register
+			// noPeserta = ""; // kosong
+			
+			String noPeserta = "";
 
 			String noRegister= generateNoRegistrasi();
 			if (noPeserta.length() > 10) {
@@ -191,8 +184,6 @@ public class RegistrasiServiceImpl implements RegistrasiService {
 			if (noRegister.length() > 10) {
 				noRegister = noRegister.substring(0, 10);
 			}
-			// noRegister = ""; // generate no register
-			// noPeserta = ""; // kosong
 
 			DtPendaftaran pendaftaran = new DtPendaftaran(mFormasi, noNik,
 					noRegister, nama, tempatLahir, tglLahir, jnsKelamin,
