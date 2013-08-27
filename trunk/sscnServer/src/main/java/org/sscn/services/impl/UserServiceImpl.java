@@ -130,4 +130,16 @@ public class UserServiceImpl implements UserService {
 		return dtUserDao.findByProperty("refInstansi.kode", kodeInstansi, idx);
 	}
 
+	@Override
+	public Integer countAllUser() {
+		// TODO Auto-generated method stub
+		return dtUserDao.countAll();
+	}
+
+	@Override
+	public Integer countAllUserByInstansi(String kodeInstansi) {
+		// TODO Auto-generated method stub
+		return dtUserDao.countByProperty("refInstansi.kode", kodeInstansi);
+	}
+
 }
