@@ -252,9 +252,9 @@ label.error {
 								<div class="row">
 									<div class="span6 pull-right">
 										<a href="#" id="addUserModal"
-											class="btn btn-small btn-primary"><i class="icon-plus"></i>Tambah User Baru</a>
+											class="btn btn-small btn-primary"><i class="icon-plus"></i>Tambah User</a>
 										<!--
-											<button class="btn btn-small btn-primary"><i class="icon-plus"></i>&nbsp;&nbsp;Add New User</button>-->
+											<button class="btn btn-small btn-primary"><i class="icon-plus"></i>&nbsp;&nbsp;Tambah User</button>-->
 									</div>
 								</div>
 								<table
@@ -328,7 +328,7 @@ label.error {
 	</div>
 	<!-- /#footer -->
 
-	<div id="myModal" title="Tambah User">
+	<div id="myModal" title="Create new user">
 		<p class="validateTips">All form fields are required.</p>
 		<form class="form-horizontal" action="/sscnServer/userSave.do"
 			method="post" id="formAddUser">
@@ -395,7 +395,7 @@ label.error {
 					<label class="control-label" for="input01">Nip</label>
 					<div class="controls">
 						<div class="ui-widget">
-							<input type="number" class="input-large" id="nip" name="nip" maxlength="18">
+							<input type="number" class="input-large" id="nip" name="nip">
 						</div>
 					</div>
 				</div>
@@ -422,13 +422,13 @@ label.error {
 
 				<div class="form-actions">
 					<button type="submit" class="btn btn-primary btn-large">
-						Simpan</button>
+						Save changes</button>
 				</div>
 			</fieldset>
 		</form>
 	</div>
 
-	<div id="myModal2" title="Ubah User">
+	<div id="myModal2" title="Ubah user">
 		<p class="validateTips">All form fields are required.</p>
 		<form class="form-horizontal" action="/sscnServer/userUpdate.do"
 			method="post" id="formUbahUser">
@@ -487,7 +487,7 @@ label.error {
 					<label class="control-label" for="input01">Nip</label>
 					<div class="controls">
 						<div class="ui-widget">
-							<input type="number" class="input-large" id="ednip" name="nip" maxlength="18">
+							<input type="number" class="input-large" id="ednip" name="nip">
 						</div>
 					</div>
 				</div>
@@ -514,13 +514,13 @@ label.error {
 
 				<div class="form-actions">
 					<button type="submit" class="btn btn-primary btn-large">
-						Update</button>
+						Save changes</button>
 				</div>
 			</fieldset>
 		</form>
 	</div>
 
-	<div id="myModal3" title="Delete User">		
+	<div id="myModal3" title="Delete user">		
 		<form class="form-horizontal" action="/sscnServer/userDelete.do"
 			method="post" id="formDeleteUser">
 			<fieldset>
@@ -908,8 +908,7 @@ label.error {
 									required : true
 								},
 								nip : {
-									required : true,
-									minlength : 18
+									required : true
 								},
 							},
 							highlight : function(element) {
@@ -933,8 +932,7 @@ label.error {
 								required : true
 							},
 							ednip : {
-								required : true,
-								minlength : 18
+								required : true
 							},
 							
 						},

@@ -147,11 +147,7 @@ public class VerifikasiController {
 		} else {
 			part2 = activePage * indexAndCount[1];
 		}		
-//		System.out.println(" jumlah data  : " + count);
-//		System.out.println(" part2  : " + part2);
-//		System.out.println(" active page  : " + activePage);
-//		System.out.println(" indexAndCount  : " + indexAndCount[0] + " - " + indexAndCount[1]);
-//		System.out.println(" num page  : " + numPage);
+
 		model.addAttribute("pendaftars", pendaftars);
 		model.addAttribute("count",count);
 		model.addAttribute("part2", part2);
@@ -295,4 +291,6 @@ public class VerifikasiController {
 
 		return res;
 	}
+	
+	
 }

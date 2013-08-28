@@ -259,8 +259,12 @@ public class FormasiController {
 		indexAndCount[0] = (indexAndCount[0] - 1) * numRow;			
 		indexAndCount[1] = numRow;
 		
-		List<MFormasi> formasis = mFormasiDao.findAll(indexAndCount);
-		Integer count = mFormasiDao.countAll();
+		List<QueryOrder> orders = new ArrayList<QueryOrder>();
+		orders.add(new QueryOrder("refLokasi.kode"));
+		orders.add(new QueryOrder("refJabatan.nama"));
+		
+		List<MFormasi> formasis = mFormasiDao.findByProperty("refInstansi", userp.getRefInstansi(), orders, indexAndCount);
+		Integer count = mFormasiDao.countByProperty("refInstansi", userp.getRefInstansi());
 		
 		int numPage = (int) Math.ceil((double)count/indexAndCount[1]);		
 		int activePage = (int) Math.ceil((double)(indexAndCount[0] + 1)/ indexAndCount[1]);
