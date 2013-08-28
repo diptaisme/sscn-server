@@ -6,7 +6,13 @@
 
 <div class="span6">
 	<div class="dataTables_info" id="sample_1_info">
-		Showing ${indexAndCount[0] + 1} to ${part2} of ${count} entries
+		<c:if test="${indexAndCount[0] == 0}">
+			Showing ${indexAndCount[0]} to ${part2} of ${count} entries	
+		</c:if>
+		<c:if test="${indexAndCount[0] > 0}">
+			Showing ${indexAndCount[0] + 1} to ${part2} of ${count} entries	
+		</c:if>
+		
 	</div>
 </div>
 <div class="span6">

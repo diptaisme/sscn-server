@@ -91,9 +91,9 @@ public class FormasiController {
 		List<QueryOrder> orders = new ArrayList<QueryOrder>();
 		orders.add(new QueryOrder("refLokasi.kode"));
 		orders.add(new QueryOrder("refJabatan.nama"));
-		
-		List<MFormasi> formasis = mFormasiDao.findAll(null, orders, indexAndCount);
-		Integer count = mFormasiDao.countAll();
+
+		List<MFormasi> formasis = mFormasiDao.findByProperty("refInstansi", userp.getRefInstansi(), orders, indexAndCount);
+		Integer count = mFormasiDao.countByProperty("refInstansi", userp.getRefInstansi());
 		
 		int numPage = (int) Math.ceil((double)count/indexAndCount[1]);		
 		int activePage = (int) Math.ceil((double)(indexAndCount[0] + 1)/ indexAndCount[1]);
@@ -110,10 +110,10 @@ public class FormasiController {
 		model.addAttribute("indexAndCount", indexAndCount);
 		model.addAttribute("activePage", activePage);		
 		model.addAttribute("formasis", formasis);
-		RefLokasi lastInputLokasi;
-		MFormasi forms = formasis.get(formasis.size()-1);
-		lastInputLokasi = forms.getRefLokasi();
-		model.addAttribute("lastInputLokasi", lastInputLokasi);
+//		RefLokasi lastInputLokasi;
+//		MFormasi forms = formasis.get(formasis.size()-1);
+//		lastInputLokasi = forms.getRefLokasi();
+//		model.addAttribute("lastInputLokasi", lastInputLokasi);
 		
 		return "formasi";
 	}

@@ -291,7 +291,7 @@
 															onclick="info(this,'${pendaftar.id }')"
 															class="btn btn-small btn-primary"><i
 																class="icon-edit"></i>Info</a>&nbsp;
-															<c:if test="${pendaftar.noPeserta != null && pemdaftar.noPeserta != ''}">
+															<c:if test="${pendaftar.noPeserta != null && pendaftar.noPeserta != ''}">
 																<a href="#"
 															onclick="cetak(this,'${pendaftar.noRegister }')"
 															class="btn btn-small btn-primary"><i
