@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rptRegistrasi" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="404"/>
+	<property name="ireport.y" value="370"/>
 	<parameter name="NO_REGISTRASI" class="java.lang.String"/>
 	<parameter name="NAMA" class="java.lang.String"/>
 	<parameter name="TTL" class="java.lang.String"/>
@@ -18,7 +18,7 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="31" splitType="Stretch">
+		<band height="41" splitType="Stretch">
 			<staticText>
 				<reportElement x="0" y="0" width="555" height="31"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -29,182 +29,200 @@
 		</band>
 	</title>
 	<pageHeader>
-		<band height="256">
+		<band height="232">
 			<staticText>
-				<reportElement x="0" y="0" width="100" height="20"/>
+				<reportElement x="0" y="26" width="100" height="20"/>
 				<textElement/>
 				<text><![CDATA[NO REGISTRASI]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="20" width="100" height="20"/>
+				<reportElement x="0" y="46" width="100" height="20"/>
 				<textElement/>
 				<text><![CDATA[NAMA]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="40" width="141" height="20"/>
+				<reportElement x="0" y="66" width="141" height="20"/>
 				<textElement/>
 				<text><![CDATA[TEMPAT / TANGGAL LAHIR]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="60" width="100" height="20"/>
+				<reportElement x="0" y="86" width="100" height="20"/>
 				<textElement/>
 				<text><![CDATA[NO. IDENTITAS KTP]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="80" width="100" height="20"/>
+				<reportElement x="0" y="106" width="100" height="20"/>
 				<textElement/>
 				<text><![CDATA[UNIVERSITAS]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="100" width="141" height="20"/>
+				<reportElement x="0" y="126" width="141" height="20"/>
 				<textElement/>
 				<text><![CDATA[KUALIFIKASI PENDIDIKAN]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="120" width="100" height="20"/>
+				<reportElement x="0" y="147" width="100" height="20"/>
 				<textElement/>
 				<text><![CDATA[NO. IJAZAH]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="140" width="100" height="20"/>
+				<reportElement x="0" y="169" width="100" height="20"/>
 				<textElement/>
 				<text><![CDATA[AKREDITAS]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="160" width="100" height="20"/>
+				<reportElement x="0" y="189" width="100" height="20"/>
 				<textElement/>
 				<text><![CDATA[JABATAN FORMASI]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="141" y="40" width="4" height="20"/>
+				<reportElement x="141" y="64" width="4" height="20"/>
 				<textElement/>
 				<text><![CDATA[:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="141" y="20" width="4" height="20"/>
+				<reportElement x="141" y="44" width="4" height="20"/>
 				<textElement/>
 				<text><![CDATA[:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="141" y="0" width="4" height="20"/>
+				<reportElement x="141" y="24" width="4" height="20"/>
 				<textElement/>
 				<text><![CDATA[:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="141" y="60" width="4" height="20"/>
+				<reportElement x="141" y="84" width="4" height="20"/>
 				<textElement/>
 				<text><![CDATA[:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="141" y="80" width="4" height="20"/>
+				<reportElement x="141" y="104" width="4" height="20"/>
 				<textElement/>
 				<text><![CDATA[:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="141" y="100" width="4" height="20"/>
+				<reportElement x="141" y="124" width="4" height="20"/>
 				<textElement/>
 				<text><![CDATA[:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="141" y="120" width="4" height="20"/>
+				<reportElement x="141" y="144" width="4" height="20"/>
 				<textElement/>
 				<text><![CDATA[:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="141" y="140" width="4" height="20"/>
+				<reportElement x="141" y="164" width="4" height="20"/>
 				<textElement/>
 				<text><![CDATA[:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="141" y="160" width="4" height="20"/>
+				<reportElement x="141" y="184" width="4" height="20"/>
 				<textElement/>
 				<text><![CDATA[:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="145" y="0" width="175" height="20"/>
+				<reportElement x="145" y="24" width="244" height="20"/>
 				<textElement>
 					<font size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{NO_REGISTRASI}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="145" y="20" width="175" height="20"/>
-				<textElement/>
+				<reportElement x="145" y="44" width="391" height="20"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{NAMA}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="145" y="40" width="175" height="20"/>
-				<textElement/>
+				<reportElement x="145" y="64" width="391" height="20"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{TTL}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="145" y="60" width="175" height="20"/>
-				<textElement/>
+				<reportElement x="145" y="84" width="299" height="20"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{NIK}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="145" y="80" width="175" height="20"/>
-				<textElement/>
+				<reportElement x="145" y="104" width="391" height="20"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{UNIVERSITAS}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="145" y="100" width="175" height="20"/>
-				<textElement/>
+				<reportElement x="145" y="124" width="391" height="20"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{PENDIDIKAN}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="145" y="120" width="175" height="20"/>
-				<textElement/>
+				<reportElement x="145" y="144" width="244" height="20"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{NO_IJAZAH}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="145" y="140" width="175" height="20"/>
-				<textElement/>
+				<reportElement x="145" y="164" width="175" height="20"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{AKREDITAS}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="145" y="160" width="175" height="20"/>
-				<textElement/>
+				<reportElement x="145" y="184" width="175" height="20"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{JABATAN}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="180" width="100" height="20"/>
+				<reportElement x="0" y="3" width="100" height="20"/>
 				<textElement/>
 				<text><![CDATA[INSTANSI]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="145" y="180" width="175" height="20"/>
-				<textElement/>
+				<reportElement x="145" y="1" width="391" height="22"/>
+				<textElement>
+					<font size="16" isBold="true"/>
+				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{INSTANSI}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="141" y="180" width="4" height="20"/>
+				<reportElement x="141" y="2" width="4" height="20"/>
 				<textElement/>
 				<text><![CDATA[:]]></text>
 			</staticText>
 			<line>
-				<reportElement x="0" y="-4" width="555" height="1"/>
+				<reportElement x="0" y="-9" width="555" height="1"/>
 			</line>
 			<staticText>
-				<reportElement x="1" y="230" width="119" height="13"/>
+				<reportElement x="1" y="216" width="119" height="13"/>
 				<textElement>
-					<font isUnderline="true"/>
+					<font isBold="true" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[Persyaratan Khusus :]]></text>
 			</staticText>
 		</band>
 	</pageHeader>
 	<detail>
-		<band height="24" splitType="Stretch">
+		<band height="20" splitType="Stretch">
 			<staticText>
-				<reportElement x="344" y="6" width="48" height="13"/>
+				<reportElement x="341" y="1" width="48" height="13"/>
 				<textElement>
 					<font isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[[   ]]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="13" y="2" width="100" height="20"/>
+				<reportElement x="13" y="2" width="100" height="17"/>
 				<textElement/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{syarat}]]></textFieldExpression>
 			</textField>
@@ -213,34 +231,36 @@
 	<summary>
 		<band height="100" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="12" width="125" height="13"/>
+				<reportElement x="0" y="1" width="341" height="13"/>
 				<textElement>
-					<font isUnderline="true"/>
+					<font isBold="true" isUnderline="true"/>
 				</textElement>
-				<text><![CDATA[Persyaratan Umum :]]></text>
+				<text><![CDATA[Persyaratan Umum, saat pelaksanaan pengisian / ujian harap membawa :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="26" width="189" height="13"/>
-				<textElement/>
-				<text><![CDATA[Saat pelaksanaan pengisian / ujian harap membawa :]]></text>
+				<reportElement x="1" y="75" width="263" height="13"/>
+				<textElement>
+					<font isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Simpan lah report ini untuk kebutuhan verifikasi]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="40" width="100" height="13"/>
+				<reportElement x="0" y="14" width="100" height="13"/>
 				<textElement/>
 				<text><![CDATA[1. pensil B2 asli]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="53" width="100" height="13"/>
+				<reportElement x="0" y="27" width="100" height="13"/>
 				<textElement/>
 				<text><![CDATA[2. penghapus]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="66" width="100" height="13"/>
+				<reportElement x="0" y="40" width="100" height="13"/>
 				<textElement/>
 				<text><![CDATA[3. rautan / penajam pensil]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="78" width="100" height="13"/>
+				<reportElement x="0" y="52" width="100" height="13"/>
 				<textElement/>
 				<text><![CDATA[4. alas tulis]]></text>
 			</staticText>
