@@ -122,11 +122,9 @@ $(function () {
 		$('#numPage').val(numpage);
 		$('#searchPage').val(0);
 		if ($('#defaultSearchField').val() != ""){
-			alert('kadiyeu');
 			$('#activePageBar').val(page);
 			$('#searchForm').submit();	
 		} else {
-			alert('kaditu');
 			$('#activePage').val(page);
 			$('#pagingForm').submit();	
 		}
