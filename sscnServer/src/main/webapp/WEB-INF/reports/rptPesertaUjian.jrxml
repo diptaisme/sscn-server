@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rptPesertaUjian" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="614"/>
+	<property name="ireport.y" value="558"/>
 	<parameter name="NOMOR_PESERTA" class="java.lang.String"/>
 	<parameter name="NAMA" class="java.lang.String"/>
 	<parameter name="TTL" class="java.lang.String"/>
@@ -19,9 +19,9 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="47" splitType="Stretch">
+		<band height="51" splitType="Stretch">
 			<staticText>
-				<reportElement x="-30" y="0" width="555" height="46"/>
+				<reportElement x="-30" y="-2" width="555" height="46"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="16" isBold="true"/>
 				</textElement>
@@ -29,7 +29,7 @@
 FORMASI UMUM]]></text>
 			</staticText>
 			<line>
-				<reportElement x="0" y="46" width="555" height="1"/>
+				<reportElement x="0" y="44" width="555" height="1"/>
 			</line>
 		</band>
 	</title>
@@ -179,11 +179,11 @@ FORMASI UMUM]]></text>
 				<reportElement x="2" y="347" width="553" height="1"/>
 			</line>
 			<image>
-				<reportElement x="10" y="-61" width="63" height="59"/>
+				<reportElement x="10" y="-65" width="61" height="58"/>
 				<imageExpression class="java.io.InputStream"><![CDATA[$P{LOGO}]]></imageExpression>
 			</image>
 			<image>
-				<reportElement x="8" y="287" width="63" height="59"/>
+				<reportElement x="8" y="286" width="63" height="59"/>
 				<imageExpression class="java.io.InputStream"><![CDATA[$P{LOGO}]]></imageExpression>
 			</image>
 			<staticText>
