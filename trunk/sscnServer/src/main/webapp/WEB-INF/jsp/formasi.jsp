@@ -342,7 +342,7 @@
 												<input type="hidden" class="input-large" name="lokasi"
 													id="lokasiValue" value="${formasi.refLokasi.kode}">
 												<input type="text" class="input-large" name="lokasiLabel"
-													id="lokasiLabel" onchange="validasiLokasi()"
+													id="lokasiLabel" 
 													value="${formasi.refLokasi.nama}"> <span
 													class="help-inline" style="display: none; color: #b94a48;"
 													id="lokasiAlert">Something may have gone wrong</span>
@@ -354,7 +354,7 @@
 												<input type="hidden" class="input-large" name="jabatan"
 													id="jabatanValue" value="${formasi.refJabatan.kode}">
 												<input type="text" class="input-large" name="jabatanLabel"
-													id="jabatanLabel" onchange="validasiJabatan()"
+													id="jabatanLabel" 
 													value="${formasi.refJabatan.nama}"> <span
 													class="help-inline" style="display: none; color: #b94a48;"
 													id="jabatanAlert">Something may have gone wrong</span>
@@ -371,7 +371,7 @@
 															id="pendidikanValue"> <input type="text"
 															class="input-large" name="pendidikanLabel[]"
 															value="${dtFormasi.pendidikan.nama}" id="pendidikanLabel"
-															onchange="validasiPendidikan(this)"> <input
+															> <input
 															type="text" class="input-mini" name="pendidikanJmlh[]"
 															value="${dtFormasi.jumlah }" id="pendidikanJmlh"
 															onChange="hitungUlang()">
@@ -391,8 +391,7 @@
 															id="pendidikanValue${i}"> <input type="text"
 															class="input-large" name="pendidikanLabel[]"
 															value="${dtFormasi.pendidikan.nama}"
-															id="pendidikanLabel${i}"
-															onchange="validasiPendidikan(this)"> <input
+															id="pendidikanLabel${i}"> <input
 															type="text" class="input-mini" name="pendidikanJmlh[]"
 															value="${dtFormasi.jumlah }" id="pendidikanJmlh${i}"
 															onChange="hitungUlang()">
@@ -433,7 +432,7 @@
 												<input type="hidden" class="input-large" name="lokasi" value="${lastInputLokasi.kode}"
 													id="lokasiValue"> <input type="text"
 													class="input-large" name="lokasiLabel" id="lokasiLabel"
-													onchange="validasiLokasi()" value="${lastInputLokasi.nama}"> <span
+													value="${lastInputLokasi.nama}"> <span
 													class="help-inline" style="display: none; color: #b94a48;"
 													id="lokasiAlert">Something may have gone wrong</span>
 											</div>
@@ -443,8 +442,8 @@
 											<div class="controls">
 												<input type="hidden" class="input-large" name="jabatan"
 													id="jabatanValue"> <input type="text"
-													class="input-large" name="jabatanLabel" id="jabatanLabel"
-													onchange="validasiJabatan()"> <span
+													class="input-large" name="jabatanLabel" id="jabatanLabel">
+													 <span
 													class="help-inline" style="display: none; color: #b94a48;"
 													id="jabatanAlert">Something may have gone wrong</span>
 											</div>
@@ -514,7 +513,6 @@
 							var autocomp_opt = {
 								source : function(request, response) {
 									$.ajax({
-
 												url : "/sscnServer/findPendidikanLikeByName.do",
 												dataType : "jsonp",
 												data : {
@@ -552,6 +550,11 @@
 								close : function() {
 									$(this).removeClass("ui-corner-top")
 											.addClass("ui-corner-all");
+								},
+								change: function(event, ui){
+									if (ui.item == null){
+										validasiPendidikanArr(this);
+									}
 								}
 							};
 
@@ -574,7 +577,7 @@
 														+ '<label class="control-label" for="input01"></label> '
 														+ '<div class="controls"> '													
 														+ '<input type="hidden" name="pendidikan[]" id="pendidikanValue'+(i+1)+'"/> '
-														+ '<input type="text" class="input-large" id="pendidikanLabel'+(i+1)+'" name="pendidikanLabel[]" onchange="validasiPendidikanArr(this)"> '
+														+ '<input type="text" class="input-large" id="pendidikanLabel'+(i+1)+'" name="pendidikanLabel[]"> '
 														+ '<input type="text" class="input-mini" id="pendidikanJmlh'+(i+1)+'" name="pendidikanJmlh[]" onchange="hitungUlang()"> <button id="btnDelPddkn" onClick="delPddkn(event, this)" class="btn btn-primary btn-small">X</button><span class="help-inline" style="display:none;color: #b94a48;">Something may have gone wrong</span>'
 														+ '</div>'													
 														+ '</div>';
@@ -596,16 +599,6 @@
 								var x=0;
 								var found=false;
 								var selValue = 0;
-								if (availableTagsArr.length<=0){
-									$(elem).prev().val("");
-									$(elem).val("");
-									var alert = $(elem).next().next().next(); 
-									$(alert).html("input tidak sesuai dengan data yang disediakan");
-									$(alert).show();	
-									$(alert).delay(3200).fadeOut(300);								
-							        return;
-								}
-								//alert(availableTags.length);
 								while (x<=(availableTagsArr.length-1) && !found){
 									if (availableTagsArr[x].nama.toLowerCase() === $(elem).val().toLowerCase() ){
 										selValue = availableTagsArr[x].kode;
@@ -625,59 +618,7 @@
 								}	
 							}
 							
-							$("#lokasiLabel")
-									.autocomplete(
-											{
-												source : function(request,
-														response) {
-													$
-															.ajax({
-																
-																url : "/sscnServer/findLokasiLikeByName.do",
-																dataType : "jsonp",
-																data : {
-																	featureClass : "P",
-																	style : "full",
-																	maxRows : 12,
-																	name_startsWith : request.term
-																},
-																success : function(
-																		data) {
-																	availableTags = data.lokasis;
-																	response($
-																			.map(
-																					data.lokasis,
-																					function(
-																							item) {
-																						return {
-																							code : item.kode,
-																							label : item.nama,
-																							value : item.nama
-																						}
-																					}));
-																}
-															});
-												},
-												minLength : 2,
-												select : function(event, ui, data) {
-													$('#lokasiValue').val(
-															ui.item.code);
-												},
-												open : function() {
-													$(this)
-															.removeClass(
-																	"ui-corner-all")
-															.addClass(
-																	"ui-corner-top");
-												},
-												close : function() {
-													$(this)
-															.removeClass(
-																	"ui-corner-top")
-															.addClass(
-																	"ui-corner-all");
-												}
-											});
+							
 
 							delPddkn = function(ev, elem){
 								ev.preventDefault();
@@ -687,127 +628,133 @@
 								hitungUlang();
 							};
 
-							$("#jabatanLabel")
-									.autocomplete(
-											{
-												source : function(request,
-														response) {
-													$
-															.ajax({
-																url : "/sscnServer/findJabatanLikeByName.do",
-																dataType : "jsonp",
-																data : {
-																	featureClass : "P",
-																	style : "full",
-																	maxRows : 12,
-																	name_startsWith : request.term
-																},
-																success : function(
-																		data) {
-																	availableTags = data.jabatans;
-																	response($
-																			.map(
-																					data.jabatans,
-																					function(
-																							item) {
-																						return {
-																							code : item.kode,
-																							label : item.nama,
-																							value : item.nama
-																						}
-																					}));
-																}
-															});
-												},
-												minLength : 2,
-												select : function(event, ui) {
-													$('#jabatanValue').val(
-															ui.item.code);
-												},
-												open : function() {
-													$(this)
-															.removeClass(
-																	"ui-corner-all")
-															.addClass(
-																	"ui-corner-top");
-												},
-												close : function() {
-													$(this)
-															.removeClass(
-																	"ui-corner-top")
-															.addClass(
-																	"ui-corner-all");
-												}
-											});
-
-							$("#pendidikanLabel")
-									.autocomplete(
-											{
-												source : function(request,
-														response) {
-													$
-															.ajax({
-
-																url : "/sscnServer/findPendidikanLikeByName.do",
-																dataType : "jsonp",
-																data : {
-																	featureClass : "P",
-																	style : "full",
-																	maxRows : 12,
-																	name_startsWith : request.term
-																},
-																success : function(
-																		data) {
-																	availableTags = data.pendidikans;
-																	response($
-																			.map(
-																					data.pendidikans,
-																					function(
-																							item) {
-																						return {
-																							code : item.kode,
-																							label : item.nama,
-																							value : item.nama
-																						}
-																					}));
-																}
-															});
-												},
-												minLength : 2,
-												select : function(event, ui) {
-													$('#pendidikanValue').val(
-															ui.item.code);
-												},
-												open : function() {
-													$(this)
-															.removeClass(
-																	"ui-corner-all")
-															.addClass(
-																	"ui-corner-top");
-												},
-												close : function() {
-													$(this)
-															.removeClass(
-																	"ui-corner-top")
-															.addClass(
-																	"ui-corner-all");
-												}
-											});
+														
 							var availableTags = new Array();
 							var availableTagsArr = new Array();
+							var isValidating = true;
+							
+							$("#lokasiLabel")
+							.autocomplete(
+									{
+										source : function(request,
+												response) {
+											$
+													.ajax({
+														
+														url : "/sscnServer/findLokasiLikeByName.do",
+														dataType : "jsonp",
+														data : {
+															featureClass : "P",
+															style : "full",
+															maxRows : 12,
+															name_startsWith : request.term
+														},
+														success : function(
+																data) {
+															availableTags = data.lokasis;
+															response($
+																	.map(
+																			data.lokasis,
+																			function(
+																					item) {
+																				return {
+																					code : item.kode,
+																					label : item.nama,
+																					value : item.nama
+																				}
+																			}));
+														}
+													});
+										},
+										minLength : 2,
+										select : function(event, ui, data) {
+											$('#lokasiValue').val(
+													ui.item.code);										
+										},
+										open : function() {
+											$(this)
+													.removeClass(
+															"ui-corner-all")
+													.addClass(
+															"ui-corner-top");
+										},
+										close : function() {
+											$(this)
+													.removeClass(
+															"ui-corner-top")
+													.addClass(
+															"ui-corner-all");
+										},
+										change : function(event, ui){
+											if (ui.item == null){
+												validasiLokasi();
+											}											
+										}
+							});
+
+
+							$("#jabatanLabel")
+							.autocomplete(
+									{
+										source : function(request,
+												response) {
+											$
+													.ajax({
+														url : "/sscnServer/findJabatanLikeByName.do",
+														dataType : "jsonp",
+														data : {
+															featureClass : "P",
+															style : "full",
+															maxRows : 12,
+															name_startsWith : request.term
+														},
+														success : function(
+																data) {
+															availableTags = data.jabatans;
+															response($
+																	.map(
+																			data.jabatans,
+																			function(
+																					item) {
+																				return {
+																					code : item.kode,
+																					label : item.nama,
+																					value : item.nama
+																				}
+																			}));
+														}
+													});
+										},
+										minLength : 3,
+										select : function(event, ui) {
+											$('#jabatanValue').val(ui.item.code);
+										},
+										open : function() {
+											$(this)
+													.removeClass(
+															"ui-corner-all")
+													.addClass(
+															"ui-corner-top");
+										},
+										close : function() {
+											$(this)
+													.removeClass(
+															"ui-corner-top")
+													.addClass(
+															"ui-corner-all");
+										},
+										change : function(event, ui){
+											if (ui.item == null){
+												validasiJabatan();
+											}
+										}
+									});	
+							
 							validasiLokasi = function(){
 								var x=0;
 								var found=false;
 								var selValue=0;
-								if (availableTags.length<=0){
-									$('#lokasiValue').val("");
-									$('#lokasiLabel').val("");
-									$('#lokasiAlert').html("input tidak sesuai dengan data yang disediakan");
-									$('#lokasiAlert').show();	
-									$("#lokasiAlert").delay(3200).fadeOut(300);								
-							        return;
-								}
-								//alert(availableTags.length);
+							
 								while (x<availableTags.length && !found){
 									if (availableTags[x].nama.toLowerCase() === $('#lokasiLabel').val().toLowerCase() ){
 										selValue = availableTags[x].kode;
@@ -832,15 +779,7 @@
 								var x=0;
 								var found=false;
 								var selValue=0;
-								if (availableTags.length<=0){
-									$('#jabatanValue').val("");
-									$('#jabatanLabel').val("");
-									$('#jabatanAlert').html("input tidak sesuai dengan data yang disediakan");
-									$('#jabatanAlert').show();	
-									$("#jabatanAlert").delay(3200).fadeOut(300);								
-							        return;
-								}
-								//alert(availableTags.length);
+							
 								while (x<availableTags.length && !found){
 									if (availableTags[x].nama.toLowerCase() === $('#jabatanLabel').val().toLowerCase() ){
 										selValue = availableTags[x].kode;
@@ -848,8 +787,7 @@
 									}	
 									x++;
 								}
-								if (found){
-									
+								if (found){									
 									$('#jabatanValue').val(selValue);
 								} else {
 									$('#jabatanValue').val("");
@@ -860,19 +798,68 @@
 								}	
 							}
 
+							$("#pendidikanLabel")
+							.autocomplete(
+									{
+										source : function(request,
+												response) {
+											$
+													.ajax({
+														url : "/sscnServer/findPendidikanLikeByName.do",
+														dataType : "jsonp",
+														data : {
+															featureClass : "P",
+															style : "full",
+															maxRows : 12,
+															name_startsWith : request.term
+														},
+														success : function(
+																data) {
+															availableTags = data.pendidikans;
+															response($
+																	.map(
+																			data.pendidikans,
+																			function(
+																					item) {
+																				return {
+																					code : item.kode,
+																					label : item.nama,
+																					value : item.nama
+																				}
+																			}));
+														}
+													});
+										},
+										minLength : 2,
+										select : function(event, ui) {
+											$('#pendidikanValue').val(ui.item.code);													
+										},
+										open : function() {
+											$(this)
+													.removeClass(
+															"ui-corner-all")
+													.addClass(
+															"ui-corner-top");
+										},
+										close : function() {
+											$(this)
+													.removeClass(
+															"ui-corner-top")
+													.addClass(
+															"ui-corner-all");
+										},
+										change : function(event, ui){
+											if (ui.item == null){
+												validasiPendidikan();
+											}
+										}
+									});
+							
 							validasiPendidikan = function(){
 								var x=0;
 								var found=false;
 								var selValue = 0;
-								if (availableTags.length<=0){
-									$('#pendidikanValue').val("");
-									$('#pendidikanLabel').val("");
-									$('#pendidikanAlert').html("input tidak sesuai dengan data yang disediakan");
-									$('#pendidikanAlert').show();	
-									$("#pendidikanAlert").delay(3200).fadeOut(300);								
-							        return;
-								}
-								//alert(availableTags.length);
+							
 								while (x<availableTags.length && !found){
 									if (availableTags[x].nama.toLowerCase() === $('#pendidikanLabel').val().toLowerCase() ){
 										selValue = availableTags[x].kode;
