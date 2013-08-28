@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Component;
 import org.sscn.core.report.GeneralReportUtil;
+import org.sscn.dao.RefPendidikanDao;
 import org.sscn.manager.Constanta;
 import org.sscn.persistence.entities.DtPendaftaran;
 import org.sscn.persistence.entities.DtPersyaratan;
@@ -23,6 +24,9 @@ import org.sscn.services.RegistrasiService;
 @Component("ReportRegistrasiCommand")
 public class ReportRegistrasiCommand extends ReportCommand {
 
+	@Inject
+	private RefPendidikanDao refPendidikanDao;
+	
 	@Inject
 	private RegistrasiService registrasiService;
 	
@@ -122,8 +126,11 @@ public class ReportRegistrasiCommand extends ReportCommand {
 		String tglLahir = formatDateJava.format(pendaftaran.getTglLahir());
 		mapParamater.put("TTL", tempatLahir + " / " + tglLahir);
 		mapParamater.put("NIK", pendaftaran.getNoNik());
-		mapParamater.put("UNIVERSITAS", pendaftaran.getLembaga());
-		mapParamater.put("PENDIDIKAN", pendaftaran.getPendidikan());
+		mapParamater.put("UNIVERSITAS", pendaftaran.getLembaga());		
+		String pendidikan = refPendidikanDao
+					.findByProperty("kode", pendaftaran.getPendidikan(),
+							null).get(0).getNama();
+		mapParamater.put("PENDIDIKAN", pendidikan);
 		mapParamater.put("NO_IJAZAH", pendaftaran.getNoIjazah());
 		mapParamater.put("AKREDITAS", pendaftaran.getAkreditasi());
 		mapParamater.put("JABATAN", pendaftaran.getFormasi().getRefJabatan()
