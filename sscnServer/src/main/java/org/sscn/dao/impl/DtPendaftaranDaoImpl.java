@@ -46,7 +46,7 @@ public class DtPendaftaranDaoImpl extends CoreDaoImpl<DtPendaftaran> implements
 	@Override
 	public String getnoUrutPendaftaran(String limaDigitPertama) {
 		StringBuilder sqlText = new StringBuilder(
-		        "select max(convert(substr(NO_PESERTA,6,5),unsigned integer)) from DT_PENDAFTARAN where NO_PESERTA LIKE '"
+		        "select max(convert(substr(NO_PESERTA,6,5),unsigned integer)) from dt_pendaftaran where NO_PESERTA LIKE '"
 		                + limaDigitPertama + "%'");
 
 		SQLQuery query = createSqlQuery(sqlText);
