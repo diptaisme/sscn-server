@@ -43,7 +43,7 @@
 						<a href='#' onClick='handleGoToPage(event,"<%=i%>")'><%=i%></a></li>	
 				<% 	}
 					
-					if (activePage == lenNumPage){ %>
+					if (activePage >= lenNumPage){ %>
 						<li class='next disabled'><a href='#'>Next → </a></li>	
 				<% 	} else { %>
 						<li class='next'><a href='#' onClick='handleGoToPage(event, "${activePage+1}")'>Next → </a></li>
@@ -51,6 +51,7 @@
 				%>
 				
 		</ul>
+		
 	</div>
 </div>
 
