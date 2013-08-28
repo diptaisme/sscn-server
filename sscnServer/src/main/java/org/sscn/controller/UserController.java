@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.sscn.core.persistence.tools.QueryOrder;
 import org.sscn.persistence.entities.DtUser;
-import org.sscn.persistence.entities.MFormasi;
 import org.sscn.persistence.entities.RefInstansi;
 import org.sscn.services.UserService;
 import org.sscn.util.json.StandardJsonMessage;
@@ -27,49 +26,54 @@ public class UserController {
 	private UserService userService;
 
 	@RequestMapping(value = "/user.do", method = RequestMethod.GET)
-	public String index(HttpServletRequest request, ModelMap model, HttpSession session) {
+	public String index(HttpServletRequest request, ModelMap model,
+			HttpSession session) {
 		DtUser user = (DtUser) session.getAttribute("userLogin");
 		if (user == null) {
-			request.setAttribute("pesan", "Session habis silahkan login kembali");
+			request.setAttribute("pesan",
+					"Session habis silahkan login kembali");
 			return "login";
 		}
 
-		int indexAndCount[] = new int[2]; 
-		int numRow = 10;		
+		int indexAndCount[] = new int[2];
+		int numRow = 10;
 		indexAndCount[0] = 1;
 		String index = request.getParameter("activePage");
-		if (index != null && !index.contentEquals("")){
-			indexAndCount[0] = Integer.parseInt(index);			
-		} 
-		indexAndCount[0] = (indexAndCount[0] - 1) * numRow;			
+		if (index != null && !index.contentEquals("")) {
+			indexAndCount[0] = Integer.parseInt(index);
+		}
+		indexAndCount[0] = (indexAndCount[0] - 1) * numRow;
 		indexAndCount[1] = numRow;
-		
+
 		List<QueryOrder> orders = new ArrayList<QueryOrder>();
 		orders.add(new QueryOrder("refLokasi.kode"));
 		orders.add(new QueryOrder("refJabatan.nama"));
-		
+
 		List<DtUser> users = null;
 		Integer count;
-		if(user.getKewenangan().equals("1")){
+		if (user.getKewenangan().equals("1")) {
 			users = userService.getAllUser(indexAndCount);
 			count = userService.countAllUser();
-		}else{
-			users = userService.getAllUserByInstansi(user.getRefInstansi().getKode(),indexAndCount);
-			count = userService.countAllUserByInstansi(user.getRefInstansi().getKode());
+		} else {
+			users = userService.getAllUserByInstansi(user.getRefInstansi()
+					.getKode(), indexAndCount);
+			count = userService.countAllUserByInstansi(user.getRefInstansi()
+					.getKode());
 		}
-		
-		int numPage = (int) Math.ceil((double)count/indexAndCount[1]);		
-		int activePage = (int) Math.ceil((double)(indexAndCount[0] + 1)/ indexAndCount[1]);
+
+		int numPage = (int) Math.ceil((double) count / indexAndCount[1]);
+		int activePage = (int) Math.ceil((double) (indexAndCount[0] + 1)
+				/ indexAndCount[1]);
 		int part2;
-		if ((activePage * indexAndCount[1]) >= count){
+		if ((activePage * indexAndCount[1]) >= count) {
 			part2 = count;
 		} else {
 			part2 = activePage * indexAndCount[1];
-		}		
-		
-		model.addAttribute("count",count);
+		}
+
+		model.addAttribute("count", count);
 		model.addAttribute("part2", part2);
-		model.addAttribute("numpage",numPage);
+		model.addAttribute("numpage", numPage);
 		model.addAttribute("indexAndCount", indexAndCount);
 		model.addAttribute("activePage", activePage);
 		model.addAttribute("users", users);
@@ -194,7 +198,7 @@ public class UserController {
 				res = new StandardJsonMessage(0, null, null, "Delete Gagal");
 			} else {
 				user = listUser.get(0);
-				
+
 				if (userService.deleteUserByUsername(user.getUsername())) {
 					RefInstansi temp = new RefInstansi();
 					temp.setKode(user.getRefInstansi().getKode());
@@ -245,14 +249,14 @@ public class UserController {
 
 		return res;
 	}
-	
+
 	@RequestMapping(value = "/userChangePassword.do", method = RequestMethod.POST)
 	@ResponseBody
 	public StandardJsonMessage changePassword(
 			@RequestParam("username") String username,
 			@RequestParam("password") String password,
-			@RequestParam("old_password") String oldPassword, HttpSession session)
-			throws Exception {
+			@RequestParam("old_password") String oldPassword,
+			HttpSession session) throws Exception {
 
 		DtUser userLogin = (DtUser) session.getAttribute("userLogin");
 		if (userLogin == null) {
@@ -265,27 +269,30 @@ public class UserController {
 		DtUser user = null;
 		try {
 			user = userService.findByProperty("username", username, null)
-					.get(0);						
+					.get(0);
 			user.setTglUpdated(new Date());
-			
-			if(userService.isSamePassword(oldPassword, user.getPassword())){
+
+			if (userService.isSamePassword(oldPassword, user.getPassword())) {
 				if (userService.changePassword(user, password)) {
 					RefInstansi temp = new RefInstansi();
 					temp.setKode(user.getRefInstansi().getKode());
 					temp.setNama(user.getRefInstansi().getNama());
 					user.setRefInstansi(temp);
-					res = new StandardJsonMessage(1, user, null, "Update Password Success");
+					res = new StandardJsonMessage(1, user, null,
+							"Update Password Success");
 				} else {
-					res = new StandardJsonMessage(0, null, null, "Update Password Gagal");
+					res = new StandardJsonMessage(0, null, null,
+							"Update Password Gagal");
 				}
-			}else{
-				res = new StandardJsonMessage(0, null, null, "Password lama salah");
+			} else {
+				res = new StandardJsonMessage(0, null, null,
+						"Password lama salah");
 			}
-			
+
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			res = new StandardJsonMessage(0, null, null, "Update Password Gagal"
-					+ ex.getMessage());
+			res = new StandardJsonMessage(0, null, null,
+					"Update Password Gagal" + ex.getMessage());
 		}
 		return res;
 	}

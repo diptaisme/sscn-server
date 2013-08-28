@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
@@ -140,6 +141,13 @@ public class RegistrasiController {
 			@RequestParam("instansi") String instansi) {
 
 		List<RefLokasi> lokasis = registrasiService.getLokasi(instansi);
+		Map<String, RefLokasi> mapLokasis = new Hashtable<String, RefLokasi>();
+		for (RefLokasi lokasi : lokasis) {
+			if(!mapLokasis.containsKey(lokasi.getKode())){
+				mapLokasis.put(lokasi.getKode(), lokasi);
+			}
+		}
+		lokasis = new ArrayList<RefLokasi>(mapLokasis.values());
 		List<LokasiJson> newLokasis = new ArrayList<LokasiJson>();
 		for (RefLokasi lokasi : lokasis) {
 			// lokasi.setRefInstansi(null);http://localhost:8080/sscnServer/dashboard.dohttp://localhost:8080/sscnServer/dashboard.do
@@ -219,19 +227,23 @@ public class RegistrasiController {
 		return lokasiMap;
 	}
 
-	/*@RequestMapping(value = "/cb_pendidikan_by_instansi_lokasi_jabatan.do", method = RequestMethod.GET)
-	@ResponseBody
-	public Map<String, List<RefPendidikan>> getPendidikans(
-			@RequestParam("instansi") String instansi,
-			@RequestParam("lokasi") String lokasi,
-			@RequestParam("jabatan") String jabatan) {
-
-		List<RefPendidikan> pendidikans = registrasiService.getPendidikan(
-				instansi, lokasi, jabatan);
-		Map<String, List<RefPendidikan>> pendidikanMap = new HashMap<String, List<RefPendidikan>>();
-		pendidikanMap.put("pendidikans", pendidikans);
-		return pendidikanMap;
-	}*/
+	/*
+	 * @RequestMapping(value = "/cb_pendidikan_by_instansi_lokasi_jabatan.do",
+	 * method = RequestMethod.GET)
+	 * 
+	 * @ResponseBody public Map<String, List<RefPendidikan>> getPendidikans(
+	 * 
+	 * @RequestParam("instansi") String instansi,
+	 * 
+	 * @RequestParam("lokasi") String lokasi,
+	 * 
+	 * @RequestParam("jabatan") String jabatan) {
+	 * 
+	 * List<RefPendidikan> pendidikans = registrasiService.getPendidikan(
+	 * instansi, lokasi, jabatan); Map<String, List<RefPendidikan>>
+	 * pendidikanMap = new HashMap<String, List<RefPendidikan>>();
+	 * pendidikanMap.put("pendidikans", pendidikans); return pendidikanMap; }
+	 */
 	@RequestMapping(value = "/cb_pendidikan_by_instansi_lokasi_jabatan.do", method = RequestMethod.GET)
 	@ResponseBody
 	public Map<String, List<PendidikanJson>> getPendidikans(
@@ -243,13 +255,12 @@ public class RegistrasiController {
 				instansi, lokasi, jabatan);
 		List<PendidikanJson> newPendidikans = new ArrayList<PendidikanJson>();
 		for (RefPendidikan pendidikan : pendidikans) {
-			newPendidikans.add(new PendidikanJson(pendidikan.getKode(), pendidikan
-					.getNama(), pendidikan.getTingkat()));
+			newPendidikans.add(new PendidikanJson(pendidikan.getKode(),
+					pendidikan.getNama(), pendidikan.getTingkat()));
 		}
 		Map<String, List<PendidikanJson>> pendidikanMap = new HashMap<String, List<PendidikanJson>>();
 		pendidikanMap.put("pendidikans", newPendidikans);
 		return pendidikanMap;
 	}
-
 
 }
