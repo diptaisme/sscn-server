@@ -245,7 +245,7 @@ label.error {
 								<div class="row">
 									<div class="span6 pull-right">
 										<a href="#" id="addLokasiModal"
-											class="btn btn-small btn-primary"><i class="icon-plus"></i>Tambah Lokasi</a>
+											class="btn btn-small btn-primary"><i class="icon-plus"></i>Tambah Lokasi Baru</a>
 
 									</div>
 								</div>
@@ -307,7 +307,7 @@ label.error {
 	</div>
 	<!-- /#footer -->
 
-	<div id="myModal" title="Create new lokasi">
+	<div id="myModal" title="Tambah Lokasi Baru">
 		<p class="validateTips">All form fields are required.</p>
 		<form class="form-horizontal" action="/sscnServer/lokasiSave.do"
 			method="post" id="formAddLokasi">
@@ -318,8 +318,8 @@ label.error {
 				<div id="alert" class="alert alert-error" style="display: none">
 				</div>
 				<div class="control-group">
-					<label class="control-label">Instansi
-						${userLogin.refInstansi.nama}</label>
+					Instansi
+						${userLogin.refInstansi.nama}
 				</div>
 				<div class="control-group">
 					<label class="control-label" for="input01">Kode</label>
@@ -354,7 +354,7 @@ label.error {
 
 				<div class="form-actions">
 					<button type="submit" class="btn btn-primary btn-large">
-						Save changes</button>
+						Simpan</button>
 
 				</div>
 			</fieldset>
@@ -391,7 +391,7 @@ label.error {
 
 				<div class="form-actions">
 					<button type="submit" class="btn btn-primary btn-large">
-						Save changes</button>
+						Update</button>
 
 				</div>
 			</fieldset>
