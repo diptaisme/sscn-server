@@ -58,7 +58,7 @@ public class PersyaratanController {
 		
 		
 		List<DtPersyaratan> syarats = syaratDao.findByProperty("refInstansi", user.getRefInstansi(), indexAndCount);
-		Integer count = syaratDao.countAll();
+		Integer count = syaratDao.countByProperty("refInstansi", user.getRefInstansi());
 		
 		int numPage = (int) Math.ceil((double)count/indexAndCount[1]);		
 		int activePage = (int) Math.ceil((double)(indexAndCount[0] + 1)/ indexAndCount[1]);
