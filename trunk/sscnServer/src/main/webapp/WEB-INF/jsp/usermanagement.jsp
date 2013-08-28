@@ -252,10 +252,9 @@ label.error {
 								<div class="row">
 									<div class="span6 pull-right">
 										<a href="#" id="addUserModal"
-											class="btn btn-small btn-primary"><i class="icon-plus"></i>Add
-											New User</a>
+											class="btn btn-small btn-primary"><i class="icon-plus"></i>Tambah User</a>
 										<!--
-											<button class="btn btn-small btn-primary"><i class="icon-plus"></i>&nbsp;&nbsp;Add New User</button>-->
+											<button class="btn btn-small btn-primary"><i class="icon-plus"></i>&nbsp;&nbsp;Tambah User</button>-->
 									</div>
 								</div>
 								<table

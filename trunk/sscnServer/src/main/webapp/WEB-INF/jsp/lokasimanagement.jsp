@@ -245,8 +245,7 @@ label.error {
 								<div class="row">
 									<div class="span6 pull-right">
 										<a href="#" id="addLokasiModal"
-											class="btn btn-small btn-primary"><i class="icon-plus"></i>Add
-											New Lokasi</a>
+											class="btn btn-small btn-primary"><i class="icon-plus"></i>Tambah Lokasi</a>
 
 									</div>
 								</div>
