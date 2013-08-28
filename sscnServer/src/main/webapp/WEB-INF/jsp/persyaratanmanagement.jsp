@@ -480,8 +480,9 @@
 				  		if (data.result == 1){
 				  			$("#myModal3").dialog("close");
 				  			
-							refreshDeleteTable();
+							//refreshDeleteTable();
 							alert(data.message);
+							window.location = "/sscnServer/syarat.do";
 			           		return false;
 				  		}
 
@@ -557,7 +558,8 @@
 					  			$("#myModal").dialog("close");
 					  			$('#syarat').val('');
 					  			alert(data.message);
-					  			refreshTable(data.data);
+					  			//refreshTable(data.data);
+					  			window.location = "/sscnServer/syarat.do";
 				           		return false;
 					  		}
 
