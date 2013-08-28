@@ -296,7 +296,7 @@
 															onclick="cetak(this,'${pendaftar.noRegister }')"
 															class="btn btn-small btn-primary"><i
 																class="icon-edit"></i>Cetak </a>
-															</c:if>																
+															</c:if>					
 														</td>
 													</c:otherwise>
 												</c:choose>
@@ -386,6 +386,34 @@
 		</fieldset>
 	</div>
 	
+	<div id="myModal3" title="Ubah Status Verifikasi">
+		<form class="form-horizontal" action="/sscnServer/verifikasiSave.do"
+			method="post" id="formVerifikasi2">
+			<fieldset>
+				<div id="loadingImage" style="display: none">
+					<img src="/resources/img/ajax-loader.gif" />
+				</div>
+				<div id="alert" class="alert alert-error" style="display: none">
+				</div>
+				<input type="text" name="pendaftarId" id="pendaftarId2" />
+				<c:forEach items="${persyaratans}" var="persyaratan">
+					<div class="control-group">
+						<label class="control-label" for="input01">${persyaratan.syarat}</label>
+						<div class="controls">
+							<input type="checkbox" name="persyaratanIds[]" id="check_${persyaratan.id}"
+								value="${persyaratan.id}" checked="checked" >
+						</div>
+					</div>
+				</c:forEach>
+				<div class="form-actions">
+					<button type="submit" class="btn btn-primary btn-large">
+						Simpan</button>
+					<button class="btn btn-large" id="btnCancelEdit">Batal</button>
+				</div>
+			</fieldset>
+		</form>
+	</div>
+	
 	<form action="/sscnServer/ReportServlet" method="post" id="cetak" target="_blank">
 		<input type="hidden" name="typeReport" value="rptPesertaUjian"/>
 		<input type="hidden" name="no_pendaftaran" id="rptNoPendaftaran"/>
@@ -411,8 +439,40 @@
 								modal : true
 							});
 
+							$("#myModal3").dialog({
+								autoOpen : false,
+								height : 350,
+								width : 500,
+								modal : true,
+								position : { my: "center", at: "top", of: window }								
+							});
+
 							var selRowTable;
 
+							ubah = function(elem, id) {
+								
+								$('#pendaftarId2').val(id);
+								$.ajax({
+									  type: "GET",
+									  url: "/sscnServer/getPendaftaran.do?id="+id,
+									  cache: false,
+									  success: function(data){							 
+										if (data.data.status == "1"){
+											// verifikasi == ok
+											
+										} else if (data.data.status == "0"){
+											// verifikasi == nok
+											var nokList = data.mapData.verNoks;
+											for(i=0;i<nokList.length;i++){
+												$('#check_'+nokList[i]).attr('checked', false);												
+											}
+										}						     
+									  },
+									  dataType:"json"
+								});	
+								$("#myModal3").dialog("open");
+							}
+							
 							verifikasi = function(elem, id) {
 								selRowTable = $(elem).closest('tr');
 								$('#pendaftarId').val(id);
@@ -460,6 +520,11 @@
 								$('#myModal2').dialog("close");
 								 $('#valueStatus').hide();
 							});
+
+							$('#btnCancelEdit').click(function(event) {
+								event.preventDefault();
+								$('#myModal3').dialog("close");								 
+							});	
 							
 							$("#formVerifikasi")
 									.submit(
