@@ -3,7 +3,6 @@ package org.sscn.services.impl;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 import javax.inject.Inject;
 
@@ -12,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.sscn.dao.DtPendaftaranDao;
 import org.sscn.dao.DtVerifikasiNokDao;
 import org.sscn.dao.RefPendidikanDao;
-import org.sscn.persistence.entities.DtFormasi;
 import org.sscn.persistence.entities.DtPendaftaran;
 import org.sscn.persistence.entities.DtVerifikasiNok;
 import org.sscn.persistence.entities.RefPendidikan;
@@ -30,14 +28,14 @@ public class VerfikasiServiceImpl implements VerfikasiService {
 
 	@Inject
 	private DtVerifikasiNokDao dtVerifikasiNokDao;
-	
+
 	@Inject
 	private RefPendidikanDao refPendidikanDao;
 
 	@Override
 	@Transactional(readOnly = false)
 	public boolean simpanHasilVerifikasi(DtPendaftaran pendaftaran,
-	        List<DtVerifikasiNok> verNoks) {
+			List<DtVerifikasiNok> verNoks) {
 		try {
 			if (verNoks.size() > 0) {
 				// jika gagal
@@ -64,28 +62,30 @@ public class VerfikasiServiceImpl implements VerfikasiService {
 	}
 
 	@Override
-	public List<DtVerifikasiNok> findVerifikasiNoksByPendaftar(DtPendaftaran pendaftar) {
+	public List<DtVerifikasiNok> findVerifikasiNoksByPendaftar(
+			DtPendaftaran pendaftar) {
 		return dtVerifikasiNokDao.findByProperty("pendaftar", pendaftar, null);
 	}
 
 	@Override
 	public String getNoUrutPeserta(DtPendaftaran pendaftar) {
-		
+
 		String instansi = pendaftar.getFormasi().getRefInstansi().getKode();
-		RefPendidikan pend = refPendidikanDao.findById(pendaftar.getPendidikan()); 
+		RefPendidikan pend = refPendidikanDao.findById(pendaftar
+				.getPendidikan());
 		String pendidikan = pend.getTingkat();
 
-		String stringDigit = instansi+pendidikan.substring(0,1);
+		String stringDigit = instansi + pendidikan.substring(0, 1);
 		String nourut = dtPendaftaranDao.getnoUrutPendaftaran(stringDigit);
-		if (nourut.contentEquals("")){
+		if (nourut.contentEquals("")) {
 			nourut = "00000";
 		} else {
 			int x = Integer.parseInt(nourut) + 1;
 			nourut = String.format("%05d", x);
 		}
-		
+
 		Integer varMod = Integer.parseInt(nourut) % 8;
-		return stringDigit+nourut+varMod;
+		return stringDigit + nourut + varMod;
 	}
 
 }
