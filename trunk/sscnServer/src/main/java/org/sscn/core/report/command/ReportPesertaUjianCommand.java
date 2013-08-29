@@ -60,7 +60,9 @@ public class ReportPesertaUjianCommand extends ReportCommand {
 							+ GeneralReportUtil.getRptPesertaUjian();
 
 					InputStream logo = loadDefaultLogo(request);
+					InputStream logo2 = loadDefaultLogo(request);
 					mapParamater.put("LOGO",logo);
+					mapParamater.put("LOGO2",logo2);
 					Object[] arrResult = new Object[]{new Object()};
 					this.generalPDFReports(arrResult, request, response,
 							mapParamater, fileName);

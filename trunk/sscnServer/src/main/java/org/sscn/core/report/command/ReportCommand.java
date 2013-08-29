@@ -766,8 +766,7 @@ public abstract class ReportCommand implements Serializable {
 	 */
 
 	protected static InputStream loadDefaultLogo(HttpServletRequest request) {
-		InputStream logoStream = null; // INSTANSI, USUL, JENISPENGADAAN,
-										// FORMASI, TAHUNANGGARAN, LOGO
+		InputStream logoStream = null; 
 		try {
 			logoStream = new FileInputStream(request
 					.getSession()
