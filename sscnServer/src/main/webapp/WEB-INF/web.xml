@@ -48,11 +48,7 @@
   <servlet-mapping>
     <servlet-name>ReportServlet</servlet-name>
     <url-pattern>/ReportServlet</url-pattern>
-  </servlet-mapping>
-   <servlet>
-    <servlet-name>RegistrasiServlet</servlet-name>
-    <servlet-class>org.sscn.servlet.RegistrasiServlet</servlet-class>
-  </servlet>
+  </servlet-mapping>   
   <servlet>
     <servlet-name>PrintServlet</servlet-name>
     <servlet-class>org.sscn.servlet.PrintServlet</servlet-class>
@@ -60,10 +56,6 @@
   <servlet-mapping>
     <servlet-name>PrintServlet</servlet-name>
     <url-pattern>/PrintServlet</url-pattern>
-  </servlet-mapping>  
-  <servlet-mapping>
-    <servlet-name>RegistrasiServlet</servlet-name>
-    <url-pattern>/RegistrasiServlet</url-pattern>
   </servlet-mapping>
   <filter>
     <filter-name>hibernateFilter</filter-name>
