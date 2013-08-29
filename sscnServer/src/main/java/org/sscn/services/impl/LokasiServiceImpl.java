@@ -63,11 +63,11 @@ public class LokasiServiceImpl implements LokasiService {
 	public RefLokasi save(String kode, String name, String instansiKd) {
 		RefLokasi lokasi = null;
 		try {
-			lokasi = new RefLokasi();
-			lokasi.setKode(kode);
-			lokasi.setNama(name);
-			lokasi.setStatus("1");
 			RefInstansi instansi = refInstansiDao.findById(instansiKd);
+			lokasi = new RefLokasi();
+			lokasi.setKode(instansiKd+kode);
+			lokasi.setNama(name);
+			lokasi.setStatus("1");			
 			lokasi.setRefInstansi(instansi);
 			lokasi = refLokasiDao.insert(lokasi);
 		} catch (Exception e) {
