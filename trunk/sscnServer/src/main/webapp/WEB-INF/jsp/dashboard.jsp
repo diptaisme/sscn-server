@@ -402,7 +402,7 @@
 
 				<div class="form-actions">
 					<button type="submit" class="btn btn-primary btn-large"
-						id="btnSaveChangePassword">Save changes</button>
+						id="btnSaveChangePassword">Simpan</button>
 					<!--  <button class="btn btn-large" id="btnCancelChangePassword" onclick="closeFormGantiPasword()">
 						Cancel</button>-->
 				</div>
