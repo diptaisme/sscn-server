@@ -177,7 +177,7 @@
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{AKREDITAS}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="145" y="184" width="175" height="20"/>
+				<reportElement x="145" y="184" width="391" height="20"/>
 				<textElement>
 					<font size="14"/>
 				</textElement>
