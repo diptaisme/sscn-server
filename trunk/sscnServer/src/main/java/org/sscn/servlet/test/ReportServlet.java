@@ -44,18 +44,7 @@ public class ReportServlet extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-	        throws ServletException, IOException {
-		// TODO Auto-generated method stub -> untuk cek session nanti
-		/*
-		 * HttpSession session = request.getSession(); FlexSession sessionFlex =
-		 * FlexContext.getFlexSession(); if (session.getAttribute("user") ==
-		 * null) { String nextJSP = "/session/session.html"; RequestDispatcher
-		 * dispatcher = getServletContext().getRequestDispatcher(nextJSP);
-		 * dispatcher.forward(request, response); return; } else { if
-		 * (session.getAttribute("user") != null && sessionFlex == null) {
-		 * sessionFlex = HttpFlexSession.getFlexSession(request);
-		 * FlexContext.setThreadLocalSession(sessionFlex); } }
-		 */
+	        throws ServletException, IOException {		
 		ReportCommand reportCommand = null;
 		String reportType = request.getParameter("typeReport");
 		// cek reportType untuk menghindari direct akses ke /ReportServlet
@@ -87,7 +76,7 @@ public class ReportServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 	        throws ServletException, IOException {
-		doPost(req, resp);
+		//doPost(req, resp);
 	}
 
 	public void printIllegalAkses(HttpServletResponse response) throws IOException {
