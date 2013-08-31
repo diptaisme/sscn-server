@@ -2,7 +2,6 @@ package org.sscn.services.impl;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -136,10 +135,11 @@ public class RegistrasiServiceImpl implements RegistrasiService {
 			String instansi = request.getParameter("instansiValue");
 			String jabatan = request.getParameter("jabatan");
 			String lokasiKerja = request.getParameter("lokasi_kerja");
-			String pendidikan = request.getParameter("pendidikan"); //kode yg disimpan
-			//String pendidikan = refPendidikanDao
-				//	.findByProperty("kode", request.getParameter("pendidikan"),
-					//		null).get(0).getNama();
+			String pendidikan = request.getParameter("pendidikan"); // kode yg
+																	// disimpan
+			// String pendidikan = refPendidikanDao
+			// .findByProperty("kode", request.getParameter("pendidikan"),
+			// null).get(0).getNama();
 
 			MFormasi mFormasi = null; // formasi nanti, sudah
 			HashMap<String, String> propertiesMap = new HashMap<String, String>();
@@ -157,9 +157,10 @@ public class RegistrasiServiceImpl implements RegistrasiService {
 			String noIjazah = request.getParameter("no_ijazah");
 			String jnsKelamin = request.getParameter("jenis_kelamin");
 			String status = ""; // status
-			String regStatus = ""; // regStatus			
+			String regStatus = ""; // regStatus
 
-			String lembaga = request.getParameter("universitas"); // lembaga = universitas??
+			String lembaga = request.getParameter("universitas"); // lembaga =
+																	// universitas??
 			String akreditasi = request.getParameter("akreditasi");
 			String nilaiIPK = request.getParameter("nilai_ipk");
 			// memang tidak diisi
@@ -170,13 +171,13 @@ public class RegistrasiServiceImpl implements RegistrasiService {
 			String userValidate = "";
 			Date tglValidate = new Date();
 			String keterangan = "";
-			
+
 			// noRegister = ""; // generate no register
 			// noPeserta = ""; // kosong
-			
+
 			String noPeserta = "";
 
-			String noRegister= generateNoRegistrasi();
+			String noRegister = generateNoRegistrasi();
 			if (noPeserta.length() > 10) {
 				noPeserta = noPeserta.substring(0, 10);
 			}
@@ -197,17 +198,18 @@ public class RegistrasiServiceImpl implements RegistrasiService {
 			return null;
 		}
 	}
-	
+
 	@Override
-	public DtPendaftaran getPendaftaranByNoRegistrasi(String noRegister){		
-		List<DtPendaftaran> listPendaftarans = dtPendaftaranDao.findByProperty("noRegister", noRegister, null);
-		if(listPendaftarans.size() > 0){
+	public DtPendaftaran getPendaftaranByNoRegistrasi(String noRegister) {
+		List<DtPendaftaran> listPendaftarans = dtPendaftaranDao.findByProperty(
+				"noRegister", noRegister, null);
+		if (listPendaftarans.size() > 0) {
 			return listPendaftarans.get(0);
-		}else{
+		} else {
 			return null;
 		}
 	}
-	
+
 	// tanpa tingkat pendidikan dulu
 	// private String generateNoRegistrasi(String kodeInstansi, String
 	// tingkatPendidikan, String kodeJabatan){
