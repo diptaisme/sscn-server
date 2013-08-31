@@ -53,9 +53,25 @@
     <servlet-name>PrintServlet</servlet-name>
     <servlet-class>org.sscn.servlet.PrintServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>RegistrasiServlet</servlet-name>
+    <servlet-class>org.sscn.servlet.RegistrasiServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>EmailServlet</servlet-name>
+    <servlet-class>org.sscn.servlet.EmailServlet</servlet-class>
+  </servlet>
   <servlet-mapping>
     <servlet-name>PrintServlet</servlet-name>
     <url-pattern>/PrintServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>RegistrasiServlet</servlet-name>
+    <url-pattern>/RegistrasiServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>EmailServlet</servlet-name>
+    <url-pattern>/EmailServlet</url-pattern>
   </servlet-mapping>
   <filter>
     <filter-name>hibernateFilter</filter-name>
