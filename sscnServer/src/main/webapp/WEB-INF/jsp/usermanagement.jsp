@@ -395,7 +395,7 @@ label.error {
 					<label class="control-label" for="input01">Nip</label>
 					<div class="controls">
 						<div class="ui-widget">
-							<input type="number" class="input-large" id="nip" name="nip">
+							<input type="number" class="input-large" id="nip" name="nip" maxlength="18">
 						</div>
 					</div>
 				</div>
@@ -487,7 +487,7 @@ label.error {
 					<label class="control-label" for="input01">Nip</label>
 					<div class="controls">
 						<div class="ui-widget">
-							<input type="number" class="input-large" id="ednip" name="nip">
+							<input type="number" class="input-large" id="ednip" name="nip" maxlength="18">
 						</div>
 					</div>
 				</div>
@@ -908,7 +908,8 @@ label.error {
 									required : true
 								},
 								nip : {
-									required : true
+									required : true,
+									minlength : 18
 								},
 							},
 							highlight : function(element) {
@@ -932,7 +933,8 @@ label.error {
 								required : true
 							},
 							ednip : {
-								required : true
+								required : true,
+								minlength : 18
 							},
 							
 						},
