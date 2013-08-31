@@ -46,7 +46,8 @@ public class ReportRegistrasiCommand extends ReportCommand {
 			if (request.getParameter("formID").equals("32063786011852")) {
 				try {
 					DtPendaftaran pendaftaran = registrasiService
-							.insertPendaftaran(request);
+							.getPendaftaranByNoRegistrasi(request.getParameter("idRegistrasi"));
+					
 					if (pendaftaran == null) {
 						cetakRegistrasiGagal(response);
 					} else {
@@ -86,7 +87,7 @@ public class ReportRegistrasiCommand extends ReportCommand {
 			response.setContentType("text/html");
 			PrintWriter out = response.getWriter();
 			out.println("<HTML><HEAD><TITLE>SSCN</TITLE>"
-					+ "</HEAD><BODY>Maaf proses registrasi gagal. Klik <a href='"
+					+ "</HEAD><BODY>Maaf proses cetak registrasi gagal. Klik <a href='"
 					+ Constanta.URL_WEB_SSCN
 					+ "'>link ini </a> untuk kembali</BODY></HTML>");
 			out.close();

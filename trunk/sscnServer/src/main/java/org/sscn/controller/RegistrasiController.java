@@ -17,6 +17,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.util.JSONPObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -262,5 +263,12 @@ public class RegistrasiController {
 		pendidikanMap.put("pendidikans", newPendidikans);
 		return pendidikanMap;
 	}
+	//after registrasi
+	@RequestMapping(value = "/afterRegistrasi.do", method = RequestMethod.GET)
+	public String afterRegistrasi(@RequestParam("idRegistrasi") String idRegistrasi, ModelMap model) {
+		model.addAttribute("idRegistrasi", idRegistrasi);
+		return "afterRegistrasi";
+	}
+
 
 }
