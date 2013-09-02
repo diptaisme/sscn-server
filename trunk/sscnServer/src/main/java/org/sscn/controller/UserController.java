@@ -80,6 +80,62 @@ public class UserController {
 
 		return "usermanagement";
 	}
+	
+	@RequestMapping(value = "/user.do", method = RequestMethod.POST)
+	public String indexPost(HttpServletRequest request, ModelMap model,
+			HttpSession session) {
+		DtUser user = (DtUser) session.getAttribute("userLogin");
+		if (user == null) {
+			request.setAttribute("pesan",
+					"Session habis silahkan login kembali");
+			return "login";
+		}
+
+		int indexAndCount[] = new int[2];
+		int numRow = 10;
+		indexAndCount[0] = 1;
+		String index = request.getParameter("activePage");
+		if (index != null && !index.contentEquals("")) {
+			indexAndCount[0] = Integer.parseInt(index);
+		}
+		indexAndCount[0] = (indexAndCount[0] - 1) * numRow;
+		indexAndCount[1] = numRow;
+
+		List<QueryOrder> orders = new ArrayList<QueryOrder>();
+		orders.add(new QueryOrder("refLokasi.kode"));
+		orders.add(new QueryOrder("refJabatan.nama"));
+
+		List<DtUser> users = null;
+		Integer count;
+		if (user.getKewenangan().equals("1")) {
+			users = userService.getAllUser(indexAndCount);
+			count = userService.countAllUser();
+		} else {
+			users = userService.getAllUserByInstansi(user.getRefInstansi()
+					.getKode(), indexAndCount);
+			count = userService.countAllUserByInstansi(user.getRefInstansi()
+					.getKode());
+		}
+
+		int numPage = (int) Math.ceil((double) count / indexAndCount[1]);
+		int activePage = (int) Math.ceil((double) (indexAndCount[0] + 1)
+				/ indexAndCount[1]);
+		int part2;
+		if ((activePage * indexAndCount[1]) >= count) {
+			part2 = count;
+		} else {
+			part2 = activePage * indexAndCount[1];
+		}
+
+		model.addAttribute("count", count);
+		model.addAttribute("part2", part2);
+		model.addAttribute("numpage", numPage);
+		model.addAttribute("indexAndCount", indexAndCount);
+		model.addAttribute("activePage", activePage);
+		model.addAttribute("users", users);
+
+		return "usermanagement";
+	}
 
 	@RequestMapping(value = "/userSave.do", method = RequestMethod.POST)
 	@ResponseBody

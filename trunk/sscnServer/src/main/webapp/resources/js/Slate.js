@@ -121,7 +121,7 @@ $(function () {
 		numpage = $('#paging_numpage').val();
 		$('#numPage').val(numpage);
 		$('#searchPage').val(0);
-		if ($('#defaultSearchField').val() != ""){
+		if ($('#defaultSearchField').val() != "" && typeof($('#defaultSearchField').val()) != "undefined"){
 			$('#activePageBar').val(page);
 			$('#searchForm').submit();	
 		} else {
