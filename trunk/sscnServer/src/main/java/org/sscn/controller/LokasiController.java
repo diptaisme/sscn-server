@@ -39,7 +39,7 @@ public class LokasiController {
 		}
 		
 		int indexAndCount[] = new int[2]; 
-		int numRow = 1;		
+		int numRow = 10;		
 		indexAndCount[0] = 1;
 		String index = request.getParameter("activePage");
 		if (index != null && !index.contentEquals("")){
@@ -84,7 +84,7 @@ public class LokasiController {
 		}
 		
 		int indexAndCount[] = new int[2]; 
-		int numRow = 1;		
+		int numRow = 10;		
 		indexAndCount[0] = 1;
 		String index = request.getParameter("activePage");
 		if (index != null && !index.contentEquals("")){
