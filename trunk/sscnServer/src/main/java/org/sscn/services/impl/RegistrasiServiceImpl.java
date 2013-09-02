@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import javax.inject.Inject;
@@ -50,7 +51,12 @@ public class RegistrasiServiceImpl implements RegistrasiService {
 
 	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 	public List<RefInstansi> getInstansi(int maxRows, String startWith) {
-		return refInstansiDao.findLikeProperty("nama", startWith, new int[] {
+//		return refInstansiDao.findLikeProperty("nama", startWith, new int[] {
+//				0, maxRows });
+		Map<String, String> properties = new HashMap<String, String>();
+		properties.put("nama", startWith);
+		properties.put("status", "1");
+		return refInstansiDao.findLikeMapOfProperties(properties,  new int[] {
 				0, maxRows });
 	}
 
