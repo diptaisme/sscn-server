@@ -292,7 +292,12 @@
 									</tbody>
 								</table>
 								<div class="row">
-									 <jsp:include page="paging.jsp" /> 
+									 <jsp:include page="paging.jsp" />
+									 <form id="pagingForm" method="post" action="/sscnServer/formasi.do">
+										<input type="hidden" name="activePage" id="activePage"/>
+										<input type="hidden" name="numPage" id="numPage"/>
+										<input type="hidden" name="searchPage" id="searchPage"/>
+									</form> 
 								</div>
 
 							</div>
