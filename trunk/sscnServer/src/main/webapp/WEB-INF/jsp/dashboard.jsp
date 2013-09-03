@@ -289,7 +289,28 @@
 
 						<div class="widget-content">
 							<p align="center" class="style1"><strong>Selamat Datang di Menu Administrasi</strong></p>
-								<p align="center" class="style1"><strong>Sistem Seleksi CPNS Nasional </strong></p>
+							<p align="left" class="style1">Perhatian : <br> 
+								Sebelum pendaftaran dibuka kepada para pelamar, Administrator <font color="red">WAJIB</font> melengkapi :
+							</p>
+							<ol>
+								<li>
+									Lokasi formasi
+(wajib diisi karena menjadi default dalam pengisian formasi jabatan)
+Catt : Untuk instansi daerah agar mengisi 1 (satu) lokasi formasi dengan ibukota instansi daerah tersebut.
+								</li>
+								<li>
+									Syarat Pendaftaran
+(wajib diisi karena untuk kepentingan verifikasi, serta pencetakan form registrasi pelamar, jika tidak diisi maka cetakan bukti registrasi pendaftar akan blank)
+								</li>
+								<li>Formasi
+(wajib diisi karena menjadi pilihan bagi pelamar untuk mendaftar pada suatu jabatan formasi tertentu)								
+								</li>
+								<li>Pengumuman Instansi (pdf) yang di upload di sscn admin
+								</li>
+							</ol>
+							
+
+							
 								
 							
 							<div class="stat">
