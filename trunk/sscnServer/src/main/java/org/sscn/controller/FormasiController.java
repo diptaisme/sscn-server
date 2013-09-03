@@ -110,14 +110,68 @@ public class FormasiController {
 		model.addAttribute("indexAndCount", indexAndCount);
 		model.addAttribute("activePage", activePage);		
 		model.addAttribute("formasis", formasis);
-//		RefLokasi lastInputLokasi;
-//		MFormasi forms = formasis.get(formasis.size()-1);
-//		lastInputLokasi = forms.getRefLokasi();
-//		model.addAttribute("lastInputLokasi", lastInputLokasi);
 		
 		return "formasi";
 	}
 
+	@RequestMapping(value = "/formasi.do", method = RequestMethod.POST)
+	public String indexPost(ModelMap model, HttpSession session, HttpServletRequest request) {
+		DtUser user = (DtUser) session.getAttribute("userLogin");
+		if (user == null) {
+			model.addAttribute("pesan", "Session habis silahkan login kembali");
+			return "login";
+		}
+		if (user.getKewenangan().equalsIgnoreCase("3")) {
+			model.addAttribute("pesan", "Anda tidak berhak mengakses halaman ini");
+			return "login";
+		}
+
+		model.addAttribute("username", user.getNama());
+		DtUser userp = dtUserDao.findById(user.getUsername());
+		model.addAttribute("instansiNama", userp.getRefInstansi().getNama());
+		String pesan = request.getParameter("pesan");
+		if (pesan != null){
+			model.addAttribute("pesan", pesan);
+		}
+		
+		
+		int indexAndCount[] = new int[2]; 
+		int numRow = 10;		
+		indexAndCount[0] = 1;
+		String index = request.getParameter("activePage");
+		if (index != null && !index.contentEquals("")){
+			indexAndCount[0] = Integer.parseInt(index);			
+		} 
+		indexAndCount[0] = (indexAndCount[0] - 1) * numRow;			
+		indexAndCount[1] = numRow;
+		
+		List<QueryOrder> orders = new ArrayList<QueryOrder>();
+		orders.add(new QueryOrder("refLokasi.kode"));
+		orders.add(new QueryOrder("refJabatan.nama"));
+
+		List<MFormasi> formasis = mFormasiDao.findByProperty("refInstansi", userp.getRefInstansi(), orders, indexAndCount);
+		Integer count = mFormasiDao.countByProperty("refInstansi", userp.getRefInstansi());
+		
+		int numPage = (int) Math.ceil((double)count/indexAndCount[1]);		
+		int activePage = (int) Math.ceil((double)(indexAndCount[0] + 1)/ indexAndCount[1]);
+		int part2;
+		if ((activePage * indexAndCount[1]) >= count){
+			part2 = count;
+		} else {
+			part2 = activePage * indexAndCount[1];
+		}		
+		
+		model.addAttribute("count",count);
+		model.addAttribute("part2", part2);
+		model.addAttribute("numpage",numPage);
+		model.addAttribute("indexAndCount", indexAndCount);
+		model.addAttribute("activePage", activePage);		
+		model.addAttribute("formasis", formasis);
+		
+		return "formasi";
+	}
+
+	
 	@RequestMapping(value = "/formasiSave.do", method = RequestMethod.POST)
 	public String save(@RequestParam("lokasi") String lokasi,
 			@RequestParam("jabatan") String jabatan,
