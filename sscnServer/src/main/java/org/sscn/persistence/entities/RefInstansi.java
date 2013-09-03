@@ -59,7 +59,7 @@ public class RefInstansi implements java.io.Serializable {
 		this.kode = kode;
 	}
 
-	@Column(name = "NAMA", nullable = false, length = 50)
+	@Column(name = "NAMA", nullable = false, length = 70)
 	public String getNama() {
 		return this.nama;
 	}
