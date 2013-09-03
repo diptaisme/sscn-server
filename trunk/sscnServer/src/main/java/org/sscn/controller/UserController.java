@@ -178,7 +178,7 @@ public class UserController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			res = new StandardJsonMessage(0, null, null, "Save Gagal "
-					+ e.getMessage());
+					+ "Periksa kembali data user. Username mungkin telah terpakai.");
 		}
 		return res;
 	}
