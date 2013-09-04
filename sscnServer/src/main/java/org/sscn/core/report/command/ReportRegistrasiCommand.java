@@ -1,6 +1,7 @@
 package org.sscn.core.report.command;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
@@ -61,6 +62,9 @@ public class ReportRegistrasiCommand extends ReportCommand {
 
 							List<DtPersyaratan> listPersyaratans = persyaratanService.findByProperty("refInstansi.kode", pendaftaran.getFormasi().getRefInstansi().getKode(), null, null);
 							Object[] arrResult = listPersyaratans.toArray();							
+							
+							InputStream logo = loadDefaultLogo(request);							
+							mapParamater.put("LOGO",logo);
 							
 							this.generalPDFReports(arrResult,
 									request, response, mapParamater, fileName);
