@@ -459,12 +459,6 @@ label.error {
 					</div>
 				</div>
 
-				<!--  <div class="control-group">
-						<label class="control-label" for="input01">Password</label>
-						<div class="controls">
-							<input type="text" class="input-large" id="edpassword" name="password">
-						</div>
-					</div>-->
 				<div class="control-group">
 					<c:choose>
 						<c:when test="${userLogin.kewenangan == 1}">
