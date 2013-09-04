@@ -116,7 +116,7 @@ label.error {
 									Admin Instansi
 								</c:when>
 								<c:otherwise>
-									Verificator
+									Verifikator
 								</c:otherwise>
 							</c:choose>
 							${userLogin.refInstansi.nama}
