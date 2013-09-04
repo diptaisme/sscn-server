@@ -37,6 +37,15 @@
 	rel="stylesheet">
 
 <!-- Javascript -->
+<script>
+	function cekTime() {
+		var d = new Date();
+		if(d.getHours() == "13"){
+			alert("Belom bisa melakukan download data");
+			return false;	
+		}return true;
+	}
+</script>
 <script src="/sscnServer/resources/js/jquery-1.7.2.min.js"></script>
 <script src="/sscnServer/resources/js/jquery-ui-1.8.21.custom.min.js"></script>
 <script src="/sscnServer/resources/js/jquery.ui.dialog.min.js"></script>
@@ -212,6 +221,9 @@ label.error {
 				</ul>
 
 			</div>
+			<div>
+				<marquee>Untuk tampilan terbaik diharapkan menggunakan browser <b>Mozilla Firefox 3 atau Safari</b> atau diatasnya.</marquee>
+			</div>
 			<!-- /.page-title -->
 
 			<div class="row">
@@ -236,7 +248,14 @@ label.error {
 											<!-- 	<label>Search: <input type="text"
 												aria-controls="example">
 											</label>  -->
-											Under Construction
+											<form method="POST" name="formDownloadData" action="/sscnServer/ReportServlet" target="_BLANK">
+												<input type="hidden" value="rptTestCetak" name="typeReport" id="typeReport"
+													class="form-submit-button style2" />
+												<input type="submit" value="Test Cetak Excel" onclick="return cekTime()"
+													class="form-submit-button style2" />
+												<input type="button" value="Get time" onclick="cekTime()"
+													class="form-submit-button style2" />													
+											</form>
 										</div>
 									</div>
 								</div>
