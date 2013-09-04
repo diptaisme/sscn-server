@@ -145,7 +145,8 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public Integer countAllUserByInstansi(String kodeInstansi) {
 		// TODO Auto-generated method stub
-		return dtUserDao.countByProperty("refInstansi.kode", kodeInstansi);
+//		return dtUserDao.countByProperty("refInstansi.kode", kodeInstansi);
+		return dtUserDao.countByInstansi(kodeInstansi);
 	}
 
 }
