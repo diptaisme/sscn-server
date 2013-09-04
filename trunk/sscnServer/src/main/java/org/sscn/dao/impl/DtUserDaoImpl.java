@@ -31,7 +31,7 @@ public class DtUserDaoImpl extends CoreDaoImpl<DtUser> implements DtUserDao {
 
 		
 		StringBuilder wherePhrase = new StringBuilder(
-		        " WHERE (model.refInstansi.kode = :refInstansiId) and model.kewenangan != '1' ");
+		        " WHERE (model.refInstansi.kode = :refInstansiId) and model.kewenangan = '3' ");
 		sbFind.append(wherePhrase);
 
 		Query query = createQuery(sbFind);
@@ -45,7 +45,7 @@ public class DtUserDaoImpl extends CoreDaoImpl<DtUser> implements DtUserDao {
 		StringBuilder sbFind = new StringBuilder(
 		        "SELECT COUNT(model.id) FROM DtUser model ");
 		StringBuilder wherePhrase = new StringBuilder(
-		        " WHERE model.refInstansi.kode = :refInstansiId and model.kewenangan != '1' ");
+		        " WHERE model.refInstansi.kode = :refInstansiId and model.kewenangan = '3' ");
 		sbFind.append(wherePhrase);
 		Query query = createQuery(sbFind);
 
