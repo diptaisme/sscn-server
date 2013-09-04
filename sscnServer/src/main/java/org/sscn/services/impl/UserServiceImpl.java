@@ -2,9 +2,11 @@ package org.sscn.services.impl;
 
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.persistence.IdClass;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -127,7 +129,11 @@ public class UserServiceImpl implements UserService {
 	@Override
 	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 	public List<DtUser> getAllUserByInstansi(String kodeInstansi, int... idx) {
-		return dtUserDao.findByProperty("refInstansi.kode", kodeInstansi, idx);
+		//return dtUserDao.findByProperty("refInstansi.kode", kodeInstansi, idx);
+//		HashMap<String, Object> propertiesMap = new HashMap<String, Object>();
+//		propertiesMap.put("refInstansi.kode", (Object) kodeInstansi);
+		
+		return dtUserDao.findByInstansi(kodeInstansi, idx);
 	}
 
 	@Override
