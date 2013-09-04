@@ -288,7 +288,7 @@ label.error {
 														<td>Admin Instansi</td>
 													</c:when>
 													<c:otherwise>
-														<td>Verificator</td>
+														<td>Verifikator</td>
 													</c:otherwise>
 												</c:choose>
 
