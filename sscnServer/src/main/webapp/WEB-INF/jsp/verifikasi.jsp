@@ -183,6 +183,9 @@
 				</ul>
 
 			</div>
+			<div>
+				<marquee>Untuk tampilan terbaik diharapkan menggunakan browser <b>Mozilla Firefox 3 atau Safari</b> atau diatasnya.</marquee>
+			</div>
 			<!-- /.page-title -->
 
 			<div class="row">
