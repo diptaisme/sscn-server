@@ -79,6 +79,51 @@ public class PersyaratanController {
 		return "persyaratanmanagement";
 	}
 
+	@RequestMapping(value = "/syarat.do", method = RequestMethod.POST)
+	public String indexPost(ModelMap model, HttpSession session,HttpServletRequest request) {
+		DtUser user = (DtUser) session.getAttribute("userLogin");
+		if (user == null) {
+			request.setAttribute("pesan", "Session habis silahkan login kembali");
+			return "login";
+		}
+		
+		int indexAndCount[] = new int[2]; 
+		int numRow = 10;		
+		indexAndCount[0] = 1;
+		String index = request.getParameter("activePage");
+		if (index != null && !index.contentEquals("")){
+			indexAndCount[0] = Integer.parseInt(index);			
+		} 
+		indexAndCount[0] = (indexAndCount[0] - 1) * numRow;			
+		indexAndCount[1] = numRow;
+		
+		List<QueryOrder> orders = new ArrayList<QueryOrder>();
+		orders.add(new QueryOrder("refLokasi.kode"));
+		orders.add(new QueryOrder("refJabatan.nama"));
+		
+		
+		List<DtPersyaratan> syarats = syaratDao.findByProperty("refInstansi", user.getRefInstansi(), indexAndCount);
+		Integer count = syaratDao.countByProperty("refInstansi", user.getRefInstansi());
+		
+		int numPage = (int) Math.ceil((double)count/indexAndCount[1]);		
+		int activePage = (int) Math.ceil((double)(indexAndCount[0] + 1)/ indexAndCount[1]);
+		int part2;
+		if ((activePage * indexAndCount[1]) >= count){
+			part2 = count;
+		} else {
+			part2 = activePage * indexAndCount[1];
+		}		
+		
+		model.addAttribute("count",count);
+		model.addAttribute("part2", part2);
+		model.addAttribute("numpage",numPage);
+		model.addAttribute("indexAndCount", indexAndCount);
+		model.addAttribute("activePage", activePage);		
+		model.addAttribute("reqs", syarats);
+
+		return "persyaratanmanagement";
+	}
+
 	@RequestMapping(value = "/syaratSave.do", method = RequestMethod.POST)
 	@ResponseBody
 	public StandardJsonMessage save(@RequestParam("syarat") String psyarat,HttpSession session)
