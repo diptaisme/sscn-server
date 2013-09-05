@@ -21,7 +21,7 @@ body {
 </style></head>
 <body id="page1">
 <div> 
-  <div align="center"><a href="#"><img src="resources/img/header-bg2.png" alt="" width="972" height="288" border="0" /></a></div>
+  <div align="center"><a href="#"><img src="resources/img/header-bg2.png" alt="" width="972" height="205" border="0" /></a></div>
 </div>
 <p align="center">
 		Anda sudah mendaftarkan untuk mengikuti Seleksi CPNS di posisi yang
