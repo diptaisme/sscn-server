@@ -2,15 +2,15 @@ package org.sscn.services.impl;
 
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.persistence.IdClass;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.sscn.core.persistence.tools.QueryOrder;
 import org.sscn.core.util.PasswordUtil;
 import org.sscn.dao.DtUserDao;
 import org.sscn.dao.RefInstansiDao;
@@ -29,7 +29,10 @@ public class UserServiceImpl implements UserService {
 	@Override
 	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 	public List<DtUser> getAllUser(int... idx) {
-		return dtUserDao.findAll(idx);
+		List<QueryOrder> orders = new ArrayList<QueryOrder>();
+		orders.add(new QueryOrder("refInstansi.kode"));
+		return dtUserDao.findAll(null, orders, idx);
+		// return dtUserDao.findAll(idx);
 	}
 
 	@Override
@@ -129,10 +132,12 @@ public class UserServiceImpl implements UserService {
 	@Override
 	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 	public List<DtUser> getAllUserByInstansi(String kodeInstansi, int... idx) {
-		//return dtUserDao.findByProperty("refInstansi.kode", kodeInstansi, idx);
-//		HashMap<String, Object> propertiesMap = new HashMap<String, Object>();
-//		propertiesMap.put("refInstansi.kode", (Object) kodeInstansi);
-		
+		// return dtUserDao.findByProperty("refInstansi.kode", kodeInstansi,
+		// idx);
+		// HashMap<String, Object> propertiesMap = new HashMap<String,
+		// Object>();
+		// propertiesMap.put("refInstansi.kode", (Object) kodeInstansi);
+
 		return dtUserDao.findByInstansi(kodeInstansi, idx);
 	}
 
@@ -145,7 +150,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public Integer countAllUserByInstansi(String kodeInstansi) {
 		// TODO Auto-generated method stub
-//		return dtUserDao.countByProperty("refInstansi.kode", kodeInstansi);
+		// return dtUserDao.countByProperty("refInstansi.kode", kodeInstansi);
 		return dtUserDao.countByInstansi(kodeInstansi);
 	}
 
