@@ -12,7 +12,8 @@
 		<c:if test="${count > 0}">
 			Showing ${indexAndCount[0] + 1} to ${part2} of ${count} entries	
 		</c:if>
-		
+		&nbsp; Goto Page &nbsp;<input type="text" aria-controls="example" id="inpGoTo" value="${activePage}" style="width: 20px">&nbsp;<a href="#" class="btn" style="width:20px" onClick="goToPage(event, '${numpage}')">Go</a>
+											
 	</div>
 </div>
 <div class="span6">
@@ -33,14 +34,28 @@
 				<%
 					Integer lenNumPage = (Integer) request.getAttribute("numpage");
 					Integer activePage = (Integer) request.getAttribute("activePage");
-					PrintWriter outs = response.getWriter();	
-					for (int i=1;i<=lenNumPage.intValue();i++){						
-						if (i == activePage){ %>
+					PrintWriter outs = response.getWriter();
+					int x = (activePage/2) * 2;
+					if (lenNumPage < (x + 10)){
+						x = lenNumPage - 10; 
+					} else if (lenNumPage == (x+10)){
+						x = x-1;
+					}
+					int j = 0;
+					if (x < 0){
+						x = 0;
+						j = lenNumPage;
+					} else {
+						j = 10;	
+					}
+					for (int i=1;i<=j;i++){
+						
+						if ((x+i) == activePage){ %>
 							<li class='active'>		
 				<% 		} else { %>
 							<li>
 				<% 		}  %>
-						<a href='#' onClick='handleGoToPage(event,"<%=i%>")'><%=i%></a></li>	
+						<a href='#' onClick='handleGoToPage(event,"<%=x+i%>")'><%=x+i%></a></li>	
 				<% 	}
 					
 					if (activePage >= lenNumPage){ %>
