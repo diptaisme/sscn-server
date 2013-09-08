@@ -1,6 +1,7 @@
 package org.sscn.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -185,15 +186,25 @@ public class FormasiController {
 			model.addAttribute("pesan", "Session habis silahkan login kembali");
 			return "login";
 		}
+		HashMap<String,Object> propertiesMap = new HashMap<String, Object>();
+		MFormasi nformasi = new MFormasi();
+		RefLokasi refLokasi = refLokasiDao.findById(lokasi);
+		nformasi.setRefLokasi(refLokasi);
 
+		RefJabatan refJabatan = refJabatanDao.findById(jabatan);
+		nformasi.setRefJabatan(refJabatan);
+
+		propertiesMap.put("refJabatan", refJabatan);
+		propertiesMap.put("refLokasi", refLokasi);
+		List<MFormasi> checkFormasi = mFormasiDao.findByMapOfProperties(propertiesMap, null, null);
+		
+		if (checkFormasi.size() > 0){
+			model.addAttribute("pesan", "Insert gagal, Nama Jabatan dan Lokasi yang dimasukkan telah ada didatabase");
+			return "redirect:formasi.do";
+		}
+		
 		try {
-			MFormasi nformasi = new MFormasi();
-			RefLokasi refLokasi = refLokasiDao.findById(lokasi);
-			nformasi.setRefLokasi(refLokasi);
-
-			RefJabatan refJabatan = refJabatanDao.findById(jabatan);
-			nformasi.setRefJabatan(refJabatan);
-
+			
 			DtUser user = dtUserDao.findById(userLogin.getUsername());
 			nformasi.setRefInstansi(user.getRefInstansi());
 

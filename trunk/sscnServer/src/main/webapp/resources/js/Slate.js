@@ -129,6 +129,20 @@ $(function () {
 			$('#pagingForm').submit();	
 		}
 	};
+	
+	goToPage = function(el, lenNumPage) {
+		el.preventDefault();
+		
+		page = $('#inpGoTo').val();
+		if (page > lenNumPage){
+			alert('Nilai Page Maksimal = ' + lenNumPage);
+			return;
+		}
+		
+		handleGoToPage(el, page);
+		
+		
+	};
 
 	// PAGING END
 	submitSearch = function(ev){
