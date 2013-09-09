@@ -103,7 +103,7 @@ public class DtUser implements java.io.Serializable {
 		this.kewenangan = kewenangan;
 	}
 
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "TGL_CREATED", nullable = false, length = 10)
 	public Date getTglCreated() {
 		return this.tglCreated;
@@ -113,7 +113,7 @@ public class DtUser implements java.io.Serializable {
 		this.tglCreated = tglCreated;
 	}
 
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "TGL_UPDATED", nullable = false, length = 10)
 	public Date getTglUpdated() {
 		return this.tglUpdated;
