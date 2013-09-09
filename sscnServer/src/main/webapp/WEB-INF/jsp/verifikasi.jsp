@@ -352,6 +352,23 @@
 				<div id="alert" class="alert alert-error" style="display: none">
 				</div>
 				<input type="hidden" name="pendaftarId" id="pendaftarId" />
+				
+				<div class="control-group">
+					<div id="namaPendaftar"></div>
+				</div>	
+				
+				<div class="control-group">
+					<div id="ttlPendaftar"></div>										
+				</div>
+				
+				<div class="control-group">
+					<div id="noRegPendaftar"></div>										
+				</div>
+				
+				<div class="control-group">
+					<div id="pddknPendaftar"></div>										
+				</div> 
+				<hr>
 				<c:forEach items="${persyaratans}" var="persyaratan">
 					<div class="control-group">
 						<label class="control-label" for="input01">${persyaratan.syarat}</label>
@@ -484,6 +501,18 @@
 							verifikasi = function(elem, id) {
 								selRowTable = $(elem).closest('tr');
 								$('#pendaftarId').val(id);
+								$.ajax({
+									  type: "GET",
+									  url: "/sscnServer/getPendaftaran.do?id="+id,
+									  cache: false,
+									  success: function(data){							 
+										 $('#namaPendaftar').html("<label>Nama : &nbsp;" + data.data.nama + "</label>");
+										 $('#ttlPendaftar').html("<label>Tempat, Tanggal Lahir : &nbsp;" + data.data.tmpLahir + ", " + data.data.tglLahir + "</label>");
+										 $('#noRegPendaftar').html("<label>No Registrasi : &nbsp;" + data.data.noRegister + "</label>");
+										 $('#pddknPendaftar').html("<label>Pendidikan : &nbsp;" + data.data.pendidikan + "</label>");										 						     
+									  },
+									  dataType:"json"
+									});	
 								$("#myModal").dialog("open");
 							}
 
