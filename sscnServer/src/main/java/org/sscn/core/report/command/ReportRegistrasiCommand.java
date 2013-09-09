@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -127,8 +128,8 @@ public class ReportRegistrasiCommand extends ReportCommand {
 		mapParamater.put("NO_REGISTRASI", pendaftaran.getNoRegister());
 		mapParamater.put("NAMA", pendaftaran.getNama());
 		String tempatLahir = pendaftaran.getTmpLahir();
-		SimpleDateFormat formatDateJava = new SimpleDateFormat("dd-MM-yyyy");
-		String tglLahir = formatDateJava.format(pendaftaran.getTglLahir());
+		SimpleDateFormat formatDateTglLahir = new SimpleDateFormat("dd-MM-yyyy");
+		String tglLahir = formatDateTglLahir.format(pendaftaran.getTglLahir());
 		mapParamater.put("TTL", tempatLahir + " / " + tglLahir);
 		mapParamater.put("NIK", pendaftaran.getNoNik());
 		mapParamater.put("UNIVERSITAS", pendaftaran.getLembaga());		
@@ -142,7 +143,11 @@ public class ReportRegistrasiCommand extends ReportCommand {
 				.getNama());
 		mapParamater.put("INSTANSI", pendaftaran.getFormasi().getRefInstansi()
 				.getNama());
-
+		Locale id = new Locale("in", "ID");
+		SimpleDateFormat formatDateTglDaftar = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", id);
+		String tglDaftar= formatDateTglDaftar.format(pendaftaran.getTglCreated());
+		mapParamater.put("TGL_DAFTAR", tglDaftar);
+		
 		return mapParamater;
 	}
 
