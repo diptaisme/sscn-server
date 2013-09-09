@@ -297,7 +297,7 @@ public class DtPendaftaran implements java.io.Serializable {
 		this.lokasiTest = lokasiTest;
 	}
 
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "TGL_CREATED", nullable = false, length = 10)
 	public Date getTglCreated() {
 		return this.tglCreated;
@@ -307,7 +307,7 @@ public class DtPendaftaran implements java.io.Serializable {
 		this.tglCreated = tglCreated;
 	}
 
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "TGL_UPDATED", nullable = false, length = 10)
 	public Date getTglUpdated() {
 		return this.tglUpdated;
@@ -326,7 +326,7 @@ public class DtPendaftaran implements java.io.Serializable {
 		this.userValidate = userValidate;
 	}
 
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "TGL_VALIDATE", nullable = false, length = 10)
 	public Date getTglValidate() {
 		return this.tglValidate;
