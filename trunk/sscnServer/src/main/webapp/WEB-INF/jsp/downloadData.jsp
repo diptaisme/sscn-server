@@ -245,17 +245,16 @@ label.error {
 									<div class="span6"></div>
 									<div class="span6">
 										<div class="dataTables_filter">
-											<!-- 	<label>Search: <input type="text"
-												aria-controls="example">
-											</label>  -->
-											<form method="POST" name="formDownloadData" action="/sscnServer/ReportServlet" target="_BLANK">
+											 	<label>Under Construction
+											</label> 
+											<!--  <form method="POST" name="formDownloadData" action="/sscnServer/ReportServlet" target="_BLANK">
 												<input type="hidden" value="rptTestCetak" name="typeReport" id="typeReport"
 													class="form-submit-button style2" />
 												<input type="submit" value="Test Cetak Excel" onclick="return cekTime()"
 													class="form-submit-button style2" />
 												<input type="button" value="Get time" onclick="cekTime()"
 													class="form-submit-button style2" />													
-											</form>
+											</form> -->
 										</div>
 									</div>
 								</div>
