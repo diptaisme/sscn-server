@@ -34,4 +34,10 @@ public class PendidikanServiceImpl implements PendidikanService {
 				.findLikeMapOfProperties(map, null);
 		return pendidikans;
 	}
+
+	@Override
+	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
+	public RefPendidikan findById(String id) {
+		return refPendidikanDao.findById(id);
+	}
 }

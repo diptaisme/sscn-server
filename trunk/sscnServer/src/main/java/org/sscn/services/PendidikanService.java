@@ -9,5 +9,7 @@ public interface PendidikanService {
 	List<RefPendidikan> findAllPendidikan(int... idx);
 
 	List<RefPendidikan> findPendidikanByLikeName(String name);
+	
+	RefPendidikan findById(String id);
 
 }

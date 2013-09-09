@@ -22,6 +22,8 @@ import org.sscn.persistence.entities.DtPendaftaran;
 import org.sscn.persistence.entities.DtPersyaratan;
 import org.sscn.persistence.entities.DtUser;
 import org.sscn.persistence.entities.DtVerifikasiNok;
+import org.sscn.persistence.entities.RefPendidikan;
+import org.sscn.services.PendidikanService;
 import org.sscn.services.PersyaratanService;
 import org.sscn.services.UserService;
 import org.sscn.services.VerfikasiService;
@@ -37,6 +39,9 @@ public class VerifikasiController {
 
 	@Inject
 	private VerfikasiService verifikasiServices;
+	
+	@Inject
+	private PendidikanService pendidikanServices;
 
 	@Inject
 	private PersyaratanService persyaratanServices;
@@ -281,6 +286,12 @@ public class VerifikasiController {
 			} else {
 				mob = null;
 			}
+			String pddkn = "";
+			if (infoPendaftar.getPendidikan() != null){
+				RefPendidikan pddknTemp = pendidikanServices.findById(infoPendaftar.getPendidikan()); 
+				pddkn = pddknTemp.getNama();
+			}
+			infoPendaftar.setPendidikan(pddkn);
 			
 			infoPendaftar.setFormasi(null);
 			res = new StandardJsonMessage(1, infoPendaftar, mob, "Get Pendaftaran Success");

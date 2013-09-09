@@ -78,10 +78,15 @@ public class VerfikasiServiceImpl implements VerfikasiService {
 		String stringDigit = instansi + pendidikan.substring(0, 1);
 		String nourut = dtPendaftaranDao.getnoUrutPendaftaran(stringDigit);
 		if (nourut.contentEquals("")) {
-			nourut = "00001";
+			if (pendidikan.substring(0, 1).contentEquals("2")){
+				nourut = "20001";
+			} else {
+				nourut = "50001";
+			}
+			
 		} else {
 			int x = Integer.parseInt(nourut) + 1;
-			nourut = String.format("%05d", x);
+			nourut = String.format("%04d", x);
 		}
 
 		Integer varMod = 9 - (Integer.parseInt(nourut) % 8);
