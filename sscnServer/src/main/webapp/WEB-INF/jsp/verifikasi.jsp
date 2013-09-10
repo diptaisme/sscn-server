@@ -371,7 +371,7 @@
 				<hr>
 				<c:forEach items="${persyaratans}" var="persyaratan">
 					<div class="control-group">
-						<label class="control-label" for="input01">${persyaratan.syarat}</label>
+						<label class="control-label" for="input01" style="width: 400px;padding-right: 20px">${persyaratan.syarat}</label>
 						<div class="controls">
 							<input type="checkbox" name="persyaratanIds[]"
 								value="${persyaratan.id}">
