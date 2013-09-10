@@ -5,7 +5,9 @@ import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.sscn.core.report.GeneralReportUtil;
+import org.sscn.core.report.GeneralReportFactory;
+import org.sscn.persistence.entities.DtPendaftaran;
+import org.sscn.persistence.entities.view.DataPendaftaran;
 
 public final class DecodeData {
 	// constants
@@ -28,7 +30,18 @@ public final class DecodeData {
 
 	// Put Decoder objects and their corresponding reportType here.
 	static {
-		
+		DECODER_MAP.put(GeneralReportFactory.RPT_TEST_CETAK.toLowerCase(),
+				new Decoder() {
+					public Object[] decode(Object object) {
+						return decodeTestSaja(object);
+					}
+				});
+		DECODER_MAP.put(GeneralReportFactory.RPT_DATA_PENDAFTARAN.toLowerCase(),
+				new Decoder() {
+					public Object[] decode(Object object) {
+						return decodeDataPendaftaran(object);
+					}
+				});
 	}
 
 	public static Object[] decodeObject(Object object, String reportType) {
@@ -47,6 +60,15 @@ public final class DecodeData {
 	}
 
 	protected static Object[] decodeTestSaja(Object object) {
-		return null;
+		DtPendaftaran val = (DtPendaftaran) object;
+		return new Object[] { ROWNUM, val.getId(), val.getNama(), };
+	}
+	
+	protected static Object[] decodeDataPendaftaran(Object object) {
+		DataPendaftaran val = (DataPendaftaran) object;
+		return new Object[] { ROWNUM, val.getNoNik(), val.getNoRegister(), val.getNoPeserta(), val.getNama(), 
+				val.getTmpLahir(), val.getTglLahir(), val.getJnsKelamin(), val.getAlamat(), val.getKodePos(), val.getPropinsi(), val.getKota(),
+				val.getTelpon(), val.getEmail(), val.getAsalInstitusiPendidikan(), val.getNoIjazah(), val.getAkreditasi(), val.getNilaiIpk(),
+				val.getLokasiNama(), val.getJabatanNama(), val.getPendidikanNama()};
 	}
 }
