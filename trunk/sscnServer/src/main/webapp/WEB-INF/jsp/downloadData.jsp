@@ -39,9 +39,9 @@
 <!-- Javascript -->
 <script>
 	function cekTime() {
-		var d = new Date();
-		if(d.getHours() == "13"){
-			alert("Belom bisa melakukan download data");
+		var d = new Date();		
+		if(parseInt(d.getHours()) > 8 && parseInt(d.getHours()) < 17){
+			alert("Maaf, anda tidak bisa melakukan download data diantara pukul 8 dan 17.");
 			return false;	
 		}return true;
 	}
@@ -245,16 +245,18 @@ label.error {
 									<div class="span6"></div>
 									<div class="span6">
 										<div class="dataTables_filter">
-											 	<label>Under Construction
+											 	<label>Download Data Pendaftaran SSCN untuk <B>Instansi ${userLogin.refInstansi.nama}</B>
 											</label> 
-											<!--  <form method="POST" name="formDownloadData" action="/sscnServer/ReportServlet" target="_BLANK">
-												<input type="hidden" value="rptTestCetak" name="typeReport" id="typeReport"
+											<form method="POST" name="formDownloadData" action="/sscnServer/ReportServlet" target="_BLANK">
+												<input type="hidden" value="rptDataPendaftaran" name="typeReport" id="typeReport"
 													class="form-submit-button style2" />
-												<input type="submit" value="Test Cetak Excel" onclick="return cekTime()"
+												<input type="hidden" value="${userLogin.refInstansi.kode}" name="kodeInstansi" id="kodeInstansi"
 													class="form-submit-button style2" />
-												<input type="button" value="Get time" onclick="cekTime()"
-													class="form-submit-button style2" />													
-											</form> -->
+												<input type="hidden" value="${userLogin.refInstansi.nama}" name="namaInstansi" id="namaInstansi"
+													class="form-submit-button style2" />
+												<input type="submit" value="Download Data" onclick="return cekTime()" title="Klik untuk download data"
+													class="form-submit-button style2" />																								
+											</form>
 										</div>
 									</div>
 								</div>
