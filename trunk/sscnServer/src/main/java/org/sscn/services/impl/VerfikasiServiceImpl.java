@@ -86,7 +86,7 @@ public class VerfikasiServiceImpl implements VerfikasiService {
 			
 		} else {
 			int x = Integer.parseInt(nourut) + 1;
-			nourut = String.format("%04d", x);
+			nourut = String.format("%05d", x);
 		}
 
 		Integer varMod = 9 - (Integer.parseInt(nourut) % 8);

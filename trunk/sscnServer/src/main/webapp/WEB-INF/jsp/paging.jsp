@@ -35,12 +35,19 @@
 					Integer lenNumPage = (Integer) request.getAttribute("numpage");
 					Integer activePage = (Integer) request.getAttribute("activePage");
 					PrintWriter outs = response.getWriter();
-					int x = (activePage/2) * 2;
+					
+					int x = (activePage/10) * 10;
+					
 					if (lenNumPage < (x + 10)){
 						x = lenNumPage - 10; 
 					} else if (lenNumPage == (x+10)){
 						x = x-1;
+					} else if (x % 10 == 0) {
+						if (x>=10){
+							x = x - 1;
+						}
 					}
+					
 					int j = 0;
 					if (x < 0){
 						x = 0;
@@ -48,6 +55,7 @@
 					} else {
 						j = 10;	
 					}
+					
 					for (int i=1;i<=j;i++){
 						
 						if ((x+i) == activePage){ %>

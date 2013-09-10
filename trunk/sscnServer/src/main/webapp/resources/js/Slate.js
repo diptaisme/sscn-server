@@ -134,7 +134,7 @@ $(function () {
 		el.preventDefault();
 		
 		page = $('#inpGoTo').val();
-		if (page > lenNumPage){
+		if (parseInt(page) > parseInt(lenNumPage)){
 			alert('Nilai Page Maksimal = ' + lenNumPage);
 			return;
 		}
