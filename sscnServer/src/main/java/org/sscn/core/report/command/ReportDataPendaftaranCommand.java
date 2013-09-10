@@ -18,12 +18,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Component;
-import org.sscn.core.report.command.workbook.TestWorkbook;
+import org.sscn.core.report.command.workbook.DataPendaftaranWorkbook;
 import org.sscn.dao.DtPendaftaranDao;
-import org.sscn.persistence.entities.DtPendaftaran;
+import org.sscn.persistence.entities.view.DataPendaftaran;
 
-@Component("ReportTestCommand")
-public class ReportTestCommand extends ReportCommand {
+@Component("ReportDataPendaftaranCommand")
+public class ReportDataPendaftaranCommand extends ReportCommand {
 	/** The Constant OUTPUT_STREAM_INITIAL_SIZE. */
 	private static final int OUTPUT_STREAM_INITIAL_SIZE = 2048;
 
@@ -37,7 +37,9 @@ public class ReportTestCommand extends ReportCommand {
 
 	private static final String START_INDEX = "START_INDEX";
 
-	public static final String TANGGAL = "TANGGAL";
+	public static final String INSTANSI = "INSTANSI";
+	
+	public static final String WAKTU = "WAKTU";
 
 	@Inject
 	private DtPendaftaranDao dtPendaftaranDao;
@@ -49,7 +51,7 @@ public class ReportTestCommand extends ReportCommand {
 		BufferedOutputStream bos = new BufferedOutputStream(bt,
 				OUTPUT_STREAM_INITIAL_SIZE);
 		InputStream inp = new FileInputStream(myMap.get(TEMPLATE).toString());
-		TestWorkbook wb = new TestWorkbook(myMap, inp);
+		DataPendaftaranWorkbook wb = new DataPendaftaranWorkbook(myMap, inp);
 		wb.createStyles();
 		wb.setHeader();
 		if (pMyData.length > 0) {
@@ -72,19 +74,22 @@ public class ReportTestCommand extends ReportCommand {
 		Map<String, Object> excelMap = new HashMap<String, Object>();
 
 		Date nowTime = java.util.Calendar.getInstance().getTime();
-		Format formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");		
+		Format formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
-		List<DtPendaftaran> listPns = dtPendaftaranDao.findAll(new int[] { 0, 50});
+		List<DataPendaftaran> listDataPendaftaran = dtPendaftaranDao
+				.findDataPendaftaran(request.getParameter("kodeInstansi"));
+		Object[] dataPendaftaranArray = listDataPendaftaran.toArray();
 
-		Object[] pnsArray = listPns.toArray();
-
-		excelMap.put(TEMPLATE, reportBaseDir + "rptTest.xls");
+		excelMap.put(TEMPLATE, reportBaseDir + "rptDataPendaftaran.xls");
 		excelMap.put(REPORT_TYPE, "XLS");
-		excelMap.put("TANGGAL", "Keadaan " + formatter.format(nowTime));
+		excelMap.put("INSTANSI",
+				"Instansi " + request.getParameter("namaInstansi"));
+		excelMap.put("WAKTU", "Keadaan " + formatter.format(nowTime));
 		excelMap.put(START_INDEX, Integer.valueOf(INT_START_INDEX));
-		excelMap.put(FORMAT, "NCCCCCCCC");
+		excelMap.put(FORMAT, "NCCCCCCCCCCCCCCCCCCCCC");
 
-		generateXlsReport(pnsArray, response, excelMap, "rptTest.xls");
+		generateXlsReport(dataPendaftaranArray, response, excelMap,
+				"rptDataPendaftaran.xls");
 
 	}
 }
