@@ -6,7 +6,9 @@ public class GeneralReportUtil {
 	/** The logo garuda. */
 	public static String PATH_TO_GARUDA_LOGO = "/reports/garuda.png";
 	/** The rpt Test. */
-	private static String rptTest = defaultDirectory + "rptTest.jasper";
+	private static String rptTest = defaultDirectory + "rptTest.xls";
+	/** The rpt DataPendaftaran. */
+	private static String rptDataPendaftaran = defaultDirectory + "rptDataPendaftaran.xls";
 	/** The rpt Registrasi. */
 	private static String rptRegistrasi = defaultDirectory
 			+ "rptRegistrasi.jasper";
@@ -25,4 +27,13 @@ public class GeneralReportUtil {
 	public static String getRptPesertaUjian() {
 		return rptPesertaUjian;
 	}
+	
+	public static String getRptDataPendaftaran() {
+		return rptDataPendaftaran;
+	}
+	
+	/** The Constant RPT_TEST_CETAK. */
+	public static final String RPT_TEST_CETAK = "rptTestCetak";
+	/** The Constant RPT_DATA_PENDAFTARAN. */
+	public static final String RPT_DATA_PENDAFTARAN = "rptDataPendaftaran";
 }
