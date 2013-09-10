@@ -6,6 +6,7 @@ import java.util.Map;
 import org.sscn.core.persistence.dao.CoreDao;
 import org.sscn.persistence.entities.DtPendaftaran;
 import org.sscn.persistence.entities.RefInstansi;
+import org.sscn.persistence.entities.view.DataPendaftaran;
 
 public interface DtPendaftaranDao extends CoreDao<DtPendaftaran> {
 
@@ -21,5 +22,5 @@ public interface DtPendaftaranDao extends CoreDao<DtPendaftaran> {
 	
 	Integer countByInstansiAndMap(RefInstansi refInstansi, Map<String, Object> map);
 
-	
+	List<DataPendaftaran> findDataPendaftaran(String kodeInstansi);
 }
