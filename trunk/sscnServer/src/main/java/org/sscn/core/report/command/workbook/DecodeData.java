@@ -42,6 +42,12 @@ public final class DecodeData {
 						return decodeDataPendaftaran(object);
 					}
 				});
+		DECODER_MAP.put(GeneralReportFactory.RPT_DATA_PESERTA_TEST.toLowerCase(),
+				new Decoder() {
+					public Object[] decode(Object object) {
+						return decodeDataPesertaTest(object);
+					}
+				});
 	}
 
 	public static Object[] decodeObject(Object object, String reportType) {
@@ -65,6 +71,13 @@ public final class DecodeData {
 	}
 	
 	protected static Object[] decodeDataPendaftaran(Object object) {
+		DataPendaftaran val = (DataPendaftaran) object;
+		return new Object[] { ROWNUM, val.getNoNik(), val.getNoRegister(), val.getNoPeserta(), val.getNama(), 
+				val.getTmpLahir(), val.getTglLahir(), val.getJnsKelamin(), val.getAlamat(), val.getKodePos(), val.getPropinsi(), val.getKota(),
+				val.getTelpon(), val.getEmail(), val.getAsalInstitusiPendidikan(), val.getNoIjazah(), val.getAkreditasi(), val.getNilaiIpk(),
+				val.getLokasiNama(), val.getJabatanNama(), val.getPendidikanNama()};
+	}
+	protected static Object[] decodeDataPesertaTest(Object object) {
 		DataPendaftaran val = (DataPendaftaran) object;
 		return new Object[] { ROWNUM, val.getNoNik(), val.getNoRegister(), val.getNoPeserta(), val.getNama(), 
 				val.getTmpLahir(), val.getTglLahir(), val.getJnsKelamin(), val.getAlamat(), val.getKodePos(), val.getPropinsi(), val.getKota(),
