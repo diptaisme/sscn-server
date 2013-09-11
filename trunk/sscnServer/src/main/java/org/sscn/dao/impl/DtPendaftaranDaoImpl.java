@@ -15,10 +15,12 @@ import org.sscn.dao.DtPendaftaranDao;
 import org.sscn.persistence.entities.DtPendaftaran;
 import org.sscn.persistence.entities.RefInstansi;
 import org.sscn.persistence.entities.view.DataPendaftaran;
+import org.sscn.persistence.entities.view.StatInstansi;
+import org.sscn.persistence.entities.view.StatInstansiJabatan;
 
 @Repository("DtPendaftaranDao")
 public class DtPendaftaranDaoImpl extends CoreDaoImpl<DtPendaftaran> implements
-        DtPendaftaranDao {
+		DtPendaftaranDao {
 	/**
 	 * Default constructor.
 	 * 
@@ -31,12 +33,13 @@ public class DtPendaftaranDaoImpl extends CoreDaoImpl<DtPendaftaran> implements
 	}
 
 	@Override
-	public List<DtPendaftaran> findByInstansi(RefInstansi instansi, int... idxAndCount) {
+	public List<DtPendaftaran> findByInstansi(RefInstansi instansi,
+			int... idxAndCount) {
 		StringBuilder sbFind = new StringBuilder(getSelectFindQuery());
 
 		final String innerJoinFetchPhrase = createLeftJoinFetchPhrase("model.formasi");
 		StringBuilder wherePhrase = new StringBuilder(
-		        " WHERE (model.formasi.refInstansi.kode = :refInstansiId) ");
+				" WHERE (model.formasi.refInstansi.kode = :refInstansiId) ");
 		sbFind.append(innerJoinFetchPhrase).append(wherePhrase);
 
 		Query query = createQuery(sbFind);
@@ -48,8 +51,8 @@ public class DtPendaftaranDaoImpl extends CoreDaoImpl<DtPendaftaran> implements
 	@Override
 	public String getnoUrutPendaftaran(String limaDigitPertama) {
 		StringBuilder sqlText = new StringBuilder(
-		        "select max(convert(substr(NO_PESERTA,6,5),unsigned integer)) from dt_pendaftaran where NO_PESERTA LIKE '"
-		                + limaDigitPertama + "%'");
+				"select max(convert(substr(NO_PESERTA,6,5),unsigned integer)) from dt_pendaftaran where NO_PESERTA LIKE '"
+						+ limaDigitPertama + "%'");
 
 		SQLQuery query = createSqlQuery(sqlText);
 		Object myResult = query.uniqueResult();
@@ -65,9 +68,9 @@ public class DtPendaftaranDaoImpl extends CoreDaoImpl<DtPendaftaran> implements
 	@Override
 	public Integer countByInstansi(RefInstansi refInstansi) {
 		StringBuilder sbFind = new StringBuilder(
-		        "SELECT COUNT(model.id) FROM DtPendaftaran model ");
+				"SELECT COUNT(model.id) FROM DtPendaftaran model ");
 		StringBuilder wherePhrase = new StringBuilder(
-		        " WHERE model.formasi.refInstansi.kode = :refInstansiId ");
+				" WHERE model.formasi.refInstansi.kode = :refInstansiId ");
 		sbFind.append(wherePhrase);
 		Query query = createQuery(sbFind);
 
@@ -77,24 +80,26 @@ public class DtPendaftaranDaoImpl extends CoreDaoImpl<DtPendaftaran> implements
 
 	@Override
 	public List<DtPendaftaran> findByInstansiAndMap(RefInstansi instansi,
-	        Map<String, Object> map, int... idxAndCount) {
+			Map<String, Object> map, int... idxAndCount) {
 		StringBuilder sbFind = new StringBuilder(getSelectFindQuery());
 		final String innerJoinFetchPhrase = createLeftJoinFetchPhrase("model.formasi");
 		StringBuilder wherePhrase = new StringBuilder(
-		        " WHERE (model.formasi.refInstansi.kode = :refInstansiId) ");
+				" WHERE (model.formasi.refInstansi.kode = :refInstansiId) ");
 		String whereMap = "";
 		Iterator<Map.Entry<String, Object>> entries = map.entrySet().iterator();
 		while (entries.hasNext()) {
 			Map.Entry<String, Object> entry = entries.next();
-			whereMap = whereMap + "model." + entry.getKey() + " LIKE :" + entry.getKey();
+			whereMap = whereMap + "model." + entry.getKey() + " LIKE :"
+					+ entry.getKey();
 		}
 		sbFind.append(innerJoinFetchPhrase).append(wherePhrase)
-		        .append(" AND " + whereMap);
+				.append(" AND " + whereMap);
 		System.out.println("Query : " + sbFind);
 		Query query = createQuery(sbFind);
 		query.setParameter("refInstansiId", instansi.getKode());
 
-		Iterator<Map.Entry<String, Object>> entries2 = map.entrySet().iterator();
+		Iterator<Map.Entry<String, Object>> entries2 = map.entrySet()
+				.iterator();
 		while (entries2.hasNext()) {
 			Map.Entry<String, Object> entry = entries2.next();
 			query.setParameter(entry.getKey(), "%" + entry.getValue() + "%");
@@ -103,24 +108,27 @@ public class DtPendaftaranDaoImpl extends CoreDaoImpl<DtPendaftaran> implements
 	}
 
 	@Override
-	public Integer countByInstansiAndMap(RefInstansi refInstansi, Map<String, Object> map) {
+	public Integer countByInstansiAndMap(RefInstansi refInstansi,
+			Map<String, Object> map) {
 		StringBuilder sbFind = new StringBuilder(
-		        "SELECT COUNT(model.id) FROM DtPendaftaran model ");
+				"SELECT COUNT(model.id) FROM DtPendaftaran model ");
 		StringBuilder wherePhrase = new StringBuilder(
-		        " WHERE model.formasi.refInstansi.kode = :refInstansiId ");
+				" WHERE model.formasi.refInstansi.kode = :refInstansiId ");
 
 		String whereMap = "";
 		Iterator<Map.Entry<String, Object>> entries = map.entrySet().iterator();
 		while (entries.hasNext()) {
 			Map.Entry<String, Object> entry = entries.next();
-			whereMap = whereMap + "model." + entry.getKey() + " LIKE :" + entry.getKey();
+			whereMap = whereMap + "model." + entry.getKey() + " LIKE :"
+					+ entry.getKey();
 		}
 		sbFind.append(wherePhrase).append(" AND " + whereMap);
 		System.out.println("Query : " + sbFind);
 		Query query = createQuery(sbFind);
 		query.setParameter("refInstansiId", refInstansi.getKode());
 
-		Iterator<Map.Entry<String, Object>> entries2 = map.entrySet().iterator();
+		Iterator<Map.Entry<String, Object>> entries2 = map.entrySet()
+				.iterator();
 		while (entries2.hasNext()) {
 			Map.Entry<String, Object> entry = entries2.next();
 			query.setParameter(entry.getKey(), "%" + entry.getValue() + "%");
@@ -131,8 +139,10 @@ public class DtPendaftaranDaoImpl extends CoreDaoImpl<DtPendaftaran> implements
 	@Override
 	public List<DataPendaftaran> findDataPendaftaran(String kodeInstansi) {
 		List<DataPendaftaran> result = new ArrayList<DataPendaftaran>();
-		final String sql = "SELECT NO_NIK, NO_REGISTER, NO_PESERTA, NAMA, TMP_LAHIR, DATE_FORMAT(TGL_LAHIR, '%d-%m-%y'), JNS_KELAMIN, ALAMAT, KODE_POS, PROPINSI, KOTA, TELPON, EMAIL, LEMBAGA, NO_IJAZAH, AKREDITASI, NILAI_IPK, INSTANSI, NAMA_INSTANSI as NI, LOKASI, NAMA_LOKASI as NL, JABATAN, NAMA_JABATAN as NJ, PENDIDIKAN, NAMA_PENDIDIKAN as NP FROM data_01 " +
-				"WHERE INSTANSI= '"+kodeInstansi+"' order by NO_PESERTA, NAMA";
+		final String sql = "SELECT NO_NIK, NO_REGISTER, NO_PESERTA, NAMA, TMP_LAHIR, DATE_FORMAT(TGL_LAHIR, '%d-%m-%y'), JNS_KELAMIN, ALAMAT, KODE_POS, PROPINSI, KOTA, TELPON, EMAIL, LEMBAGA, NO_IJAZAH, AKREDITASI, NILAI_IPK, INSTANSI, NAMA_INSTANSI as NI, LOKASI, NAMA_LOKASI as NL, JABATAN, NAMA_JABATAN as NJ, PENDIDIKAN, NAMA_PENDIDIKAN as NP FROM data_01 "
+				+ "WHERE INSTANSI= '"
+				+ kodeInstansi
+				+ "' order by NO_PESERTA, NAMA";
 		try {
 			SQLQuery query = createSqlQuery(sql);
 			List<Object[]> res = query.list();
@@ -153,24 +163,142 @@ public class DtPendaftaranDaoImpl extends CoreDaoImpl<DtPendaftaran> implements
 					dataPendaftaran.setKota(String.valueOf(obj[index++]));
 					dataPendaftaran.setTelpon(String.valueOf(obj[index++]));
 					dataPendaftaran.setEmail(String.valueOf(obj[index++]));
-					dataPendaftaran.setAsalInstitusiPendidikan(String.valueOf(obj[index++]));
+					dataPendaftaran.setAsalInstitusiPendidikan(String
+							.valueOf(obj[index++]));
 					dataPendaftaran.setNoIjazah(String.valueOf(obj[index++]));
 					dataPendaftaran.setAkreditasi(String.valueOf(obj[index++]));
 					dataPendaftaran.setNilaiIpk(String.valueOf(obj[index++]));
-					dataPendaftaran.setInstansiKode(String.valueOf(obj[index++]));
-					dataPendaftaran.setInstansiNama(String.valueOf(obj[index++]));
+					dataPendaftaran.setInstansiKode(String
+							.valueOf(obj[index++]));
+					dataPendaftaran.setInstansiNama(String
+							.valueOf(obj[index++]));
 					dataPendaftaran.setLokasiKode(String.valueOf(obj[index++]));
 					dataPendaftaran.setLokasiNama(String.valueOf(obj[index++]));
-					dataPendaftaran.setJabatanKode(String.valueOf(obj[index++]));
-					dataPendaftaran.setJabatanNama(String.valueOf(obj[index++]));
-					dataPendaftaran.setPendidikanKode(String.valueOf(obj[index++]));
-					dataPendaftaran.setPendidikanNama(String.valueOf(obj[index++]));
-					
+					dataPendaftaran
+							.setJabatanKode(String.valueOf(obj[index++]));
+					dataPendaftaran
+							.setJabatanNama(String.valueOf(obj[index++]));
+					dataPendaftaran.setPendidikanKode(String
+							.valueOf(obj[index++]));
+					dataPendaftaran.setPendidikanNama(String
+							.valueOf(obj[index++]));
+
 					result.add(dataPendaftaran);
 				}
 			}
 		} catch (Exception ex) {
-			ex.printStackTrace();			
+			ex.printStackTrace();
+		}
+		return result;
+	}
+
+	@Override
+	public List<DataPendaftaran> findDataPesertaTest(String kodeInstansi) {
+		List<DataPendaftaran> result = new ArrayList<DataPendaftaran>();
+		final String sql = "SELECT NO_NIK, NO_REGISTER, NO_PESERTA, NAMA, TMP_LAHIR, DATE_FORMAT(TGL_LAHIR, '%d-%m-%y'), JNS_KELAMIN, ALAMAT, KODE_POS, PROPINSI, KOTA, TELPON, EMAIL, LEMBAGA, NO_IJAZAH, AKREDITASI, NILAI_IPK, INSTANSI, NAMA_INSTANSI as NI, LOKASI, NAMA_LOKASI as NL, JABATAN, NAMA_JABATAN as NJ, PENDIDIKAN, NAMA_PENDIDIKAN as NP FROM data_01 "
+				+ "WHERE INSTANSI= '"
+				+ kodeInstansi
+				+ "' and NO_PESERTA <> '' order by NO_PESERTA, NAMA";
+		try {
+			SQLQuery query = createSqlQuery(sql);
+			List<Object[]> res = query.list();
+			for (Object[] obj : res) {
+				if (res != null) {
+					DataPendaftaran dataPendaftaran = new DataPendaftaran();
+					int index = 0;
+					dataPendaftaran.setNoNik(String.valueOf(obj[index++]));
+					dataPendaftaran.setNoRegister(String.valueOf(obj[index++]));
+					dataPendaftaran.setNoPeserta(String.valueOf(obj[index++]));
+					dataPendaftaran.setNama(String.valueOf(obj[index++]));
+					dataPendaftaran.setTmpLahir(String.valueOf(obj[index++]));
+					dataPendaftaran.setTglLahir(String.valueOf(obj[index++]));
+					dataPendaftaran.setJnsKelamin(String.valueOf(obj[index++]));
+					dataPendaftaran.setAlamat(String.valueOf(obj[index++]));
+					dataPendaftaran.setKodePos(String.valueOf(obj[index++]));
+					dataPendaftaran.setPropinsi(String.valueOf(obj[index++]));
+					dataPendaftaran.setKota(String.valueOf(obj[index++]));
+					dataPendaftaran.setTelpon(String.valueOf(obj[index++]));
+					dataPendaftaran.setEmail(String.valueOf(obj[index++]));
+					dataPendaftaran.setAsalInstitusiPendidikan(String
+							.valueOf(obj[index++]));
+					dataPendaftaran.setNoIjazah(String.valueOf(obj[index++]));
+					dataPendaftaran.setAkreditasi(String.valueOf(obj[index++]));
+					dataPendaftaran.setNilaiIpk(String.valueOf(obj[index++]));
+					dataPendaftaran.setInstansiKode(String
+							.valueOf(obj[index++]));
+					dataPendaftaran.setInstansiNama(String
+							.valueOf(obj[index++]));
+					dataPendaftaran.setLokasiKode(String.valueOf(obj[index++]));
+					dataPendaftaran.setLokasiNama(String.valueOf(obj[index++]));
+					dataPendaftaran
+							.setJabatanKode(String.valueOf(obj[index++]));
+					dataPendaftaran
+							.setJabatanNama(String.valueOf(obj[index++]));
+					dataPendaftaran.setPendidikanKode(String
+							.valueOf(obj[index++]));
+					dataPendaftaran.setPendidikanNama(String
+							.valueOf(obj[index++]));
+
+					result.add(dataPendaftaran);
+				}
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return result;
+	}
+
+	@Override
+	public List<StatInstansi> getStatistikPendaftaranInstansi() {
+		List<StatInstansi> result = new ArrayList<StatInstansi>();
+		final String sql = "SELECT INSTANSI, Jml_Pendaftar, Jml_Lulus, Jml_tdkLulus from tab_stat_01 order by INSTANSI";
+		try {
+			SQLQuery query = createSqlQuery(sql);
+			List<Object[]> res = query.list();
+			for (Object[] obj : res) {
+				if (res != null) {
+					StatInstansi statInstansi = new StatInstansi();
+					int index = 0;
+					statInstansi.setInstansi(String.valueOf(obj[index++]));
+					statInstansi.setJumlahPendaftar(String
+							.valueOf(obj[index++]));
+					statInstansi.setJumlahLulus(String.valueOf(obj[index++]));
+					statInstansi.setJumlahTidakLulus(String
+							.valueOf(obj[index++]));
+					result.add(statInstansi);
+				}
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return result;
+	}
+
+	@Override
+	public List<StatInstansiJabatan> getStatistikJabatanPendaftaranInstansi(
+			String kodeInstansi) {
+		List<StatInstansiJabatan> result = new ArrayList<StatInstansiJabatan>();
+		final String sql = "SELECT INSTANSI, NAMA, Jml_Pendaftar, Jml_Lulus, Jml_tdkLulus from tab_stat_02 where INSTANSI='"
+				+ kodeInstansi + "' order by NAMA";
+		try {
+			SQLQuery query = createSqlQuery(sql);
+			List<Object[]> res = query.list();
+			for (Object[] obj : res) {
+				if (res != null) {
+					StatInstansiJabatan statInstansi = new StatInstansiJabatan();
+					int index = 0;
+					statInstansi.setInstansi(String.valueOf(obj[index++]));
+					statInstansi.setJabatan(String.valueOf(obj[index++]));
+					statInstansi.setJumlahPendaftar(String
+							.valueOf(obj[index++]));
+					statInstansi.setJumlahLulus(String.valueOf(obj[index++]));
+					statInstansi.setJumlahTidakLulus(String
+							.valueOf(obj[index++]));
+					result.add(statInstansi);
+				}
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
 		}
 		return result;
 	}
