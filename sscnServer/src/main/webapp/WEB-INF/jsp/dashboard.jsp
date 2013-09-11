@@ -137,6 +137,11 @@
 		$("#myModal").dialog("close");
 	}
 </script>
+<style type="text/css">
+<!--
+.style2 {color: #0033FF}
+-->
+</style>
 </head>
 
 <body>
@@ -177,7 +182,7 @@
 						<form action="logout.do" method="POST" name="formLogout">
 							<!-- <button id="btnPasswordModal">
 									Ganti Password</button>-->
-							<a href="#" onclick="openFormGantiPasword()"
+							<a href="#" onClick="openFormGantiPasword()"
 								class="btn btn-small btn-primary">Ganti Password</a> <input
 								class="btn btn-small btn-primary" type="submit" value="logout"
 								name="btnLogout" />
@@ -276,12 +281,7 @@
 									<a class="btn dropdown-toggle btn-small" data-toggle="dropdown"
 										href="javascript:;"> <i class="icon-cog"></i> <span
 										class="caret"></span>
-									</a>
-									<ul class="dropdown-menu">
-										<li><a href="#">Main Action</a></li>
-										<li><a href="#">Secondary Action</a></li>
-										<li><a href="#">Another action</a></li>
-									</ul>
+									</a>									
 								</div>
 							</div>
 							<!-- /.widget-actions -->
@@ -291,30 +291,27 @@
 
 						<div class="widget-content">
 							<p align="center" class="style1"><strong>Selamat Datang di Menu Administrasi</strong></p>
-							<p align="left" class="style1">Perhatian : <br> 
-								Sebelum pendaftaran dibuka kepada para pelamar, Administrator <font color="red">WAJIB</font> melengkapi :
-							</p>
+Perhatian : 
+								<br>
+						  Sebelum pendaftaran dibuka kepada para pelamar, Administrator <font color="red">WAJIB</font> melengkapi :							</p>
 							<ol>
 								<li>
 									Lokasi formasi
 (wajib diisi karena menjadi default dalam pengisian formasi jabatan)
-Catt : Untuk instansi daerah agar mengisi 1 (satu) lokasi formasi dengan ibukota instansi daerah tersebut.
-								</li>
+Catt : Untuk instansi daerah agar mengisi 1 (satu) lokasi formasi dengan ibukota instansi daerah tersebut.								</li>
 								<li>
 									Syarat Pendaftaran
-(wajib diisi karena untuk kepentingan verifikasi, serta pencetakan form registrasi pelamar, jika tidak diisi maka cetakan bukti registrasi pendaftar akan blank)
-								</li>
+(wajib diisi karena untuk kepentingan verifikasi, serta pencetakan form registrasi pelamar, jika tidak diisi maka cetakan bukti registrasi pendaftar akan blank)								</li>
 								<li>Formasi
-(wajib diisi karena menjadi pilihan bagi pelamar untuk mendaftar pada suatu jabatan formasi tertentu)								
-								</li>
-								<li>Pengumuman Instansi (pdf) yang di upload di sscn admin
-								</li>
-							</ol>
+(wajib diisi karena menjadi pilihan bagi pelamar untuk mendaftar pada suatu jabatan formasi tertentu)								</li>
+								<li>Pengumuman Instansi (pdf) yang di upload di sscn admin								</li>
+					        </ol>
 							
 
 							
 								
 							
+							<p><strong><em>Unduh Buku Petunjuk Teknis Administrator Instansi (<span class="style2"><a href="resources/img/manual_sscn.pdf" target="_BLANK">disini</a></span>) </em></strong></p>
 							<div class="stat">
 								
 							</div>

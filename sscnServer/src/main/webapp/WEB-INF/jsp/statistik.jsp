@@ -35,19 +35,42 @@
 <link href="/sscnServer/resources/css/slate.css" rel="stylesheet">
 <link href="/sscnServer/resources/css/slate-responsive.css"
 	rel="stylesheet">
+<!-- <link href="/sscnServer/resources/css/jquery-chart-style.css" rel="stylesheet" type="text/css"  /> -->
+         <script type='text/javascript' src='/sscnServer/resources/js/jquery.min.js'></script>
+         <script src="/sscnServer/resources/js/jquery-1.7.2.min.js"></script>
+		<script type='text/javascript' src='/sscnServer/resources/js/FusionCharts.js'></script>
+		<script type='text/javascript' src='/sscnServer/resources/js/FusionCharts.jQueryPlugin.js'></script>
+		<script type='text/javascript' src='/sscnServer/resources/js/FusionCharts.HTMLTableDataHandler.js'></script>
+		<script>
+			$(function(){
+				$("#btnConvert").click(function(){
+					$("#dataTable").convertToFusionCharts({type: "mscolumn2d",
+					width: "1000",
+					height: "600",
+					dataFormat: "htmltable",
+					renderAt:"chartContainer",
+					renderer:"javascript"					
+				}, {
+					"chartAttributes":{
+							caption:"Statistik Jabatan Instansi ${userLogin.refInstansi.nama}",
+							xAxisName:"Jabatan",
+							yAxisName:"Jumlah",
+							bgColor:"FFFFFF",
+							chartLeftMargin: "5",
+							chartRightMargin: "15",
+							labelDisplay : "ROTATE"
+						},
+					//Do not hide the table once chart is rendered
+					"hideTable":false					
+					});
+				});
+			});
+		</script>
+
+
 
 <!-- Javascript -->
-<script>
-	function cekTime() {
-		var d = new Date();		
-		if(parseInt(d.getHours()) > 8 && parseInt(d.getHours()) < 17){
-			alert("Maaf, anda tidak bisa melakukan download data diantara pukul 8 dan 17.");
-			return false;	
-		}
-		return true;
-	}
-</script>
-<script src="/sscnServer/resources/js/jquery-1.7.2.min.js"></script>
+
 <script src="/sscnServer/resources/js/jquery-ui-1.8.21.custom.min.js"></script>
 <script src="/sscnServer/resources/js/jquery.ui.dialog.min.js"></script>
 <script src="/sscnServer/resources/js/jquery.ui.autocomplete.js"></script>
@@ -131,7 +154,7 @@ label.error {
 									Admin Instansi
 								</c:when>
 								<c:otherwise>
-									Verificator
+									Verifikator
 								</c:otherwise>
 							</c:choose>
 							${userLogin.refInstansi.nama}
@@ -217,13 +240,16 @@ label.error {
 				<ul class="breadcrumb">
 					<li><a href="dashboard.do">Home</a><span class="divider">/</span>
 					</li>
-					<li><a href="#">Download Data</a><span class="divider">/</span>
+					<li><a href="#">Statistik Pendaftaran</a><span class="divider">/</span>
 					</li>
 				</ul>
 
 			</div>
 			<div>
-				<marquee>Untuk tampilan terbaik diharapkan menggunakan browser <b>Mozilla Firefox 3 atau Safari</b> atau diatasnya.</marquee>
+				<marquee>
+					Untuk tampilan terbaik diharapkan menggunakan browser <b>Mozilla
+						Firefox 3 atau Safari</b> atau diatasnya.
+				</marquee>
 			</div>
 			<!-- /.page-title -->
 
@@ -234,51 +260,97 @@ label.error {
 
 						<div class="widget-header">
 							<h3>
-								<i class="icon-th-list"></i> Download Data
+								<i class="icon-th-list"></i> Statistik Pendaftaran
 							</h3>
 						</div>
 						<!-- /widget-header -->
 
 						<div class="widget-content">
 							<div id="example_wrapper" class="dataTables_wrapper form-inline"
-								>
-								<div>									
-									<div>
-										<!--<BR/>
-										&nbsp;&nbsp;Under Construction-->
-											<BR/>											
-											<form method="POST" name="formDownloadDataPendaftaran" action="/sscnServer/ReportServlet" target="_BLANK">
-												<input type="hidden" value="rptDataPendaftaran" name="typeReport" id="typeReport"
-													 />
-												<input type="hidden" value="${userLogin.refInstansi.kode}" name="kodeInstansi" id="kodeInstansi"
-													 />
-												<input type="hidden" value="${userLogin.refInstansi.nama}" name="namaInstansi" id="namaInstansi"
-													 />
-												&nbsp;&nbsp;<input type="submit" value="Download Data Pendaftaran" onclick="return cekTime()" title="Klik untuk download data pendaftaran"
-													class="btn btn-small btn-primary"/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Download Data Pendaftaran SSCN untuk <B>Instansi ${userLogin.refInstansi.nama}</B>																								
-											</form>
-											<BR/>
-											<form method="POST" name="formDownloadDataPesertaTest" action="/sscnServer/ReportServlet" target="_BLANK">
-												<input type="hidden" value="rptDataPesertaTest" name="typeReport" id="typeReport2"
-													 />
-												&nbsp;&nbsp;<input type="submit" value="Download Data Peserta Test" onclick="return cekTime()" title="Klik untuk download data peserta test"
-													class="btn btn-small btn-primary" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Download Data Peserta Test SSCN untuk <B>Instansi ${userLogin.refInstansi.nama}</B>
-												<input type="hidden" value="${userLogin.refInstansi.kode}" name="kodeInstansi2" id="kodeInstansi2"
-													 />
-												<input type="hidden" value="${userLogin.refInstansi.nama}" name="namaInstansi2" id="namaInstansi2"
-													 />																																				
-											</form>
+								role="grid">
+								<div class="row">
+									<div class="span6">
+										<div class="dataTables_length">
+											<label>
+												Statistik Pendaftaran Semua Instansi
+											</label>
 										</div>
-									</div>																		
-								</div>								
-							</div>
-						</div>
+									</div>									
+								</div>
 
+								<table
+									class="table table-striped table-bordered table-highlight"
+									id="myTable">
+									<thead>
+										<tr>
+											<th>Instansi</th>
+											<th>Jumlah Pendaftar</th>
+											<th>Jumlah Lulus</th>
+											<th>Jumlah Tidak Lulus</th>
+										</tr>
+									</thead>
+									<tbody>
+										<c:forEach items="${statInstansis}" var="statInstansi">
+											<tr class="odd gradeX">
+												<td>${statInstansi.instansi}</td>
+												<td>${statInstansi.jumlahPendaftar}</td>
+												<td>${statInstansi.jumlahLulus}</td>
+												<td>${statInstansi.jumlahTidakLulus}</td>
+											</tr>
+										</c:forEach>
+									</tbody>
+								</table>
+							</div>
+							<div class="row">
+									<div class="span6">
+										<div class="dataTables_length">
+											<label>
+												<BR/> &nbsp;&nbsp; Statistik Jabatan <B>Instansi ${userLogin.refInstansi.nama}</B>
+												<BR/>
+											</label>
+										</div>
+									</div>									
+								</div>
+								<table
+									class="table table-striped table-bordered table-highlight"
+									id="dataTable">
+									<thead>
+										<tr>
+											<th>Jabatan</th>
+											<th>Jumlah Pendaftar</th>
+											<th>Jumlah Lulus</th>
+											<th>Jumlah Tidak Lulus</th>
+										</tr>
+									</thead>
+									<tbody>
+										<c:forEach items="${statJabatans}" var="statJabatan">
+											<tr class="odd gradeX">
+												<td>${statJabatan.jabatan}</td>
+												<td>${statJabatan.jumlahPendaftar}</td>
+												<td>${statJabatan.jumlahLulus}</td>
+												<td>${statJabatan.jumlahTidakLulus}</td>
+											</tr>
+										</c:forEach>
+									</tbody>
+								</table>
+								<BR/>
+								<span id="chartContainer" class="no-space">
+									&nbsp;&nbsp;<input type='button' value='Buat Chart' class="btn btn-small btn-primary"id='btnConvert' title="Klik untuk generate chart statistik jabatan">
+								</span>														
+						</div>						
+						<!-- /widget-content -->
+ 
 					</div>
+					
+					<!-- /widget -->
 
 				</div>
+				<!-- /span12 -->
 			</div>
+			<!-- /row -->
 		</div>
+		<!-- /.container -->
+		
 	</div>
 	<!-- /#content -->
 
@@ -287,7 +359,9 @@ label.error {
 		<div class="container">Hak Cipta &copy; 2013 Badan Kepegawaian
 			Negara. Semua Hak Dilindungi.</div>
 		<!-- /.container -->
+
 	</div>
 	<!-- /#footer -->
+
 </body>
 </html>
