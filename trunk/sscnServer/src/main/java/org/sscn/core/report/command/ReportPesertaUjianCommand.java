@@ -148,6 +148,7 @@ public class ReportPesertaUjianCommand extends ReportCommand {
 				.getNama());
 		mapParamater.put("INSTANSI", pendaftaran.getFormasi().getRefInstansi()
 				.getNama());
+		
 
 		return mapParamater;
 	}
