@@ -72,16 +72,16 @@ public final class DecodeData {
 	
 	protected static Object[] decodeDataPendaftaran(Object object) {
 		DataPendaftaran val = (DataPendaftaran) object;
-		return new Object[] { ROWNUM, val.getNoNik(), val.getNoRegister(), val.getNoPeserta(), val.getNama(), 
+		return new Object[] { ROWNUM, val.getNoNik(), val.getTglCreated(), val.getNoRegister(), val.getNoPeserta(), val.getNama(), 
 				val.getTmpLahir(), val.getTglLahir(), val.getJnsKelamin(), val.getAlamat(), val.getKodePos(), val.getPropinsi(), val.getKota(),
 				val.getTelpon(), val.getEmail(), val.getAsalInstitusiPendidikan(), val.getNoIjazah(), val.getAkreditasi(), val.getNilaiIpk(),
-				val.getLokasiNama(), val.getJabatanNama(), val.getPendidikanNama()};
+				val.getLokasiKode(), val.getLokasiNama(), val.getJabatanKode(), val.getJabatanNama(), val.getPendidikanKode(), val.getPendidikanNama(), val.getStatus()};
 	}
 	protected static Object[] decodeDataPesertaTest(Object object) {
 		DataPendaftaran val = (DataPendaftaran) object;
 		return new Object[] { ROWNUM, val.getNoNik(), val.getNoRegister(), val.getNoPeserta(), val.getNama(), 
 				val.getTmpLahir(), val.getTglLahir(), val.getJnsKelamin(), val.getAlamat(), val.getKodePos(), val.getPropinsi(), val.getKota(),
 				val.getTelpon(), val.getEmail(), val.getAsalInstitusiPendidikan(), val.getNoIjazah(), val.getAkreditasi(), val.getNilaiIpk(),
-				val.getLokasiNama(), val.getJabatanNama(), val.getPendidikanNama()};
+				val.getLokasiKode(), val.getLokasiNama(), val.getJabatanKode(), val.getJabatanNama(), val.getPendidikanKode(), val.getPendidikanNama(), val.getTglCreated(), val.getStatus()};
 	}
 }

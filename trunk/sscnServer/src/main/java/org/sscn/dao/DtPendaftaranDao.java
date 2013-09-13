@@ -31,4 +31,7 @@ public interface DtPendaftaranDao extends CoreDao<DtPendaftaran> {
 	List<StatInstansi> getStatistikPendaftaranInstansi();
 	
 	List<StatInstansiJabatan> getStatistikJabatanPendaftaranInstansi(String kodeInstansi) ;
+	
+	List<StatInstansi> getStatistikPendaftaranInstansi(
+			String kodeInstansi) ;
 }

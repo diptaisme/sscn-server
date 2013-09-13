@@ -139,10 +139,10 @@ public class DtPendaftaranDaoImpl extends CoreDaoImpl<DtPendaftaran> implements
 	@Override
 	public List<DataPendaftaran> findDataPendaftaran(String kodeInstansi) {
 		List<DataPendaftaran> result = new ArrayList<DataPendaftaran>();
-		final String sql = "SELECT NO_NIK, NO_REGISTER, NO_PESERTA, NAMA, TMP_LAHIR, DATE_FORMAT(TGL_LAHIR, '%d-%m-%y'), JNS_KELAMIN, ALAMAT, KODE_POS, PROPINSI, KOTA, TELPON, EMAIL, LEMBAGA, NO_IJAZAH, AKREDITASI, NILAI_IPK, INSTANSI, NAMA_INSTANSI as NI, LOKASI, NAMA_LOKASI as NL, JABATAN, NAMA_JABATAN as NJ, PENDIDIKAN, NAMA_PENDIDIKAN as NP FROM data_01 "
+		final String sql = "SELECT NO_NIK, NO_REGISTER, NO_PESERTA, NAMA, TMP_LAHIR, DATE_FORMAT(TGL_LAHIR, '%d-%m-%y'), JNS_KELAMIN, ALAMAT, KODE_POS, PROPINSI, KOTA, TELPON, EMAIL, LEMBAGA, NO_IJAZAH, AKREDITASI, NILAI_IPK, INSTANSI, NAMA_INSTANSI as NI, LOKASI, NAMA_LOKASI as NL, JABATAN, NAMA_JABATAN as NJ, PENDIDIKAN, NAMA_PENDIDIKAN as NP, DATE_FORMAT(TGL_CREATED, '%d-%m-%y'), STATUS FROM data_01 "
 				+ "WHERE INSTANSI= '"
 				+ kodeInstansi
-				+ "' order by NO_PESERTA, NAMA";
+				+ "' order by TGL_CREATED, NO_PESERTA, NAMA";
 		try {
 			SQLQuery query = createSqlQuery(sql);
 			List<Object[]> res = query.list();
@@ -182,6 +182,8 @@ public class DtPendaftaranDaoImpl extends CoreDaoImpl<DtPendaftaran> implements
 							.valueOf(obj[index++]));
 					dataPendaftaran.setPendidikanNama(String
 							.valueOf(obj[index++]));
+					dataPendaftaran.setTglCreated(String.valueOf(obj[index++]));
+					dataPendaftaran.setStatus(String.valueOf(obj[index++]));
 
 					result.add(dataPendaftaran);
 				}
@@ -195,7 +197,7 @@ public class DtPendaftaranDaoImpl extends CoreDaoImpl<DtPendaftaran> implements
 	@Override
 	public List<DataPendaftaran> findDataPesertaTest(String kodeInstansi) {
 		List<DataPendaftaran> result = new ArrayList<DataPendaftaran>();
-		final String sql = "SELECT NO_NIK, NO_REGISTER, NO_PESERTA, NAMA, TMP_LAHIR, DATE_FORMAT(TGL_LAHIR, '%d-%m-%y'), JNS_KELAMIN, ALAMAT, KODE_POS, PROPINSI, KOTA, TELPON, EMAIL, LEMBAGA, NO_IJAZAH, AKREDITASI, NILAI_IPK, INSTANSI, NAMA_INSTANSI as NI, LOKASI, NAMA_LOKASI as NL, JABATAN, NAMA_JABATAN as NJ, PENDIDIKAN, NAMA_PENDIDIKAN as NP FROM data_01 "
+		final String sql = "SELECT NO_NIK, NO_REGISTER, NO_PESERTA, NAMA, TMP_LAHIR, DATE_FORMAT(TGL_LAHIR, '%d-%m-%y'), JNS_KELAMIN, ALAMAT, KODE_POS, PROPINSI, KOTA, TELPON, EMAIL, LEMBAGA, NO_IJAZAH, AKREDITASI, NILAI_IPK, INSTANSI, NAMA_INSTANSI as NI, LOKASI, NAMA_LOKASI as NL, JABATAN, NAMA_JABATAN as NJ, PENDIDIKAN, NAMA_PENDIDIKAN as NP, DATE_FORMAT(TGL_CREATED, '%d-%m-%y'), STATUS FROM data_01 "
 				+ "WHERE INSTANSI= '"
 				+ kodeInstansi
 				+ "' and NO_PESERTA <> '' order by NO_PESERTA, NAMA";
@@ -238,6 +240,8 @@ public class DtPendaftaranDaoImpl extends CoreDaoImpl<DtPendaftaran> implements
 							.valueOf(obj[index++]));
 					dataPendaftaran.setPendidikanNama(String
 							.valueOf(obj[index++]));
+					dataPendaftaran.setTglCreated(String.valueOf(obj[index++]));
+					dataPendaftaran.setStatus(String.valueOf(obj[index++]));
 
 					result.add(dataPendaftaran);
 				}
@@ -289,6 +293,34 @@ public class DtPendaftaranDaoImpl extends CoreDaoImpl<DtPendaftaran> implements
 					int index = 0;
 					statInstansi.setInstansi(String.valueOf(obj[index++]));
 					statInstansi.setJabatan(String.valueOf(obj[index++]));
+					statInstansi.setJumlahPendaftar(String
+							.valueOf(obj[index++]));
+					statInstansi.setJumlahLulus(String.valueOf(obj[index++]));
+					statInstansi.setJumlahTidakLulus(String
+							.valueOf(obj[index++]));
+					result.add(statInstansi);
+				}
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return result;
+	}
+
+	@Override
+	public List<StatInstansi> getStatistikPendaftaranInstansi(
+			String kodeInstansi) {
+		List<StatInstansi> result = new ArrayList<StatInstansi>();
+		final String sql = "SELECT INSTANSI, Jml_Pendaftar, Jml_Lulus, Jml_tdkLulus from tab_stat_01 where INSTANSI='"
+				+ kodeInstansi + "'";
+		try {
+			SQLQuery query = createSqlQuery(sql);
+			List<Object[]> res = query.list();
+			for (Object[] obj : res) {
+				if (res != null) {
+					StatInstansi statInstansi = new StatInstansi();
+					int index = 0;
+					statInstansi.setInstansi(String.valueOf(obj[index++]));
 					statInstansi.setJumlahPendaftar(String
 							.valueOf(obj[index++]));
 					statInstansi.setJumlahLulus(String.valueOf(obj[index++]));
