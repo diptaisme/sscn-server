@@ -39,11 +39,11 @@
 <!-- Javascript -->
 <script>
 	function cekTime() {
-		var d = new Date();		
+		/*var d = new Date();		
 		if(parseInt(d.getHours()) > 8 && parseInt(d.getHours()) < 17){
 			alert("Maaf, anda tidak bisa melakukan download data diantara pukul 8 dan 17.");
 			return false;	
-		}
+		}*/
 		return true;
 	}
 </script>
@@ -192,6 +192,9 @@ label.error {
 						<li class="dropdown"><a href="/sscnServer/downloadData.do"
 							class="dropdown-toggle"> <i class="icon-copy"></i> Download
 								Data <b class="caret"></b>
+						</a></li>
+						<li class="dropdown"><a href="/sscnServer/statistik.do"
+							class="dropdown-toggle"> <i class="icon-copy"></i> Statistik <b class="caret"></b>
 						</a></li>
 					</c:if>
 					<li class="dropdown"><a href="/sscnServer/verifikasi.do"
