@@ -141,14 +141,13 @@ public class ReportPesertaUjianCommand extends ReportCommand {
 
 		String kodePendidikan = pendaftaran.getPendidikan();
 		RefPendidikan refPendidikan = refPendidikanDao.findByProperty("kode", kodePendidikan, null).get(0);		
-		mapParamater.put("PENDIDIKAN", refPendidikan.getNama());
-		mapParamater.put("JABATAN", pendaftaran.getFormasi().getRefJabatan()
+		mapParamater.put("PENDIDIKAN", refPendidikan.getKode() + " - "+refPendidikan.getNama());
+		mapParamater.put("JABATAN", pendaftaran.getFormasi().getRefJabatan().getKode() +" - "+pendaftaran.getFormasi().getRefJabatan()
 				.getNama());
 		mapParamater.put("LOKASI", pendaftaran.getFormasi().getRefLokasi()
 				.getNama());
 		mapParamater.put("INSTANSI", pendaftaran.getFormasi().getRefInstansi()
 				.getNama());
-		
 
 		return mapParamater;
 	}
