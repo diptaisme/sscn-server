@@ -95,8 +95,8 @@
 														if (data.result == 0) {
 															var html = '<strong>Error!</strong> '
 																	+ data.message;
-															$('#old_password').val(
-															'');
+															$('#old_password')
+																	.val('');
 															$('#password').val(
 																	'');
 															$('#alert').html(
@@ -110,8 +110,8 @@
 																			"close");
 															$('#username').val(
 																	'');
-															$('#old_password').val(
-															'');
+															$('#old_password')
+																	.val('');
 															$('#password').val(
 																	'');
 															alert(data.message);
@@ -139,7 +139,9 @@
 </script>
 <style type="text/css">
 <!--
-.style2 {color: #0033FF}
+.style2 {
+	color: #0033FF
+}
 -->
 </style>
 </head>
@@ -220,43 +222,47 @@
 					</a></li>
 					<c:if test="${userLogin.kewenangan != 3}">
 						<li class="dropdown"><a href="javascript:;"
-								class="dropdown-toggle" data-toggle="dropdown"> <i
-									class="icon-external-link"></i> Manajemen <b class="caret"></b>
-							</a>
-								<ul class="dropdown-menu">
-									<li><a href="/sscnServer/user.do">User</a></li>
-									<li><a href="/sscnServer/lokasi.do">Lokasi</a></li>
-									<li><a href="/sscnServer/syarat.do">Syarat Pendaftaran</a></li>
-								</ul>
-							</li>
-							<li class="dropdown"><a href="/sscnServer/pengumuman.do"
-								class="dropdown-toggle"> <i class="icon-copy"></i> Pengumuman
-									<b class="caret"></b>
-							</a></li>								
-							<li class="dropdown"><a href="/sscnServer/formasi.do"
-								class="dropdown-toggle"> <i class="icon-copy"></i> Formasi <b
-									class="caret"></b>
-								</a>
-							</li>
-							<li class="dropdown"><a href="/sscnServer/downloadData.do"
-						class="dropdown-toggle"> <i class="icon-copy"></i> Download Data <b
-							class="caret"></b>
-					</a></li>						
+							class="dropdown-toggle" data-toggle="dropdown"> <i
+								class="icon-external-link"></i> Manajemen <b class="caret"></b>
+						</a>
+							<ul class="dropdown-menu">
+								<li><a href="/sscnServer/user.do">User</a></li>
+								<li><a href="/sscnServer/lokasi.do">Lokasi</a></li>
+								<li><a href="/sscnServer/syarat.do">Syarat Pendaftaran</a></li>
+							</ul></li>
+						<li class="dropdown"><a href="/sscnServer/pengumuman.do"
+							class="dropdown-toggle"> <i class="icon-copy"></i> Pengumuman
+								<b class="caret"></b>
+						</a></li>
+						<li class="dropdown"><a href="/sscnServer/formasi.do"
+							class="dropdown-toggle"> <i class="icon-copy"></i> Formasi <b
+								class="caret"></b>
+						</a></li>
+						<li class="dropdown"><a href="/sscnServer/downloadData.do"
+							class="dropdown-toggle"> <i class="icon-copy"></i> Download
+								Data <b class="caret"></b>
+						</a></li>
+						<li class="dropdown"><a href="/sscnServer/statistik.do"
+							class="dropdown-toggle"> <i class="icon-copy"></i> Statistik <b class="caret"></b>
+						</a></li>
 					</c:if>
 					<li class="dropdown"><a href="/sscnServer/verifikasi.do"
 						class="dropdown-toggle"> <i class="icon-copy"></i> Verfikasi <b
 							class="caret"></b>
-					</a></li>					
+					</a></li>
 				</ul>
 
 			</div>
 			<!-- /.nav-collapse -->
 			<div>
-				<marquee>Untuk tampilan terbaik diharapkan menggunakan browser <b>Mozilla Firefox 3 atau Safari</b> atau diatasnya.</marquee>
+				<marquee>
+					Untuk tampilan terbaik diharapkan menggunakan browser <b>Mozilla
+						Firefox 3 atau Safari</b> atau diatasnya.
+				</marquee>
 			</div>
 		</div>
 		<!-- /.container -->
-		
+
 	</div>
 	<!-- /#nav -->
 
@@ -281,7 +287,7 @@
 									<a class="btn dropdown-toggle btn-small" data-toggle="dropdown"
 										href="javascript:;"> <i class="icon-cog"></i> <span
 										class="caret"></span>
-									</a>									
+									</a>
 								</div>
 							</div>
 							<!-- /.widget-actions -->
@@ -290,35 +296,42 @@
 						<!-- /.widget-header -->
 
 						<div class="widget-content">
-							<p align="center" class="style1"><strong>Selamat Datang di Menu Administrasi</strong></p>
-Perhatian : 
-								<br>
-						  Sebelum pendaftaran dibuka kepada para pelamar, Administrator <font color="red">WAJIB</font> melengkapi :							</p>
+							<p align="center" class="style1">
+								<strong>Selamat Datang di Menu Administrasi</strong>
+							</p>
+							Perhatian : <br> Sebelum pendaftaran dibuka kepada para
+							pelamar, Administrator <font color="red">WAJIB</font> melengkapi
+							:
+							</p>
 							<ol>
-								<li>
-									Lokasi formasi
-(wajib diisi karena menjadi default dalam pengisian formasi jabatan)
-Catt : Untuk instansi daerah agar mengisi 1 (satu) lokasi formasi dengan ibukota instansi daerah tersebut.								</li>
-								<li>
-									Syarat Pendaftaran
-(wajib diisi karena untuk kepentingan verifikasi, serta pencetakan form registrasi pelamar, jika tidak diisi maka cetakan bukti registrasi pendaftar akan blank)								</li>
-								<li>Formasi
-(wajib diisi karena menjadi pilihan bagi pelamar untuk mendaftar pada suatu jabatan formasi tertentu)								</li>
-								<li>Pengumuman Instansi (pdf) yang di upload di sscn admin								</li>
-					        </ol>
-							
+								<li>Lokasi formasi (wajib diisi karena menjadi default
+									dalam pengisian formasi jabatan) Catt : Untuk instansi daerah
+									agar mengisi 1 (satu) lokasi formasi dengan ibukota instansi
+									daerah tersebut.</li>
+								<li>Syarat Pendaftaran (wajib diisi karena untuk
+									kepentingan verifikasi, serta pencetakan form registrasi
+									pelamar, jika tidak diisi maka cetakan bukti registrasi
+									pendaftar akan blank)</li>
+								<li>Formasi (wajib diisi karena menjadi pilihan bagi
+									pelamar untuk mendaftar pada suatu jabatan formasi tertentu)</li>
+								<li>Pengumuman Instansi (pdf) yang di upload di sscn admin
+								</li>
+							</ol>
 
-							
-								
-							
-							<p><strong><em>Unduh Buku Petunjuk Teknis Administrator Instansi (<span class="style2"><a href="resources/img/manual_sscn.pdf" target="_BLANK">disini</a></span>) </em></strong></p>
-							<div class="stat">
-								
-							</div>
+
+
+
+
+							<p>
+								<strong><em>Unduh Buku Petunjuk Teknis
+										Administrator Instansi (<span class="style2"><a
+											href="resources/img/manual_sscn.pdf" target="_BLANK">disini</a></span>)
+								</em></strong>
+							</p>
+							<div class="stat"></div>
 							<!-- /.stat -->
 
-							<div class="stat">
-							</div>
+							<div class="stat"></div>
 							<!-- /.stat -->
 
 							<br />
@@ -327,11 +340,11 @@ Catt : Untuk instansi daerah agar mengisi 1 (satu) lokasi formasi dengan ibukota
 						<!-- /.widget-content -->
 
 					</div>
-										
+
 				</div>
 				<!-- /.span4 -->
 
-				<div class="span8">					
+				<div class="span8">
 
 
 					<!-- /.widget -->
@@ -349,9 +362,12 @@ Catt : Untuk instansi daerah agar mengisi 1 (satu) lokasi formasi dengan ibukota
 						<!-- /.widget-header -->
 
 						<div class="widget-content">
-							<p align="center"><img src="/sscnServer/resources/img/alur2.png" width="587" height="776"></p>
+							<p align="center">
+								<img src="/sscnServer/resources/img/alur2.png" width="587"
+									height="776">
+							</p>
 						</div>
-						
+
 					</div>
 					<!-- /.widget -->
 
@@ -369,9 +385,8 @@ Catt : Untuk instansi daerah agar mengisi 1 (satu) lokasi formasi dengan ibukota
 
 	<div id="footer">
 
-		<div class="container">
-			Hak Cipta  &copy;  2013 Badan Kepegawaian Negara. Semua Hak Dilindungi.
-		</div>
+		<div class="container">Hak Cipta &copy; 2013 Badan Kepegawaian
+			Negara. Semua Hak Dilindungi.</div>
 		<!-- /.container -->
 
 	</div>
@@ -408,7 +423,7 @@ Catt : Untuk instansi daerah agar mengisi 1 (satu) lokasi formasi dengan ibukota
 						</p>
 					</div>
 				</div>
-				
+
 				<div class="control-group">
 					<label class="control-label">Password Baru</label>
 					<div class="controls">

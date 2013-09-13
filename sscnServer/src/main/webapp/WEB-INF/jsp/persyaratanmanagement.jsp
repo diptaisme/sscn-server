@@ -140,7 +140,10 @@
 							<li class="dropdown"><a href="/sscnServer/downloadData.do"
 						class="dropdown-toggle"> <i class="icon-copy"></i> Download Data <b
 							class="caret"></b>
-					</a></li>						
+					</a></li>			
+					<li class="dropdown"><a href="/sscnServer/statistik.do"
+							class="dropdown-toggle"> <i class="icon-copy"></i> Statistik <b class="caret"></b>
+						</a></li>			
 					</c:if>
 					<li class="dropdown"><a href="/sscnServer/verifikasi.do"
 						class="dropdown-toggle"> <i class="icon-copy"></i> Verfikasi <b

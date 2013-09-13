@@ -42,6 +42,38 @@
 		<script type='text/javascript' src='/sscnServer/resources/js/FusionCharts.jQueryPlugin.js'></script>
 		<script type='text/javascript' src='/sscnServer/resources/js/FusionCharts.HTMLTableDataHandler.js'></script>
 		<script>
+		$(document).ready(
+				function() {
+					$("#chartContainer1").insertFusionCharts({
+						type: "Pie3D",
+						width: "500",
+						height: "300",
+						dataFormat: "json",
+						dataSource: {
+						   "chart":{
+							  "caption":"Jumlah Pendaftar Instansi ${userLogin.refInstansi.nama} = ${jumlahPendaftar}",
+							  "subcaption":"Untuk Jumlah Lulus, Jumlah Tidak Lulus dan Jumlah Belum Verifikasi",
+							  "xAxisName":"Kategori",
+							  "yAxisName":"Jumlah",							  
+							  "bgcolor":"ffffff"
+						   },
+						   "data":[
+							  { "label":"Lulus", "value":"${jumlahLulus}" },
+							  { "label":"Tidak Lulus", "value":"${jumlahTidakLulus}" },
+							  { "label":"Belum Verifikasi", "value":"${jumlahBelumVerifikasi}" },							  
+						   ],
+						   "trendlines":[ {
+								 "line":[{									   
+									   "displayValue":"Jumlah Lulus, Tidak Lulus dan Belum Verifikasi",
+									   "valueOnRight":"1",
+									   "color":"999999"
+									}]
+							  }]
+							  }
+						});
+		});	
+		</script>
+		<script>
 			$(function(){
 				$("#btnConvert").click(function(){
 					$("#dataTable").convertToFusionCharts({type: "mscolumn2d",
@@ -52,7 +84,7 @@
 					renderer:"javascript"					
 				}, {
 					"chartAttributes":{
-							caption:"Statistik Jabatan Instansi ${userLogin.refInstansi.nama}",
+							caption:"Rincian Statistik Per Jabatan Instansi ${userLogin.refInstansi.nama}",
 							xAxisName:"Jabatan",
 							yAxisName:"Jumlah",
 							bgColor:"FFFFFF",
@@ -216,6 +248,9 @@ label.error {
 							class="dropdown-toggle"> <i class="icon-copy"></i> Download
 								Data <b class="caret"></b>
 						</a></li>
+						<li class="dropdown"><a href="/sscnServer/statistik.do"
+							class="dropdown-toggle"> <i class="icon-copy"></i> Statistik <b class="caret"></b>
+						</a></li>
 					</c:if>
 					<li class="dropdown"><a href="/sscnServer/verifikasi.do"
 						class="dropdown-toggle"> <i class="icon-copy"></i> Verfikasi <b
@@ -272,7 +307,7 @@ label.error {
 									<div class="span6">
 										<div class="dataTables_length">
 											<label>
-												Statistik Pendaftaran Semua Instansi
+												Statistik Jumlah Pendaftar <B>Instansi ${userLogin.refInstansi.nama}</B>
 											</label>
 										</div>
 									</div>									
@@ -283,30 +318,33 @@ label.error {
 									id="myTable">
 									<thead>
 										<tr>
-											<th>Instansi</th>
-											<th>Jumlah Pendaftar</th>
+											<!--  <th>Instansi</th>-->
+											<th>Jumlah Pendaftar</th>											
 											<th>Jumlah Lulus</th>
 											<th>Jumlah Tidak Lulus</th>
+											<th>Jumlah Belum Verifikasi</th>
 										</tr>
 									</thead>
 									<tbody>
-										<c:forEach items="${statInstansis}" var="statInstansi">
+										<c:forEach items="${statInstansi}" var="statInstansi">
 											<tr class="odd gradeX">
-												<td>${statInstansi.instansi}</td>
+												<!-- <td>${userLogin.refInstansi.nama} - ${statInstansi.instansi}</td> -->
 												<td>${statInstansi.jumlahPendaftar}</td>
 												<td>${statInstansi.jumlahLulus}</td>
 												<td>${statInstansi.jumlahTidakLulus}</td>
+												<td>${jumlahBelumVerifikasi}</td> 
 											</tr>
 										</c:forEach>
 									</tbody>
 								</table>
+								<div id="chartContainer1" class="chartContainerBlock">FusionCharts XT will load here!</div>								
 							</div>
 							<div class="row">
 									<div class="span6">
 										<div class="dataTables_length">
 											<label>
-												<BR/> &nbsp;&nbsp; Statistik Jabatan <B>Instansi ${userLogin.refInstansi.nama}</B>
-												<BR/>
+												<BR/><BR/> &nbsp;&nbsp; Rincian Statistik Per Jabatan <B>Instansi ${userLogin.refInstansi.nama}</B>
+												<BR/><BR/>
 											</label>
 										</div>
 									</div>									
