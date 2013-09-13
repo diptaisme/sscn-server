@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rptPesertaUjian" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="144"/>
+	<property name="ireport.y" value="442"/>
 	<parameter name="NOMOR_PESERTA" class="java.lang.String"/>
 	<parameter name="NAMA" class="java.lang.String"/>
 	<parameter name="TTL" class="java.lang.String"/>
@@ -14,8 +14,6 @@
 	<parameter name="INSTANSI" class="java.lang.String"/>
 	<parameter name="LOKASI" class="java.lang.String"/>
 	<parameter name="JENIS_KELAMIN" class="java.lang.String"/>
-	<parameter name="NAMA_VER" class="java.lang.String"/>
-	<parameter name="NIP_VER" class="java.lang.String"/>
 	<parameter name="LOGO" class="java.io.InputStream"/>
 	<parameter name="LOGO2" class="java.io.InputStream"/>
 	<background>
@@ -133,7 +131,7 @@ FORMASI UMUM]]></text>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{NAMA}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="145" y="132" width="305" height="18"/>
+				<reportElement x="145" y="132" width="404" height="18"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif"/>
 				</textElement>
@@ -146,7 +144,7 @@ FORMASI UMUM]]></text>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{JABATAN}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isStretchWithOverflow="true">
 				<reportElement x="145" y="175" width="404" height="18"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif"/>
@@ -188,7 +186,7 @@ FORMASI UMUM]]></text>
 				</textElement>
 				<text><![CDATA[:]]></text>
 			</staticText>
-			<textField>
+			<textField isStretchWithOverflow="true">
 				<reportElement x="145" y="40" width="306" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif" size="10" isBold="false"/>
@@ -217,7 +215,7 @@ FORMASI UMUM]]></text>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{JENIS_KELAMIN}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="397" y="232" width="156" height="12"/>
+				<reportElement x="397" y="232" width="156" height="14"/>
 				<textElement textAlignment="Center">
 					<font fontName="SansSerif" isUnderline="false"/>
 				</textElement>
@@ -246,7 +244,7 @@ FORMASI UMUM]]></text>
             4 x 6]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="54" y="232" width="150" height="12"/>
+				<reportElement x="54" y="231" width="151" height="13"/>
 				<textElement textAlignment="Left">
 					<font fontName="SansSerif" isUnderline="false"/>
 				</textElement>
@@ -301,7 +299,7 @@ FORMASI UMUM]]></text>
 				<text><![CDATA[-------------------------------------------]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="397" y="287" width="152" height="15"/>
+				<reportElement x="397" y="287" width="156" height="15"/>
 				<textElement>
 					<font fontName="SansSerif" isUnderline="false"/>
 				</textElement>
@@ -315,33 +313,26 @@ FORMASI UMUM]]></text>
 				<text><![CDATA[................,.........................  2013]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="397" y="244" width="156" height="12"/>
+				<reportElement x="397" y="246" width="156" height="14"/>
 				<textElement textAlignment="Center">
 					<font fontName="SansSerif" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[CPNS 2013,]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="54" y="294" width="150" height="18"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="SansSerif" size="10" isBold="true"/>
+			<staticText>
+				<reportElement x="397" y="282" width="156" height="12"/>
+				<textElement>
+					<font fontName="SansSerif" isUnderline="false"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{NAMA}]]></textFieldExpression>
-			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="398" y="277" width="151" height="17"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="SansSerif" size="10" isBold="true"/>
+				<text><![CDATA[Nama :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="397" y="296" width="156" height="12"/>
+				<textElement>
+					<font fontName="SansSerif" isUnderline="false"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{NAMA_VER}]]></textFieldExpression>
-			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="398" y="295" width="151" height="18"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="SansSerif" size="10" isBold="true"/>
-				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{NIP_VER}]]></textFieldExpression>
-			</textField>
+				<text><![CDATA[NIP :]]></text>
+			</staticText>
 		</band>
 	</pageHeader>
 	<detail>
@@ -397,20 +388,20 @@ FORMASI UMUM]]></text>
 				<text><![CDATA[:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="145" y="137" width="305" height="18"/>
+				<reportElement x="145" y="137" width="404" height="18"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{TTL}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="55" y="237" width="150" height="12"/>
+				<reportElement x="55" y="236" width="181" height="13"/>
 				<textElement textAlignment="Left">
 					<font fontName="SansSerif" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[     Peserta]]></text>
 			</staticText>
-			<textField>
+			<textField isStretchWithOverflow="true">
 				<reportElement x="145" y="45" width="306" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif" size="10" isBold="false"/>
@@ -512,7 +503,7 @@ FORMASI UMUM]]></text>
 				</textElement>
 				<text><![CDATA[:]]></text>
 			</staticText>
-			<textField>
+			<textField isStretchWithOverflow="true">
 				<reportElement x="145" y="180" width="404" height="18"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif"/>
@@ -534,14 +525,14 @@ FORMASI UMUM]]></text>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{NOMOR_PESERTA}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="398" y="289" width="156" height="15"/>
+				<reportElement x="398" y="292" width="156" height="15"/>
 				<textElement>
 					<font fontName="SansSerif" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[----------------------------------------------]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="398" y="237" width="156" height="12"/>
+				<reportElement x="398" y="237" width="156" height="13"/>
 				<textElement textAlignment="Center">
 					<font fontName="SansSerif" isUnderline="false"/>
 				</textElement>
@@ -569,7 +560,7 @@ FORMASI UMUM]]></text>
 				<text><![CDATA[:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="55" y="289" width="150" height="15"/>
+				<reportElement x="55" y="292" width="150" height="15"/>
 				<textElement>
 					<font fontName="SansSerif" isUnderline="false"/>
 				</textElement>
@@ -588,6 +579,20 @@ FORMASI UMUM]]></text>
 					<font fontName="SansSerif"/>
 				</textElement>
 				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="398" y="287" width="156" height="12"/>
+				<textElement>
+					<font fontName="SansSerif" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Nama :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="398" y="301" width="156" height="12"/>
+				<textElement>
+					<font fontName="SansSerif" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[NIP :]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="145" y="120" width="305" height="18"/>
@@ -611,7 +616,7 @@ FORMASI UMUM]]></text>
 				<text><![CDATA[Tempat / Tanggal Lahir]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="407" y="249" width="156" height="12"/>
+				<reportElement x="407" y="250" width="156" height="14"/>
 				<textElement textAlignment="Center">
 					<font fontName="SansSerif" isUnderline="false"/>
 				</textElement>
@@ -638,27 +643,6 @@ FORMASI UMUM]]></text>
 				</textElement>
 				<text><![CDATA[Nomor Peserta]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="55" y="300" width="150" height="16"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="SansSerif" size="10" isBold="true"/>
-				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{NAMA}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="398" y="278" width="153" height="17"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="SansSerif" size="10" isBold="true"/>
-				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{NAMA_VER}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="398" y="301" width="153" height="15"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="SansSerif" size="10" isBold="true"/>
-				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{NIP_VER}]]></textFieldExpression>
-			</textField>
 		</band>
 	</summary>
 </jasperReport>
