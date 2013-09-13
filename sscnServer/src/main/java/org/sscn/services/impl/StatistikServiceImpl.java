@@ -30,4 +30,11 @@ public class StatistikServiceImpl implements StatistikService {
 		return dtPendaftaranDao.getStatistikJabatanPendaftaranInstansi(kodeInstansi);
 	}
 
+	@Override
+	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
+	public List<StatInstansi> getStatistikPendaftaranInstansi(
+			String kodeInstansi) {
+		return dtPendaftaranDao.getStatistikPendaftaranInstansi(kodeInstansi);
+	}
+
 }

@@ -10,4 +10,6 @@ public interface StatistikService {
 	List<StatInstansi> getStatistikPendaftaranInstansi();
 	
 	List<StatInstansiJabatan> getStatistikJabatanPendaftaranInstansi(String kodeInstansi);
+	
+	List<StatInstansi> getStatistikPendaftaranInstansi(String kodeInstansi);
 }
