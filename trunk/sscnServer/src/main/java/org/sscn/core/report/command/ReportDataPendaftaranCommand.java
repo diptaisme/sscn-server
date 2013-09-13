@@ -86,7 +86,7 @@ public class ReportDataPendaftaranCommand extends ReportCommand {
 				"Instansi " + request.getParameter("namaInstansi"));
 		excelMap.put("WAKTU", "Keadaan " + formatter.format(nowTime));
 		excelMap.put(START_INDEX, Integer.valueOf(INT_START_INDEX));
-		excelMap.put(FORMAT, "NCCCCCCCCCCCCCCCCCCCCC");
+		excelMap.put(FORMAT, "NCCCCCCCCCCCCCCCCCCCCCCCCCC");
 
 		generateXlsReport(dataPendaftaranArray, response, excelMap,
 				"rptDataPendaftaran.xls");
