@@ -15,35 +15,35 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 
 <!-- Styles -->
-<link href="/sscnServer/resources/css/bootstrap.css" rel="stylesheet">
-<link href="/sscnServer/resources/css/bootstrap-responsive.css" rel="stylesheet">
-<link href="/sscnServer/resources/css/bootstrap-overrides.css" rel="stylesheet">
+<link href="/resources/css/bootstrap.css" rel="stylesheet">
+<link href="/resources/css/bootstrap-responsive.css" rel="stylesheet">
+<link href="/resources/css/bootstrap-overrides.css" rel="stylesheet">
 
-<link href="/sscnServer/resources/css/ui-lightness/jquery.ui.all.css" rel="stylesheet">
-<link href="/sscnServer/resources/js/plugins/datatables/DT_bootstrap.css" rel="stylesheet">
-<link href="/sscnServer/resources/js/plugins/responsive-tables/responsive-tables.css"
+<link href="/resources/css/ui-lightness/jquery.ui.all.css" rel="stylesheet">
+<link href="/resources/js/plugins/datatables/DT_bootstrap.css" rel="stylesheet">
+<link href="/resources/js/plugins/responsive-tables/responsive-tables.css"
 	rel="stylesheet">
 
-<link href="/sscnServer/resources/css/slate.css" rel="stylesheet">
-<link href="/sscnServer/resources/css/slate-responsive.css" rel="stylesheet">
+<link href="/resources/css/slate.css" rel="stylesheet">
+<link href="/resources/css/slate-responsive.css" rel="stylesheet">
 
 <!-- Javascript -->
-<script src="/sscnServer/resources/js/jquery-1.7.2.min.js"></script>
-<script src="/sscnServer/resources/js/jquery-ui-1.8.21.custom.min.js"></script>
-<script src="/sscnServer/resources/js/jquery.ui.dialog.min.js"></script>
-<script src="/sscnServer/resources/js/jquery.ui.autocomplete.js"></script>
+<script src="/resources/js/jquery-1.7.2.min.js"></script>
+<script src="/resources/js/jquery-ui-1.8.21.custom.min.js"></script>
+<script src="/resources/js/jquery.ui.dialog.min.js"></script>
+<script src="/resources/js/jquery.ui.autocomplete.js"></script>
 <!--<script src="js/jquery-1.9.1.js"></script>
 		<script src="js/jquery-ui-1.10.3.custom.min.js"></script>-->
-<script src="/sscnServer/resources/js/jquery.ui.touch-punch.min.js"></script>
-<script src="/sscnServer/resources/js/bootstrap.js"></script>
+<script src="/resources/js/jquery.ui.touch-punch.min.js"></script>
+<script src="/resources/js/bootstrap.js"></script>
 
-<script src="/sscnServer/resources/js/plugins/datatables/jquery.dataTables.js"></script>
-<script src="/sscnServer/resources/js/plugins/datatables/DT_bootstrap.js"></script>
-<script src="/sscnServer/resources/js/plugins/responsive-tables/responsive-tables.js"></script>
+<script src="/resources/js/plugins/datatables/jquery.dataTables.js"></script>
+<script src="/resources/js/plugins/datatables/DT_bootstrap.js"></script>
+<script src="/resources/js/plugins/responsive-tables/responsive-tables.js"></script>
 
-<script src="/sscnServer/resources/js/Slate.js"></script>
+<script src="/resources/js/Slate.js"></script>
 
-<script src="/sscnServer/resources/js/demos/demo.tables.js"></script>
+<script src="/resources/js/demos/demo.tables.js"></script>
 
 <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
 <!--[if lt IE 9]>
@@ -59,7 +59,7 @@
 		<div class="container">
 
 			<h1>
-				<a href="/sscnServer/dashboard.do">Administrasi SSCN 2013</a>
+				<a href="dashboard.do">Administrasi SSCN 2013</a>
 			</h1>
 
 			<div id="info">
@@ -114,7 +114,7 @@
 			<div class="nav-collapse">
 								<ul class="nav">
 
-					<li class="nav-icon active"><a href="/sscnServer/dashboard.do">
+					<li class="nav-icon active"><a href="dashboard.do">
 							<i class="icon-home"></i> <span>Home</span>
 					</a></li>
 					<c:if test="${userLogin.kewenangan != 3}">
@@ -123,29 +123,29 @@
 									class="icon-external-link"></i> Manajemen <b class="caret"></b>
 							</a>
 								<ul class="dropdown-menu">
-									<li><a href="/sscnServer/user.do">User</a></li>
-									<li><a href="/sscnServer/lokasi.do">Lokasi</a></li>
-									<li><a href="/sscnServer/syarat.do">Syarat Pendaftaran</a></li>
+									<li><a href="user.do">User</a></li>
+									<li><a href="lokasi.do">Lokasi</a></li>
+									<li><a href="syarat.do">Syarat Pendaftaran</a></li>
 								</ul>
 							</li>
-							<li class="dropdown"><a href="/sscnServer/pengumuman.do"
+							<li class="dropdown"><a href="pengumuman.do"
 								class="dropdown-toggle"> <i class="icon-copy"></i> Pengumuman
 									<b class="caret"></b>
 							</a></li>								
-							<li class="dropdown"><a href="/sscnServer/formasi.do"
+							<li class="dropdown"><a href="formasi.do"
 								class="dropdown-toggle"> <i class="icon-copy"></i> Formasi <b
 									class="caret"></b>
 								</a>
 							</li>
-							<li class="dropdown"><a href="/sscnServer/downloadData.do"
+							<li class="dropdown"><a href="downloadData.do"
 						class="dropdown-toggle"> <i class="icon-copy"></i> Download Data <b
 							class="caret"></b>
 					</a></li>			
-					<li class="dropdown"><a href="/sscnServer/statistik.do"
+					<li class="dropdown"><a href="statistik.do"
 							class="dropdown-toggle"> <i class="icon-copy"></i> Statistik <b class="caret"></b>
 						</a></li>			
 					</c:if>
-					<li class="dropdown"><a href="/sscnServer/verifikasi.do"
+					<li class="dropdown"><a href="verifikasi.do"
 						class="dropdown-toggle"> <i class="icon-copy"></i> Verfikasi <b
 							class="caret"></b>
 					</a></li>
@@ -166,7 +166,7 @@
 			<div id="page-title" class="clearfix">
 
 				<ul class="breadcrumb">
-					<li><a href="/sscnServer/dashboard.do">Home</a><span class="divider">/</span>
+					<li><a href="dashboard.do">Home</a><span class="divider">/</span>
 					</li>
 					<li><a href="#">Persyaratan</a><span class="divider">/</span>
 					</li>
@@ -246,7 +246,7 @@
 								</table>
 								<div class="row">
 									<jsp:include page="paging.jsp" />
-									<form id="pagingForm" method="post" action="/sscnServer/syarat.do">
+									<form id="pagingForm" method="post" action="syarat.do">
 										<input type="hidden" name="activePage" id="activePage"/>
 										<input type="hidden" name="numPage" id="numPage"/>
 										<input type="hidden" name="searchPage" id="searchPage"/>
@@ -305,7 +305,7 @@
 	</div>
 	
 	<div id="myModal2" title="Ubah Persyaratan">
-		<form class="form-horizontal" action="/sscnServer/syaratUpdate.do" method="post" id="formUbah">
+		<form class="form-horizontal" action="syaratUpdate.do" method="post" id="formUbah">
 				<fieldset>
 					<div id="loadingImage2" style="display: none">
 						<img src="/resources/img/ajax-loader.gif" />
@@ -334,7 +334,7 @@
 	</div>
 	
 	<div id="myModal3" title="Hapus Persyaratan">
-		<form class="form-horizontal" action="/sscnServer/syaratDelete.do" method="post" id="formDelete">
+		<form class="form-horizontal" action="syaratDelete.do" method="post" id="formDelete">
 				<fieldset>
 					<div id="loadingImage3" style="display: none">
 						<img src="/resources/img/ajax-loader.gif" />
@@ -386,7 +386,7 @@
 				
 				$.ajax({
 				  type: "GET",
-				  url: "/sscnServer/getSyarat.do?id="+id,
+				  url: "getSyarat.do?id="+id,
 				  cache: false,
 				  success: function(data){
 					 $('#syaratId').val(data.data.id); 
@@ -434,7 +434,7 @@
 				  		}
 
 				  		if (data.result == -1){
-					  		window.location = "/sscnServer/login.do";
+					  		window.location = "login.do";
 					  	}
 				  });
 				  
@@ -492,12 +492,12 @@
 				  			
 							//refreshDeleteTable();
 							alert(data.message);
-							window.location = "/sscnServer/syarat.do";
+							window.location = "syarat.do";
 			           		return false;
 				  		}
 
 				  		if (data.result == -1){
-					  		window.location = "/sscnServer/login.do";
+					  		window.location = "login.do";
 					  	}
 				  });
 				  
@@ -552,7 +552,7 @@
 					      term = $(this).serialize();
 					 
 					  /* Send the data using post */
-					  var posting = $.post( "/sscnServer/syaratSave.do", term,"json"
+					  var posting = $.post( "syaratSave.do", term,"json"
 					  					  );
 					 
 					  /* Put the results in a div */
@@ -569,12 +569,12 @@
 					  			$('#syarat').val('');
 					  			alert(data.message);
 					  			//refreshTable(data.data);
-					  			window.location = "/sscnServer/syarat.do";
+					  			window.location = "syarat.do";
 				           		return false;
 					  		}
 
 					  		if (data.result == -1){
-						  		window.location = "/sscnServer/login.do";
+						  		window.location = "login.do";
 						  	}
 					  });
 					  

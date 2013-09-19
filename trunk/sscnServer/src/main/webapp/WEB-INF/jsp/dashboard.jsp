@@ -15,39 +15,39 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 
 <!-- Styles -->
-<link href="/sscnServer/resources/css/bootstrap.css" rel="stylesheet">
-<link href="/sscnServer/resources/css/bootstrap-responsive.css"
+<link href="/resources/css/bootstrap.css" rel="stylesheet">
+<link href="/resources/css/bootstrap-responsive.css"
 	rel="stylesheet">
-<link href="/sscnServer/resources/css/bootstrap-overrides.css"
+<link href="/resources/css/bootstrap-overrides.css"
 	rel="stylesheet">
 
 <link
-	href="/sscnServer/resources/css/ui-lightness/jquery-ui-1.8.21.custom.css"
+	href="/resources/css/ui-lightness/jquery-ui-1.8.21.custom.css"
 	rel="stylesheet">
 
-<link href="/sscnServer/resources/css/slate.css" rel="stylesheet">
-<link href="/sscnServer/resources/css/slate-responsive.css"
+<link href="/resources/css/slate.css" rel="stylesheet">
+<link href="/resources/css/slate-responsive.css"
 	rel="stylesheet">
 
-<link href="/sscnServer/resources/css/pages/dashboard.css"
+<link href="/resources/css/pages/dashboard.css"
 	rel="stylesheet">
 
 <!-- Javascript -->
-<script src="/sscnServer/resources/js/jquery-1.7.2.min.js"></script>
-<script src="/sscnServer/resources/js/jquery-ui-1.8.21.custom.min.js"></script>
-<script src="/sscnServer/resources/js/jquery.ui.touch-punch.min.js"></script>
-<script src="/sscnServer/resources/js/jquery.ui.dialog.min.js"></script>
-<script src="/sscnServer/resources/js/bootstrap.js"></script>
+<script src="/resources/js/jquery-1.7.2.min.js"></script>
+<script src="/resources/js/jquery-ui-1.8.21.custom.min.js"></script>
+<script src="/resources/js/jquery.ui.touch-punch.min.js"></script>
+<script src="/resources/js/jquery.ui.dialog.min.js"></script>
+<script src="/resources/js/bootstrap.js"></script>
 
-<script src="/sscnServer/resources/js/Slate.js"></script>
+<script src="/resources/js/Slate.js"></script>
 
-<script src="/sscnServer/resources/js/plugins/excanvas/excanvas.min.js"></script>
-<script src="/sscnServer/resources/js/plugins/flot/jquery.flot.js"></script>
+<script src="/resources/js/plugins/excanvas/excanvas.min.js"></script>
+<script src="/resources/js/plugins/flot/jquery.flot.js"></script>
 <script
-	src="/sscnServer/resources/js/plugins/flot/jquery.flot.orderBars.js"></script>
-<script src="/sscnServer/resources/js/plugins/flot/jquery.flot.pie.js"></script>
+	src="/resources/js/plugins/flot/jquery.flot.orderBars.js"></script>
+<script src="/resources/js/plugins/flot/jquery.flot.pie.js"></script>
 <script
-	src="/sscnServer/resources/js/plugins/flot/jquery.flot.resize.js"></script>
+	src="/resources/js/plugins/flot/jquery.flot.resize.js"></script>
 
 
 
@@ -84,7 +84,7 @@
 											/* Send the data using post */
 											var posting = $
 													.post(
-															"/sscnServer/userChangePassword.do",
+															"userChangePassword.do",
 															term, "json");
 
 											/* Put the results in a div */
@@ -119,7 +119,7 @@
 														}
 
 														if (data.result == -1) {
-															window.location = "/sscnServer/login.do";
+															window.location = "/login.do";
 														}
 													});
 
@@ -153,7 +153,7 @@
 		<div class="container">
 
 			<h1>
-				<a href="/sscnServer/dashboard.do">Administrasi SSCN 2013</a>
+				<a href="dashboard.do">Administrasi SSCN 2013</a>
 			</h1>
 
 			<div id="info">
@@ -217,7 +217,7 @@
 
 				<ul class="nav">
 
-					<li class="nav-icon active"><a href="/sscnServer/dashboard.do">
+					<li class="nav-icon active"><a href="dashboard.do">
 							<i class="icon-home"></i> <span>Home</span>
 					</a></li>
 					<c:if test="${userLogin.kewenangan != 3}">
@@ -226,27 +226,27 @@
 								class="icon-external-link"></i> Manajemen <b class="caret"></b>
 						</a>
 							<ul class="dropdown-menu">
-								<li><a href="/sscnServer/user.do">User</a></li>
-								<li><a href="/sscnServer/lokasi.do">Lokasi</a></li>
-								<li><a href="/sscnServer/syarat.do">Syarat Pendaftaran</a></li>
+								<li><a href="user.do">User</a></li>
+								<li><a href="lokasi.do">Lokasi</a></li>
+								<li><a href="syarat.do">Syarat Pendaftaran</a></li>
 							</ul></li>
-						<li class="dropdown"><a href="/sscnServer/pengumuman.do"
+						<li class="dropdown"><a href="pengumuman.do"
 							class="dropdown-toggle"> <i class="icon-copy"></i> Pengumuman
 								<b class="caret"></b>
 						</a></li>
-						<li class="dropdown"><a href="/sscnServer/formasi.do"
+						<li class="dropdown"><a href="formasi.do"
 							class="dropdown-toggle"> <i class="icon-copy"></i> Formasi <b
 								class="caret"></b>
 						</a></li>
-						<li class="dropdown"><a href="/sscnServer/downloadData.do"
+						<li class="dropdown"><a href="downloadData.do"
 							class="dropdown-toggle"> <i class="icon-copy"></i> Download
 								Data <b class="caret"></b>
 						</a></li>
-						<li class="dropdown"><a href="/sscnServer/statistik.do"
+						<li class="dropdown"><a href="statistik.do"
 							class="dropdown-toggle"> <i class="icon-copy"></i> Statistik <b class="caret"></b>
 						</a></li>
 					</c:if>
-					<li class="dropdown"><a href="/sscnServer/verifikasi.do"
+					<li class="dropdown"><a href="verifikasi.do"
 						class="dropdown-toggle"> <i class="icon-copy"></i> Verfikasi <b
 							class="caret"></b>
 					</a></li>
@@ -363,7 +363,7 @@
 
 						<div class="widget-content">
 							<p align="center">
-								<img src="/sscnServer/resources/img/alur2.png" width="587"
+								<img src="/resources/img/alur2.png" width="587"
 									height="776">
 							</p>
 						</div>
@@ -394,7 +394,7 @@
 	<div id="myModal" title="Ganti Password">
 		<p class="validateTips">All form fields are required.</p>
 		<form class="form-horizontal"
-			action="/sscnServer/userChangePassword.do" method="post"
+			action="userChangePassword.do" method="post"
 			id="formChangePassword">
 			<fieldset>
 				<div id="loadingImage" style="display: none">

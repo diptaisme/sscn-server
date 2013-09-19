@@ -15,32 +15,32 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 
 <!-- Styles -->
-<link href="/sscnServer/resources/css/bootstrap.css" rel="stylesheet">
-<link href="/sscnServer/resources/css/bootstrap-responsive.css"
+<link href="/resources/css/bootstrap.css" rel="stylesheet">
+<link href="/resources/css/bootstrap-responsive.css"
 	rel="stylesheet">
-<link href="/sscnServer/resources/css/bootstrap-overrides.css"
+<link href="/resources/css/bootstrap-overrides.css"
 	rel="stylesheet">
 
-<link href="/sscnServer/resources/css/ui-lightness/jquery.ui.all.css"
+<link href="/resources/css/ui-lightness/jquery.ui.all.css"
 	rel="stylesheet">
 <!--<link href="css/ui-lightness/jquery.ui.dialog.css" rel="stylesheet">
 		<link href="css/ui-lightness/jquery.ui.resizable.css" rel="stylesheet">-->
 <link
-	href="/sscnServer/resources/js/plugins/datatables/DT_bootstrap.css"
+	href="/resources/js/plugins/datatables/DT_bootstrap.css"
 	rel="stylesheet">
 <link
-	href="/sscnServer/resources/js/plugins/responsive-tables/responsive-tables.css"
+	href="/resources/js/plugins/responsive-tables/responsive-tables.css"
 	rel="stylesheet">
 
-<link href="/sscnServer/resources/css/slate.css" rel="stylesheet">
-<link href="/sscnServer/resources/css/slate-responsive.css"
+<link href="/resources/css/slate.css" rel="stylesheet">
+<link href="/resources/css/slate-responsive.css"
 	rel="stylesheet">
-<!-- <link href="/sscnServer/resources/css/jquery-chart-style.css" rel="stylesheet" type="text/css"  /> -->
-         <script type='text/javascript' src='/sscnServer/resources/js/jquery.min.js'></script>
-         <script src="/sscnServer/resources/js/jquery-1.7.2.min.js"></script>
-		<script type='text/javascript' src='/sscnServer/resources/js/FusionCharts.js'></script>
-		<script type='text/javascript' src='/sscnServer/resources/js/FusionCharts.jQueryPlugin.js'></script>
-		<script type='text/javascript' src='/sscnServer/resources/js/FusionCharts.HTMLTableDataHandler.js'></script>
+<!-- <link href="/resources/css/jquery-chart-style.css" rel="stylesheet" type="text/css"  /> -->
+         <script type='text/javascript' src='/resources/js/jquery.min.js'></script>
+         <script src="/resources/js/jquery-1.7.2.min.js"></script>
+		<script type='text/javascript' src='/resources/js/FusionCharts.js'></script>
+		<script type='text/javascript' src='/resources/js/FusionCharts.jQueryPlugin.js'></script>
+		<script type='text/javascript' src='/resources/js/FusionCharts.HTMLTableDataHandler.js'></script>
 		<script>
 		$(document).ready(
 				function() {
@@ -103,27 +103,27 @@
 
 <!-- Javascript -->
 
-<script src="/sscnServer/resources/js/jquery-ui-1.8.21.custom.min.js"></script>
-<script src="/sscnServer/resources/js/jquery.ui.dialog.min.js"></script>
-<script src="/sscnServer/resources/js/jquery.ui.autocomplete.js"></script>
+<script src="/resources/js/jquery-ui-1.8.21.custom.min.js"></script>
+<script src="/resources/js/jquery.ui.dialog.min.js"></script>
+<script src="/resources/js/jquery.ui.autocomplete.js"></script>
 <!--<script src="js/jquery-1.9.1.js"></script>
 		<script src="js/jquery-ui-1.10.3.custom.min.js"></script>-->
-<script src="/sscnServer/resources/js/jquery.ui.touch-punch.min.js"></script>
-<script src="/sscnServer/resources/js/bootstrap.js"></script>
+<script src="/resources/js/jquery.ui.touch-punch.min.js"></script>
+<script src="/resources/js/bootstrap.js"></script>
 
 <script
-	src="/sscnServer/resources/js/plugins/datatables/jquery.dataTables.js"></script>
+	src="/resources/js/plugins/datatables/jquery.dataTables.js"></script>
 <script
-	src="/sscnServer/resources/js/plugins/datatables/DT_bootstrap.js"></script>
+	src="/resources/js/plugins/datatables/DT_bootstrap.js"></script>
 <script
-	src="/sscnServer/resources/js/plugins/responsive-tables/responsive-tables.js"></script>
+	src="/resources/js/plugins/responsive-tables/responsive-tables.js"></script>
 
-<script src="/sscnServer/resources/js/Slate.js"></script>
+<script src="/resources/js/Slate.js"></script>
 
-<script src="/sscnServer/resources/js/demos/demo.tables.js"></script>
+<script src="/resources/js/demos/demo.tables.js"></script>
 
 <script type="text/javascript"
-	src="/sscnServer/resources/js/jquery.validate.js"></script>
+	src="/resources/js/jquery.validate.js"></script>
 
 <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
 <!--[if lt IE 9]>
@@ -164,7 +164,7 @@ label.error {
 		<div class="container">
 
 			<h1>
-				<a href="/sscnServer/dashboard.do">Administrasi SSCN 2013</a>
+				<a href="dashboard.do">Administrasi SSCN 2013</a>
 			</h1>
 
 			<div id="info">
@@ -223,7 +223,7 @@ label.error {
 			<div class="nav-collapse">
 				<ul class="nav">
 
-					<li class="nav-icon active"><a href="/sscnServer/dashboard.do">
+					<li class="nav-icon active"><a href="dashboard.do">
 							<i class="icon-home"></i> <span>Home</span>
 					</a></li>
 					<c:if test="${userLogin.kewenangan != 3}">
@@ -232,27 +232,27 @@ label.error {
 								class="icon-external-link"></i> Manajemen <b class="caret"></b>
 						</a>
 							<ul class="dropdown-menu">
-								<li><a href="/sscnServer/user.do">User</a></li>
-								<li><a href="/sscnServer/lokasi.do">Lokasi</a></li>
-								<li><a href="/sscnServer/syarat.do">Syarat Pendaftaran</a></li>
+								<li><a href="user.do">User</a></li>
+								<li><a href="lokasi.do">Lokasi</a></li>
+								<li><a href="syarat.do">Syarat Pendaftaran</a></li>
 							</ul></li>
-						<li class="dropdown"><a href="/sscnServer/pengumuman.do"
+						<li class="dropdown"><a href="pengumuman.do"
 							class="dropdown-toggle"> <i class="icon-copy"></i> Pengumuman
 								<b class="caret"></b>
 						</a></li>
-						<li class="dropdown"><a href="/sscnServer/formasi.do"
+						<li class="dropdown"><a href="formasi.do"
 							class="dropdown-toggle"> <i class="icon-copy"></i> Formasi <b
 								class="caret"></b>
 						</a></li>
-						<li class="dropdown"><a href="/sscnServer/downloadData.do"
+						<li class="dropdown"><a href="downloadData.do"
 							class="dropdown-toggle"> <i class="icon-copy"></i> Download
 								Data <b class="caret"></b>
 						</a></li>
-						<li class="dropdown"><a href="/sscnServer/statistik.do"
+						<li class="dropdown"><a href="statistik.do"
 							class="dropdown-toggle"> <i class="icon-copy"></i> Statistik <b class="caret"></b>
 						</a></li>
 					</c:if>
-					<li class="dropdown"><a href="/sscnServer/verifikasi.do"
+					<li class="dropdown"><a href="verifikasi.do"
 						class="dropdown-toggle"> <i class="icon-copy"></i> Verfikasi <b
 							class="caret"></b>
 					</a></li>

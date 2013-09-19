@@ -15,50 +15,50 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 
 <!-- Styles -->
-<link href="/sscnServer/resources/css/bootstrap.css" rel="stylesheet">
-<link href="/sscnServer/resources/css/bootstrap-responsive.css"
+<link href="/resources/css/bootstrap.css" rel="stylesheet">
+<link href="/resources/css/bootstrap-responsive.css"
 	rel="stylesheet">
-<link href="/sscnServer/resources/css/bootstrap-overrides.css"
+<link href="/resources/css/bootstrap-overrides.css"
 	rel="stylesheet">
 
-<link href="/sscnServer/resources/css/ui-lightness/jquery.ui.all.css"
+<link href="/resources/css/ui-lightness/jquery.ui.all.css"
 	rel="stylesheet">
 <!--<link href="css/ui-lightness/jquery.ui.dialog.css" rel="stylesheet">
 		<link href="css/ui-lightness/jquery.ui.resizable.css" rel="stylesheet">-->
 <link
-	href="/sscnServer/resources/js/plugins/datatables/DT_bootstrap.css"
+	href="/resources/js/plugins/datatables/DT_bootstrap.css"
 	rel="stylesheet">
 <link
-	href="/sscnServer/resources/js/plugins/responsive-tables/responsive-tables.css"
+	href="/resources/js/plugins/responsive-tables/responsive-tables.css"
 	rel="stylesheet">
 
-<link href="/sscnServer/resources/css/slate.css" rel="stylesheet">
-<link href="/sscnServer/resources/css/slate-responsive.css"
+<link href="/resources/css/slate.css" rel="stylesheet">
+<link href="/resources/css/slate-responsive.css"
 	rel="stylesheet">
 
 <!-- Javascript -->
-<script src="/sscnServer/resources/js/jquery-1.7.2.min.js"></script>
-<script src="/sscnServer/resources/js/jquery-ui-1.8.21.custom.min.js"></script>
-<script src="/sscnServer/resources/js/jquery.ui.dialog.min.js"></script>
-<script src="/sscnServer/resources/js/jquery.ui.autocomplete.js"></script>
+<script src="/resources/js/jquery-1.7.2.min.js"></script>
+<script src="/resources/js/jquery-ui-1.8.21.custom.min.js"></script>
+<script src="/resources/js/jquery.ui.dialog.min.js"></script>
+<script src="/resources/js/jquery.ui.autocomplete.js"></script>
 <!--<script src="js/jquery-1.9.1.js"></script>
 		<script src="js/jquery-ui-1.10.3.custom.min.js"></script>-->
-<script src="/sscnServer/resources/js/jquery.ui.touch-punch.min.js"></script>
-<script src="/sscnServer/resources/js/bootstrap.js"></script>
+<script src="/resources/js/jquery.ui.touch-punch.min.js"></script>
+<script src="/resources/js/bootstrap.js"></script>
 
 <script
-	src="/sscnServer/resources/js/plugins/datatables/jquery.dataTables.js"></script>
+	src="/resources/js/plugins/datatables/jquery.dataTables.js"></script>
 <script
-	src="/sscnServer/resources/js/plugins/datatables/DT_bootstrap.js"></script>
+	src="/resources/js/plugins/datatables/DT_bootstrap.js"></script>
 <script
-	src="/sscnServer/resources/js/plugins/responsive-tables/responsive-tables.js"></script>
+	src="/resources/js/plugins/responsive-tables/responsive-tables.js"></script>
 
-<script src="/sscnServer/resources/js/Slate.js"></script>
+<script src="/resources/js/Slate.js"></script>
 
-<script src="/sscnServer/resources/js/demos/demo.tables.js"></script>
+<script src="/resources/js/demos/demo.tables.js"></script>
 
 <script type="text/javascript"
-	src="/sscnServer/resources/js/jquery.validate.js"></script>
+	src="/resources/js/jquery.validate.js"></script>
 
 <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
 <!--[if lt IE 9]>
@@ -94,7 +94,7 @@ label.error {
 		<div class="container">
 
 			<h1>
-				<a href="/sscnServer/dashboard.do">Administrasi SSCN 2013</a>
+				<a href="dashboard.do">Administrasi SSCN 2013</a>
 			</h1>
 
 			<div id="info">
@@ -153,7 +153,7 @@ label.error {
 			<div class="nav-collapse">
 								<ul class="nav">
 
-					<li class="nav-icon active"><a href="/sscnServer/dashboard.do">
+					<li class="nav-icon active"><a href="dashboard.do">
 							<i class="icon-home"></i> <span>Home</span>
 					</a></li>
 					<c:if test="${userLogin.kewenangan != 3}">
@@ -162,29 +162,29 @@ label.error {
 									class="icon-external-link"></i> Manajemen <b class="caret"></b>
 							</a>
 								<ul class="dropdown-menu">
-									<li><a href="/sscnServer/user.do">User</a></li>
-									<li><a href="/sscnServer/lokasi.do">Lokasi</a></li>
-									<li><a href="/sscnServer/syarat.do">Syarat Pendaftaran</a></li>
+									<li><a href="user.do">User</a></li>
+									<li><a href="lokasi.do">Lokasi</a></li>
+									<li><a href="syarat.do">Syarat Pendaftaran</a></li>
 								</ul>
 							</li>
-							<li class="dropdown"><a href="/sscnServer/pengumuman.do"
+							<li class="dropdown"><a href="pengumuman.do"
 								class="dropdown-toggle"> <i class="icon-copy"></i> Pengumuman
 									<b class="caret"></b>
 							</a></li>								
-							<li class="dropdown"><a href="/sscnServer/formasi.do"
+							<li class="dropdown"><a href="formasi.do"
 								class="dropdown-toggle"> <i class="icon-copy"></i> Formasi <b
 									class="caret"></b>
 								</a>
 							</li>
-							<li class="dropdown"><a href="/sscnServer/downloadData.do"
+							<li class="dropdown"><a href="downloadData.do"
 						class="dropdown-toggle"> <i class="icon-copy"></i> Download Data <b
 							class="caret"></b>
 					</a></li>
-					<li class="dropdown"><a href="/sscnServer/statistik.do"
+					<li class="dropdown"><a href="statistik.do"
 							class="dropdown-toggle"> <i class="icon-copy"></i> Statistik <b class="caret"></b>
 						</a></li>						
 					</c:if>
-					<li class="dropdown"><a href="/sscnServer/verifikasi.do"
+					<li class="dropdown"><a href="verifikasi.do"
 						class="dropdown-toggle"> <i class="icon-copy"></i> Verfikasi <b
 							class="caret"></b>
 					</a></li>
@@ -308,7 +308,7 @@ label.error {
 								</table>
 								<div class="row">
 									 <jsp:include page="paging.jsp" />
-									 <form id="pagingForm" method="post" action="/sscnServer/user.do">
+									 <form id="pagingForm" method="post" action="user.do">
 										<input type="hidden" name="activePage" id="activePage"/>
 										<input type="hidden" name="numPage" id="numPage"/>
 										<input type="hidden" name="searchPage" id="searchPage"/>
@@ -342,7 +342,7 @@ label.error {
 
 	<div id="myModal" title="Create new user">
 		<p class="validateTips">All form fields are required.</p>
-		<form class="form-horizontal" action="/sscnServer/userSave.do"
+		<form class="form-horizontal" action="userSave.do"
 			method="post" id="formAddUser">
 			<fieldset>
 				<div id="loadingImage" style="display: none">
@@ -442,7 +442,7 @@ label.error {
 
 	<div id="myModal2" title="Ubah user">
 		<p class="validateTips">All form fields are required.</p>
-		<form class="form-horizontal" action="/sscnServer/userUpdate.do"
+		<form class="form-horizontal" action="userUpdate.do"
 			method="post" id="formUbahUser">
 			<fieldset>
 				<div id="loadingImage2" style="display: none">
@@ -527,7 +527,7 @@ label.error {
 	</div>
 
 	<div id="myModal3" title="Delete user">		
-		<form class="form-horizontal" action="/sscnServer/userDelete.do"
+		<form class="form-horizontal" action="userDelete.do"
 			method="post" id="formDeleteUser">
 			<fieldset>
 				<div id="loadingImage3" style="display: none">
@@ -575,7 +575,7 @@ label.error {
 				
 					$.ajax({
 						  type: "GET",
-						  url: "/sscnServer/getUser.do?username="+id,
+						  url: "getUser.do?username="+id,
 						  cache: false,
 						  success: function(data){							 
 							 $('#edusername').val(data.data.username);
@@ -654,7 +654,7 @@ label.error {
 				  		}
 
 				  		if (data.result == -1){
-					  		window.location = "/sscnServer/login.do";
+					  		window.location = "login.do";
 					  	}
 				  });
 				  
@@ -678,7 +678,7 @@ label.error {
 			$("#edinstansiLabel").autocomplete({
 				source : function(request, response) {
 					$.ajax({
-						url : "/sscnServer/findInstansiLikeByName.do",
+						url : "findInstansiLikeByName.do",
 						dataType : "jsonp",
 						data : {
 							featureClass : "P",
@@ -749,7 +749,7 @@ label.error {
 				  		}
 
 				  		if (data.result == -1){
-					  		window.location = "/sscnServer/login.do";
+					  		window.location = "login.do";
 					  	}
 				  });
 				  
@@ -803,7 +803,7 @@ label.error {
 					      url = $form.attr( 'action' );
 					 
 					  /* Send the data using post */
-					  var posting = $.post( "/sscnServer/userSave.do", term,"json"
+					  var posting = $.post( "userSave.do", term,"json"
 					  					  );
 					 
 					  /* Put the results in a div */
@@ -829,7 +829,7 @@ label.error {
 					  		}
 
 					  		if (data.result == -1){
-						  		window.location = "/sscnServer/login.do";
+						  		window.location = "login.do";
 						  	}
 					  });
 					  
@@ -862,7 +862,7 @@ label.error {
 				$("#instansi").autocomplete({
 					source : function(request, response) {
 						$.ajax({
-							url : "/sscnServer/findInstansiLikeByName.do",
+							url : "findInstansiLikeByName.do",
 							dataType : "jsonp",
 							data : {
 								featureClass : "P",

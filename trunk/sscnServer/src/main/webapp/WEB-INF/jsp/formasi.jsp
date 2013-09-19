@@ -15,47 +15,47 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 
 <!-- Styles -->
-<link href="/sscnServer/resources/css/bootstrap.css" rel="stylesheet">
-<link href="/sscnServer/resources/css/bootstrap-responsive.css"
+<link href="/resources/css/bootstrap.css" rel="stylesheet">
+<link href="/resources/css/bootstrap-responsive.css"
 	rel="stylesheet">
-<link href="/sscnServer/resources/css/bootstrap-overrides.css"
+<link href="/resources/css/bootstrap-overrides.css"
 	rel="stylesheet">
 
-<link href="/sscnServer/resources/css/ui-lightness/jquery.ui.all.css"
+<link href="/resources/css/ui-lightness/jquery.ui.all.css"
 	rel="stylesheet">
 <!--<link href="css/ui-lightness/jquery.ui.dialog.css" rel="stylesheet">
 		<link href="css/ui-lightness/jquery.ui.resizable.css" rel="stylesheet">-->
 <link
-	href="/sscnServer/resources/js/plugins/datatables/DT_bootstrap.css"
+	href="/resources/js/plugins/datatables/DT_bootstrap.css"
 	rel="stylesheet">
 <link
-	href="/sscnServer/resources/js/plugins/responsive-tables/responsive-tables.css"
+	href="/resources/js/plugins/responsive-tables/responsive-tables.css"
 	rel="stylesheet">
 
-<link href="/sscnServer/resources/css/slate.css" rel="stylesheet">
-<link href="/sscnServer/resources/css/slate-responsive.css"
+<link href="/resources/css/slate.css" rel="stylesheet">
+<link href="/resources/css/slate-responsive.css"
 	rel="stylesheet">
 
 <!-- Javascript -->
-<script src="/sscnServer/resources/js/jquery-1.7.2.min.js"></script>
-<script src="/sscnServer/resources/js/jquery-ui-1.8.21.custom.min.js"></script>
-<script src="/sscnServer/resources/js/jquery.ui.dialog.min.js"></script>
-<script src="/sscnServer/resources/js/jquery.ui.autocomplete.js"></script>
+<script src="/resources/js/jquery-1.7.2.min.js"></script>
+<script src="/resources/js/jquery-ui-1.8.21.custom.min.js"></script>
+<script src="/resources/js/jquery.ui.dialog.min.js"></script>
+<script src="/resources/js/jquery.ui.autocomplete.js"></script>
 <!--<script src="js/jquery-1.9.1.js"></script>
 		<script src="js/jquery-ui-1.10.3.custom.min.js"></script>-->
-<script src="/sscnServer/resources/js/jquery.ui.touch-punch.min.js"></script>
-<script src="/sscnServer/resources/js/bootstrap.js"></script>
+<script src="/resources/js/jquery.ui.touch-punch.min.js"></script>
+<script src="/resources/js/bootstrap.js"></script>
 
 <script
-	src="/sscnServer/resources/js/plugins/datatables/jquery.dataTables.js"></script>
+	src="/resources/js/plugins/datatables/jquery.dataTables.js"></script>
 <script
-	src="/sscnServer/resources/js/plugins/datatables/DT_bootstrap.js"></script>
+	src="/resources/js/plugins/datatables/DT_bootstrap.js"></script>
 <script
-	src="/sscnServer/resources/js/plugins/responsive-tables/responsive-tables.js"></script>
+	src="/resources/js/plugins/responsive-tables/responsive-tables.js"></script>
 
-<script src="/sscnServer/resources/js/Slate.js"></script>
+<script src="/resources/js/Slate.js"></script>
 
-<script src="/sscnServer/resources/js/demos/demo.tables.js"></script>
+<script src="/resources/js/demos/demo.tables.js"></script>
 
 
 <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -72,7 +72,7 @@
 		<div class="container">
 
 			<h1>
-				<a href="/sscnServer/dashboard.do">Administrasi SSCN 2013</a>
+				<a href="dashboard.do">Administrasi SSCN 2013</a>
 			</h1>
 
 			<div id="info">
@@ -130,7 +130,7 @@
 			<div class="nav-collapse">
 								<ul class="nav">
 
-					<li class="nav-icon active"><a href="/sscnServer/dashboard.do">
+					<li class="nav-icon active"><a href="dashboard.do">
 							<i class="icon-home"></i> <span>Home</span>
 					</a></li>
 					<c:if test="${userLogin.kewenangan != 3}">
@@ -139,29 +139,29 @@
 									class="icon-external-link"></i> Manajemen <b class="caret"></b>
 							</a>
 								<ul class="dropdown-menu">
-									<li><a href="/sscnServer/user.do">User</a></li>
-									<li><a href="/sscnServer/lokasi.do">Lokasi</a></li>
-									<li><a href="/sscnServer/syarat.do">Syarat Pendaftaran</a></li>
+									<li><a href="user.do">User</a></li>
+									<li><a href="lokasi.do">Lokasi</a></li>
+									<li><a href="syarat.do">Syarat Pendaftaran</a></li>
 								</ul>
 							</li>
-							<li class="dropdown"><a href="/sscnServer/pengumuman.do"
+							<li class="dropdown"><a href="pengumuman.do"
 								class="dropdown-toggle"> <i class="icon-copy"></i> Pengumuman
 									<b class="caret"></b>
 							</a></li>								
-							<li class="dropdown"><a href="/sscnServer/formasi.do"
+							<li class="dropdown"><a href="formasi.do"
 								class="dropdown-toggle"> <i class="icon-copy"></i> Formasi <b
 									class="caret"></b>
 								</a>
 							</li>
-							<li class="dropdown"><a href="/sscnServer/downloadData.do"
+							<li class="dropdown"><a href="downloadData.do"
 						class="dropdown-toggle"> <i class="icon-copy"></i> Download Data <b
 							class="caret"></b>
 					</a></li>							
-					<li class="dropdown"><a href="/sscnServer/statistik.do"
+					<li class="dropdown"><a href="statistik.do"
 							class="dropdown-toggle"> <i class="icon-copy"></i> Statistik <b class="caret"></b>
 						</a></li>	
 					</c:if>
-					<li class="dropdown"><a href="/sscnServer/verifikasi.do"
+					<li class="dropdown"><a href="verifikasi.do"
 						class="dropdown-toggle"> <i class="icon-copy"></i> Verfikasi <b
 							class="caret"></b>
 					</a></li>
@@ -182,9 +182,9 @@
 			<div id="page-title" class="clearfix">
 
 				<ul class="breadcrumb">
-					<li><a href="/sscnServer/dashboard.do">Home</a><span
+					<li><a href="dashboard.do">Home</a><span
 						class="divider">/</span></li>
-					<li><a href="/sscnServer/formasi.do">Formasi Management</a><span
+					<li><a href="formasi.do">Formasi Management</a><span
 						class="divider">/</span></li>
 					<li class="active">List</li>
 				</ul>
@@ -244,7 +244,7 @@
 									<div class="span6 pull-right">
 										<c:choose>
 											<c:when test="${formasi!=null}">
-												<a href="/sscnServer/formasi.do#tambah" id="addFormasiModal"
+												<a href="formasi.do#tambah" id="addFormasiModal"
 											class="btn btn-small btn-primary"><i class="icon-plus"></i>Tambah
 											Formasi</a>
 											</c:when>
@@ -283,11 +283,11 @@
 												<td>${formasi.jumlah}</td>
 												<td>${formasi.refLokasi.nama}</td>
 												<td>
-													<!--  <form action="/sscnServer/getFormasi.do" method="post">
+													<!--  <form action="getFormasi.do" method="post">
 														<input type="hidden" name="id" value="${formasi.id}"> -->
 														<button class="btn btn-primary btn-mini" onclick="editFormasi(event, '${formasi.id}')">Edit</button>
 													<!--  </form>
-													<form action="/sscnServer/formasiDelete.do" method="post">
+													<form action="formasiDelete.do" method="post">
 														<input type="hidden" name="id" value="${formasi.id}">-->
 														<button class="btn btn-primary btn-mini" onclick="deleteFormasi(event, '${formasi.id}')">Delete</button>
 													<!--  </form> -->
@@ -299,7 +299,7 @@
 								</table>
 								<div class="row">
 									 <jsp:include page="paging.jsp" />
-									 <form id="pagingForm" method="post" action="/sscnServer/formasi.do">
+									 <form id="pagingForm" method="post" action="formasi.do">
 										<input type="hidden" name="activePage" id="activePage"/>
 										<input type="hidden" name="numPage" id="numPage"/>
 										<input type="hidden" name="searchPage" id="searchPage"/>
@@ -342,7 +342,7 @@
 								integrated Bootstrap error messages.
 							</div>
 							<c:if test="${formasi != null}">
-								<form action="/sscnServer/formasiUpdate.do" method="POST"
+								<form action="formasiUpdate.do" method="POST"
 									id="formasiForm" class="form-horizontal"
 									novalidate="novalidate">
 									<fieldset>
@@ -433,7 +433,7 @@
 								</form>
 							</c:if>
 							<c:if test="${formasi == null}">
-								<form action="/sscnServer/formasiSave.do" method="POST"
+								<form action="formasiSave.do" method="POST"
 									id="formasiForm" class="form-horizontal"
 									novalidate="novalidate">
 									<fieldset>
@@ -524,7 +524,7 @@
 							var autocomp_opt = {
 								source : function(request, response) {
 									$.ajax({
-												url : "/sscnServer/findPendidikanLikeByName.do",
+												url : "findPendidikanLikeByName.do",
 												dataType : "jsonp",
 												data : {
 													featureClass : "P",
@@ -652,7 +652,7 @@
 											$
 													.ajax({
 														
-														url : "/sscnServer/findLokasiLikeByName.do",
+														url : "findLokasiLikeByName.do",
 														dataType : "jsonp",
 														data : {
 															featureClass : "P",
@@ -711,7 +711,7 @@
 												response) {
 											$
 													.ajax({
-														url : "/sscnServer/findJabatanLikeByName.do",
+														url : "findJabatanLikeByName.do",
 														dataType : "jsonp",
 														data : {
 															featureClass : "P",
@@ -816,7 +816,7 @@
 												response) {
 											$
 													.ajax({
-														url : "/sscnServer/findPendidikanLikeByName.do",
+														url : "findPendidikanLikeByName.do",
 														dataType : "jsonp",
 														data : {
 															featureClass : "P",
@@ -910,12 +910,12 @@
 
 							editFormasi = function(event, id){
 								event.preventDefault();
-								window.location = '/sscnServer/getFormasi.do?id='+id;
+								window.location = 'getFormasi.do?id='+id;
 							}
 
 							deleteFormasi = function(event, id){
 								event.preventDefault();
-								window.location = '/sscnServer/formasiDelete.do?id='+id;
+								window.location = 'formasiDelete.do?id='+id;
 							}
 
 							$("#formasiForm").submit(function(event) {

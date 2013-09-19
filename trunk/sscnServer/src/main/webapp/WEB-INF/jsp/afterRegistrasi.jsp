@@ -14,21 +14,21 @@ function kembali(){
 <style type="text/css">
 <!--
 body {
-	background-image: url(resources/img/bg.png);
+	background-image: url(/resources/img/bg.png);
 	background-repeat: repeat;
 }
 -->
 </style></head>
 <body id="page1">
 <div> 
-  <div align="center"><a href="#"><img src="resources/img/header-bg2.png" alt="" width="972" height="205" border="0" /></a></div>
+  <div align="center"><a href="#"><img src="/resources/img/header-bg2.png" alt="" width="972" height="205" border="0" /></a></div>
 </div>
 <p align="center">
 		Anda sudah mendaftarkan untuk mengikuti Seleksi CPNS di posisi yang
 		anda lamar. <br> Silahkan melakukan Cetak Nomor Pendaftaran pada
 		tombol dibawah ini.	</p>
 	<p align="center">
-	<form action="/sscnServer/ReportServlet" method="post" target="_blank"
+	<form action="ReportServlet" method="post" target="_blank"
 		name="formCetakRegistrasi" id="formCetakRegistrasi">
 		<div align="center">
 		  <input type="hidden" name="idRegistrasi" value="${idRegistrasi}" /> 
