@@ -301,6 +301,16 @@ public final class SqlUtil {
 	}
 
 	/**
+	 * checks whether comparator exists and is a PREFFIX LIKE
+	 * 
+	 * @param comparator
+	 * @return
+	 */
+	public static boolean isComparatorPrefixLike(QueryComparator comparator) {
+		return (comparator != null && comparator.equals(QueryComparator.PREFIXLIKE));
+	}
+	
+	/**
 	 * checks whether property is an ID
 	 * 
 	 * @param propertyName
@@ -320,6 +330,16 @@ public final class SqlUtil {
 	 */
 	public static boolean isAllreadyLikeExpression(String expression) {
 		return (expression.startsWith("%") && expression.endsWith("%"));
+	}
+	
+	/**
+	 * checks whether the string expression is already a like-expression
+	 * 
+	 * @param expression
+	 * @return
+	 */
+	public static boolean isAllreadyPrefixLikeExpression(String expression) {
+		return (expression.endsWith("%"));
 	}
 
 	/**
