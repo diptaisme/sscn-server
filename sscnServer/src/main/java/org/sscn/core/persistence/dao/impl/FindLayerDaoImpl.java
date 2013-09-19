@@ -237,6 +237,8 @@ public class FindLayerDaoImpl<T> extends CountLayerDaoImpl<T> implements FindLay
 		return doQueryForMaps(queryString.toString(), QueryComparator.LIKE,
 		        propertiesMap, orders, null, null, rowStartIdxAndCount);
 	}
+	
+	
 
 	/**
 	 * Find by property.
@@ -514,6 +516,17 @@ public class FindLayerDaoImpl<T> extends CountLayerDaoImpl<T> implements FindLay
 		Criteria criteria = createHibernateCriteriaObject(leftJoinFetch, filter, orders,
 		        rowStartIdxAndCount);
 		return criteria.list();
+	}
+
+	@Override
+	public List<T> findPrefixLikeMapOfProperties(Map<String, ? extends Object> propertiesMap,
+			List<String> leftJoinFetchColumns, List<QueryOrder> orders, int[] rowStartIdxAndCount) {
+
+		StringBuilder queryString = new StringBuilder(getSelectFindQuery());
+		queryString.append(createLeftJoinFetchPhrase(leftJoinFetchColumns));
+		queryString.append(WHERE);
+		return doQueryForMaps(queryString.toString(), QueryComparator.PREFIXLIKE,
+		        propertiesMap, orders, null, null, rowStartIdxAndCount);
 	}
 
 }
