@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.map.util.JSONPObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -40,7 +42,8 @@ public class PengumumanController implements HandlerExceptionResolver {
 	
 	@RequestMapping(value = "/cb_instansi.do", method = RequestMethod.GET)
 	@ResponseBody
-	public Map<String, List<InstansiJson>> getInstansis() {
+	public String getInstansis(@RequestParam("callback") String callBack) throws Exception{
+		ObjectMapper objectMapper = new ObjectMapper();
 		List<RefInstansi> instansis = pengumumanService.getInstansi(null);
 		List<InstansiJson> newInstansis = new ArrayList<InstansiJson>();
 		for(RefInstansi instansi:instansis){
@@ -49,7 +52,9 @@ public class PengumumanController implements HandlerExceptionResolver {
 		
 		Map<String, List<InstansiJson>> instansiMap = new HashMap<String, List<InstansiJson>>();
 		instansiMap.put("instansis", newInstansis);
-		return instansiMap;
+		
+		return objectMapper.writeValueAsString(new JSONPObject(callBack,
+				instansiMap));
 	}
 
 	/**
