@@ -418,8 +418,15 @@ public class KernelDaoImpl<T> implements KernelDao<T> {
 			Map<String, ? extends Object> propertiesMap,
 			List<QueryOrder> orders, LockMode lockMode, Boolean... isLowercase) {
 		StringBuilder queryString = new StringBuilder(selectQueryStr);
-		queryString.append(retrieveSingleWhereClauseForMaps(propertiesMap,
-				comparator));
+		
+		if (comparator.equals(QueryComparator.PREFIXLIKE)){
+			queryString.append(retrieveSingleWhereClauseForMaps(propertiesMap,
+					QueryComparator.LIKE));
+		} else {
+			queryString.append(retrieveSingleWhereClauseForMaps(propertiesMap,
+					comparator));
+		}
+		
 		// row ordering
 		if (lockMode == null || lockMode == LockMode.NONE) {
 			queryString.append(createQueryOrderPhrase(orders));
@@ -560,6 +567,11 @@ public class KernelDaoImpl<T> implements KernelDao<T> {
 				if (SqlUtil.isComparatorLike(comparator)
 						&& !SqlUtil.isAllreadyLikeExpression(valueStr)) {
 					valueStr = "%" + valueStr.trim() + "%";
+				}
+				
+				if (SqlUtil.isComparatorPrefixLike(comparator)
+						&& !SqlUtil.isAllreadyPrefixLikeExpression(valueStr)) {
+					valueStr = valueStr.trim() + "%";
 				}
 				// default behaviour (if is not an ID) is lower case, unless
 				// otherwise set in
