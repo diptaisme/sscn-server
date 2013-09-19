@@ -29,8 +29,8 @@ public class JabatanServiceImpl implements JabatanService {
 	public List<RefJabatan> findJabatanByLikeName(String name) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("nama", name);
-		List<RefJabatan> jabatans = refJabatanDao.findLikeMapOfProperties(
-				map, null);
+		List<RefJabatan> jabatans = refJabatanDao.findPrefixLikeMapOfProperties(
+				map, null, null, null);
 		return jabatans;
 	}
 }

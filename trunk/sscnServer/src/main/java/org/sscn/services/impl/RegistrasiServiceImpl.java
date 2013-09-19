@@ -56,7 +56,9 @@ public class RegistrasiServiceImpl implements RegistrasiService {
 		Map<String, String> properties = new HashMap<String, String>();
 		properties.put("nama", startWith);
 		properties.put("status", "1");
-		return refInstansiDao.findLikeMapOfProperties(properties,  new int[] {
+//		return refInstansiDao.findLikeMapOfProperties(properties,  new int[] {
+//				0, maxRows });
+		return refInstansiDao.findPrefixLikeMapOfProperties(properties, null, null, new int[] {
 				0, maxRows });
 	}
 

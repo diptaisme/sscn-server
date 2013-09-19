@@ -31,7 +31,7 @@ public class PendidikanServiceImpl implements PendidikanService {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("nama", name);
 		List<RefPendidikan> pendidikans = refPendidikanDao
-				.findLikeMapOfProperties(map, null);
+				.findPrefixLikeMapOfProperties(map, null, null, null);
 		return pendidikans;
 	}
 

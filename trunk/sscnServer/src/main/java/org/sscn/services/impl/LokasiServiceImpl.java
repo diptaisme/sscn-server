@@ -53,8 +53,8 @@ public class LokasiServiceImpl implements LokasiService {
 		map.put("nama", name);
 		RefInstansi pinstansi = refInstansiDao.findById(instansiKd);
 		map.put("refInstansi", pinstansi);
-		List<RefLokasi> lokasis = refLokasiDao.findLikeMapOfProperties(map,
-				null);
+		List<RefLokasi> lokasis = refLokasiDao.findPrefixLikeMapOfProperties(map,
+				null,null,null);
 		return lokasis;
 	}
 
