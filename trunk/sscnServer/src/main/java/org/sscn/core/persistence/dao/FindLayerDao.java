@@ -542,4 +542,7 @@ public interface FindLayerDao<T> extends CountLayerDao<T> {
 	List<T> findLikeMapOfProperties(Map<String, ? extends Object> propertiesMap,
 	        List<String> leftJoinFetchColumns, List<QueryOrder> orders,
 	        final int... rowStartIdxAndCount);
+
+	List<T> findPrefixLikeMapOfProperties(Map<String, ? extends Object> propertiesMap,
+			List<String> leftJoinFetchColumns, List<QueryOrder> orders, int[] rowStartIdxAndCount);
 }
