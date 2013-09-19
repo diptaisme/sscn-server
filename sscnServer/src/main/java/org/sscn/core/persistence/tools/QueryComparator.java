@@ -17,6 +17,12 @@ public enum QueryComparator {
 	 * To be used to perform queries using a LIKE criteria (is case
 	 * insensitive).
 	 */
+	PREFIXLIKE("PREFIXLIKE"),
+	
+	/**
+	 * To be used to perform queries using a LIKE criteria (is case
+	 * insensitive).
+	 */
 	LIKE("LIKE"),
 
 	/** When using hibernate Criteria API this is a >. */
