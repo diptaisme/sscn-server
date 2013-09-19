@@ -32,8 +32,9 @@ public class InstansiServiceImpl implements InstansiService {
 	public List<RefInstansi> findInstansiByLikeName(String name) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("nama", name);
-		List<RefInstansi> instansis = refInstansiDao.findLikeMapOfProperties(
-				map, null);
+		List<RefInstansi> instansis = refInstansiDao.findPrefixLikeMapOfProperties(map, null, null, null);
+//		List<RefInstansi> instansis = refInstansiDao.findLikeMapOfProperties(
+//				map, null);
 		return instansis;
 	}
 	
