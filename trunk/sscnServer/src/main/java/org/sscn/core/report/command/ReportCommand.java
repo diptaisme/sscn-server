@@ -134,16 +134,25 @@ public abstract class ReportCommand implements Serializable {
 	 */
 	private void serveReport(HttpServletRequest request,
 			HttpServletResponse response, byte[] bytes) throws IOException {
-		InputStream inputStream = new ByteArrayInputStream(bytes);
-		OutputStream outputStream = response.getOutputStream();
-
-		// send the pdf document to the client directly
-		response.setContentType("application/pdf");
-		response.setContentLength(bytes.length);
-		outputStream.write(bytes, 0, bytes.length);
-		outputStream.flush();
-		outputStream.close();
-
+		OutputStream outputStream = null;
+		try {
+			InputStream inputStream = new ByteArrayInputStream(bytes);
+			outputStream = response.getOutputStream();	
+			// send the pdf document to the client directly
+			response.setContentType("application/pdf");
+			response.setContentLength(bytes.length);
+			outputStream.write(bytes, 0, bytes.length);
+			outputStream.flush();
+		} catch (IOException ex) {
+			if (outputStream != null){
+				outputStream.close();
+			}			
+			throw ex;
+		} finally {
+			if (outputStream != null){
+				outputStream.close();
+			}
+		}
 	}
 
 	protected void generalPDFReports(Object[] pMyData,
