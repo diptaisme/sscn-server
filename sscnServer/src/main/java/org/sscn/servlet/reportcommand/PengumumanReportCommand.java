@@ -56,18 +56,20 @@ public class PengumumanReportCommand extends ReportCommand {
 			        "inline; filename=PengumumuanPendaftaran.pdf");
 			response.setContentType("application/pdf");
 			response.setContentLength(thePengumuman.getBerita().length);
+			ServletOutputStream servletOutputStream = null;
 			try {
-				ServletOutputStream servletOutputStream = response.getOutputStream();
+				servletOutputStream = response.getOutputStream();
 				servletOutputStream.write(thePengumuman.getBerita());
 				servletOutputStream.flush();
 				servletOutputStream.close();
 			} catch (IOException e) {
-				e.printStackTrace();
-			}
+				e.printStackTrace();		
+			}				
+			
 		} else {
 			RefInstansi refInstansi = refInstansiDao.findById(instansi);
 			response.setContentType("text/html");
-			PrintWriter out;
+			PrintWriter out = null;
 			if (refInstansi != null) {
 				String namaInstansi = refInstansi.getNama();
 				try {
@@ -81,6 +83,11 @@ public class PengumumanReportCommand extends ReportCommand {
 					out.close();
 				} catch (IOException e) {
 					e.printStackTrace();
+					
+				} finally {
+					if (out != null){
+						out.close();
+					}					
 				}
 			} else {
 				try {
@@ -92,6 +99,10 @@ public class PengumumanReportCommand extends ReportCommand {
 					out.close();
 				} catch (IOException e) {
 					e.printStackTrace();
+				} finally {
+					if (out != null){
+						out.close();
+					}					
 				}
 			}
 		}
