@@ -11,25 +11,25 @@
     
     <!-- Styles -->
     
-    <link href="/resources/css/bootstrap.css" rel="stylesheet">
-    <link href="/resources/css/bootstrap-responsive.css" rel="stylesheet">
-    <link href="/resources/css/bootstrap-overrides.css" rel="stylesheet">
+    <link href="/sscnServer/resources/css/bootstrap.css" rel="stylesheet">
+    <link href="/sscnServer/resources/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="/sscnServer/resources/css/bootstrap-overrides.css" rel="stylesheet">
     
-	<link href="/resources/css/ui-lightness/jquery-ui-1.8.21.custom.css" rel="stylesheet">
+	<link href="/sscnServer/resources/css/ui-lightness/jquery-ui-1.8.21.custom.css" rel="stylesheet">
         
-    <link href="/resources/css/slate.css" rel="stylesheet">
+    <link href="/sscnServer/resources/css/slate.css" rel="stylesheet">
     
-	<link href="/resources/css/components/signin.css" rel="stylesheet" type="text/css">   
+	<link href="/sscnServer/resources/css/components/signin.css" rel="stylesheet" type="text/css">   
     
     
     <!-- Javascript -->
     
-    <script src="/resources/js/jquery-1.7.2.min.js"></script>
-	<script src="/resources/js/jquery-ui-1.8.18.custom.min.js"></script>    
-	<script src="/resources/js/jquery.ui.touch-punch.min.js"></script>
-	<script src="/resources/js/bootstrap.js"></script>
+    <script src="/sscnServer/resources/js/jquery-1.7.2.min.js"></script>
+	<script src="/sscnServer/resources/js/jquery-ui-1.8.18.custom.min.js"></script>    
+	<script src="/sscnServer/resources/js/jquery.ui.touch-punch.min.js"></script>
+	<script src="/sscnServer/resources/js/bootstrap.js"></script>
 
-	<script src="/resources/js/demos/signin.js"></script>
+	<script src="/sscnServer/resources/js/demos/signin.js"></script>
 	<script>
 		jQuery(document).ready(
 							function() {
@@ -45,7 +45,7 @@
 	
 	<div class="content clearfix">
 		
-		<form action="processLogin.do" method="post">
+		<form action="/sscnServer/processLogin.do" method="post">
 		
 			<h1>Login</h1>		
 			
