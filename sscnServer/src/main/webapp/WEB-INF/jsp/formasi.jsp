@@ -15,47 +15,47 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 
 <!-- Styles -->
-<link href="/resources/css/bootstrap.css" rel="stylesheet">
-<link href="/resources/css/bootstrap-responsive.css"
+<link href="/sscnServer/resources/css/bootstrap.css" rel="stylesheet">
+<link href="/sscnServer/resources/css/bootstrap-responsive.css"
 	rel="stylesheet">
-<link href="/resources/css/bootstrap-overrides.css"
+<link href="/sscnServer/resources/css/bootstrap-overrides.css"
 	rel="stylesheet">
 
-<link href="/resources/css/ui-lightness/jquery.ui.all.css"
+<link href="/sscnServer/resources/css/ui-lightness/jquery.ui.all.css"
 	rel="stylesheet">
 <!--<link href="css/ui-lightness/jquery.ui.dialog.css" rel="stylesheet">
 		<link href="css/ui-lightness/jquery.ui.resizable.css" rel="stylesheet">-->
 <link
-	href="/resources/js/plugins/datatables/DT_bootstrap.css"
+	href="/sscnServer/resources/js/plugins/datatables/DT_bootstrap.css"
 	rel="stylesheet">
 <link
-	href="/resources/js/plugins/responsive-tables/responsive-tables.css"
+	href="/sscnServer/resources/js/plugins/responsive-tables/responsive-tables.css"
 	rel="stylesheet">
 
-<link href="/resources/css/slate.css" rel="stylesheet">
-<link href="/resources/css/slate-responsive.css"
+<link href="/sscnServer/resources/css/slate.css" rel="stylesheet">
+<link href="/sscnServer/resources/css/slate-responsive.css"
 	rel="stylesheet">
 
 <!-- Javascript -->
-<script src="/resources/js/jquery-1.7.2.min.js"></script>
-<script src="/resources/js/jquery-ui-1.8.21.custom.min.js"></script>
-<script src="/resources/js/jquery.ui.dialog.min.js"></script>
-<script src="/resources/js/jquery.ui.autocomplete.js"></script>
+<script src="/sscnServer/resources/js/jquery-1.7.2.min.js"></script>
+<script src="/sscnServer/resources/js/jquery-ui-1.8.21.custom.min.js"></script>
+<script src="/sscnServer/resources/js/jquery.ui.dialog.min.js"></script>
+<script src="/sscnServer/resources/js/jquery.ui.autocomplete.js"></script>
 <!--<script src="js/jquery-1.9.1.js"></script>
 		<script src="js/jquery-ui-1.10.3.custom.min.js"></script>-->
-<script src="/resources/js/jquery.ui.touch-punch.min.js"></script>
-<script src="/resources/js/bootstrap.js"></script>
+<script src="/sscnServer/resources/js/jquery.ui.touch-punch.min.js"></script>
+<script src="/sscnServer/resources/js/bootstrap.js"></script>
 
 <script
-	src="/resources/js/plugins/datatables/jquery.dataTables.js"></script>
+	src="/sscnServer/resources/js/plugins/datatables/jquery.dataTables.js"></script>
 <script
-	src="/resources/js/plugins/datatables/DT_bootstrap.js"></script>
+	src="/sscnServer/resources/js/plugins/datatables/DT_bootstrap.js"></script>
 <script
-	src="/resources/js/plugins/responsive-tables/responsive-tables.js"></script>
+	src="/sscnServer/resources/js/plugins/responsive-tables/responsive-tables.js"></script>
 
-<script src="/resources/js/Slate.js"></script>
+<script src="/sscnServer/resources/js/Slate.js"></script>
 
-<script src="/resources/js/demos/demo.tables.js"></script>
+<script src="/sscnServer/resources/js/demos/demo.tables.js"></script>
 
 
 <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
