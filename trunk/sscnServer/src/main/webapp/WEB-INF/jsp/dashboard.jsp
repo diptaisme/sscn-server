@@ -15,39 +15,52 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 
 <!-- Styles -->
-<link href="/sscnServer/resources/css/bootstrap.css" rel="stylesheet">
-<link href="/sscnServer/resources/css/bootstrap-responsive.css"
+<link href="/resources/css/bootstrap.css" rel="stylesheet">
+<link href="/resources/css/bootstrap-responsive.css"
 	rel="stylesheet">
-<link href="/sscnServer/resources/css/bootstrap-overrides.css"
+<link href="/resources/css/bootstrap-overrides.css"
 	rel="stylesheet">
 
 <link
-	href="/sscnServer/resources/css/ui-lightness/jquery-ui-1.8.21.custom.css"
+	href="/resources/css/ui-lightness/jquery-ui-1.8.21.custom.css"
 	rel="stylesheet">
 
-<link href="/sscnServer/resources/css/slate.css" rel="stylesheet">
-<link href="/sscnServer/resources/css/slate-responsive.css"
+<link href="/resources/css/slate.css" rel="stylesheet">
+<link href="/resources/css/slate-responsive.css"
 	rel="stylesheet">
 
-<link href="/sscnServer/resources/css/pages/dashboard.css"
+<link href="/resources/css/pages/dashboard.css"
 	rel="stylesheet">
 
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-44208865-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
 <!-- Javascript -->
-<script src="/sscnServer/resources/js/jquery-1.7.2.min.js"></script>
-<script src="/sscnServer/resources/js/jquery-ui-1.8.21.custom.min.js"></script>
-<script src="/sscnServer/resources/js/jquery.ui.touch-punch.min.js"></script>
-<script src="/sscnServer/resources/js/jquery.ui.dialog.min.js"></script>
-<script src="/sscnServer/resources/js/bootstrap.js"></script>
+<script src="/resources/js/jquery-1.7.2.min.js"></script>
+<script src="/resources/js/jquery-ui-1.8.21.custom.min.js"></script>
+<script src="/resources/js/jquery.ui.touch-punch.min.js"></script>
+<script src="/resources/js/jquery.ui.dialog.min.js"></script>
+<script src="/resources/js/bootstrap.js"></script>
 
-<script src="/sscnServer/resources/js/Slate.js"></script>
+<script src="/resources/js/Slate.js"></script>
 
-<script src="/sscnServer/resources/js/plugins/excanvas/excanvas.min.js"></script>
-<script src="/sscnServer/resources/js/plugins/flot/jquery.flot.js"></script>
+<script src="/resources/js/plugins/excanvas/excanvas.min.js"></script>
+<script src="/resources/js/plugins/flot/jquery.flot.js"></script>
 <script
-	src="/sscnServer/resources/js/plugins/flot/jquery.flot.orderBars.js"></script>
-<script src="/sscnServer/resources/js/plugins/flot/jquery.flot.pie.js"></script>
+	src="/resources/js/plugins/flot/jquery.flot.orderBars.js"></script>
+<script src="/resources/js/plugins/flot/jquery.flot.pie.js"></script>
 <script
-	src="/sscnServer/resources/js/plugins/flot/jquery.flot.resize.js"></script>
+	src="/resources/js/plugins/flot/jquery.flot.resize.js"></script>
 
 
 
@@ -299,7 +312,11 @@
 							<p align="center" class="style1">
 								<strong>Selamat Datang di Menu Administrasi</strong>
 							</p>
-							Perhatian : <br> Sebelum pendaftaran dibuka kepada para
+							<b>Pengumuman</b><br>
+							Sesuai dengan keputusan dalam rapat di Kemenpan pada tanggal 20 September 2013 yang dihadiri oleh K/L terkait dengan adanya
+formasi khusus, maka ada perubahan jumlah digit didalam nomer peserta tes. Jika K/L/D sudah melakukan verifikasi dengan aplikasi SSCN maka penomoran akan digenerate by sistem dan dimohon melakukan pencetakan ulang kartu ujian/tes.<br><br>
+
+							<b>Perhatian :</b> <br> Sebelum pendaftaran dibuka kepada para
 							pelamar, Administrator <font color="red">WAJIB</font> melengkapi
 							:
 							</p>
