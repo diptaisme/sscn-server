@@ -123,7 +123,7 @@ public class DtPendaftaranDaoImpl extends CoreDaoImpl<DtPendaftaran> implements
 					+ entry.getKey();
 		}
 		sbFind.append(wherePhrase).append(" AND " + whereMap);
-		System.out.println("Query : " + sbFind);
+		//System.out.println("Query : " + sbFind);
 		Query query = createQuery(sbFind);
 		query.setParameter("refInstansiId", refInstansi.getKode());
 
