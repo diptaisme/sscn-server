@@ -578,7 +578,8 @@ public class KernelDaoImpl<T> implements KernelDao<T> {
 				// isLowercase[0]. For IDs never lowercase.
 				if (SqlUtil.isLowercaseSetToYesOrNull(isLowercase)
 						&& !SqlUtil.isAnId(propertyName)) {
-					valueToSet = lowerParam(valueStr);
+					//valueToSet = lowerParam(valueStr); robertof
+					valueToSet = valueStr;
 				} else {
 					valueToSet = valueStr;
 				}

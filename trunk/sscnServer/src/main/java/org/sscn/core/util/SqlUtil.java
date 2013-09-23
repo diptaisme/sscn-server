@@ -90,8 +90,9 @@ public final class SqlUtil {
 			if (value instanceof String
 					&& (SqlUtil.isLowercaseSetToYesOrNull(isLowercase) && !SqlUtil
 							.isAnId(propertyName))) {
-				queryString.append(" lower(str(").append(appendModel)
-						.append(propName).append(")) ");
+//				queryString.append(" lower(str(").append(appendModel)
+//						.append(propName).append(")) ");  robertof
+				queryString.append(appendModel).append(propName).append(" ");
 				queryString.append(comparator).append(QUERY_PARAMETER);
 			} else {
 				queryString.append(SPACE).append(appendModel).append(propName)
