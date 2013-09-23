@@ -88,23 +88,29 @@ public class ReportRegistrasiCommand extends ReportCommand {
 	}
 
 	private void cetakRegistrasiGagal(HttpServletResponse response) {
+		PrintWriter out = null; 
 		try {
 			response.setContentType("text/html");
-			PrintWriter out = response.getWriter();
+			out = response.getWriter();
 			out.println("<HTML><HEAD><TITLE>SSCN</TITLE>"
 					+ "</HEAD><BODY>Maaf proses cetak registrasi gagal. Klik <a href='"
 					+ Constanta.URL_WEB_SSCN
 					+ "'>link ini </a> untuk kembali</BODY></HTML>");
-			out.close();
+			
 		} catch (Exception ex) {
 			ex.printStackTrace();
+		} finally {
+			if (out != null){
+				out.close();
+			}			
 		}
 	}
 
 	private void cetakNotAksesRegistrasi(HttpServletResponse response) {
+		PrintWriter out = null;
 		try {
 			response.setContentType("text/html");
-			PrintWriter out = response.getWriter();
+			out = response.getWriter();
 			out.println("<HTML><HEAD><TITLE>SSCN</TITLE>"
 					+ "</HEAD><BODY>Maaf anda tidak dapat mengakses halaman ini. Klik <a href='"
 					+ Constanta.URL_WEB_SSCN
@@ -112,6 +118,10 @@ public class ReportRegistrasiCommand extends ReportCommand {
 			out.close();
 		} catch (Exception ex) {
 			ex.printStackTrace();
+		} finally {
+			if (out != null){
+				out.close();
+			}			
 		}
 	}
 
