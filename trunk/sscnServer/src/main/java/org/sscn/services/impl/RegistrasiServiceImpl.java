@@ -180,18 +180,9 @@ public class RegistrasiServiceImpl implements RegistrasiService {
 			Date tglValidate = new Date();
 			String keterangan = "";
 
-			// noRegister = ""; // generate no register
-			// noPeserta = ""; // kosong
-
-			String noPeserta = "";
+			String noPeserta = null;  //noPeserta dibuatkan null
 
 			String noRegister = generateNoRegistrasi();
-			if (noPeserta.length() > 10) {
-				noPeserta = noPeserta.substring(0, 10);
-			}
-			if (noRegister.length() > 10) {
-				noRegister = noRegister.substring(0, 10);
-			}
 
 			DtPendaftaran pendaftaran = new DtPendaftaran(mFormasi, noNik,
 					noRegister, nama, tempatLahir, tglLahir, jnsKelamin,
