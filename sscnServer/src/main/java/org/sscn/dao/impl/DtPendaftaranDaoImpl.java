@@ -15,6 +15,7 @@ import org.sscn.dao.DtPendaftaranDao;
 import org.sscn.persistence.entities.DtPendaftaran;
 import org.sscn.persistence.entities.RefInstansi;
 import org.sscn.persistence.entities.view.DataPendaftaran;
+import org.sscn.persistence.entities.view.RekapanPendaftaran;
 import org.sscn.persistence.entities.view.StatInstansi;
 import org.sscn.persistence.entities.view.StatInstansiJabatan;
 
@@ -123,7 +124,7 @@ public class DtPendaftaranDaoImpl extends CoreDaoImpl<DtPendaftaran> implements
 					+ entry.getKey();
 		}
 		sbFind.append(wherePhrase).append(" AND " + whereMap);
-		//System.out.println("Query : " + sbFind);
+		// System.out.println("Query : " + sbFind);
 		Query query = createQuery(sbFind);
 		query.setParameter("refInstansiId", refInstansi.getKode());
 
@@ -327,6 +328,60 @@ public class DtPendaftaranDaoImpl extends CoreDaoImpl<DtPendaftaran> implements
 					statInstansi.setJumlahTidakLulus(String
 							.valueOf(obj[index++]));
 					result.add(statInstansi);
+				}
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return result;
+	}
+
+	@Override
+	public List<RekapanPendaftaran> getRekapanPendaftaranInstansi(
+			String kodeInstansi) {
+		List<RekapanPendaftaran> result = new ArrayList<RekapanPendaftaran>();
+		final String sql = "SELECT lokasi, jabatan, pendidikan, TOTAL_PENDAFTAR, LULUS, TIDAK_LULUS, BELUM_VERIFIKASI from rekap_lok_jab_pend where kode='"
+				+ kodeInstansi + "'";
+		try {
+			SQLQuery query = createSqlQuery(sql);
+			List<Object[]> res = query.list();
+			String lokasi = "";
+			String jabatan = "";
+			for (Object[] obj : res) {
+				if (res != null) {
+					RekapanPendaftaran rekapanPendaftaran = new RekapanPendaftaran();
+					int index = 0;
+					String lokasiTemp = String.valueOf(obj[index++]);
+					String jabatanTemp = String.valueOf(obj[index++]);
+					if (lokasi.equals(lokasiTemp)) {
+						rekapanPendaftaran.setLokasi("");
+					} else if (lokasi.equals("")) {
+						rekapanPendaftaran.setLokasi(lokasiTemp);
+						lokasi = lokasiTemp;
+					} else {
+						rekapanPendaftaran.setLokasi(lokasiTemp);
+						lokasi = lokasiTemp;
+					}
+					if (jabatan.equals(jabatanTemp)) {
+						rekapanPendaftaran.setJabatan("");
+					} else if (jabatan.equals("")) {
+						rekapanPendaftaran.setJabatan(jabatanTemp);
+						jabatan = jabatanTemp;
+					} else {
+						rekapanPendaftaran.setJabatan(jabatanTemp);
+						jabatan = jabatanTemp;
+					}
+					rekapanPendaftaran.setPendidikan(String
+							.valueOf(obj[index++]));
+					rekapanPendaftaran.setJumlahPendaftar(String
+							.valueOf(obj[index++]));
+					rekapanPendaftaran.setJumlahLulus(String
+							.valueOf(obj[index++]));
+					rekapanPendaftaran.setJumlahTidakLulus(String
+							.valueOf(obj[index++]));
+					rekapanPendaftaran.setJumlahBelumVerifikasi(String
+							.valueOf(obj[index++]));
+					result.add(rekapanPendaftaran);
 				}
 			}
 		} catch (Exception ex) {

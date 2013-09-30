@@ -8,6 +8,7 @@ import org.apache.commons.logging.LogFactory;
 import org.sscn.core.report.GeneralReportFactory;
 import org.sscn.persistence.entities.DtPendaftaran;
 import org.sscn.persistence.entities.view.DataPendaftaran;
+import org.sscn.persistence.entities.view.RekapanPendaftaran;
 
 public final class DecodeData {
 	// constants
@@ -48,6 +49,13 @@ public final class DecodeData {
 						return decodeDataPesertaTest(object);
 					}
 				});
+
+		DECODER_MAP.put(GeneralReportFactory.RPT_REKAPAN_PENDAFTARAN.toLowerCase(),
+				new Decoder() {
+					public Object[] decode(Object object) {
+						return decodeDataRekapanPendaftaran(object);
+					}
+				});
 	}
 
 	public static Object[] decodeObject(Object object, String reportType) {
@@ -83,5 +91,10 @@ public final class DecodeData {
 				val.getTmpLahir(), val.getTglLahir(), val.getJnsKelamin(), val.getAlamat(), val.getKodePos(), val.getPropinsi(), val.getKota(),
 				val.getTelpon(), val.getEmail(), val.getAsalInstitusiPendidikan(), val.getNoIjazah(), val.getAkreditasi(), val.getNilaiIpk(),
 				val.getLokasiKode(), val.getLokasiNama(), val.getJabatanKode(), val.getJabatanNama(), val.getPendidikanKode(), val.getPendidikanNama(), val.getTglCreated(), val.getStatus()};
+	}
+	protected static Object[] decodeDataRekapanPendaftaran(Object object) {
+		RekapanPendaftaran val = (RekapanPendaftaran) object;
+		return new Object[] { ROWNUM, val.getLokasi(), val.getJabatan(), val.getPendidikan(), 
+				val.getJumlahPendaftar(), val.getJumlahLulus(), val.getJumlahTidakLulus(), val.getJumlahBelumVerifikasi()};
 	}
 }
