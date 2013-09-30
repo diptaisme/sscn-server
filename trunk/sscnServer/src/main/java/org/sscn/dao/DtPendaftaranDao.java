@@ -7,6 +7,7 @@ import org.sscn.core.persistence.dao.CoreDao;
 import org.sscn.persistence.entities.DtPendaftaran;
 import org.sscn.persistence.entities.RefInstansi;
 import org.sscn.persistence.entities.view.DataPendaftaran;
+import org.sscn.persistence.entities.view.RekapanPendaftaran;
 import org.sscn.persistence.entities.view.StatInstansi;
 import org.sscn.persistence.entities.view.StatInstansiJabatan;
 
@@ -33,5 +34,8 @@ public interface DtPendaftaranDao extends CoreDao<DtPendaftaran> {
 	List<StatInstansiJabatan> getStatistikJabatanPendaftaranInstansi(String kodeInstansi) ;
 	
 	List<StatInstansi> getStatistikPendaftaranInstansi(
+			String kodeInstansi) ;
+	
+	List<RekapanPendaftaran> getRekapanPendaftaranInstansi(
 			String kodeInstansi) ;
 }
