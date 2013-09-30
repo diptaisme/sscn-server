@@ -14,6 +14,10 @@ public class GeneralReportUtil {
 	/** The rpt DataPesertaTest. */
 	private static String rptDataPesertaTest = defaultDirectory
 			+ "rptDataPesertaTest.xls";
+	
+	/** The rpt Rekapan Pendaftaran. */
+	private static String rptRekapanPendaftaran = defaultDirectory
+			+ "rptRekapanPendaftaran.xls";
 
 	/** The rpt Registrasi. */
 	private static String rptRegistrasi = defaultDirectory
@@ -48,4 +52,6 @@ public class GeneralReportUtil {
 	public static final String RPT_DATA_PENDAFTARAN = "rptDataPendaftaran";
 	/** The Constant RPT_DATA_PESERTA_TEST. */
 	public static final String RPT_DATA_PESERTA_TEST = "rptDataPesertaTest";
+	/** The Constant RPT_REKAPAN_PENDAFTARAN. */
+	public static final String RPT_REKAPAN_PENDAFTARAN = "rptRekapanPendaftaran";
 }

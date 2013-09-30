@@ -9,6 +9,7 @@ import org.sscn.core.report.command.ReportDataPendaftaranCommand;
 import org.sscn.core.report.command.ReportDataPesertaTestCommand;
 import org.sscn.core.report.command.ReportPesertaUjianCommand;
 import org.sscn.core.report.command.ReportRegistrasiCommand;
+import org.sscn.core.report.command.ReportRekapanPendaftaranCommand;
 import org.sscn.core.report.command.ReportTestCommand;
 import org.sscn.servlet.reportcommand.PengumumanReportCommand;
 
@@ -26,6 +27,8 @@ public class GeneralReportFactory {
 	public static final String RPT_REGISTRASI = "rptRegistrasi";
 	/** The Constant RPT_PESERTA_UJIAN. */
 	public static final String RPT_PESERTA_UJIAN = "rptPesertaUjian";
+	/** The Constant RPT_REKAPAN_PENDAFTARAN. */
+	public static final String RPT_REKAPAN_PENDAFTARAN = "rptRekapanPendaftaran";
 
 	/** The Constant REPORT_PENGUMUMAN. */
 	public static final String REPORT_PENGUMUMAN = "reportPengumuman";
@@ -42,6 +45,8 @@ public class GeneralReportFactory {
 				ReportDataPendaftaranCommand.class);
 		REPORT_COMMANDS.put(RPT_DATA_PESERTA_TEST,
 				ReportDataPesertaTestCommand.class);
+		REPORT_COMMANDS.put(RPT_REKAPAN_PENDAFTARAN,
+				ReportRekapanPendaftaranCommand.class);
 	}
 
 	/**
