@@ -269,7 +269,7 @@ public class DtPendaftaran implements java.io.Serializable {
 		this.regStatus = regStatus;
 	}
 
-	@Column(name = "NO_PESERTA", nullable = false, length = 11)
+	@Column(name = "NO_PESERTA", nullable = true, length = 11)
 	public String getNoPeserta() {
 		return this.noPeserta;
 	}
