@@ -284,6 +284,18 @@ label.error {
 												<input type="hidden" value="${userLogin.refInstansi.nama}" name="namaInstansi2" id="namaInstansi2"
 													 />																																				
 											</form>
+											<BR/>
+											<form method="POST" name="formDownloadDataRekapanPendaftaran" action="/sscnServer/ReportServlet" target="_BLANK">
+												<input type="hidden" value="rptRekapanPendaftaran" name="typeReport" id="typeReport3"
+													 />
+												&nbsp;&nbsp;<input type="submit" value="Download Data Rekapan Pendaftaran" onclick="return cekTime()" title="Klik untuk download data rekapan pendaftaran"
+													class="btn btn-small btn-primary" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Download Data Rekapan Pendaftaran SSCN untuk <B>Instansi ${userLogin.refInstansi.nama}</B>
+												<input type="hidden" value="${userLogin.refInstansi.kode}" name="kodeInstansi3" id="kodeInstansi3"
+													 />
+												<input type="hidden" value="${userLogin.refInstansi.nama}" name="namaInstansi3" id="namaInstansi3"
+													 />																																				
+											</form>
+											
 										</div>
 									</div>																		
 								</div>								
