@@ -201,7 +201,7 @@ public class DtPendaftaranDaoImpl extends CoreDaoImpl<DtPendaftaran> implements
 		final String sql = "SELECT NO_NIK, NO_REGISTER, NO_PESERTA, NAMA, TMP_LAHIR, DATE_FORMAT(TGL_LAHIR, '%d-%m-%y'), JNS_KELAMIN, ALAMAT, KODE_POS, PROPINSI, KOTA, TELPON, EMAIL, LEMBAGA, NO_IJAZAH, AKREDITASI, NILAI_IPK, INSTANSI, NAMA_INSTANSI as NI, LOKASI, NAMA_LOKASI as NL, JABATAN, NAMA_JABATAN as NJ, PENDIDIKAN, NAMA_PENDIDIKAN as NP, DATE_FORMAT(TGL_CREATED, '%d-%m-%y'), STATUS FROM data_01 "
 				+ "WHERE INSTANSI= '"
 				+ kodeInstansi
-				+ "' and NO_PESERTA <> '' order by NO_PESERTA, NAMA";
+				+ "' and STATUS = '1' order by NO_PESERTA, NAMA";
 		try {
 			SQLQuery query = createSqlQuery(sql);
 			List<Object[]> res = query.list();
