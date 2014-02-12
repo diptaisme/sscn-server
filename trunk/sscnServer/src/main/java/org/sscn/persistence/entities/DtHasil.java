@@ -22,7 +22,8 @@ public class DtHasil implements java.io.Serializable {
 	private Integer nilaiTkb;
 	private Integer nilaiLain;
 	private Integer grandTotal;
-
+	private String status;
+	
 	public DtHasil() {
 	}
 
@@ -114,6 +115,20 @@ public class DtHasil implements java.io.Serializable {
 
 	public void setGrandTotal(Integer grandTotal) {
 		this.grandTotal = grandTotal;
+	}
+
+	/**
+	 * @return the status
+	 */
+	public String getStatus() {
+		return status;
+	}
+
+	/**
+	 * @param status the status to set
+	 */
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 }
