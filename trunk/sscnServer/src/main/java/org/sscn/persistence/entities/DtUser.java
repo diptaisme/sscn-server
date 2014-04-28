@@ -3,6 +3,7 @@ package org.sscn.persistence.entities;
 // Generated Aug 12, 2013 12:44:57 PM by Hibernate Tools 3.4.0.CR1
 
 import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
