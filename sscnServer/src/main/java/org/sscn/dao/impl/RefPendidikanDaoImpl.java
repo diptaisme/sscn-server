@@ -4,9 +4,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.sscn.core.persistence.dao.impl.CoreDaoImpl;
-import org.sscn.dao.RefLokasiDao;
 import org.sscn.dao.RefPendidikanDao;
-import org.sscn.persistence.entities.RefLokasi;
 import org.sscn.persistence.entities.RefPendidikan;
 
 @Repository("RefPendidikanDao")

@@ -8,9 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.sscn.core.persistence.dao.impl.CoreDaoImpl;
 import org.sscn.dao.DtUserDao;
-import org.sscn.persistence.entities.DtPendaftaran;
 import org.sscn.persistence.entities.DtUser;
-import org.sscn.persistence.entities.RefInstansi;
 
 @Repository("DtUserDao")
 public class DtUserDaoImpl extends CoreDaoImpl<DtUser> implements DtUserDao {
