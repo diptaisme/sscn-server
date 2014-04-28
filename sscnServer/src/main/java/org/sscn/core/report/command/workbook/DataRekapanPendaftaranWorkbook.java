@@ -10,7 +10,6 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Row;
 import org.sscn.core.report.GeneralReportUtil;
-import org.sscn.core.report.command.ReportDataPesertaTestCommand;
 import org.sscn.core.report.command.ReportRekapanPendaftaranCommand;
 
 public class DataRekapanPendaftaranWorkbook extends BaseWorkbook {
