@@ -5,7 +5,6 @@ import java.util.Map;
 
 import org.hibernate.LockMode;
 import org.sscn.core.persistence.domain.CoreDomain;
-import org.sscn.core.persistence.domain.CoreVO;
 import org.sscn.core.persistence.tools.PaginationResult;
 import org.sscn.core.persistence.tools.PropCriteriaAndValue;
 import org.sscn.core.persistence.tools.QueryOrder;
