@@ -3,7 +3,6 @@ package org.sscn.core.persistence.dao;
 import java.util.List;
 import java.util.Map;
 
-import org.sscn.core.persistence.domain.CoreDomain;
 import org.sscn.core.persistence.tools.PropCriteriaAndValue;
 
 /**
