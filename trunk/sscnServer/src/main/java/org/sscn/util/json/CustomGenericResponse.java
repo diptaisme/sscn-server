@@ -1,7 +1,5 @@
 package org.sscn.util.json;
 
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A custom POJO that will be automatically converted to JSON format.

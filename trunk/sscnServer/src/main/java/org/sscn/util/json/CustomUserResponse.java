@@ -3,7 +3,6 @@ package org.sscn.util.json;
 import java.util.List;
 
 import org.sscn.model.json.UserJson;
-import org.sscn.persistence.entities.DtUser;
 
 /**
  * A simple POJO that maps to the JSON structure of a JqGrid.
