@@ -3,8 +3,6 @@ package org.sscn.core.persistence.tools;
 import java.io.Serializable;
 import java.util.List;
 
-import org.sscn.core.persistence.domain.CoreDomain;
-
 
 /**
  * Helper Pojo / Object that hold find for pagination. It contains search result
