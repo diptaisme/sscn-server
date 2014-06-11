@@ -25,4 +25,9 @@ public interface RegistrasiService {
 	DtPendaftaran insertPendaftaran(HttpServletRequest request);
 	
 	DtPendaftaran getPendaftaranByNoRegistrasi(String noRegister);
+	
+	List<RefPendidikan> getPendidikan(String instansi, String lokasi);
+	
+
+	List<RefJabatan> getJabatan(String instansi, String lokasi, String pendidikan);
 }
