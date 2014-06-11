@@ -14,6 +14,7 @@ import org.sscn.core.persistence.dao.impl.CoreDaoImpl;
 import org.sscn.dao.DtPendaftaranDao;
 import org.sscn.persistence.entities.DtPendaftaran;
 import org.sscn.persistence.entities.RefInstansi;
+import org.sscn.persistence.entities.RefJabatan;
 import org.sscn.persistence.entities.view.DataPendaftaran;
 import org.sscn.persistence.entities.view.RekapanPendaftaran;
 import org.sscn.persistence.entities.view.StatInstansi;
@@ -388,5 +389,6 @@ public class DtPendaftaranDaoImpl extends CoreDaoImpl<DtPendaftaran> implements
 			ex.printStackTrace();
 		}
 		return result;
-	}
+	}	
+	
 }

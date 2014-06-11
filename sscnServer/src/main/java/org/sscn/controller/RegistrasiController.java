@@ -344,5 +344,50 @@ public class RegistrasiController {
 		return "afterRegistrasi";
 	}
 
+	//updated
+	@RequestMapping(value = "/cb_pendidikan_by_instansi_lokasi.do", method = RequestMethod.GET)
+	@ResponseBody
+	public String getPendidikans(@RequestParam("callback") String callBack,
+			@RequestParam("instansi") String instansi,
+			@RequestParam("lokasi") String lokasi) throws Exception{
+
+		ObjectMapper objectMapper = new ObjectMapper();
+		List<RefPendidikan> pendidikans = registrasiService.getPendidikan(
+				instansi, lokasi);
+		List<PendidikanJson> newPendidikans = new ArrayList<PendidikanJson>();
+		for (RefPendidikan pendidikan : pendidikans) {
+			newPendidikans.add(new PendidikanJson(pendidikan.getKode(),
+					pendidikan.getNama(), pendidikan.getTingkat()));
+		}
+		Map<String, List<PendidikanJson>> pendidikanMap = new HashMap<String, List<PendidikanJson>>();
+		pendidikanMap.put("pendidikans", newPendidikans);
+		
+		return objectMapper.writeValueAsString(new JSONPObject(callBack,
+				pendidikanMap));
+	}
+	
+	
+	@RequestMapping(value = "/cb_jabatan_by_instansi_lokasi_pendidikan.do", method = RequestMethod.GET)
+	@ResponseBody
+	public String getJabatans(@RequestParam("callback") String callBack,
+			@RequestParam("instansi") String instansi,
+			@RequestParam("lokasi") String lokasi,
+			@RequestParam("pendidikan") String pendidikan) throws Exception{
+
+		ObjectMapper objectMapper = new ObjectMapper();
+		List<RefJabatan> jabatans = registrasiService.getJabatan(instansi,
+				lokasi,pendidikan);
+		List<JabatanJson> newJabatans = new ArrayList<JabatanJson>();
+		for (RefJabatan jabatan : jabatans) {
+			newJabatans.add(new JabatanJson(jabatan.getKode(), jabatan
+					.getNama()));
+		}
+		
+		Map<String, List<JabatanJson>> jabatanMap = new HashMap<String, List<JabatanJson>>();
+		jabatanMap.put("jabatans", newJabatans);
+		
+		return objectMapper.writeValueAsString(new JSONPObject(callBack,
+				jabatanMap));
+	}
 
 }

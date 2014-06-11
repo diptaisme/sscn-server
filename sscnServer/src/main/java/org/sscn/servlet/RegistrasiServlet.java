@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.tanesha.recaptcha.ReCaptchaImpl;
+import net.tanesha.recaptcha.ReCaptchaResponse;
+
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.sscn.manager.Constanta;
@@ -20,11 +23,11 @@ import org.sscn.services.RegistrasiService;
  */
 
 public class RegistrasiServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;	
-	
+	private static final long serialVersionUID = 1L;
+
 	@Inject
-	private RegistrasiService registrasiService;	
-	
+	private RegistrasiService registrasiService;
+
 	/**
 	 * Default constructor.
 	 */
@@ -37,7 +40,8 @@ public class RegistrasiServlet extends HttpServlet {
 		super.init();
 		WebApplicationContext springContext = WebApplicationContextUtils
 				.getWebApplicationContext(getServletContext());
-		registrasiService = (RegistrasiService) springContext.getBean("RegistrasiService");
+		registrasiService = (RegistrasiService) springContext
+				.getBean("RegistrasiService");
 	}
 
 	/**
@@ -58,20 +62,39 @@ public class RegistrasiServlet extends HttpServlet {
 			// check form id dari form Pendaftaran web SSCN
 			if (request.getParameter("formID").equals("32063786011852")) {
 				try {
-					DtPendaftaran pendaftaran = registrasiService
-							.insertPendaftaran(request);
-					if (pendaftaran == null) {
-						cetakRegistrasiGagal(response);
-					} else {
-						// redirect ke afterRegistrasi
-						try {
-//							RequestDispatcher rd = request.getRequestDispatcher("afterRegistrasi.do");
-//							request.setAttribute("idRegistrasi", pendaftaran.getNoRegister());
-//							rd.forward(request, response);
-							response.sendRedirect("afterRegistrasi.do?idRegistrasi="+pendaftaran.getNoRegister());
-						} catch (Exception ex) {
-							ex.printStackTrace();
+					//
+					String remoteAddr = request.getRemoteAddr();
+					ReCaptchaImpl reCaptcha = new ReCaptchaImpl();
+					reCaptcha.setPrivateKey("6LdlHOsSAAAAACe2WYaGCjU2sc95EZqCI9wLcLXY");
+
+					String challenge = request
+							.getParameter("recaptcha_challenge_field");
+					String uresponse = request.getParameter("recaptcha_response_field");
+					ReCaptchaResponse reCaptchaResponse = reCaptcha.checkAnswer(
+							remoteAddr, challenge, uresponse);
+
+					if (!reCaptchaResponse.isValid()) {						
+						cetakRegistrasiGagalCaptchaNotValid(response);
+					} else {											
+						//
+						DtPendaftaran pendaftaran = registrasiService
+								.insertPendaftaran(request);
+						if (pendaftaran == null) {
 							cetakRegistrasiGagal(response);
+						} else {
+							// redirect ke afterRegistrasi
+							try {
+								// RequestDispatcher rd =
+								// request.getRequestDispatcher("afterRegistrasi.do");
+								// request.setAttribute("idRegistrasi",
+								// pendaftaran.getNoRegister());
+								// rd.forward(request, response);
+								response.sendRedirect("afterRegistrasi.do?idRegistrasi="
+										+ pendaftaran.getNoRegister());
+							} catch (Exception ex) {
+								ex.printStackTrace();
+								cetakRegistrasiGagal(response);
+							}
 						}
 					}
 				} catch (Exception ex) {
@@ -92,7 +115,7 @@ public class RegistrasiServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		super.destroy();
 	}
-	
+
 	private void cetakRegistrasiGagal(HttpServletResponse response) {
 		try {
 			response.setContentType("text/html");
@@ -120,5 +143,19 @@ public class RegistrasiServlet extends HttpServlet {
 			ex.printStackTrace();
 		}
 	}
-
+	
+	private void cetakRegistrasiGagalCaptchaNotValid(
+			HttpServletResponse response) {
+		try {
+			response.setContentType("text/html");
+			PrintWriter out = response.getWriter();
+			out.println("<HTML><HEAD><TITLE>SSCN</TITLE>"
+					+ "</HEAD><BODY>Maaf proses registrasi gagal, silahkan isi catpcha dengan benar. Klik <a href='"
+					+ Constanta.URL_WEB_SSCN
+					+ "'>link ini </a> untuk kembali</BODY></HTML>");
+			out.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
 }

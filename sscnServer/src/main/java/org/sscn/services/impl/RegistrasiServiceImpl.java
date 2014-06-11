@@ -221,4 +221,42 @@ public class RegistrasiServiceImpl implements RegistrasiService {
 		Long finalResult = Long.valueOf(resut);
 		return finalResult.toString();
 	}
+	
+
+	@Override
+	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
+	public List<RefPendidikan> getPendidikan(String instansi, String lokasi) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("refInstansi.kode", instansi);
+		map.put("refLokasi.kode", lokasi);
+
+		List<MFormasi> listFormasi = mFormasiDao.findByMapOfProperties(map,
+				null, null);
+		HashMap<String, RefPendidikan> mapPendidikan = new HashMap<String, RefPendidikan>();
+		
+		for(MFormasi mFormasi:listFormasi){
+			Iterator<DtFormasi> iterator = mFormasi.getDtFormasis().iterator();
+			while (iterator.hasNext()) {
+				DtFormasi dtFormasi = iterator.next();
+				mapPendidikan.put(dtFormasi.getPendidikan().getKode(), dtFormasi.getPendidikan());
+			}
+		}
+		return new ArrayList<RefPendidikan>(mapPendidikan.values());
+	}
+	
+
+	@Override
+	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
+	public List<RefJabatan> getJabatan(String instansi, String lokasi, String pendidikan) {		
+				
+		List<MFormasi> listFormasi = mFormasiDao.findByInstansiLokasiPendidikan(instansi, lokasi, pendidikan);		
+
+		List<RefJabatan> listJabatan = new ArrayList<RefJabatan>();
+
+		for (MFormasi formasi : listFormasi) {
+			listJabatan.add(formasi.getRefJabatan());
+		}
+		return listJabatan;
+	}
+
 }
