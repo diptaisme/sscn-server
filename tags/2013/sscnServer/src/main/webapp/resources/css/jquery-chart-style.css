@@ -1,0 +1,129 @@
+@charset "utf-8";
+/* CSS Document */
+
+
+.chartContainerBlock {
+	text-align: center;
+	width: auto;
+	white-space:nowrap;
+	overflow:auto;
+	padding: 10px;
+}
+
+
+#chartParent, #chartChild {
+	display: inline-block;
+	*zoom:1; *display: inline;
+	width:45%;
+	color: #666;
+}
+
+input {
+	background: #f7f7f8;
+	border: 0;
+}
+
+.buttons-holder {
+	/*background: #f7f7f8;*/
+	font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+	padding: 3px 10px 5px;
+	text-align: center;
+	margin: 10px 0;
+	color: #575757;
+}
+
+.buttons-holder a {
+	font-size: 14px;
+	line-height: 16px;
+	display: inline-block;
+	*zoom:1; *display: inline;
+	cursor: pointer;
+	border-left: 1px solid #ccc;
+	color: #777676;
+	text-decoration: none;
+	margin-left: 3px;
+	padding-left: 8px;
+}
+
+.buttons-holder a span {
+	display:block;
+	border-bottom: 1px dotted  #d7d7d7;
+}
+
+.buttons-holder a:hover {
+	color: #484848;
+}
+
+.buttons-holder a:hover span {
+	border-bottom: 1px dotted  #000;
+}
+
+.buttons-holder a.first {
+	border-left: 0;
+}
+
+
+.buttons-holder a.selected span {
+	color: #000;
+	border-bottom: 1px dotted  #a0a0a0;
+}
+
+#dataTable {
+	font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #5a5a5a;
+	border-collapse:collapse;
+	border: 1px solid #F5F5F5;
+	float:left;
+	width: 300px;
+	margin-right: 0;
+}
+
+#dataTable  td, #dataTable  th {
+	border-collapse:collapse;
+	border: 1px solid #F5F5F5;
+	padding: 2px 5px;
+	text-align:left;	
+}
+
+#dataTable  td.center-align, #dataTable  th {
+	text-align: center;
+}
+
+#btnConvert {
+	margin-top: 140px;
+	padding: 3px 10px;
+	text-align: center;
+	vertical-align: middle;
+	cursor: pointer;
+	color: #333333;
+	text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+	background-color: #f5f5f5;
+	background-image: -moz-linear-gradient(top, #ffffff, #e6e6e6);
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#e6e6e6));
+	background-image: -webkit-linear-gradient(top, #ffffff, #e6e6e6);
+	background-image: -o-linear-gradient(top, #ffffff, #e6e6e6);
+	background-image: linear-gradient(to bottom, #ffffff, #e6e6e6);
+	background-repeat: repeat-x;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ffe6e6e6', GradientType=0);
+	border-color: #e6e6e6 #e6e6e6 #bfbfbf;
+	border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+	filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+	border: 1px solid #bbbbbb;
+	border-bottom-color: #a2a2a2;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	-webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05);
+	-moz-box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05);
+	box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05);
+}
+
+.chartContainerBlock span {
+	margin: 0 10px;
+	vertical-align: middle;
+}
+
+.chartContainerBlock span.no-space {
+	margin: 0;
+}
