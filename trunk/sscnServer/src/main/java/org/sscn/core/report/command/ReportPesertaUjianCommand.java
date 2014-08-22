@@ -45,6 +45,7 @@ public class ReportPesertaUjianCommand extends ReportCommand {
 		try {
 			// 14636
 			String noPendaftaran = request.getParameter("no_pendaftaran");
+			
 			DtPendaftaran pendaftaran = registrasiService
 					.getPendaftaranByNoRegistrasi(noPendaftaran);
 
@@ -130,7 +131,7 @@ public class ReportPesertaUjianCommand extends ReportCommand {
 				+ noPeserta.substring(4, 5) + "-" + noPeserta.substring(5, 10)
 				+ "-" + noPeserta.substring(10, 11);
 		mapParamater.put("NOMOR_PESERTA", formattedNoPeserta);
-
+		mapParamater.put("NIK", pendaftaran.getNoNik());
 		mapParamater.put("NAMA", pendaftaran.getNama());
 		mapParamater.put("JENIS_KELAMIN",
 				(pendaftaran.getJnsKelamin()).equals("P") ? "Pria" : "Wanita");
