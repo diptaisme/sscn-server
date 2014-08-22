@@ -10,9 +10,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.sscn.dao.DtPendaftaranDao;
 import org.sscn.dao.DtVerifikasiNokDao;
+import org.sscn.dao.DtVerifikasiUlangDao;
 import org.sscn.dao.RefPendidikanDao;
 import org.sscn.persistence.entities.DtPendaftaran;
 import org.sscn.persistence.entities.DtVerifikasiNok;
+import org.sscn.persistence.entities.DtVerifikasiUlang;
+import org.sscn.persistence.entities.RefJenisFormasi;
 import org.sscn.persistence.entities.RefPendidikan;
 import org.sscn.services.VerfikasiService;
 
@@ -31,6 +34,9 @@ public class VerfikasiServiceImpl implements VerfikasiService {
 
 	@Inject
 	private RefPendidikanDao refPendidikanDao;
+	
+	@Inject
+	private DtVerifikasiUlangDao verUlangDao;
 
 	@Override
 	@Transactional(readOnly = false)
@@ -60,6 +66,19 @@ public class VerfikasiServiceImpl implements VerfikasiService {
 			return false;
 		}
 	}
+	
+	@Override
+	@Transactional(readOnly = false)
+	public DtPendaftaran update(DtPendaftaran dtPendaftar) {
+		DtPendaftaran pendaftar = null;
+		try {
+			pendaftar = dtPendaftaranDao.update(dtPendaftar);
+		} catch (Exception e) {
+			e.printStackTrace();
+			pendaftar = null;
+		}
+		return pendaftar;
+	}
 
 	@Override
 	public List<DtVerifikasiNok> findVerifikasiNoksByPendaftar(
@@ -75,15 +94,21 @@ public class VerfikasiServiceImpl implements VerfikasiService {
 				.getPendidikan());
 		String pendidikan = pend.getTingkat();
 
-		String stringDigit = instansi + pendidikan.substring(0, 1);
+		String stringDigit = "";
+		RefJenisFormasi jenisFormasi = pendaftar.getFormasi().getRefJenisFormasi();
+		
+		stringDigit = instansi + pendidikan.substring(0, 1);
 		String nourut = dtPendaftaranDao.getnoUrutPendaftaran(stringDigit);
 		if (nourut.contentEquals("")) {
-			if (pendidikan.substring(0, 1).contentEquals("2")){
-				nourut = "20001";
+			if (jenisFormasi.getNama().equalsIgnoreCase("UMUM")){
+				if (pendidikan.substring(0, 1).contentEquals("2")){
+					nourut = "20001";
+				} else {
+					nourut = "50001";
+				}
 			} else {
-				nourut = "50001";
-			}
-			
+				nourut = jenisFormasi.getPrefixCode() + "001";
+			}						
 		} else {
 			int x = Integer.parseInt(nourut) + 1;
 			nourut = String.format("%05d", x);
@@ -91,6 +116,19 @@ public class VerfikasiServiceImpl implements VerfikasiService {
 
 		Integer varMod = 9 - (Integer.parseInt(nourut) % 8);
 		return stringDigit + nourut + varMod;
+	}
+
+	@Override
+	@Transactional(readOnly = false)
+	public boolean verifikasiUlang(DtVerifikasiUlang reVer, DtPendaftaran pendaftaran) {
+		try {
+			verUlangDao.insert(reVer);
+			dtPendaftaranDao.update(pendaftaran);
+			return true;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return false;
+		}
 	}
 
 }

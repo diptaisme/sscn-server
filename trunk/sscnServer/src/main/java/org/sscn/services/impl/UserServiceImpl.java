@@ -28,11 +28,23 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
-	public List<DtUser> getAllUser(int... idx) {
+	public List<DtUser> getAllUser(String order, int... idx) {
 		List<QueryOrder> orders = new ArrayList<QueryOrder>();
+		if (order != null){
+			orders.add(new QueryOrder(order));
+		}
 		orders.add(new QueryOrder("refInstansi.kode"));
 		return dtUserDao.findAll(null, orders, idx);
 		// return dtUserDao.findAll(idx);
+	}
+	
+	@Override
+	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
+	public List<DtUser> getUserByNip(String nip, int... idx) {
+		List<QueryOrder> orders = new ArrayList<QueryOrder>();
+		orders.add(new QueryOrder("refInstansi.kode"));
+		
+		return dtUserDao.findByProperty("nip", nip, orders, idx);
 	}
 
 	@Override
@@ -72,6 +84,7 @@ public class UserServiceImpl implements UserService {
 			dtUserDao.remove(user);
 			return true;
 		} catch (Exception ex) {
+			ex.printStackTrace();
 			return false;
 		}
 	}
@@ -131,14 +144,11 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
-	public List<DtUser> getAllUserByInstansi(String kodeInstansi, int... idx) {
-		// return dtUserDao.findByProperty("refInstansi.kode", kodeInstansi,
-		// idx);
-		// HashMap<String, Object> propertiesMap = new HashMap<String,
-		// Object>();
-		// propertiesMap.put("refInstansi.kode", (Object) kodeInstansi);
-
-		return dtUserDao.findByInstansi(kodeInstansi, idx);
+	public List<DtUser> getAllUserByInstansi(String kodeInstansi, String order, int... idx) {
+		if (order != null){
+			return dtUserDao.findByInstansi(kodeInstansi, order, idx);
+		}
+		return dtUserDao.findByInstansi(kodeInstansi, null, idx);
 	}
 
 	@Override
@@ -148,10 +158,28 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	public Integer countUserByNip(String nip) {
+		// TODO Auto-generated method stub
+		return dtUserDao.countByProperty("nip", nip);
+	}
+
+	@Override
 	public Integer countAllUserByInstansi(String kodeInstansi) {
 		// TODO Auto-generated method stub
 		// return dtUserDao.countByProperty("refInstansi.kode", kodeInstansi);
 		return dtUserDao.countByInstansi(kodeInstansi);
+	}
+
+	@Override
+	public List<DtUser> getUserByInstansiAndNip(String kdInstansi, String nip, int... idx) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Integer countUserByInstansiAndNip(String kdInstansi, String nip) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
