@@ -2,7 +2,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="userLogin" value="${sessionScope.userLogin}" />
 
 <!DOCTYPE html>
@@ -155,7 +154,8 @@
 				<ul class="breadcrumb">
 					<li><a href="dashboard.do">Home</a><span class="divider">/</span>
 					</li>
-					<li><a href="#">Verfikasi Pendaftaran</a></li>
+					<li><a href="#">Verfikasi Pendaftaran</a>
+					</li>
 				</ul>
 			</div>
 			<div>
@@ -193,12 +193,13 @@
 											</select> records per page </label>
 										</div>
 									</div>
-									<div class="span6">
-										<div class="">
+									<div class="span6">&nbsp;
+									  <!-- <div class="">
 											<form id="searchForm" method="post" action="verifikasi.do">
 												<div class="control-group" id="searchBar">
 													<input type="hidden" name="searchPar" value="0" /> <input
 														type="hidden" name="activePage" id="activePageBar" />
+													
 													<c:choose>
 														<c:when test="${no_reg != null}">
 															<label>Cari No Registrasi : <input type="text"
@@ -211,15 +212,89 @@
 																id="defaultSearchField"> </label>
 														</c:otherwise>
 													</c:choose>
-
+										
 													<a class="btn" onClick="submitSearch(event)"><i
-														class="icon-search m-icon-white"></i> </a>
+														class="icon-search m-icon-white"></i>
+													</a>
 												</div>
+											</form>
+										</div>-->
+									</div> 
+								</div>
+
+								<div class="row">
+									<div class="span6">
+										<div >
+											<form class="form-horizontal" id="searchForm" action="verifikasiFilter.do" method="post">
+												<input type="hidden" id="searchPar" name="searchPar" value="${searchPar}" />
+												<input type="hidden" name="activePage" id="activePageBar" value="${activePage}"/>
+												<fieldset>
+													<div class="control-group">
+											            <label for="tkPendidikan" class="control-label">Tk Pendidikan</label>
+											            <div class="controls">
+											              <select id="tkPendidikan" name="tkPendidikan">
+											              <c:choose>
+														      <c:when test="${tkPend=='10'}">
+																	<option value="10" selected="selected">SD-SLTA</option>
+																	<option value="20">D1-D3</option>
+																	<option value="30">D4/S1-S3</option>											                		      
+														      </c:when>
+														      <c:when test="${tkPend=='20'}">
+																	<option value="10">SD-SLTA</option>
+																	<option value="20" selected="selected">D1-D3</option>
+																	<option value="30">D4/S1-S3</option>																	      
+														      </c:when>
+														
+															  <c:when test="${tkPend=='30'}">
+																	<option value="10" >SD-SLTA</option>
+											                		<option value="20" >D1-D3</option>
+											                		<option value="30" selected="selected">D4/S1 - S3</option>      
+														      </c:when>	
+														      <c:otherwise>
+														      		<option value="10" selected="selected">SD-SLTA</option>
+											                		<option value="20">D1-D3</option>
+											                		<option value="30">D4/S1-S3</option> 
+														      </c:otherwise>
+														</c:choose>
+											                											                
+											              </select>
+											            </div>
+											        </div>
+											        <div class="control-group">
+											            <label for="fromUsia" class="control-label">Range Usia</label>
+											            <div class="controls">
+											              <input type="number" value="<c:out value="${fromUsia}"/>" class="input-small" name="fromUsia" id="fromUsia"> s.d 
+											              <input type="number" value="<c:out value="${toUsia}"/>" class="input-small" name="toUsia" id="toUsia">
+											            </div>
+											        </div>
+											        <div class="control-group">
+											            <label for="fromIPK" class="control-label">Range Indeks Prestasi</label>
+											            <div class="controls">
+											              <input type="number" value="<c:out value="${fromIPK}"/>" class="input-small" name="fromIPK" id="fromIPK"> s.d 
+											              <input type="number" value="<c:out value="${toIPK}"/>" class="input-small" name="toIPK" id="toIPK">
+														<!-- <a class="btn" onClick="submitFilter(event)"><i
+																class="icon-search m-icon-white"></i>
+														</a> -->	
+											            </div>											            
+											        </div> 
+											 	    <div class="control-group">
+											            <label for="jumlahData" class="control-label">Jumlah Data</label>
+											            <div class="controls">
+											              <input type="number" class="input-small" name="jumlahData" id="jumlahData" value="<c:out value="${jumlahData}"/>" > &nbsp; 
+											              &nbsp;
+											              <a class="btn" onClick="submitFilter(event)"><i
+																class="icon-search m-icon-white"></i>
+															</a>
+											            </div>											            
+											        </div>  
+											        
+									          	</fieldset>
 											</form>
 										</div>
 									</div>
+									<div class="span6"></div>
 								</div>
-
+																							
 								<table
 									class="table table-striped table-bordered table-highlight"
 									id="myTable">
@@ -238,7 +313,7 @@
 											<tr class="odd gradeX">
 												<td>${pendaftar.nama}</td>
 												<td>${pendaftar.noRegister}</td>
-												<td><fmt:formatDate value='${pendaftar.tglLahir}' type='date' pattern='dd-mm-yyyy'/></td>
+												<td>${pendaftar.tglLahir}</td>
 												<td>${pendaftar.nilaiIpk}</td>
 												<c:choose>
 													<c:when
@@ -265,10 +340,7 @@
 																class="icon-edit"></i>Verifikasi</a>&nbsp;<a href="#"
 															onclick="info(this,'${pendaftar.id }')"
 															class="btn btn-small btn-primary"><i
-																class="icon-edit"></i>Info</a>&nbsp;<a href="#"
-															onclick="setLokasi(this,'${pendaftar.id }')"
-															class="btn btn-small btn-primary"><i
-																class="icon-edit"></i>Set Lokasi</a>&nbsp;</td>
+																class="icon-edit"></i>Info</a>&nbsp;</td>
 													</c:when>
 													<c:otherwise>
 														<td>Sudah diverifikasi &nbsp;<a href="#"
@@ -279,13 +351,8 @@
 																<a href="#"
 																	onclick="cetak(this,'${pendaftar.noRegister }')"
 																	class="btn btn-small btn-primary"><i
-																	class="icon-edit"></i>Cetak </a>&nbsp;
-																<a href="#"
-																	onclick="setLokasi(this,'${pendaftar.id }')"
-																	class="btn btn-small btn-primary"><i
-																	class="icon-edit"></i>Set Lokasi</a>&nbsp;	
-															</c:if>															
-														</td>
+																	class="icon-edit"></i>Cetak </a>
+															</c:if></td>
 													</c:otherwise>
 												</c:choose>
 
@@ -295,7 +362,9 @@
 								</table>
 								<div class="row">
 									<jsp:include page="paging.jsp" />
-									<form id="pagingForm" method="post" action="verifikasi.do">
+									&nbsp;<a href="#" onclick="verifikasiBatch(this)" class="btn btn-small btn-primary">
+												<i class="icon-edit"></i>Verifikasi Batch</a>										  	
+									<form id="pagingForm" method="post" action="verifikasiFilter.do">
 										<input type="hidden" name="activePage" id="activePage" /> <input
 											type="hidden" name="numPage" id="numPage" /> <input
 											type="hidden" name="searchPage" id="searchPage" />
@@ -337,21 +406,22 @@
 				<div id="alert" class="alert alert-error" style="display: none">
 				</div>
 				<input type="hidden" name="pendaftarId" id="pendaftarId" />
-
-				<div class="control-group">
-					<div id="namaPendaftar"></div>
-				</div>
-
-				<div class="control-group">
-					<div id="ttlPendaftar"></div>
-				</div>
-
-				<div class="control-group">
-					<div id="noRegPendaftar"></div>
-				</div>
-
-				<div class="control-group">
-					<div id="pddknPendaftar"></div>
+				<div id="infoPendaftar" style="display: none">
+					<div class="control-group">
+						<div id="namaPendaftar"></div>
+					</div>
+	
+					<div class="control-group">
+						<div id="ttlPendaftar"></div>
+					</div>
+	
+					<div class="control-group">
+						<div id="noRegPendaftar"></div>
+					</div>
+	
+					<div class="control-group">
+						<div id="pddknPendaftar"></div>
+					</div>
 				</div>
 				<!-- <hr> -->
 				<div class="form-actions">
@@ -381,7 +451,7 @@
 				<div class="form-actions">
 					<button type="submit" class="btn btn-primary btn-large">
 						Simpan</button>
-					<button class="btn btn-large" id="btnCancel">Batal</button>
+					<button class="btn btn-large" id="btnCancel2">Batal</button>
 				</div>
 			</fieldset>
 		</form>
@@ -409,79 +479,54 @@
 		</fieldset>
 	</div>
 
-	<div id="myModal3" title="Ubah Status Verifikasi">
-		<form class="form-horizontal" action="verifikasiSave.do" method="post"
-			id="formVerifikasi2">
+	<div id="myModal3" title="Batch Verifikasi">
+		<form class="form-horizontal" action="verifikasiBatchSave.do" method="post"
+			id="formVerifikasiBatch">
 			<fieldset>
-				<div id="loadingImage" style="display: none">
+				<div id="loadingImage2" style="display: none">
 					<img src="/sscnServer/resources/img/ajax-loader.gif" />
 				</div>
-				<div id="alert" class="alert alert-error" style="display: none">
+				<div id="alert2" class="alert alert-error" style="display: none">
 				</div>
-				<input type="text" name="pendaftarId" id="pendaftarId2" />
+				<input type="hidden" name="tkPendidikan" value="<c:out value="${tkPendidikan}"/>">
+				<input type="hidden" name="fromUsia" value="<c:out value="${fromUsia}"/>">
+				<input type="hidden" name="toUsia" value="<c:out value="${toUsia}"/>">
+				<input type="hidden" name="fromIPK" value="<c:out value="${fromIPK}"/>">
+				<input type="hidden" name="toIPK" value="<c:out value="${toIPK}"/>">
+				<input type="hidden" name="jmlh" value="<c:out value="${jmlh}"/>">
+				<div class="form-actions">
+					<button type="submit" class="btn btn-primary btn-large">
+						Simpan</button>
+					<button class="btn btn-large" id="btnBatchCancel">Batal</button>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="input01"
+						style="width: 400px; padding-right: 20px">Select/Unselect
+						All</label>
+					<div class="controls">
+						<input type="checkbox" id="selectedAllBatch">
+					</div>
+				</div>
 				<c:forEach items="${persyaratans}" var="persyaratan">
 					<div class="control-group">
-						<label class="control-label" for="input01">${persyaratan.syarat}</label>
+						<label class="control-label" for="input01"
+							style="width: 400px; padding-right: 20px">${persyaratan.syarat}</label>
 						<div class="controls">
 							<input type="checkbox" name="persyaratanIds[]"
-								id="check_${persyaratan.id}" value="${persyaratan.id}"
-								checked="checked">
+								value="${persyaratan.id}">
 						</div>
 					</div>
 				</c:forEach>
+
 				<div class="form-actions">
 					<button type="submit" class="btn btn-primary btn-large">
 						Simpan</button>
-					<button class="btn btn-large" id="btnCancelEdit">Batal</button>
+					<button class="btn btn-large" id="btnBatchCancel2">Batal</button>
 				</div>
 			</fieldset>
 		</form>
 	</div>
 
-	<div id="setLokasiModal" title="Check">
-		<form class="form-horizontal" action="setLokasiUjian.do" method="post"
-			id="formSetLokasi">
-			<fieldset>
-				<div id="loadingImage" style="display: none">
-					<img src="/sscnServer/resources/img/ajax-loader.gif" />
-				</div>
-				<div id="alert" class="alert alert-error" style="display: none">
-				</div>
-				<input type="hidden" name="pendaftarId" id="pendaftarIdLokasi" />
-						<label>Lokasi &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-							&nbsp;<select name="lokasi" size="1" aria-controls="example" id="lokasiTest">
-								<option value="-1">PILIH LOKASI UJIAN</option>
-								<c:forEach items="${lokasis}" var="clokasi">
-									<option value="${clokasi.kode}">${clokasi.nama }</option>																											
-								</c:forEach>
-						</select> </label>
-			
-				<!-- 			<div class="control-group">
-					<div id="namaPendaftar"></div>
-				</div>
-
-				<div class="control-group">
-					<div id="ttlPendaftar"></div>
-				</div>
-
-				<div class="control-group">
-					<div id="noRegPendaftar"></div>
-				</div>
-
-				<div class="control-group">
-					<div id="pddknPendaftar"></div>
-				</div>
-				 -->
-				<!-- <hr> -->
-
-				<div class="form-actions">
-					<button type="submit" class="btn btn-primary btn-large">
-						Simpan</button>
-					<button class="btn btn-large" id="btnCancelLokasi">Batal</button>
-				</div>
-			</fieldset>
-		</form>
-	</div>
 	<form action="/sscnServer/ReportServlet" method="post" id="cetak"
 		target="_blank">
 		<input type="hidden" name="typeReport" value="rptPesertaUjian" /> <input
@@ -491,9 +536,45 @@
 		<div id="numRow">${numRow}</div>
 	</div>
 	<script>
+	
+	jQuery.fn.ForceNumericOnly =
+		function()
+		{
+		    return this.each(function()
+		    {
+		        $(this).keydown(function(e)
+		        {
+		            var key = e.charCode || e.keyCode || 0;
+		            // allow backspace, tab, delete, enter, arrows, numbers and keypad numbers ONLY
+		            // home, end, period, and numpad decimal
+		            return (
+		                key == 8 || 
+		                key == 9 ||
+		                key == 13 ||
+		                key == 46 ||
+		                key == 110 ||
+		                key == 190 ||
+		                (key >= 35 && key <= 40) ||
+		                (key >= 48 && key <= 57) ||
+		                (key >= 96 && key <= 105));
+		        });
+		    });
+		};
 		jQuery(document)
 				.ready(
 						function() {
+
+							$("#fromUsia").ForceNumericOnly();
+							$("#toUsia").ForceNumericOnly();
+							$("#fromIPK").ForceNumericOnly();
+							$("#toIPK").ForceNumericOnly();		
+									
+							submitFilter = function(event) {
+								event.preventDefault();
+								$('#searchPar').val("1");
+								$('#searchForm').submit();								
+							}
+							
 							var numRow = $('#numRow').html().trim();
 							$('#paging_numpage option').each(function() {
 								if ($(this).val() == numRow) {
@@ -526,7 +607,25 @@
 																	false);
 												}
 											});
-
+							
+							$("#selectedAllBatch")
+							.click(
+									function() {
+										var checkedValue = $(this)
+												.attr("checked");
+										if (checkedValue == 'checked') {
+											$(
+													'input[name=persyaratanIds\\[\\]]')
+													.attr("checked",
+															checkedValue);
+										} else {
+											$(
+													'input[name=persyaratanIds\\[\\]]')
+													.attr("checked",
+															false);
+										}
+									});
+							
 							$("#myModal").dialog({
 								autoOpen : false,
 								height : 700,
@@ -548,26 +647,14 @@
 
 							$("#myModal3").dialog({
 								autoOpen : false,
-								height : 350,
-								width : 500,
-								modal : true,
+								height : 700,
+								width : 900,
 								position : {
 									my : "center",
 									at : "top",
 									of : window
-								}
-							});
-
-							$("#setLokasiModal").dialog({
-								autoOpen : false,
-								height : 150,
-								width : 500,
-								modal : true,
-								position : {
-									my : "center",
-									at : "top",
-									of : window
-								}
+								},
+								modal : true
 							});
 
 							var selRowTable;
@@ -631,7 +718,18 @@
 									},
 									dataType : "json"
 								});
+								$('#infoPendaftar').show();
 								$("#myModal").dialog("open");
+							}
+
+							verifikasiBatch = function(elem) {
+								var count = <c:out value="${count}"/>;
+								if (count > 0){
+									$("#myModal3").dialog("open");
+								} else {
+									alert('Tidak ada data yang dapat diverifikasi');
+								}
+								
 							}
 
 							cetak = function(elem, id) {
@@ -675,33 +773,24 @@
 								$("#myModal2").dialog("open");
 							}
 
-							setLokasi = function(elem, id) {
-								$('#pendaftarIdLokasi').val(id);
-								$('#lokasiTest').val("-1");
-								$
-										.ajax({
-											type : "GET",
-											url : "getPendaftaran.do?id=" + id,
-											cache : false,
-											success : function(data) {
-												if (data.data.lokasiTest != null) {
-													//alert("TEST" + data.data.lokasiTest);
-													$('#lokasiTest').val(data.data.lokasiTest.kode);
-												}
-											},
-											dataType : "json"
-										});
-								$("#setLokasiModal").dialog("open");
-							}
-							
 							$('#btnCancel').click(function(event) {
 								event.preventDefault();
 								$('#myModal').dialog("close");
 							});
 
-							$('#btnCancelLokasi').click(function(event){
+							$('#btnCancel2').click(function(event) {
 								event.preventDefault();
-								$('#setLokasiModal').dialog("close");								
+								$('#myModal').dialog("close");
+							});
+
+							$('#btnBatchCancel').click(function(event) {
+								event.preventDefault();
+								$('#myModal3').dialog("close");
+							});
+
+							$('#btnBatchCancel2').click(function(event) {
+								event.preventDefault();
+								$('#myModal3').dialog("close");
 							});
 
 							$('#btnCancelInfo').click(function(event) {
@@ -714,7 +803,64 @@
 								event.preventDefault();
 								$('#myModal3').dialog("close");
 							});
+							
+							$("#formVerifikasiBatch").submit(
+									function(event) {
 
+										/* stop form from submitting normally */
+										event.preventDefault();
+
+										$('#loadingImage').show();
+										$('#alert').hide();
+
+										/* get some values from elements on the page: */
+										var $form = $(this), term = $(
+												this).serialize(), url = $form
+												.attr('action');
+
+										/* Send the data using post */
+										var posting = $.post(url, term,
+												"json");
+
+										/* Put the results in a div */
+										posting
+												.done(function(data) {
+													$('#loadingImage')
+															.hide();
+													if (data.result == 0) {
+														var html = '<strong>Error!</strong> '
+																+ data.message;
+														$('#alert')
+																.html(
+																		html);
+														$('#alert')
+																.show();
+													}
+
+													if (data.result == 1) {
+														$("#myModal")
+																.dialog(
+																		"close");
+														alert(data.message);
+														refresh();
+														return false;
+													}
+
+													if (data.result == -1) {
+														window.location = "login.do";
+													}
+												});
+
+										posting.error(function() {
+											alert('failure');
+										});
+
+										function refresh() {
+											window.location = "verifikasiFilter.do";
+										}
+
+									});
+							
 							$("#formVerifikasi")
 									.submit(
 											function(event) {
@@ -768,68 +914,13 @@
 												});
 
 												function refresh() {
-													/*	var tesHtml = '<td>Sudah diverifikasi</td>';
-														var lasttd = $(selRowTable).find('td:last-child');
-														lasttd.replaceWith(tesHtml); */
-													window.location = "verifikasi.do";
+													//window.location = "verifikasiFilter.do";
+													$('searchPar').val("1");
+													$('#searchForm').submit();
 												}
 
 											});
-							
-							$("#formSetLokasi")
-							.submit(
-									function(event) {
 
-										/* stop form from submitting normally */
-										event.preventDefault();
-
-										$('#loadingImage').show();
-										$('#alert').hide();
-
-										/* get some values from elements on the page: */
-										var $form = $(this), term = $(
-												this).serialize(), url = $form
-												.attr('action');
-
-										/* Send the data using post */
-										var posting = $.post(url, term,
-												"json");
-
-										/* Put the results in a div */
-										posting
-												.done(function(data) {
-													$('#loadingImage')
-															.hide();
-													if (data.result == 0) {
-														var html = '<strong>Error!</strong> '
-																+ data.message;
-														$('#alert')
-																.html(
-																		html);
-														$('#alert')
-																.show();
-													}
-
-													if (data.result == 1) {
-														$("#setLokasiModal")
-																.dialog(
-																		"close");
-														alert(data.message);
-														window.location = "verifikasi.do";
-														return false;
-													}
-
-													if (data.result == -1) {
-														window.location = "login.do";
-													}
-												});
-
-										posting.error(function() {
-											alert('failure');
-										});
-
-										
-									});
 						});
 	</script>
 </body>

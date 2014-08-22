@@ -15,25 +15,25 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 
 <!-- Styles -->
-<link href="/resources/css/bootstrap.css" rel="stylesheet">
-<link href="/resources/css/bootstrap-responsive.css"
+<link href="/sscnServer/resources/css/bootstrap.css" rel="stylesheet">
+<link href="/sscnServer/resources/css/bootstrap-responsive.css"
 	rel="stylesheet">
-<link href="/resources/css/bootstrap-overrides.css"
+<link href="/sscnServer/resources/css/bootstrap-overrides.css"
 	rel="stylesheet">
 
-<link href="/resources/css/ui-lightness/jquery.ui.all.css"
+<link href="/sscnServer/resources/css/ui-lightness/jquery.ui.all.css"
 	rel="stylesheet">
 <!--<link href="css/ui-lightness/jquery.ui.dialog.css" rel="stylesheet">
 		<link href="css/ui-lightness/jquery.ui.resizable.css" rel="stylesheet">-->
 <link
-	href="/resources/js/plugins/datatables/DT_bootstrap.css"
+	href="/sscnServer/resources/js/plugins/datatables/DT_bootstrap.css"
 	rel="stylesheet">
 <link
-	href="/resources/js/plugins/responsive-tables/responsive-tables.css"
+	href="/sscnServer/resources/js/plugins/responsive-tables/responsive-tables.css"
 	rel="stylesheet">
 
-<link href="/resources/css/slate.css" rel="stylesheet">
-<link href="/resources/css/slate-responsive.css"
+<link href="/sscnServer/resources/css/slate.css" rel="stylesheet">
+<link href="/sscnServer/resources/css/slate-responsive.css"
 	rel="stylesheet">
 
 <script type="text/javascript">
@@ -50,25 +50,25 @@
 
 </script>
 <!-- Javascript -->
-<script src="/resources/js/jquery-1.7.2.min.js"></script>
-<script src="/resources/js/jquery-ui-1.8.21.custom.min.js"></script>
-<script src="/resources/js/jquery.ui.dialog.min.js"></script>
-<script src="/resources/js/jquery.ui.autocomplete.js"></script>
+<script src="/sscnServer/resources/js/jquery-1.7.2.min.js"></script>
+<script src="/sscnServer/resources/js/jquery-ui-1.8.21.custom.min.js"></script>
+<script src="/sscnServer/resources/js/jquery.ui.dialog.min.js"></script>
+<script src="/sscnServer/resources/js/jquery.ui.autocomplete.js"></script>
 <!--<script src="js/jquery-1.9.1.js"></script>
 		<script src="js/jquery-ui-1.10.3.custom.min.js"></script>-->
-<script src="/resources/js/jquery.ui.touch-punch.min.js"></script>
-<script src="/resources/js/bootstrap.js"></script>
+<script src="/sscnServer/resources/js/jquery.ui.touch-punch.min.js"></script>
+<script src="/sscnServer/resources/js/bootstrap.js"></script>
 
 <script
-	src="/resources/js/plugins/datatables/jquery.dataTables.js"></script>
+	src="/sscnServer/resources/js/plugins/datatables/jquery.dataTables.js"></script>
 <script
-	src="/resources/js/plugins/datatables/DT_bootstrap.js"></script>
+	src="/sscnServer/resources/js/plugins/datatables/DT_bootstrap.js"></script>
 <script
-	src="/resources/js/plugins/responsive-tables/responsive-tables.js"></script>
+	src="/sscnServer/resources/js/plugins/responsive-tables/responsive-tables.js"></script>
 
-<script src="/resources/js/Slate.js"></script>
+<script src="/sscnServer/resources/js/Slate.js"></script>
 
-<script src="/resources/js/demos/demo.tables.js"></script>
+<script src="/sscnServer/resources/js/demos/demo.tables.js"></script>
 
 
 <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -85,7 +85,7 @@
 		<div class="container">
 
 			<h1>
-				<a href="dashboard.do">Administrasi SSCN 2013</a>
+				<a href="/sscnServer/dashboard.do">Administrasi SSCN 2013</a>
 			</h1>
 
 			<div id="info">
@@ -107,13 +107,14 @@
 									Admin Instansi
 								</c:when>
 								<c:otherwise>
-									Verificator
+									Verifikator
 								</c:otherwise>
 							</c:choose>
 							${userLogin.refInstansi.nama}
 						</p>
 						<p>
-						<form action="logout.do" method="POST" name="formLogout">
+						<form action="/sscnServer/logout.do" method="POST"
+							name="formLogout">
 							<input class="btn btn-small btn-primary" type="submit"
 								value="logout" name="btnLogout" />
 						</form>
@@ -137,49 +138,10 @@
 		<div class="container">
 
 			<a href="javascript:;" class="btn-navbar" data-toggle="collapse"
-				data-target=".nav-collapse"> <i class="icon-reorder"></i>
-			</a>
+				data-target=".nav-collapse"> <i class="icon-reorder"></i> </a>
 
 			<div class="nav-collapse">
-								<ul class="nav">
-
-					<li class="nav-icon active"><a href="dashboard.do">
-							<i class="icon-home"></i> <span>Home</span>
-					</a></li>
-					<c:if test="${userLogin.kewenangan != 3}">
-						<li class="dropdown"><a href="javascript:;"
-								class="dropdown-toggle" data-toggle="dropdown"> <i
-									class="icon-external-link"></i> Manajemen <b class="caret"></b>
-							</a>
-								<ul class="dropdown-menu">
-									<li><a href="user.do">User</a></li>
-									<li><a href="lokasi.do">Lokasi</a></li>
-									<li><a href="syarat.do">Syarat Pendaftaran</a></li>
-								</ul>
-							</li>
-							<li class="dropdown"><a href="pengumuman.do"
-								class="dropdown-toggle"> <i class="icon-copy"></i> Pengumuman
-									<b class="caret"></b>
-							</a></li>								
-							<li class="dropdown"><a href="formasi.do"
-								class="dropdown-toggle"> <i class="icon-copy"></i> Formasi <b
-									class="caret"></b>
-								</a>
-							</li>
-							<li class="dropdown"><a href="downloadData.do"
-						class="dropdown-toggle"> <i class="icon-copy"></i> Download Data <b
-							class="caret"></b>
-					</a></li>							
-					<li class="dropdown"><a href="statistik.do"
-							class="dropdown-toggle"> <i class="icon-copy"></i> Statistik <b class="caret"></b>
-						</a></li>	
-					</c:if>
-					<li class="dropdown"><a href="verifikasi.do"
-						class="dropdown-toggle"> <i class="icon-copy"></i> Verfikasi <b
-							class="caret"></b>
-					</a></li>
-					
-				</ul>
+				<jsp:include page="menu.jsp" />
 			</div>
 			<!-- /.nav-collapse -->
 
@@ -195,16 +157,21 @@
 			<div id="page-title" class="clearfix">
 
 				<ul class="breadcrumb">
-					<li><a href="dashboard.do">Home</a><span
-						class="divider">/</span></li>
-					<li><a href="formasi.do">Formasi Management</a><span
-						class="divider">/</span></li>
+					<li><a href="/sscnServer/dashboard.do">Home</a><span
+						class="divider">/</span>
+					</li>
+					<li><a href="/sscnServer/formasi.do">Formasi Management</a><span
+						class="divider">/</span>
+					</li>
 					<li class="active">List</li>
 				</ul>
 
 			</div>
 			<div>
-				<marquee>Untuk tampilan terbaik diharapkan menggunakan browser <b>Mozilla Firefox 3 atau Safari</b> atau diatasnya.</marquee>
+				<marquee>
+					Untuk tampilan terbaik diharapkan menggunakan browser <b>Mozilla
+						Firefox 3 atau Safari</b> atau diatasnya.
+				</marquee>
 			</div>
 			<!-- /.page-title -->
 
@@ -240,42 +207,123 @@
 													<option value="25">25</option>
 													<option value="50">50</option>
 													<option value="100">100</option>
-											</select>  -->records per page
-											</label>
+											</select>  -->records per page </label>
 										</div>
 									</div>
 									<div class="span6">
-										<div class="dataTables_filter">
-										<!--  	<label>Search: <input type="text"
-												aria-controls="example">
-											</label> -->
+										<div class="">
+											<form id="searchForm" method="post" action="formasiKhusus.do">
+												<div class="control-group" id="searchBar">
+													<input type="hidden" name="searchPar" value="0" /> <input
+														type="hidden" name="activePage" id="activePageBar" />
+													<c:choose>
+														<c:when test="${slokasi != null}">
+															<label>Lokasi &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+																&nbsp; &nbsp;<select name="slokasi" size="1" 
+																				aria-controls="example">
+																			  <c:forEach items="${lokasis}" var="clokasi">
+																			  	<c:choose>
+																			  		<c:when test="${slokasi == clokasi.kode}">
+																			  			<option value="${clokasi.kode}" selected="selected">${clokasi.nama }</option>
+																			  		</c:when>
+																			  		<c:otherwise>
+																			  			<option value="${clokasi.kode}">${clokasi.nama }</option>
+																			  		</c:otherwise>
+																			  	</c:choose>																					  			
+																			  </c:forEach>	
+																		  </select>	
+															</label>															
+														</c:when>
+														<c:otherwise>
+															<label>Lokasi &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+																&nbsp; &nbsp; <select name="slokasi" size="1" 
+																				aria-controls="example">
+																			  <option value="">--- PILIH LOKASI ---</option>
+																			  <c:forEach items="${lokasis}" var="lok">
+																			  			<option value="${lok.kode}">${lok.nama }</option>
+																			  </c:forEach>	
+																		  </select>
+															</label>			  															
+														</c:otherwise>
+													</c:choose>
+												</div>
+												
+												<div class="control-group" >
+													<c:choose>
+														<c:when test="${sjenisFormasi != null}">
+															<label>Jenis Formasi&nbsp; <select name="sjenisFormasi" size="1" 
+																				aria-controls="example">
+																			  		<option value="">--- PILIH JENIS FORMASI ---</option>
+																				  	<c:forEach items="${jenisFormasis}" var="jenis">
+																				  		<c:choose>
+																					  		<c:when test="${sjenisFormasi == jenis.id}">
+																					  			<option value="${jenis.id}" selected="selected">${jenis.nama }</option>
+																					  		</c:when>
+																					  		<c:otherwise>
+																					  			<option value="${jenis.id}">${jenis.nama }</option>
+																					  		</c:otherwise>
+																					  	</c:choose>
+																				  	</c:forEach>	
+																		  			</select></label>															
+														</c:when>
+														<c:otherwise>
+															<label>Jenis Formasi&nbsp; <select name="sjenisFormasi" size="1" 
+																				aria-controls="example">
+																			  		<option value="">--- PILIH JENIS FORMASI ---</option>
+																				  	<c:forEach items="${jenisFormasis}" var="jenis">
+																				  		<option value="${jenis.id}">${jenis.nama }</option>																					  	
+																				  	</c:forEach>	
+																		  			</select></label>															
+														</c:otherwise>
+													</c:choose>
+												</div>
+												
+												<div class="control-group" >
+													<c:choose>
+														<c:when test="${namaJabatan != null}">
+															<label>Nama Jabatan  <input type="text"
+																aria-controls="example" name="namaJabatan"
+																value="${namaJabatan}"> </label>															
+														</c:when>
+														<c:otherwise>
+															<label>Nama Jabatan <input type="text" aria-controls="example"
+																name="namaJabatan" > </label>															
+														</c:otherwise>
+													</c:choose>
+
+													<a class="btn" onClick="submitSearch(event)"><i
+														class="icon-search m-icon-white"></i> </a>
+													<a class="btn" href="/sscnServer/formasiKhusus.do"><i
+														 class="m-icon-white">Refresh</i> </a>	
+												</div>
+											</form>
 										</div>
 									</div>
 								</div>
-								 
+
 								<div class="row">
 									<div class="span6 pull-right">
 										<c:choose>
 											<c:when test="${formasi!=null}">
-												<a href="formasi.do#tambah" id="addFormasiModal"
-											class="btn btn-small btn-primary"><i class="icon-plus"></i>Tambah
-											Formasi</a>
+												<a href="/sscnServer/formasi.do#tambah" id="addFormasiModal"
+													class="btn btn-small btn-primary"><i class="icon-plus"></i>Tambah
+													Formasi</a>
 											</c:when>
 											<c:otherwise>
 												<a href="#tambah" id="addFormasiModal"
-											class="btn btn-small btn-primary"><i class="icon-plus"></i>Tambah
-											Formasi</a>
+													class="btn btn-small btn-primary"><i class="icon-plus"></i>Tambah
+													Formasi</a>
 											</c:otherwise>
 										</c:choose>
-										
+
 									</div>
 								</div>
-							 
+
 								<table
 									class="table table-striped table-bordered table-highlight">
 									<thead>
 										<tr>
-											<th>Nama Jabatan</th>
+											<th class="sorting_asc" role="columnheader" onclick="sortBy('namaJabatan')">Nama Jabatan</th>
 											<th>Pendidikan</th>
 											<th>Jumlah</th>
 											<th>Lokasi</th>
@@ -292,31 +340,34 @@
 														var="dtFormasi">
 														<c:out value="${dtFormasi.pendidikan.nama}" /> (<c:out
 															value="${dtFormasi.jumlah}" />) <br />
-													</c:forEach></td>
+													</c:forEach>
+												</td>
 												<td>${formasi.jumlah}</td>
 												<td>${formasi.refLokasi.nama}</td>
 												<td>
 													<!--  <form action="getFormasi.do" method="post">
 														<input type="hidden" name="id" value="${formasi.id}"> -->
-														<button class="btn btn-primary btn-mini" onclick="editFormasi(event, '${formasi.id}')">Edit</button>
+													<button class="btn btn-primary btn-mini"
+														onclick="editFormasi(event, '${formasi.id}')">Edit</button>
 													<!--  </form>
 													<form action="formasiDelete.do" method="post">
 														<input type="hidden" name="id" value="${formasi.id}">-->
-														<button class="btn btn-primary btn-mini" onclick="deleteFormasi(event, '${formasi.id}')">Delete</button>
-													<!--  </form> -->
-												</td>
+													<button class="btn btn-primary btn-mini"
+														onclick="deleteFormasi(event, '${formasi.id}')">Delete</button>
+													<!--  </form> --></td>
 												</td>
 											</tr>
 										</c:forEach>
 									</tbody>
 								</table>
 								<div class="row">
-									 <jsp:include page="paging.jsp" />
-									 <form id="pagingForm" method="post" action="formasi.do">
-										<input type="hidden" name="activePage" id="activePage"/>
-										<input type="hidden" name="numPage" id="numPage"/>
-										<input type="hidden" name="searchPage" id="searchPage"/>
-									</form> 
+									<jsp:include page="paging.jsp" />
+									<form id="pagingForm" method="post"
+										action="/sscnServer/formasi.do">
+										<input type="hidden" name="activePage" id="activePage" /> <input
+											type="hidden" name="numPage" id="numPage" /> <input
+											type="hidden" name="searchPage" id="searchPage" />
+									</form>
 								</div>
 
 							</div>
@@ -333,13 +384,18 @@
 
 			<div class="row">
 				<div class="span12">
-					<div id="validation" class="widget highlight widget-form">							
+					<div id="validation" class="widget highlight widget-form">
 						<div class="widget-header">
-							<h3><a name="tambah"></a>
+							<h3>
+								<a name="tambah"></a>
 								<c:choose>
-									<c:when test="${formasi != null}"><i class="icon-pencil"></i> Ubah Formasi</c:when>
-									<c:otherwise><i class="icon-pencil"></i> Tambah Formasis</c:otherwise>
-								</c:choose>								
+									<c:when test="${formasi != null}">
+										<i class="icon-pencil"></i> Ubah Formasi</c:when>
+									<c:otherwise>
+										<i class="icon-pencil"></i> Tambah Formasi</c:otherwise>
+								</c:choose>
+
+
 							</h3>
 						</div>
 						<!-- /widget-header -->
@@ -353,59 +409,104 @@
 								integrated Bootstrap error messages.
 							</div>
 							<c:if test="${formasi != null}">
-								<form action="formasiUpdate.do" method="POST"
+								<form action="/sscnServer/formasiUpdate.do" method="POST"
 									id="formasiForm" class="form-horizontal"
 									novalidate="novalidate">
+									<input type="hidden" name="id" value="${formasi.id}" />
 									<fieldset>
-										<div class="control-group">
-											<label class="control-label" for="lokasi">Lokasi</label>
+										<div class="control-group" >
+											<label class="control-label">Jenis Formasi</label>	
 											<div class="controls">
-												<input type="hidden" value="${formasi.id}" name="id" />
-												<input type="hidden" class="input-large" name="lokasi"
-													id="lokasiValue" value="${formasi.refLokasi.kode}">
-												<input type="text" class="input-large" name="lokasiLabel"
-													id="lokasiLabel" 
-													value="${formasi.refLokasi.nama}"> <span
-													class="help-inline" style="display: none; color: #b94a48;"
-													id="lokasiAlert">Something may have gone wrong</span>
-											</div>
+												<select name="jenisFormasi" size="1" aria-controls="example">
+													<option value="-1">--- PILIH JENIS FORMASI ---</option>
+													<c:forEach items="${jenisFormasis}" var="jenis">
+														<c:choose>
+															<c:when test="${formasi.refJenisFormasi.id == jenis.id}">
+																<option value="${jenis.id}" selected="selected">${jenis.nama }</option>
+															</c:when>
+															<c:otherwise>
+																<option value="${jenis.id}">${jenis.nama }</option>
+															</c:otherwise>
+														</c:choose>
+													</c:forEach>	
+												</select>
+											 </div>												
 										</div>
+										<c:if test="${isDaerah == false}">
+											<div class="control-group">
+												<label class="control-label" for="lokasi">Lokasi</label>
+												<div class="controls">
+													<input
+														type="hidden" class="input-large" name="lokasi"
+														id="lokasiValue" value="${formasi.refLokasi.kode}">
+													<input type="text" class="input-large" name="lokasiLabel"
+														id="lokasiLabel" value="${formasi.refLokasi.nama}">
+													<span class="help-inline"
+														style="display: none; color: #b94a48;" id="lokasiAlert">Something
+														may have gone wrong</span>
+												</div>
+											</div>
+										</c:if>
+										<c:if test="${isDaerah == true}">
+											<input type="hidden" class="input-large" name="lokasi"
+												value="${kodeLokasi}" id="lokasiValue">
+										</c:if>
+										
 										<div class="control-group">
 											<label class="control-label" for="jabatan">Jabatan</label>
 											<div class="controls">
 												<input type="hidden" class="input-large" name="jabatan"
 													id="jabatanValue" value="${formasi.refJabatan.kode}">
 												<input type="text" class="input-large" name="jabatanLabel"
-													id="jabatanLabel" 
-													value="${formasi.refJabatan.nama}"> <span
-													class="help-inline" style="display: none; color: #b94a48;"
-													id="jabatanAlert">Something may have gone wrong</span>
+													id="jabatanLabel" value="${formasi.refJabatan.nama}">
+												<span class="help-inline"
+													style="display: none; color: #b94a48;" id="jabatanAlert">Something
+													may have gone wrong</span>
 											</div>
 										</div>
+										
 										<c:set var="i" value="0" />
 										<c:forEach items="${formasi.dtFormasis}" var="dtFormasi">
 											<c:if test="${i==0}">
 												<div class="control-group" id="pendidikanRow">
-													<label class="control-label" for="pendidikan">Tk Pendidikan</label>
+													<label class="control-label">Jenjang Pendidikan</label>
 													<div class="controls">
-														<select name="tkPendidikan[]">
-															<option id="0">--PILIH--</option>
-															<option id="10">Setingkat SLTP/SLTA</option>
-															<option id="20">Setingkat Diploma 1</option>
-															<option id="30">Setingkat Diploma 3/Sarjana</option>
+														<select name="tkPendidikan[]" id="cTkPendidikan">
+															<option value="0">--PILIH--</option>
+															<c:choose>
+																<c:when test="${dtFormasi.pendidikan.tingkat == '10'}">
+																	<option value="10" selected="selected">SD-SLTP</option>
+																	<option value="20" >SLTA-D3</option>
+																	<option value="30" >D4/S1-S3</option>
+																</c:when>
+																<c:when test="${dtFormasi.pendidikan.tingkat == '20'}">
+																	<option value="10" >SD-SLTP</option>
+																	<option value="20" selected="selected">SLTA-D3</option>
+																	<option value="30" >D4/S1-S3</option>
+																</c:when>
+																<c:when test="${dtFormasi.pendidikan.tingkat == '30'}">
+																	<option value="10" >SD-SLTP</option>
+																	<option value="20" >SLTA-D3</option>
+																	<option value="30" selected="selected">D4/S1-S3</option>
+																</c:when>
+																<c:otherwise>
+																	<option value="10" >SD-SLTP</option>
+																	<option value="20" >SLTA-D3</option>
+																	<option value="30" >D4/S1-S3</option>
+																</c:otherwise>
+															</c:choose>	
 														</select>
-													</div>
+													</div>&nbsp;
 													<label class="control-label" for="pendidikan">Pendidikan</label>
 													<div class="controls">
 														<input type="hidden" class="input-large"
 															name="pendidikan[]" value="${dtFormasi.pendidikan.kode}"
 															id="pendidikanValue"> <input type="text"
 															class="input-large" name="pendidikanLabel[]"
-															value="${dtFormasi.pendidikan.nama}" id="pendidikanLabel"
-															> <input
-															type="text" class="input-mini" name="pendidikanJmlh[]"
-															value="${dtFormasi.jumlah }" id="pendidikanJmlh"
-															onChange="hitungUlang()">
+															value="${dtFormasi.pendidikan.nama}" id="pendidikanLabel">
+														<input type="text" class="input-mini"
+															name="pendidikanJmlh[]" value="${dtFormasi.jumlah }"
+															id="pendidikanJmlh" onChange="hitungUlang()">
 														<button id="btnAddPddkn" class="btn btn-primary btn-small">Add</button>
 														<span class="help-inline"
 															style="display: none; color: #b94a48;"
@@ -415,13 +516,33 @@
 											</c:if>
 											<c:if test="${i>0}">
 												<div class="control-group" id="pendidikanRow${i}">
-													<label class="control-label" for="pendidikan">Tk Pendidikan</label>
+													<label class="control-label" for="pendidikan">Jenjang
+														Pendidikan</label>
 													<div class="controls">
-														<select name="tkPendidikan[]">
-															<option id="0">--PILIH--</option>
-															<option id="10">Setingkat SLTP/SLTA</option>
-															<option id="20">Setingkat Diploma 1</option>
-															<option id="30">Setingkat Diploma 3/Sarjana</option>
+														<select name="tkPendidikan[]" >
+															<option value="0">--PILIH--</option>
+															<c:choose>
+																<c:when test="${dtFormasi.pendidikan.tingkat == '10'}">
+																	<option value="10" selected="selected">SD-SLTP</option>
+																	<option value="20" >SLTA-D3</option>
+																	<option value="30" >D4/S1-S3</option>
+																</c:when>
+																<c:when test="${dtFormasi.pendidikan.tingkat == '20'}">
+																	<option value="10" >SD-SLTP</option>
+																	<option value="20" selected="selected">SLTA-D3</option>
+																	<option value="30" >D4/S1-S3</option>
+																</c:when>
+																<c:when test="${dtFormasi.pendidikan.tingkat == '30'}">
+																	<option value="10" >SD-SLTP</option>
+																	<option value="20" >SLTA-D3</option>
+																	<option value="30" selected="selected">D4/S1-S3</option>
+																</c:when>
+																<c:otherwise>
+																	<option value="10" >SD-SLTP</option>
+																	<option value="20" >SLTA-D3</option>
+																	<option value="30" >D4/S1-S3</option>
+																</c:otherwise>
+															</c:choose>
 														</select>
 													</div>
 													<label class="control-label" for="pendidikan">Pendidikan</label>
@@ -431,8 +552,8 @@
 															id="pendidikanValue${i}"> <input type="text"
 															class="input-large" name="pendidikanLabel[]"
 															value="${dtFormasi.pendidikan.nama}"
-															id="pendidikanLabel${i}"> <input
-															type="text" class="input-mini" name="pendidikanJmlh[]"
+															id="pendidikanLabel${i}"> <input type="text"
+															class="input-mini" name="pendidikanJmlh[]"
 															value="${dtFormasi.jumlah }" id="pendidikanJmlh${i}"
 															onChange="hitungUlang()">
 														<button id="btnDelPddkn" onClick="delPddkn(event, this)"
@@ -462,34 +583,62 @@
 								</form>
 							</c:if>
 							<c:if test="${formasi == null}">
-								<form action="formasiSave.do" method="POST"
+								<form action="/sscnServer/formasiSave.do" method="POST"
 									id="formasiForm" class="form-horizontal"
 									novalidate="novalidate">
 									<fieldset>
-										<div class="control-group">
-											<label class="control-label" for="lokasi">Lokasi</label>
+										<div class="control-group" >
+										<label class="control-label">Jenis Formasi</label>	
 											<div class="controls">
-												<input type="hidden" class="input-large" name="lokasi" value="${lastInputLokasi.kode}"
-													id="lokasiValue"> <input type="text"
-													class="input-large" name="lokasiLabel" id="lokasiLabel"
-													value="${lastInputLokasi.nama}"> <span
-													class="help-inline" style="display: none; color: #b94a48;"
-													id="lokasiAlert">Something may have gone wrong</span>
-											</div>
+												<select name="jenisFormasi" size="1" aria-controls="example">
+													<option value="-1">--- PILIH JENIS FORMASI ---</option>
+													<c:forEach items="${jenisFormasis}" var="jenis">
+														<option value="${jenis.id}">${jenis.nama }</option>													
+													</c:forEach>	
+												</select>
+											</div>														
 										</div>
+										<c:if test="${isDaerah == false}">
+											<div class="control-group">
+												<label class="control-label" for="lokasi">Lokasi</label>
+												<div class="controls">
+													<input type="hidden" class="input-large" name="lokasi"
+														value="${lastInputLokasi.kode}" id="lokasiValue">
+													<input type="text" class="input-large" name="lokasiLabel"
+														id="lokasiLabel" value="${lastInputLokasi.nama}">
+													<span class="help-inline"
+														style="display: none; color: #b94a48;" id="lokasiAlert">Something
+														may have gone wrong</span>
+												</div>
+											</div>
+										</c:if>
+										<c:if test="${isDaerah == true}">
+											<input type="hidden" class="input-large" name="lokasi"
+												value="${kodeLokasi}" id="lokasiValue">
+										</c:if>
 										<div class="control-group">
 											<label class="control-label" for="jabatan">Jabatan</label>
 											<div class="controls">
 												<input type="hidden" class="input-large" name="jabatan"
 													id="jabatanValue"> <input type="text"
 													class="input-large" name="jabatanLabel" id="jabatanLabel">
-													 <span
-													class="help-inline" style="display: none; color: #b94a48;"
-													id="jabatanAlert">Something may have gone wrong</span>
+												<span class="help-inline"
+													style="display: none; color: #b94a48;" id="jabatanAlert">Something
+													may have gone wrong</span>
 											</div>
 										</div>
 										<div class="control-group" id="pendidikanRow">
-											<label class="control-label" for="pendidikan">Pendidikan</label>
+											<label class="control-label">Jenjang Pendidikan</label>
+											<div class="controls">
+												<select name="tkPendidikan[]" class="cTkPendidikan"
+													id="cTkPendidikan">
+													<option value="0">--PILIH--</option>
+													<option value="10">SD-SLTP</option>
+													<option value="20">SLTA-D3</option>
+													<option value="30">D4/S1-S3</option>
+												</select>
+											</div>
+											&nbsp; <label class="control-label" for="pendidikan">Pendidikan</label>
 											<div class="controls">
 												<input type="hidden" class="input-large" name="pendidikan[]"
 													id="pendidikanValue"> <input type="text"
@@ -508,10 +657,9 @@
 											<label class="control-label" for="jumlah">Jumlah</label>
 											<div class="controls">
 												<input type="text" class="input-mini" name="jumlah"
-													id="jumlah">
-												<span class="help-inline"
-													style="display: none; color: #b94a48;">Something
-													may have gone wrong</span>	
+													id="jumlah"> <span class="help-inline"
+													style="display: none; color: #b94a48;">Something may
+													have gone wrong</span>
 											</div>
 										</div>
 
@@ -537,9 +685,8 @@
 
 	<div id="footer">
 
-		<div class="container">
-			Hak Cipta  &copy;  2013 Badan Kepegawaian Negara. Semua Hak Dilindungi.
-		</div>
+		<div class="container">Hak Cipta &copy; 2013 Badan Kepegawaian
+			Negara. Semua Hak Dilindungi.</div>
 		<!-- /.container -->
 
 	</div>
@@ -549,17 +696,30 @@
 		jQuery(document)
 				.ready(
 						function() {
+							sortBy = function (by){
+								if (by == 'instansi'){
+									window.location = "formasi.do";
+								} else {
+									window.location = "formasi.do?sorting=" + by;
+								} 					
+							};
+							
 							$("#mainAlert").delay(3200).fadeOut(800);
+							
 							var autocomp_opt = {
+				
 								source : function(request, response) {
+									var tkPend = this.element.closest('div').prev().prev().find('select');
+						            //alert(tkPend.val());
 									$.ajax({
-												url : "findPendidikanLikeByName.do",
+												url : "/sscnServer/findPendidikanLikeByNameAndTkPddkn.do",
 												dataType : "jsonp",
 												data : {
 													featureClass : "P",
 													style : "full",
 													maxRows : 12,
-													name_startsWith : request.term
+													name_startsWith : request.term,															
+													tingkat : tkPend.val()
 												},
 												success : function(data) {
 													availableTagsArr = data.pendidikans;
@@ -598,6 +758,8 @@
 								}
 							};
 
+							
+							
 							var i = 0;
 							<c:if test="${formasi != null}">
 								i = <c:out value="${fn:length(formasi.dtFormasis) - 1}"/>;
@@ -614,6 +776,15 @@
 												var newDiv = '<div class="control-group pddkn" id="pendidikanRow'
 														+ (i + 1)
 														+ '"> '
+														+ '<label class="control-label">Tk Pendidikan</label>'
+														+ '<div class="controls">'
+														+ '<select name="tkPendidikan[]" class="cTkPendidikan" id="cTkPendidikan'+(i+1)+'">'
+														+ '	<option value="0">--PILIH--</option>'
+														+ '	<option value="10">SD-SLTA</option>'
+														+ ' <option value="20">D1-D3</option>'
+														+ ' <option value="30">D4/S1-S3</option>'
+														+ '</select>'
+														+ '	</div> &nbsp;'
 														+ '<label class="control-label" for="input01"></label> '
 														+ '<div class="controls"> '													
 														+ '<input type="hidden" name="pendidikan[]" id="pendidikanValue'+(i+1)+'"/> '
@@ -631,6 +802,7 @@
 															'#pendidikanRow'
 																	+ i);
 												}
+												var obj = autocomp_opt;
 												$('#pendidikanLabel'+(i+1)).autocomplete(autocomp_opt);
 												i++;
 											});
@@ -681,7 +853,7 @@
 											$
 													.ajax({
 														
-														url : "findLokasiLikeByName.do",
+														url : "/sscnServer/findLokasiLikeByName.do",
 														dataType : "jsonp",
 														data : {
 															featureClass : "P",
@@ -740,7 +912,7 @@
 												response) {
 											$
 													.ajax({
-														url : "findJabatanLikeByName.do",
+														url : "/sscnServer/findJabatanLikeByName.do",
 														dataType : "jsonp",
 														data : {
 															featureClass : "P",
@@ -837,21 +1009,23 @@
 									$("#jabatanAlert").delay(3200).fadeOut(300);
 								}	
 							}
-
+							
 							$("#pendidikanLabel")
 							.autocomplete(
-									{
+									{	
 										source : function(request,
 												response) {
+											var tkPend = this.element.closest('div').prev().prev().find('select');
 											$
 													.ajax({
-														url : "findPendidikanLikeByName.do",
+														url : "/sscnServer/findPendidikanLikeByNameAndTkPddkn.do",
 														dataType : "jsonp",
 														data : {
 															featureClass : "P",
 															style : "full",
 															maxRows : 12,
-															name_startsWith : request.term
+															name_startsWith : request.term,
+															tingkat : tkPend.val()
 														},
 														success : function(
 																data) {
@@ -872,7 +1046,7 @@
 										},
 										minLength : 2,
 										select : function(event, ui) {
-											$('#pendidikanValue').val(ui.item.code);													
+											$('#pendidikanValue').val(ui.item.code);		
 										},
 										open : function() {
 											$(this)
@@ -890,7 +1064,7 @@
 										},
 										change : function(event, ui){
 											if (ui.item == null){
-												validasiPendidikan();
+												//validasiPendidikan();
 											}
 										}
 									});
@@ -899,7 +1073,7 @@
 								var x=0;
 								var found=false;
 								var selValue = 0;
-							
+								
 								while (x<availableTags.length && !found){
 									if (availableTags[x].nama.toLowerCase() === $('#pendidikanLabel').val().toLowerCase() ){
 										selValue = availableTags[x].kode;
@@ -939,12 +1113,12 @@
 
 							editFormasi = function(event, id){
 								event.preventDefault();
-								window.location = 'getFormasi.do?id='+id;
+								window.location = '/sscnServer/getFormasi.do?id='+id;
 							}
 
 							deleteFormasi = function(event, id){
 								event.preventDefault();
-								window.location = 'formasiDelete.do?id='+id;
+								window.location = '/sscnServer/formasiDelete.do?id='+id;
 							}
 
 							$("#formasiForm").submit(function(event) {

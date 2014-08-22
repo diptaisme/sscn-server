@@ -164,45 +164,7 @@ label.error {
 			</a>
 
 			<div class="nav-collapse">
-								<ul class="nav">
-
-					<li class="nav-icon active"><a href="/sscnServer/dashboard.do">
-							<i class="icon-home"></i> <span>Home</span>
-					</a></li>
-					<c:if test="${userLogin.kewenangan != 3}">
-						<li class="dropdown"><a href="javascript:;"
-								class="dropdown-toggle" data-toggle="dropdown"> <i
-									class="icon-external-link"></i> Manajemen <b class="caret"></b>
-							</a>
-								<ul class="dropdown-menu">
-									<li><a href="/sscnServer/user.do">User</a></li>
-									<li><a href="/sscnServer/lokasi.do">Lokasi</a></li>
-									<li><a href="/sscnServer/syarat.do">Syarat Pendaftaran</a></li>
-								</ul>
-							</li>
-							<li class="dropdown"><a href="/sscnServer/pengumuman.do"
-								class="dropdown-toggle"> <i class="icon-copy"></i> Pengumuman
-									<b class="caret"></b>
-							</a></li>								
-							<li class="dropdown"><a href="/sscnServer/formasi.do"
-								class="dropdown-toggle"> <i class="icon-copy"></i> Formasi <b
-									class="caret"></b>
-								</a>
-							</li>
-							<li class="dropdown"><a href="/sscnServer/downloadData.do"
-						class="dropdown-toggle"> <i class="icon-copy"></i> Download Data <b
-							class="caret"></b>
-					</a></li>
-					<li class="dropdown"><a href="/sscnServer/statistik.do"
-							class="dropdown-toggle"> <i class="icon-copy"></i> Statistik <b class="caret"></b>
-						</a></li>						
-					</c:if>
-					<li class="dropdown"><a href="/sscnServer/verifikasi.do"
-						class="dropdown-toggle"> <i class="icon-copy"></i> Verfikasi <b
-							class="caret"></b>
-					</a></li>
-					
-				</ul>
+				<jsp:include page="menu.jsp" />				
 			</div>
 			<!-- /.nav-collapse -->
 
@@ -260,10 +222,29 @@ label.error {
 										</div>
 									</div>
 									<div class="span6">
-										<div class="dataTables_filter">
-										<!-- 	<label>Search: <input type="text"
-												aria-controls="example">
-											</label>  -->
+										<div class="">
+											<form id="searchForm" method="post" action="user.do">
+												<div class="control-group" id="searchBar">
+													<input type="hidden" name="searchPar" value="0" /> <input
+														type="hidden" name="activePage" id="activePageBar" />
+													<c:choose>
+														<c:when test="${nip != null}">
+															<label>Cari NIP : <input type="text"
+																aria-controls="example" name="nip"
+																id="defaultSearchField" value="${nip}"> </label>
+														</c:when>
+														<c:otherwise>
+															<label>Cari NIP : <input type="text"
+																aria-controls="example" name="nip"
+																id="defaultSearchField"> </label>
+														</c:otherwise>
+													</c:choose>
+
+													<a class="btn" onClick="submitSearch(event)"><i
+														class="icon-search m-icon-white"></i>
+													</a>
+												</div>
+											</form>
 										</div>
 									</div>
 								</div>
@@ -281,10 +262,10 @@ label.error {
 									id="myTable">
 									<thead>
 										<tr>
-											<th>Username</th>
-											<th>NIP</th>
-											<th>Nama</th>
-											<th>Instansi</th>
+											<th class="sorting_asc" role="columnheader" onclick="sortBy('username')">Username</th>
+											<th class="sorting_asc" role="columnheader" onclick="sortBy('nip')">NIP</th>
+											<th class="sorting_asc" role="columnheader" onclick="sortBy('nama')">Nama</th>
+											<th class="sorting_asc" role="columnheader" onclick="sortBy('instansi')">Instansi</th>
 											<th>Profile</th>
 											<th>Action(s)</th>
 										</tr>
@@ -420,7 +401,7 @@ label.error {
 					<label class="control-label" for="input01">Nip</label>
 					<div class="controls">
 						<div class="ui-widget">
-							<input type="number" class="input-large" id="nip" name="nip" maxlength="18">
+							<input type="text" class="input-large" id="nip" name="nip"  />
 						</div>
 					</div>
 				</div>
@@ -474,7 +455,18 @@ label.error {
 						</p>
 					</div>
 				</div>
-
+				<c:choose>
+					<c:when test="${userLogin.kewenangan == 2}">
+						<div class="control-group">
+							<label class="control-label" for="input01">Password</label>
+							<div class="controls">
+								<input type="text" class="input-large" id="edpassword"
+									name="password" value="">
+							</div>
+						</div>
+					</c:when>
+				</c:choose>				
+				
 				<div class="control-group">
 					<c:choose>
 						<c:when test="${userLogin.kewenangan == 1}">
@@ -506,7 +498,7 @@ label.error {
 					<label class="control-label" for="input01">Nip</label>
 					<div class="controls">
 						<div class="ui-widget">
-							<input type="number" class="input-large" id="ednip" name="nip" maxlength="18">
+							<input type="text" class="input-large" id="ednip" name="nip" >
 						</div>
 					</div>
 				</div>
@@ -597,6 +589,7 @@ label.error {
 							 $('#edinstansiValue').val(data.data.refInstansi.kode);
 							 $('#edinstansiLabel').val(data.data.refInstansi.nama);
 							 $("#edprofile").val(data.data.kewenangan);
+							 
 							 if(${userLogin.kewenangan == 1}){								 
 									 $("#myModal2").dialog("open"); 
 							 }else if(${userLogin.kewenangan == 2}){
@@ -911,6 +904,27 @@ label.error {
 	<script>
 			$(document).ready(
 				function() {
+
+				sortBy = function (by){
+					if (by == 'instansi'){
+						window.location = "user.do";
+					} else {
+						window.location = "user.do?sorting=" + by;
+					} 					
+				};
+				
+				function validate(value) {
+					var ok = true;
+
+					if (value.slice(-1) == "0"){
+						ok = false;
+					}
+						
+					return ok;
+				}	
+				jQuery.validator.addMethod("nipcheck", function (value, element) {
+			        return validate(value);
+			    }, 'Field NIP tidak valid');
 				$('#formAddUser').validate(
 						{
 							rules : {								
@@ -928,7 +942,9 @@ label.error {
 								},
 								nip : {
 									required : true,
-									minlength : 18
+									number : true,
+									minlength : 18,
+									maxlength : 18
 								},
 							},
 							highlight : function(element) {
@@ -953,7 +969,9 @@ label.error {
 							},
 							ednip : {
 								required : true,
-								minlength : 18
+								number : true,
+								minlength : 18,
+								maxlength : 18
 							},
 							
 						},

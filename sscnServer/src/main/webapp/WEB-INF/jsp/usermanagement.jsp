@@ -281,7 +281,7 @@ label.error {
 									id="myTable">
 									<thead>
 										<tr>
-											<th>Username</th>
+											<th class="sorting_asc" role="columnheader" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 303px;" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Username</th>
 											<th>NIP</th>
 											<th>Nama</th>
 											<th>Instansi</th>
