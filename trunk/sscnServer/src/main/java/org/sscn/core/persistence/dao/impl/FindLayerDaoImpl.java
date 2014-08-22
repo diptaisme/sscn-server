@@ -528,5 +528,5 @@ public class FindLayerDaoImpl<T> extends CountLayerDaoImpl<T> implements FindLay
 		return doQueryForMaps(queryString.toString(), QueryComparator.PREFIXLIKE,
 		        propertiesMap, orders, null, null, rowStartIdxAndCount);
 	}
-
+	
 }
