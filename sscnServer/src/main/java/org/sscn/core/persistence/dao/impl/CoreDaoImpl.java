@@ -321,7 +321,7 @@ public abstract class CoreDaoImpl<T> extends
 			final int... rowStartIdxAndCount) {
 		List<T> resultList = this.findUsingFilter(leftJoinFetch, filter,
 				orders, rowStartIdxAndCount);
-		Integer rowCount = this.countUsingFilter(filter);
+		Integer rowCount = this.countUsingFilter(null,filter);
 		return new PaginationResult<T>(rowCount, resultList);
 	}
 

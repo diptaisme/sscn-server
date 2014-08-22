@@ -1,5 +1,6 @@
 package org.sscn.core.persistence.dao.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -128,12 +129,14 @@ public class CountLayerDaoImpl<T> extends
 
 	/**
 	 * @param filter
-	 * @return
+	 * @param leftJoinFetch
+	 * @return int
 	 */
-	public Integer countUsingFilter(List<PropCriteriaAndValue> filter) {
-		Criteria criteria = createHibernateCriteriaObject(null, filter, null);
-		criteria.setProjection(Projections.rowCount());
-		return ((Integer) criteria.list().get(0)).intValue();
+	public Integer countUsingFilter(List<String> leftJoinFetch, List<PropCriteriaAndValue> filter) {
+		Criteria criteria = createHibernateCriteriaObject(leftJoinFetch, filter, null);
+		criteria.setProjection(Projections.rowCount());		
+		Integer row = Integer.valueOf(criteria.uniqueResult().toString());
+		return row;
 	}
 
 }
