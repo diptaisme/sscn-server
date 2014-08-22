@@ -4,12 +4,12 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.sscn.core.persistence.dao.impl.CoreDaoImpl;
-import org.sscn.dao.DtHasilDao;
-import org.sscn.persistence.entities.DtHasil;
+import org.sscn.dao.RefJenisFormasiDao;
+import org.sscn.persistence.entities.RefJenisFormasi;
 
-@Repository("DtHasilDao")
-public class DtHasilDaoImpl extends CoreDaoImpl<DtHasil> implements
-		DtHasilDao {
+@Repository("RefJenisFormasiDao")
+public class RefJenisFormasiDaoImpl extends CoreDaoImpl<RefJenisFormasi> implements
+		RefJenisFormasiDao {
 	/**
 	 * Default constructor.
 	 * 
@@ -17,7 +17,7 @@ public class DtHasilDaoImpl extends CoreDaoImpl<DtHasil> implements
 	 *            the session factory
 	 */
 	@Autowired
-	public DtHasilDaoImpl(SessionFactory sessionFactory) {
-		super(DtHasil.class, sessionFactory);
+	public RefJenisFormasiDaoImpl(SessionFactory sessionFactory) {
+		super(RefJenisFormasi.class, sessionFactory);
 	}
 }
