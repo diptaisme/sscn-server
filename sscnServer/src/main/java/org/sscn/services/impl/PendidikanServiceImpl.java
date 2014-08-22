@@ -34,6 +34,20 @@ public class PendidikanServiceImpl implements PendidikanService {
 				.findPrefixLikeMapOfProperties(map, null, null, null);
 		return pendidikans;
 	}
+	
+	@Override
+	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
+	public List<RefPendidikan> findPendidikanByLikeNameAndTkPddkn(String name, String tingkat) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("nama", name);
+		map.put("tingkat", tingkat);
+		int indexAndCount[] = new int[2]; 
+		indexAndCount[0] = 0;
+		indexAndCount[1] = 30;
+		List<RefPendidikan> pendidikans = refPendidikanDao
+				.findPendidikanByLikeNameAndTkPddkn(map, indexAndCount);
+		return pendidikans;
+	}
 
 	@Override
 	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)

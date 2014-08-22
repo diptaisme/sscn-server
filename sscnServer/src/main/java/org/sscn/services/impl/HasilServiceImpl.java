@@ -201,7 +201,7 @@ public class HasilServiceImpl implements HasilService {
 					noRegister, nama, tempatLahir, tglLahir, jnsKelamin,
 					alamat, kodePos, propinsi, kota, telpon, email, pendidikan,
 					lembaga, noIjazah, status, regStatus, noPeserta, tglTest,
-					lokasiTest, tglCreated, tglUpdated, userValidate,
+					null, tglCreated, tglUpdated, userValidate,
 					tglValidate, keterangan, akreditasi, nilaiIPK);
 			dtPendaftaranDao.insert(pendaftaran);
 			return pendaftaran;
