@@ -1,6 +1,10 @@
 package org.sscn.dao.impl;
 
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -41,21 +45,38 @@ public class DtPendaftaranDaoImpl extends CoreDaoImpl<DtPendaftaran> implements
 
 		final String innerJoinFetchPhrase = createLeftJoinFetchPhrase("model.formasi");
 		StringBuilder wherePhrase = new StringBuilder(
-				" WHERE (model.formasi.refInstansi.kode = :refInstansiId) ");
+				" WHERE (model.formasi.refInstansi.kode = :refInstansiId) order by model.tglLahir, model.nilaiIpk DESC");
 		sbFind.append(innerJoinFetchPhrase).append(wherePhrase);
-
+		
 		Query query = createQuery(sbFind);
+		
+		query.setParameter("refInstansiId", instansi.getKode());
+		return doQuery(query, idxAndCount);
+	}
+	
+	@Override
+	public List<DtPendaftaran> findReverifikasiByInstansi(RefInstansi instansi,
+			int... idxAndCount) {
+		StringBuilder sbFind = new StringBuilder(getSelectFindQuery());
 
+		final String innerJoinFetchPhrase = createLeftJoinFetchPhrase("model.formasi");
+		StringBuilder wherePhrase = new StringBuilder(
+				" WHERE (model.formasi.refInstansi.kode = :refInstansiId) and (status = '1' or status = '0')  order by model.tglLahir, model.nilaiIpk DESC");
+		sbFind.append(innerJoinFetchPhrase).append(wherePhrase);
+		
+		Query query = createQuery(sbFind);
+		
 		query.setParameter("refInstansiId", instansi.getKode());
 		return doQuery(query, idxAndCount);
 	}
 
 	@Override
 	public String getnoUrutPendaftaran(String limaDigitPertama) {
+		
 		StringBuilder sqlText = new StringBuilder(
-				"select max(convert(substr(NO_PESERTA,6,5),unsigned integer)) from dt_pendaftaran where NO_PESERTA LIKE '"
-						+ limaDigitPertama + "%'");
-
+					"select max(convert(substr(NO_PESERTA,6,5),unsigned integer)) from dt_pendaftaran where NO_PESERTA LIKE '"
+							+ limaDigitPertama + "%'");
+		
 		SQLQuery query = createSqlQuery(sqlText);
 		Object myResult = query.uniqueResult();
 
@@ -79,8 +100,20 @@ public class DtPendaftaranDaoImpl extends CoreDaoImpl<DtPendaftaran> implements
 		query.setParameter("refInstansiId", refInstansi.getKode());
 		return Integer.valueOf(query.uniqueResult().toString());
 	}
-
+	
 	@Override
+	public Integer countReverifikasiByInstansi(RefInstansi refInstansi) {
+		StringBuilder sbFind = new StringBuilder(
+				"SELECT COUNT(model.id) FROM DtPendaftaran model ");
+		StringBuilder wherePhrase = new StringBuilder(
+				" WHERE model.formasi.refInstansi.kode = :refInstansiId and (status='1' or status='0')");
+		sbFind.append(wherePhrase);
+		Query query = createQuery(sbFind);
+
+		query.setParameter("refInstansiId", refInstansi.getKode());
+		return Integer.valueOf(query.uniqueResult().toString());
+	}
+	
 	public List<DtPendaftaran> findByInstansiAndMap(RefInstansi instansi,
 			Map<String, Object> map, int... idxAndCount) {
 		StringBuilder sbFind = new StringBuilder(getSelectFindQuery());
@@ -138,10 +171,132 @@ public class DtPendaftaranDaoImpl extends CoreDaoImpl<DtPendaftaran> implements
 		return Integer.valueOf(query.uniqueResult().toString());
 	}
 
+
+	@Override
+	public List<DtPendaftaran> findByInstansiAndMapFilterVerify(RefInstansi instansi,
+			Map<String, Object> map, int... idxAndCount) {
+		StringBuilder sbFind = new StringBuilder(getSelectFindQuery());
+		final String innerJoinFetchPhrase = createLeftJoinFetchPhrase("model.formasi");
+		StringBuilder wherePhrase = new StringBuilder(
+				" WHERE (model.formasi.refInstansi.kode = :refInstansiId) ");
+//		StringBuilder wherePhrase = new StringBuilder(
+//		" WHERE (model.formasi.refInstansi.kode = :refInstansiId) AND model.status = '' ");
+		String whereMap = "";
+		
+		Iterator<Map.Entry<String, Object>> entries = map.entrySet().iterator();
+		//String umur = "((year(curdate())-year(model.tglLahir)) - (right(curdate(),5) < right(model.tglLahir,5)))";
+		int i = 1;
+		while (entries.hasNext()) {
+			Map.Entry<String, Object> entry = entries.next();
+			if (entry.getKey().contentEquals("tkPendidikan")){
+				whereMap = whereMap + "model.formasi.id in (select model2.formasi.id from DtFormasi model2 inner join model2.formasi inner join model2.pendidikan where model2.pendidikan.tingkat = :tkPendidikan and model2.formasi.refInstansi.kode = :refInstansiId)";
+			} 
+			if (entry.getKey().contentEquals("fromUsia")){
+				whereMap = whereMap + "model.tglLahir" + " <= :"
+				+ entry.getKey();
+			}
+			if (entry.getKey().contentEquals("toUsia")){
+				whereMap = whereMap + "model.tglLahir" + " >= :"
+				+ entry.getKey();
+			}
+			if (entry.getKey().contentEquals("fromIPK")){
+				whereMap = whereMap + "model.nilaiIpk" + " >= :"
+				+ entry.getKey();
+			}
+			if (entry.getKey().contentEquals("toIPK")){
+				whereMap = whereMap + "model.nilaiIpk"  + " <= :"
+				+ entry.getKey();
+			}
+			if (i<map.size()){
+				whereMap = whereMap + " AND ";
+			}
+			i++;
+		}
+		sbFind.append(innerJoinFetchPhrase).append(wherePhrase)
+				.append(" AND " + whereMap).append(" order by model.nilaiIpk, model.tglLahir ");
+		
+		Query query = createQuery(sbFind);
+		query.setParameter("refInstansiId", instansi.getKode());
+
+		Iterator<Map.Entry<String, Object>> entries2 = map.entrySet()
+				.iterator();
+		while (entries2.hasNext()) {
+			Map.Entry<String, Object> entry = entries2.next();
+			if (entry.getKey().contentEquals("fromUsia") || entry.getKey().contentEquals("toUsia")){
+				Calendar c = Calendar.getInstance();
+				int cdate = -(Integer.parseInt((String)entry.getValue()));
+				c.add(Calendar.YEAR, cdate);
+				query.setParameter(entry.getKey(), c.getTime());
+			} else {
+				query.setParameter(entry.getKey(), entry.getValue());
+			}			
+		}
+//		System.out.println("Query : " + query.get);
+		return doQuery(query, idxAndCount);
+	}
+
+	@Override
+	public Integer countByInstansiAndMapFilterVerify(RefInstansi refInstansi,
+			Map<String, Object> map) {
+		StringBuilder sbFind = new StringBuilder(
+				"SELECT COUNT(model.id) FROM DtPendaftaran model ");
+		StringBuilder wherePhrase = new StringBuilder(
+				" WHERE model.formasi.refInstansi.kode = :refInstansiId ");
+
+		String whereMap = "";
+		Iterator<Map.Entry<String, Object>> entries = map.entrySet().iterator();
+		int i = 1;
+		while (entries.hasNext()) {
+			Map.Entry<String, Object> entry = entries.next();
+			if (entry.getKey().contentEquals("tkPendidikan")){
+				whereMap = whereMap + "model.formasi.id in (select model2.formasi.id from DtFormasi model2 inner join model2.formasi inner join model2.pendidikan where model2.pendidikan.tingkat = :tkPendidikan and model2.formasi.refInstansi.kode = :refInstansiId)";
+			}
+			if (entry.getKey().contentEquals("fromUsia")){
+				whereMap = whereMap + "model.tglLahir" + " <= :"
+				+ entry.getKey();
+			}
+			if (entry.getKey().contentEquals("toUsia")){
+				whereMap = whereMap + "model.tglLahir" + " >= :"
+				+ entry.getKey();
+			}
+			if (entry.getKey().contentEquals("fromIPK")){
+				whereMap = whereMap + "model.nilaiIpk" + " >= :"
+				+ entry.getKey();
+			}
+			if (entry.getKey().contentEquals("toIPK")){
+				whereMap = whereMap + "model.nilaiIpk"  + " <= :"
+				+ entry.getKey();
+			}
+			if (i<map.size()){
+				whereMap = whereMap + " AND ";
+			}
+			i++;
+		}
+
+		sbFind.append(wherePhrase).append(" AND " + whereMap);
+		// System.out.println("Query : " + sbFind);
+		Query query = createQuery(sbFind);
+		query.setParameter("refInstansiId", refInstansi.getKode());
+
+		Iterator<Map.Entry<String, Object>> entries2 = map.entrySet()
+				.iterator();
+		while (entries2.hasNext()) {
+			Map.Entry<String, Object> entry = entries2.next();
+			if (entry.getKey().contentEquals("fromUsia") || entry.getKey().contentEquals("toUsia")){
+				Calendar c = Calendar.getInstance();
+				c.add(Calendar.YEAR, -(Integer.parseInt((String)entry.getValue())));
+				query.setParameter(entry.getKey(), c.getTime());
+			} else {
+				query.setParameter(entry.getKey(), entry.getValue());
+			}			
+		}
+		return Integer.valueOf(query.uniqueResult().toString());
+	}
+
 	@Override
 	public List<DataPendaftaran> findDataPendaftaran(String kodeInstansi) {
 		List<DataPendaftaran> result = new ArrayList<DataPendaftaran>();
-		final String sql = "SELECT NO_NIK, NO_REGISTER, NO_PESERTA, NAMA, TMP_LAHIR, DATE_FORMAT(TGL_LAHIR, '%d-%m-%y'), JNS_KELAMIN, ALAMAT, KODE_POS, PROPINSI, KOTA, TELPON, EMAIL, LEMBAGA, NO_IJAZAH, AKREDITASI, NILAI_IPK, INSTANSI, NAMA_INSTANSI as NI, LOKASI, NAMA_LOKASI as NL, JABATAN, NAMA_JABATAN as NJ, PENDIDIKAN, NAMA_PENDIDIKAN as NP, DATE_FORMAT(TGL_CREATED, '%d-%m-%y'), STATUS FROM data_01 "
+		final String sql = "SELECT NO_NIK, NO_REGISTER, NO_PESERTA, NAMA, TMP_LAHIR, DATE_FORMAT(TGL_LAHIR, '%d-%m-%Y'), JNS_KELAMIN, ALAMAT, KODE_POS, PROPINSI, KOTA, TELPON, EMAIL, LEMBAGA, NO_IJAZAH, AKREDITASI, NILAI_IPK, INSTANSI, NAMA_INSTANSI as NI, LOKASI, NAMA_LOKASI as NL, JABATAN, NAMA_JABATAN as NJ, PENDIDIKAN, NAMA_PENDIDIKAN as NP, DATE_FORMAT(TGL_CREATED, '%d-%m-%Y %T'), STATUS FROM data_01 "
 				+ "WHERE INSTANSI= '"
 				+ kodeInstansi
 				+ "' order by TGL_CREATED, NO_PESERTA, NAMA";
@@ -391,4 +546,62 @@ public class DtPendaftaranDaoImpl extends CoreDaoImpl<DtPendaftaran> implements
 		return result;
 	}	
 	
+	
+	@Override
+	public List<DtPendaftaran> findReverifikasiByInstansiAndMap(RefInstansi instansi,
+			Map<String, Object> map, int... idxAndCount) {
+		StringBuilder sbFind = new StringBuilder(getSelectFindQuery());
+		final String innerJoinFetchPhrase = createLeftJoinFetchPhrase("model.formasi");
+		StringBuilder wherePhrase = new StringBuilder(
+				" WHERE (model.formasi.refInstansi.kode = :refInstansiId) AND (status='0' or status='1') ");
+		String whereMap = "";
+		Iterator<Map.Entry<String, Object>> entries = map.entrySet().iterator();
+		while (entries.hasNext()) {
+			Map.Entry<String, Object> entry = entries.next();
+			whereMap = whereMap + "model." + entry.getKey() + " = :"
+					+ entry.getKey();
+		}
+		sbFind.append(innerJoinFetchPhrase).append(wherePhrase)
+				.append(" AND " + whereMap);
+		//System.out.println("Query : " + sbFind);
+		Query query = createQuery(sbFind);
+		query.setParameter("refInstansiId", instansi.getKode());
+
+		Iterator<Map.Entry<String, Object>> entries2 = map.entrySet()
+				.iterator();
+		while (entries2.hasNext()) {
+			Map.Entry<String, Object> entry = entries2.next();
+			query.setParameter(entry.getKey(), entry.getValue());
+		}
+		return doQuery(query, idxAndCount);
+	}
+	
+	@Override
+	public Integer countReverifikasiByInstansiAndMap(RefInstansi refInstansi,
+			Map<String, Object> map) {
+		StringBuilder sbFind = new StringBuilder(
+				"SELECT COUNT(model.id) FROM DtPendaftaran model ");
+		StringBuilder wherePhrase = new StringBuilder(
+				" WHERE model.formasi.refInstansi.kode = :refInstansiId AND (status='1' or status='0') ");
+
+		String whereMap = "";
+		Iterator<Map.Entry<String, Object>> entries = map.entrySet().iterator();
+		while (entries.hasNext()) {
+			Map.Entry<String, Object> entry = entries.next();
+			whereMap = whereMap + "model." + entry.getKey() + " LIKE :"
+					+ entry.getKey();
+		}
+		sbFind.append(wherePhrase).append(" AND " + whereMap);
+		Query query = createQuery(sbFind);
+		query.setParameter("refInstansiId", refInstansi.getKode());
+
+		Iterator<Map.Entry<String, Object>> entries2 = map.entrySet()
+				.iterator();
+		while (entries2.hasNext()) {
+			Map.Entry<String, Object> entry = entries2.next();
+			query.setParameter(entry.getKey(), "%" + entry.getValue() + "%");
+		}
+		return Integer.valueOf(query.uniqueResult().toString());
+	}
+
 }
