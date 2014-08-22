@@ -20,17 +20,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.sscn.core.persistence.tools.QueryOrder;
 import org.sscn.persistence.entities.DtUser;
 import org.sscn.persistence.entities.RefInstansi;
-import org.sscn.persistence.entities.RefLokasi;
+import org.sscn.persistence.entities.RefLokasiTest;
 import org.sscn.services.LokasiService;
+import org.sscn.services.LokasiTestService;
 import org.sscn.util.json.StandardJsonMessage;
 
 @Controller
-public class LokasiController {
+public class LokasiTestController {
 
 	@Inject
-	private LokasiService lokasiService;
+	private LokasiTestService lokasiService;
 	
-	@RequestMapping(value = "/lokasi.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/lokasiTest.do", method = RequestMethod.GET)
 	public String index(ModelMap model, HttpSession session, HttpServletRequest request) {
 		DtUser user = (DtUser) session.getAttribute("userLogin");
 		if (user == null) {
@@ -48,11 +49,11 @@ public class LokasiController {
 		indexAndCount[0] = (indexAndCount[0] - 1) * numRow;			
 		indexAndCount[1] = numRow;
 		
-		List<QueryOrder> orders = new ArrayList<QueryOrder>();
+	/*	List<QueryOrder> orders = new ArrayList<QueryOrder>();
 		orders.add(new QueryOrder("refLokasi.kode"));
-		orders.add(new QueryOrder("refJabatan.nama"));
+		orders.add(new QueryOrder("refJabatan.nama")); */
 		
-		List<RefLokasi> lokasis = lokasiService.findAllLokasiByInstansi(user.getRefInstansi().getKode(), indexAndCount);
+		List<RefLokasiTest> lokasis = lokasiService.findAllLokasiByInstansi(user.getRefInstansi().getKode(), indexAndCount);
 		Integer count = lokasiService.countFindAllLokasiByInstansi(user.getRefInstansi().getKode());
 		
 		
@@ -63,15 +64,7 @@ public class LokasiController {
 			part2 = count;
 		} else {
 			part2 = activePage * indexAndCount[1];
-		}
-		
-		Boolean isAddBtnEnabled = true;
-		if (Integer.parseInt(user.getRefInstansi().getKode()) >= 5000){
-			if (count > 0){
-				isAddBtnEnabled = false;
-			}
-		}
-		model.addAttribute("isAddBtnEnabled", isAddBtnEnabled);
+		}		
 		
 		model.addAttribute("count",count);
 		model.addAttribute("part2", part2);
@@ -80,10 +73,10 @@ public class LokasiController {
 		model.addAttribute("activePage", activePage);
 		model.addAttribute("lokasis", lokasis);
 
-		return "lokasimanagement";
+		return "lokasitestmanagement";
 	}
 
-	@RequestMapping(value = "/lokasi.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/lokasiTest.do", method = RequestMethod.POST)
 	public String indexPost(ModelMap model, HttpSession session, HttpServletRequest request) {
 		DtUser user = (DtUser) session.getAttribute("userLogin");
 		if (user == null) {
@@ -105,7 +98,7 @@ public class LokasiController {
 		orders.add(new QueryOrder("refLokasi.kode"));
 		orders.add(new QueryOrder("refJabatan.nama"));
 		
-		List<RefLokasi> lokasis = lokasiService.findAllLokasiByInstansi(user.getRefInstansi().getKode(), indexAndCount);
+		List<RefLokasiTest> lokasis = lokasiService.findAllLokasiByInstansi(user.getRefInstansi().getKode(), indexAndCount);
 		Integer count = lokasiService.countFindAllLokasiByInstansi(user.getRefInstansi().getKode());
 		
 		
@@ -118,13 +111,6 @@ public class LokasiController {
 			part2 = activePage * indexAndCount[1];
 		}		
 		
-		Boolean isAddBtnEnabled = true;
-		if (Integer.parseInt(user.getRefInstansi().getKode()) >= 5000){
-			if (count > 0){
-				isAddBtnEnabled = false;
-			}
-		}
-		model.addAttribute("isAddBtnEnabled", isAddBtnEnabled);
 		model.addAttribute("count",count);
 		model.addAttribute("part2", part2);
 		model.addAttribute("numpage",numPage);
@@ -132,10 +118,10 @@ public class LokasiController {
 		model.addAttribute("activePage", activePage);
 		model.addAttribute("lokasis", lokasis);
 
-		return "lokasimanagement";
+		return "lokasitestmanagement";
 	}
 
-	@RequestMapping(value = "/findLokasiLikeByName.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/findLokasiTestLikeByName.do", method = RequestMethod.GET)
 	@ResponseBody
 	public String findInstansiLikeByName(
 			@RequestParam("callback") String callBack,
@@ -150,7 +136,7 @@ public class LokasiController {
 					res));
 		}
 		
-		List<RefLokasi> lokasis = lokasiService.findLokasiByLikeNameInstansi(name, userLogin.getRefInstansi().getKode());
+		List<RefLokasiTest> lokasis = lokasiService.findLokasiByLikeNameInstansi(name, userLogin.getRefInstansi().getKode());
 		for(int i=0;i<lokasis.size();i++){
 			lokasis.get(i).setRefInstansi(null);
 		}
@@ -161,7 +147,7 @@ public class LokasiController {
 				resultMap));
 	}
 	
-	@RequestMapping(value = "/lokasiSave.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/lokasiTestSave.do", method = RequestMethod.POST)
 	@ResponseBody
 	public StandardJsonMessage save(@RequestParam("kode") String kode,
 			@RequestParam("nama") String name,
@@ -176,7 +162,7 @@ public class LokasiController {
 		}
 
 		StandardJsonMessage res = null;
-		RefLokasi lokasi = null;
+		RefLokasiTest lokasi = null;
 		try {
 			lokasi = lokasiService.save(kode, name, instansiKd);
 			if (lokasi != null) {
@@ -195,7 +181,7 @@ public class LokasiController {
 		return res;
 	}
 
-	@RequestMapping(value = "/lokasiUpdate.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/lokasiTestUpdate.do", method = RequestMethod.POST)
 	@ResponseBody
 	public StandardJsonMessage update(@RequestParam("kode") String kode,
 			@RequestParam("nama") String name, HttpSession session)
@@ -209,7 +195,7 @@ public class LokasiController {
 		}
 
 		StandardJsonMessage res = null;
-		RefLokasi lokasi = null;
+		RefLokasiTest lokasi = null;
 		try {
 			lokasi = lokasiService.update(kode, name);
 			if (lokasi != null) {			
@@ -228,7 +214,7 @@ public class LokasiController {
 		return res;
 	}
 
-	@RequestMapping(value = "/lokasiDelete.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/lokasiTestDelete.do", method = RequestMethod.POST)
 	@ResponseBody
 	public StandardJsonMessage delete(@RequestParam("kode") String kode,
 			HttpSession session) throws Exception {
@@ -241,7 +227,7 @@ public class LokasiController {
 		}
 
 		StandardJsonMessage res = null;
-		RefLokasi lokasi = null;
+		RefLokasiTest lokasi = null;
 		try {
 			lokasi = lokasiService.delete(kode);
 			if (lokasi != null) {
@@ -260,7 +246,7 @@ public class LokasiController {
 		return res;
 	}
 
-	@RequestMapping(value = "/getLokasi.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/getLokasiTest.do", method = RequestMethod.GET)
 	@ResponseBody
 	public StandardJsonMessage getLokasi(@RequestParam("kode") String kode,
 			HttpSession session) throws Exception {
@@ -273,7 +259,7 @@ public class LokasiController {
 		}
 
 		StandardJsonMessage res = null;
-		RefLokasi lokasi = null;
+		RefLokasiTest lokasi = null;
 		try {
 			lokasi = lokasiService.findLokasiById(kode);
 			RefInstansi pInstansi = new RefInstansi();
