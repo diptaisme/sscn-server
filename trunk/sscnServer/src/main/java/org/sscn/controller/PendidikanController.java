@@ -35,5 +35,20 @@ public class PendidikanController {
 		return objectMapper.writeValueAsString(new JSONPObject(callBack,
 				mapResult));
 	}
+	
+	@RequestMapping(value = "/findPendidikanLikeByNameAndTkPddkn.do", method = RequestMethod.GET)
+	@ResponseBody
+	public String findPendidikanLikeByNameAndTkPddkn(
+			@RequestParam("callback") String callBack,
+			@RequestParam("name_startsWith") String name,
+			@RequestParam("tingkat") String tingkat) throws Exception {
+		ObjectMapper objectMapper = new ObjectMapper();
+		List<RefPendidikan> pendidikans = pendidikanService.findPendidikanByLikeNameAndTkPddkn(name, tingkat);
+		Map<String, Object> mapResult = new HashMap<String, Object>();
+		mapResult.put("pendidikans", pendidikans);
+
+		return objectMapper.writeValueAsString(new JSONPObject(callBack,
+				mapResult));
+	}
 
 }
