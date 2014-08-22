@@ -74,7 +74,7 @@ public interface CountLayerDao<T> extends CriteriaLayerDao<T> {
 	 * criteria are stored in a list and they will all be added up to the query
 	 * with <em>AND</em> relationship. Note that this is not an <em>OR</em>
 	 * filter.
-	 * 
+	 * @param leftJoinFetch
 	 * @param filter
 	 *            The filter itself, is actually a list containing
 	 *            <code>PropCriteriaAndValue</code> elements, which is a set of
@@ -119,5 +119,5 @@ public interface CountLayerDao<T> extends CriteriaLayerDao<T> {
 	 * @return List<T>
 	 * @see org.sscn.core.persistence.tools.PropCriteriaAndValue
 	 */
-	Integer countUsingFilter(List<PropCriteriaAndValue> filter);
+	Integer countUsingFilter(List<String> leftJoinFetch, List<PropCriteriaAndValue> filter);
 }
