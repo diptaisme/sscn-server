@@ -15,7 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "dt_verifikasi_nok", catalog = "dbseleksicpns")
+@Table(name = "dt_verifikasi_nok")
 public class DtVerifikasiNok implements Serializable {
 	/**
 	 * 
