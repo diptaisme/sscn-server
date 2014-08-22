@@ -21,10 +21,15 @@ public interface DtPendaftaranDao extends CoreDao<DtPendaftaran> {
 	
 	List<DtPendaftaran> findByInstansiAndMap(RefInstansi instansi, Map<String, Object> map,
 			final int... idxAndCount);
+	
+	List<DtPendaftaran> findByInstansiAndMapFilterVerify(RefInstansi instansi, Map<String, Object> map,
+			final int... idxAndCount);
 
 	Integer countByInstansi(RefInstansi refInstansi);
 	
 	Integer countByInstansiAndMap(RefInstansi refInstansi, Map<String, Object> map);
+	
+	Integer countByInstansiAndMapFilterVerify(RefInstansi refInstansi, Map<String, Object> map);
 
 	List<DataPendaftaran> findDataPendaftaran(String kodeInstansi);
 	
@@ -40,4 +45,15 @@ public interface DtPendaftaranDao extends CoreDao<DtPendaftaran> {
 	List<RekapanPendaftaran> getRekapanPendaftaranInstansi(
 			String kodeInstansi) ;
 
+	
+	List<DtPendaftaran> findReverifikasiByInstansi(RefInstansi instansi,
+			int... idxAndCount);
+	
+	Integer countReverifikasiByInstansi(RefInstansi refInstansi);
+	
+	List<DtPendaftaran> findReverifikasiByInstansiAndMap(RefInstansi instansi, Map<String, Object> map,
+			final int... idxAndCount);
+	
+	Integer countReverifikasiByInstansiAndMap(RefInstansi refInstansi, Map<String, Object> map);
+	
 }
