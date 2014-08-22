@@ -125,45 +125,7 @@
 				data-target=".nav-collapse"> <i class="icon-reorder"></i> </a>
 
 			<div class="nav-collapse">
-								<ul class="nav">
-
-					<li class="nav-icon active"><a href="/sscnServer/dashboard.do">
-							<i class="icon-home"></i> <span>Home</span>
-					</a></li>
-					<c:if test="${userLogin.kewenangan != 3}">
-						<li class="dropdown"><a href="javascript:;"
-								class="dropdown-toggle" data-toggle="dropdown"> <i
-									class="icon-external-link"></i> Manajemen <b class="caret"></b>
-							</a>
-								<ul class="dropdown-menu">
-									<li><a href="/sscnServer/user.do">User</a></li>
-									<li><a href="/sscnServer/lokasi.do">Lokasi</a></li>
-									<li><a href="/sscnServer/syarat.do">Syarat Pendaftaran</a></li>
-								</ul>
-							</li>
-							<li class="dropdown"><a href="/sscnServer/pengumuman.do"
-								class="dropdown-toggle"> <i class="icon-copy"></i> Pengumuman
-									<b class="caret"></b>
-							</a></li>								
-							<li class="dropdown"><a href="/sscnServer/formasi.do"
-								class="dropdown-toggle"> <i class="icon-copy"></i> Formasi <b
-									class="caret"></b>
-								</a>
-							</li>
-							<li class="dropdown"><a href="/sscnServer/downloadData.do"
-						class="dropdown-toggle"> <i class="icon-copy"></i> Download Data <b
-							class="caret"></b>
-					</a></li>			
-					<li class="dropdown"><a href="/sscnServer/statistik.do"
-							class="dropdown-toggle"> <i class="icon-copy"></i> Statistik <b class="caret"></b>
-						</a></li>			
-					</c:if>
-					<li class="dropdown"><a href="/sscnServer/verifikasi.do"
-						class="dropdown-toggle"> <i class="icon-copy"></i> Verfikasi <b
-							class="caret"></b>
-					</a></li>
-					
-				</ul>
+				<jsp:include page="menu.jsp" />
 			</div>
 			<!-- /.nav-collapse -->
 

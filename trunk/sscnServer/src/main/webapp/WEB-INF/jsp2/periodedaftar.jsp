@@ -31,10 +31,12 @@
 <link
 	href="/sscnServer/resources/js/plugins/responsive-tables/responsive-tables.css"
 	rel="stylesheet">
-
+<link href="/sscnServer/resources/js/plugins/timepicker/jquery.ui.timepicker.css" rel="stylesheet">
+<link href="/sscnServer/resources/js/plugins/lightbox/themes/evolution-dark/jquery.lightbox.css" rel="stylesheet">  
 <link href="/sscnServer/resources/css/slate.css" rel="stylesheet">
 <link href="/sscnServer/resources/css/slate-responsive.css"
 	rel="stylesheet">
+<link href="/sscnServer/resources/css/pages/ui-elements.css" rel="stylesheet">
 
 <script type="text/javascript">
 
@@ -50,16 +52,6 @@
 
 </script>
 <!-- Javascript -->
-<script>
-	function cekTime() {
-		/*var d = new Date();		
-		if(parseInt(d.getHours()) > 8 && parseInt(d.getHours()) < 17){
-			alert("Maaf, anda tidak bisa melakukan download data diantara pukul 8 dan 17.");
-			return false;	
-		}*/
-		return true;
-	}
-</script>
 <script src="/sscnServer/resources/js/jquery-1.7.2.min.js"></script>
 <script src="/sscnServer/resources/js/jquery-ui-1.8.21.custom.min.js"></script>
 <script src="/sscnServer/resources/js/jquery.ui.dialog.min.js"></script>
@@ -68,6 +60,8 @@
 		<script src="js/jquery-ui-1.10.3.custom.min.js"></script>-->
 <script src="/sscnServer/resources/js/jquery.ui.touch-punch.min.js"></script>
 <script src="/sscnServer/resources/js/bootstrap.js"></script>
+<script src="/sscnServer/resources/js/plugins/timepicker/jquery.ui.timepicker.min.js"></script>
+
 
 <script
 	src="/sscnServer/resources/js/plugins/datatables/jquery.dataTables.js"></script>
@@ -75,44 +69,16 @@
 	src="/sscnServer/resources/js/plugins/datatables/DT_bootstrap.js"></script>
 <script
 	src="/sscnServer/resources/js/plugins/responsive-tables/responsive-tables.js"></script>
-
+<script src="/sscnServer/resources/js/plugins/lightbox/jquery.lightbox.min.js"></script>
 <script src="/sscnServer/resources/js/Slate.js"></script>
 
 <script src="/sscnServer/resources/js/demos/demo.tables.js"></script>
-
-<script type="text/javascript"
-	src="/sscnServer/resources/js/jquery.validate.js"></script>
-
+<script src="/sscnServer/resources/js/demos/demo.ui-elements.js"></script>
 <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
 <!--[if lt IE 9]>
 		<script src="../../../html5shim.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
-<style>
-#instansi {
-	color: blue;
-}
 
-#edinstansiLabel {
-	color: blue;
-}
-</style>
-<style>
-/*css validation*/
-label.valid {
-	width: 24px;
-	height: 24px;
-	background: url(assets/img/valid.png) center center no-repeat;
-	display: inline-block;
-	text-indent: -9999px;
-}
-
-label.error {
-	font-weight: bold;
-	color: red;
-	padding: 2px 8px;
-	margin-top: 2px;
-}
-</style>
 </head>
 
 <body>
@@ -122,7 +88,7 @@ label.error {
 		<div class="container">
 
 			<h1>
-				<a href="dashboard.do">Administrasi SSCN 2013</a>
+				<a href="/sscnServer/dashboard.do">Administrasi SSCN 2013</a>
 			</h1>
 
 			<div id="info">
@@ -144,7 +110,7 @@ label.error {
 									Admin Instansi
 								</c:when>
 								<c:otherwise>
-									Verificator
+									Verifikator
 								</c:otherwise>
 							</c:choose>
 							${userLogin.refInstansi.nama}
@@ -156,7 +122,6 @@ label.error {
 						</form>
 						</p>
 					</div>
-					<!-- /.info-details -->
 
 				</div>
 				<!-- /#info-menu -->
@@ -195,10 +160,11 @@ label.error {
 			<div id="page-title" class="clearfix">
 
 				<ul class="breadcrumb">
-					<li><a href="/sscnServer/dashboard.do">Home</a><span class="divider">/</span>
-					</li>
-					<li><a href="#">Download Data</a><span class="divider">/</span>
-					</li>
+					<li><a href="/sscnServer/dashboard.do">Home</a><span
+						class="divider">/</span></li>
+					<li><a href="/sscnServer/formasi.do">Formasi Management</a><span
+						class="divider">/</span></li>
+					<li class="active">List</li>
 				</ul>
 
 			</div>
@@ -209,77 +175,69 @@ label.error {
 
 			<div class="row">
 				<div class="span12">
-
-					<div class="widget widget-table">
-
+					<div id="validation" class="widget highlight widget-form">							
 						<div class="widget-header">
-							<h3>
-								<i class="icon-th-list"></i> Download Data
+							<h3><a name="tambah"></a>
+								Pengaturan Periode Pendaftaran
 							</h3>
 						</div>
 						<!-- /widget-header -->
 
 						<div class="widget-content">
-							<div id="example_wrapper" class="dataTables_wrapper form-inline"
-								>
-								<div>									
-									<div>
-										<!--<BR/>
-										&nbsp;&nbsp;Under Construction-->
-											<BR/>											
-											<form method="POST" name="formDownloadDataPendaftaran" action="/sscnServer/ReportServlet" target="_BLANK">
-												<input type="hidden" value="rptDataPendaftaran" name="typeReport" id="typeReport"
-													 />
-												<input type="hidden" value="${userLogin.refInstansi.kode}" name="kodeInstansi" id="kodeInstansi"
-													 />
-												<input type="hidden" value="${userLogin.refInstansi.nama}" name="namaInstansi" id="namaInstansi"
-													 />
-												&nbsp;&nbsp;<input type="submit" value="Download Data Pendaftaran" onclick="return cekTime()" title="Klik untuk download data pendaftaran"
-													class="btn btn-small btn-primary"/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Download Data Pendaftaran SSCN untuk <B>Instansi ${userLogin.refInstansi.nama}</B>																								
-											</form>
-											<BR/>
-											<form method="POST" name="formDownloadDataPesertaTest" action="/sscnServer/ReportServlet" target="_BLANK">
-												<input type="hidden" value="rptDataPesertaTest" name="typeReport" id="typeReport2"
-													 />
-												&nbsp;&nbsp;<input type="submit" value="Download Data Peserta Test" onclick="return cekTime()" title="Klik untuk download data peserta test"
-													class="btn btn-small btn-primary" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Download Data Peserta Test SSCN untuk <B>Instansi ${userLogin.refInstansi.nama}</B>
-												<input type="hidden" value="${userLogin.refInstansi.kode}" name="kodeInstansi2" id="kodeInstansi2"
-													 />
-												<input type="hidden" value="${userLogin.refInstansi.nama}" name="namaInstansi2" id="namaInstansi2"
-													 />																																				
-											</form>
-											<BR/>
-											<form method="POST" name="formDownloadDataRekapanPendaftaran" action="/sscnServer/ReportServlet" target="_BLANK">
-												<input type="hidden" value="rptRekapanPendaftaran" name="typeReport" id="typeReport3"
-													 />
-												&nbsp;&nbsp;<input type="submit" value="Download Data Rekapan Pendaftaran" onclick="return cekTime()" title="Klik untuk download data rekapan pendaftaran"
-													class="btn btn-small btn-primary" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Download Data Rekapan Pendaftaran SSCN untuk <B>Instansi ${userLogin.refInstansi.nama}</B>
-												<input type="hidden" value="${userLogin.refInstansi.kode}" name="kodeInstansi3" id="kodeInstansi3"
-													 />
-												<input type="hidden" value="${userLogin.refInstansi.nama}" name="namaInstansi3" id="namaInstansi3"
-													 />																																				
-											</form>
-											
-										</div>
+							<form action="updatePeriodeDaftar.do" method="post" class="form-horizontal">
+							 <fieldset>
+								<div class="control-group">	
+									<div class="controls">
+										<div class="controls">
+							              Mulai &nbsp;&nbsp;<input class="input-medium" <c:out value="${isReadOnly}"/> id="startDate" name="startDate" type="text" value="<c:out value="${startDate}"/>">
+							              <input class="input-medium" <c:out value="${isReadOnly}"/> id="startTime" name="startTime" type="text" value="${startTime}">
+							            </div>							         												
 									</div>																		
-								</div>								
-							</div>
+								</div>
+								<div class="control-group">
+									<div class="controls">
+										<div class="controls">
+							              Selesai &nbsp; &nbsp;<input class="input-medium" <c:out value="${isReadOnly}"/> id="endDate" name="endDate" type="text" value="<c:out value="${endDate}"/>">
+							              <input class="input-medium" <c:out value="${isReadOnly}"/> id="endTime" name="endTime" type="text" value="${endTime}" >
+							            </div>
+							           <!--  <div class="controls">
+							              <input type="text" value="" id="timepicker-basic2" class="input-medium hasDatepicker">
+							            </div>  -->															
+									</div>
+								</div>
+								<div class="form-actions">
+									<button <c:out value="${isDisabled}"/> class="btn btn-primary btn-large" type="submit">Simpan</button>
+									<!-- <button type="reset" class="btn btn-large">Reset</button>  -->
+								</div>
+								</fieldset>
+							</form>
 						</div>
+						<!-- /widget-content -->
 
 					</div>
 
 				</div>
+				<!-- /span12 -->
 			</div>
 		</div>
+		<!-- /.container -->
 	</div>
 	<!-- /#content -->
 
 	<div id="footer">
 
-		<div class="container">Hak Cipta &copy; 2013 Badan Kepegawaian
-			Negara. Semua Hak Dilindungi.</div>
+		<div class="container">
+			Hak Cipta  &copy;  2013 Badan Kepegawaian Negara. Semua Hak Dilindungi.
+		</div>
 		<!-- /.container -->
+
 	</div>
 	<!-- /#footer -->
 </body>
 </html>
+
+<script>
+$(document).ready(function() {
+	//$.fn.datepicker.defaults.format = "mm/dd/yyyy";		
+});
+</script>

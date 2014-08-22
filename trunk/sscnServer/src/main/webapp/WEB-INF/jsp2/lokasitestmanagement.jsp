@@ -158,7 +158,7 @@ label.error {
 			</a>
 
 			<div class="nav-collapse">
-				<jsp:include page="menu.jsp" />
+				<jsp:include page="menu.jsp" />				
 			</div>
 			<!-- /.nav-collapse -->
 
@@ -176,7 +176,7 @@ label.error {
 				<ul class="breadcrumb">
 					<li><a href="/sscnServer/dashboard.do">Home</a><span class="divider">/</span>
 					</li>
-					<li><a href="#">Lokasi Management</a><span class="divider">/</span>
+					<li><a href="#">Lokasi Test Management</a><span class="divider">/</span>
 					</li>
 					<li class="active">List</li>
 				</ul>
@@ -194,7 +194,7 @@ label.error {
 
 						<div class="widget-header">
 							<h3>
-								<i class="icon-th-list"></i> Lokasi Management
+								<i class="icon-th-list"></i> Lokasi Ujian Management
 							</h3>
 						</div>
 						<!-- /widget-header -->
@@ -226,10 +226,9 @@ label.error {
 
 								<div class="row">
 									<div class="span6 pull-right">
-									   <c:if test="${isAddBtnEnabled == true }">  
-											<a href="#" id="addLokasiModal"
+										<a href="#" id="addLokasiModal"
 											class="btn btn-small btn-primary"><i class="icon-plus"></i>Tambah Lokasi Baru</a>
-										</c:if> 
+
 									</div>
 								</div>
 								<table
@@ -263,7 +262,7 @@ label.error {
 								</table>
 								<div class="row">
 									<jsp:include page="paging.jsp" />
-									<form id="pagingForm" method="post" action="/sscnServer/lokasi.do">
+									<form id="pagingForm" method="post" action="/sscnServer/lokasiTest.do">
 										<input type="hidden" name="activePage" id="activePage"/>
 										<input type="hidden" name="numPage" id="numPage"/>
 										<input type="hidden" name="searchPage" id="searchPage"/>
@@ -295,9 +294,9 @@ label.error {
 	</div>
 	<!-- /#footer -->
 
-	<div id="myModal" title="Tambah Lokasi Baru">
+	<div id="myModal" title="Tambah Lokasi Ujian Baru">
 		<p class="validateTips">All form fields are required.</p>
-		<form class="form-horizontal" action="/sscnServer/lokasiSave.do"
+		<form class="form-horizontal" action="/sscnServer/lokasiTestSave.do"
 			method="post" id="formAddLokasi">
 			<fieldset>
 				<div id="loadingImage" style="display: none">
@@ -348,9 +347,9 @@ label.error {
 			</fieldset>
 		</form>
 	</div>
-	<div id="myModal2" title="Ubah Lokasi">
+	<div id="myModal2" title="Ubah Lokasi Ujian">
 		<p class="validateTips">All form fields are required.</p>
-		<form class="form-horizontal" action="/sscnServer/lokasiUpdate.do"
+		<form class="form-horizontal" action="/sscnServer/lokasiTestUpdate.do"
 			method="post" id="formUbahLokasi">
 			<fieldset>
 				<div id="loadingImage2" style="display: none">
@@ -386,8 +385,8 @@ label.error {
 		</form>
 	</div>
 
-	<div id="myModal3" title="Delete Lokasi">
-		<form class="form-horizontal" action="/sscnServer/lokasiDelete.do"
+	<div id="myModal3" title="Delete Lokasi Ujian">
+		<form class="form-horizontal" action="/sscnServer/lokasiTestDelete.do"
 			method="post" id="formDeleteLokasi">
 			<fieldset>
 				<div id="loadingImage3" style="display: none">
@@ -438,7 +437,7 @@ label.error {
 								$
 										.ajax({
 											type : "GET",
-											url : "/sscnServer/getLokasi.do?kode="
+											url : "/sscnServer/getLokasiTest.do?kode="
 													+ id,
 											cache : false,
 											success : function(data) {
@@ -639,7 +638,7 @@ label.error {
 												/* Send the data using post */
 												var posting = $
 														.post(
-																"/sscnServer/lokasiSave.do",
+																"/sscnServer/lokasiTestSave.do",
 																term, "json");
 
 												/* Put the results in a div */

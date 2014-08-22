@@ -9,19 +9,23 @@ $(function () {
 	/*--------------------------------------------------
 	Plugin: Color Picker
 	--------------------------------------------------*/	
-	$('#colorpicker-component').colorpicker({ format: 'hex' });
+//	$('#colorpicker-component').colorpicker({ format: 'hex' });
 	
 	
 	/*--------------------------------------------------
 	Plugin: Time Picker
 	--------------------------------------------------*/	
-	$('#timepicker-basic').timepicker ({});
+	$('#startTime').timepicker ({});
 	
+	$('#endTime').timepicker ({});
 	
 	/*--------------------------------------------------
 	Plugin: Date Picker
-	--------------------------------------------------*/	
-	$("#datepicker-basic").datepicker();
+	--------------------------------------------------*/
+	//alert('jancuk');
+	$("#startDate").datepicker({dateFormat:"dd/mm/yy"});
+	
+	$("#endDate").datepicker({dateFormat:"dd/mm/yy"});
 	
 	$("#datepicker-multi").datepicker({
 		numberOfMonths: 3,
