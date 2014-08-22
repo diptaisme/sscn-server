@@ -9,7 +9,9 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.sscn.dao.PeriodeDaftarDao;
 import org.sscn.dao.RefInstansiDao;
+import org.sscn.persistence.entities.PeriodeDaftar;
 import org.sscn.persistence.entities.RefInstansi;
 import org.sscn.services.InstansiService;
 
@@ -18,6 +20,9 @@ public class InstansiServiceImpl implements InstansiService {
 
 	@Inject
 	private RefInstansiDao refInstansiDao;
+	
+	@Inject
+	private PeriodeDaftarDao periodeDaftarDao;
 	
 	@Override
 	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
@@ -36,4 +41,15 @@ public class InstansiServiceImpl implements InstansiService {
 		return instansis;
 	}
 	
+	@Override
+	@Transactional(readOnly = false, propagation = Propagation.SUPPORTS)
+	public PeriodeDaftar updatePeriodePeserta(PeriodeDaftar periode) {
+		return this.periodeDaftarDao.update(periode);		
+	}
+	
+	@Override
+	@Transactional(readOnly = false, propagation = Propagation.SUPPORTS)
+	public RefInstansi updateRefInstansi(RefInstansi refins) {
+		return this.refInstansiDao.update(refins);		
+	}
 }
