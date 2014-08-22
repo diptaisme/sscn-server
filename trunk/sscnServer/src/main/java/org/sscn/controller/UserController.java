@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.sscn.core.persistence.tools.QueryOrder;
+import org.sscn.core.util.PasswordUtil;
 import org.sscn.persistence.entities.DtUser;
 import org.sscn.persistence.entities.RefInstansi;
 import org.sscn.services.UserService;
@@ -52,11 +53,20 @@ public class UserController {
 		List<DtUser> users = null;
 		Integer count;
 		if (user.getKewenangan().equals("1")) {
-			users = userService.getAllUser(indexAndCount);
+			if (request.getParameter("sorting") != null){
+				users = userService.getAllUser(request.getParameter("sorting"),indexAndCount);
+			} else {
+				users = userService.getAllUser(null,indexAndCount);
+			}			
 			count = userService.countAllUser();
 		} else {
-			users = userService.getAllUserByInstansi(user.getRefInstansi()
-					.getKode(), indexAndCount);
+			if (request.getParameter("sorting") != null){
+				users = userService.getAllUserByInstansi(user.getRefInstansi()
+						.getKode(), request.getParameter("sorting"), indexAndCount);
+			} else {
+				users = userService.getAllUserByInstansi(user.getRefInstansi()
+						.getKode(), null, indexAndCount);
+			}
 			count = userService.countAllUserByInstansi(user.getRefInstansi()
 					.getKode());
 		}
@@ -107,14 +117,36 @@ public class UserController {
 
 		List<DtUser> users = null;
 		Integer count;
+		String searchPar = request.getParameter("searchPar");
+		String nip = "";
+		Boolean searchBy = false;
+		if (searchPar != null && !searchPar.contentEquals("")){			
+			nip = request.getParameter("nip");
+			
+			if (nip != null && !nip.contentEquals("")){
+				searchBy = true;
+			}
+			model.addAttribute("nip", nip);
+		}
+		
 		if (user.getKewenangan().equals("1")) {
-			users = userService.getAllUser(indexAndCount);
-			count = userService.countAllUser();
+			if (searchBy){
+				users = userService.getUserByNip(nip, indexAndCount);
+				count = userService.countUserByNip(nip);
+			} else {
+				users = userService.getAllUser(null,indexAndCount);
+				count = userService.countAllUser();
+			}				
 		} else {
-			users = userService.getAllUserByInstansi(user.getRefInstansi()
-					.getKode(), indexAndCount);
-			count = userService.countAllUserByInstansi(user.getRefInstansi()
-					.getKode());
+			if (searchBy){
+				users = userService.getUserByNip(nip, indexAndCount);
+				count = userService.countUserByNip(nip);
+			} else {
+				users = userService.getAllUserByInstansi(user.getRefInstansi()
+						.getKode(), null, indexAndCount);
+				count = userService.countAllUserByInstansi(user.getRefInstansi()
+						.getKode());				
+			}			
 		}
 
 		int numPage = (int) Math.ceil((double) count / indexAndCount[1]);
@@ -187,10 +219,7 @@ public class UserController {
 	@RequestMapping(value = "/userUpdate.do", method = RequestMethod.POST)
 	@ResponseBody
 	public StandardJsonMessage update(
-			@RequestParam("username") String username,
-			@RequestParam("nip") String nip, @RequestParam("name") String name,
-			@RequestParam("instansi") String instansiKd,
-			@RequestParam("profile") String profile, HttpSession session)
+			HttpServletRequest request, HttpSession session)
 			throws Exception {
 
 		DtUser userLogin = (DtUser) session.getAttribute("userLogin");
@@ -199,7 +228,13 @@ public class UserController {
 					"Update Gagal");
 			return res;
 		}
-
+		String password="";
+		password = request.getParameter("password");
+		String username = request.getParameter("username");
+		String nip = request.getParameter("nip");
+		String name = request.getParameter("name");
+		String profile = request.getParameter("profile");
+		String instansiKd = request.getParameter("instansi");
 		StandardJsonMessage res = null;
 		DtUser user = null;
 		try {
@@ -209,7 +244,12 @@ public class UserController {
 			user.setNip(nip);
 			user.setNama(name);
 			user.setUsername(username);
-			// user.setPassword(password);
+			if (!password.isEmpty() && password != null){
+				PasswordUtil passwordUtil = new PasswordUtil();
+				String encryptedPassword;
+				encryptedPassword = passwordUtil.encryptPassword(password);
+				user.setPassword(encryptedPassword);
+			}			
 			user.setKewenangan(profile);
 			user.setTglCreated(new Date());
 			user.setTglUpdated(new Date());
