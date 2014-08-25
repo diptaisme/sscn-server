@@ -65,17 +65,19 @@ public class RegistrasiServlet extends HttpServlet {
 					//
 					String remoteAddr = request.getRemoteAddr();
 					ReCaptchaImpl reCaptcha = new ReCaptchaImpl();
-					reCaptcha.setPrivateKey("6LdlHOsSAAAAACe2WYaGCjU2sc95EZqCI9wLcLXY");
+					reCaptcha
+							.setPrivateKey("6LdlHOsSAAAAACe2WYaGCjU2sc95EZqCI9wLcLXY");
 
 					String challenge = request
 							.getParameter("recaptcha_challenge_field");
-					String uresponse = request.getParameter("recaptcha_response_field");
-					ReCaptchaResponse reCaptchaResponse = reCaptcha.checkAnswer(
-							remoteAddr, challenge, uresponse);
+					String uresponse = request
+							.getParameter("recaptcha_response_field");
+					ReCaptchaResponse reCaptchaResponse = reCaptcha
+							.checkAnswer(remoteAddr, challenge, uresponse);
 
-					if (!reCaptchaResponse.isValid()) {						
+					if (!reCaptchaResponse.isValid()) {
 						cetakRegistrasiGagalCaptchaNotValid(response);
-					} else {											
+					} else {
 						//
 						DtPendaftaran pendaftaran = registrasiService
 								.insertPendaftaran(request);
@@ -143,7 +145,7 @@ public class RegistrasiServlet extends HttpServlet {
 			ex.printStackTrace();
 		}
 	}
-	
+
 	private void cetakRegistrasiGagalCaptchaNotValid(
 			HttpServletResponse response) {
 		try {
