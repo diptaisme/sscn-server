@@ -319,12 +319,8 @@ public class VerifikasiController {
 			infoPendaftar.setPendidikan(pddkn);
 			infoPendaftar.setFormasi(null);
 			
-			if (infoPendaftar.getLokasiTest() != null){
-				String kodeLok = infoPendaftar.getLokasiTest().getKode();
-				String namaLok = infoPendaftar.getLokasiTest().getNama();
-				//RefLokasiTest lokTest = refLokasiTestDao.findById(kodeLok);
-				RefLokasiTest lokTest = new RefLokasiTest(kodeLok, null,namaLok,"1");
-				infoPendaftar.setLokasiTest(lokTest);
+			if (infoPendaftar.getLokasiTest() != null){				
+				infoPendaftar.setLokasiTest(infoPendaftar.getLokasiTest());
 			} 
 			
 			res = new StandardJsonMessage(1, infoPendaftar, mob, "Get Pendaftaran Success");
@@ -833,16 +829,16 @@ public class VerifikasiController {
 		String lokasiId = request.getParameter("lokasi");
 		
 		try {
-			DtUser user = userService.findByProperty("username", userLogin.getUsername(), null)
-					.get(0);
+			//DtUser user = userService.findByProperty("username", userLogin.getUsername(), null)
+					//.get(0);
 			
 			DtPendaftaran pendaftar = dtPendaftaranDao.findUniqueByProperty("id",
 					Long.parseLong(pendaftarId), null, null);
 			
-			RefLokasiTest lokasiTest = refLokasiTestDao.findById(lokasiId);
+			//RefLokasiTest lokasiTest = refLokasiTestDao.findById(lokasiId);
 			
 			try {
-				pendaftar.setLokasiTest(lokasiTest);	
+				pendaftar.setLokasiTest(lokasiId);	
 				DtPendaftaran resVer = verfikasiService.update(pendaftar);
 				
 
