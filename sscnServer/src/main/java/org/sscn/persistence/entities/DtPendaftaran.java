@@ -1,6 +1,6 @@
 package org.sscn.persistence.entities;
 
-// Generated Aug 14, 2013 12:27:10 AM by Hibernate Tools 3.4.0.CR1
+// Generated Jun 17, 2014 3:07:46 PM by Hibernate Tools 3.4.0.CR1
 
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -25,9 +25,16 @@ import javax.persistence.UniqueConstraint;
 @Table(name = "dt_pendaftaran", uniqueConstraints = @UniqueConstraint(columnNames = "NO_REGISTER"))
 public class DtPendaftaran implements java.io.Serializable {
 
+	/**
+	 * serialVersionUID
+	 */
+	private static final long serialVersionUID = 1L;
 	private Long id;
-	private MFormasi formasi;
+	private TabelPendaftar tabelPendaftar;
 	private String noNik;
+	private MFormasi formasi;
+	private MFormasi formasi2;
+	private MFormasi formasi3;
 	private String noRegister;
 	private String nama;
 	private String tmpLahir;
@@ -46,7 +53,7 @@ public class DtPendaftaran implements java.io.Serializable {
 	private String regStatus;
 	private String noPeserta;
 	private Date tglTest;
-	private RefLokasiTest lokasiTest;
+	private String lokasiTest;
 	private Date tglCreated;
 	private Date tglUpdated;
 	private String userValidate;
@@ -54,19 +61,20 @@ public class DtPendaftaran implements java.io.Serializable {
 	private String keterangan;
 	private String akreditasi;
 	private String nilaiIpk;
+	private int tahunLulus;
 
 	public DtPendaftaran() {
 	}
 
-	public DtPendaftaran(MFormasi mFormasi, String noNik, String noRegister,
+	public DtPendaftaran(MFormasi mFormasi1, String noNik, String noRegister,
 			String nama, String tmpLahir, Date tglLahir, String jnsKelamin,
 			String alamat, String kodePos, String propinsi, String kota,
 			String telpon, String email, String pendidikan, String lembaga,
 			String noIjazah, String status, String regStatus, String noPeserta,
-			Date tglTest, RefLokasiTest lokasiTest, Date tglCreated, Date tglUpdated,
+			Date tglTest, String lokasiTest, Date tglCreated, Date tglUpdated,
 			String userValidate, Date tglValidate, String keterangan,
 			String akreditasi, String nilaiIpk) {
-		this.formasi = mFormasi;
+		this.formasi = mFormasi1;
 		this.noNik = noNik;
 		this.noRegister = noRegister;
 		this.nama = nama;
@@ -108,13 +116,13 @@ public class DtPendaftaran implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "FORMASI_ID", nullable = false)
-	public MFormasi getFormasi() {
-		return this.formasi;
+	@JoinColumn(name = "ID_PENDAFTAR")
+	public TabelPendaftar getTabelPendaftar() {
+		return this.tabelPendaftar;
 	}
 
-	public void setFormasi(MFormasi formasi) {
-		this.formasi = formasi;
+	public void setTabelPendaftar(TabelPendaftar tabelPendaftar) {
+		this.tabelPendaftar = tabelPendaftar;
 	}
 
 	@Column(name = "NO_NIK", nullable = false, length = 18)
@@ -126,7 +134,18 @@ public class DtPendaftaran implements java.io.Serializable {
 		this.noNik = noNik;
 	}
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "FORMASI_ID", nullable = false)
+	public MFormasi getFormasi() {
+		return this.formasi;
+	}
+
+	public void setFormasi(MFormasi formasi1) {
+		this.formasi = formasi1;
+	}
+
 	@Column(name = "NO_REGISTER", unique = true, nullable = false, length = 10)
+	// @Column(name = "NO_REGISTER", nullable = false, length = 10)
 	public String getNoRegister() {
 		return this.noRegister;
 	}
@@ -244,7 +263,7 @@ public class DtPendaftaran implements java.io.Serializable {
 		this.lembaga = lembaga;
 	}
 
-	@Column(name = "NO_IJAZAH", nullable = false, length = 30)
+	@Column(name = "NO_IJAZAH", nullable = false, length = 20)
 	public String getNoIjazah() {
 		return this.noIjazah;
 	}
@@ -290,18 +309,17 @@ public class DtPendaftaran implements java.io.Serializable {
 		this.tglTest = tglTest;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "LOKASI_TEST")
-	public RefLokasiTest getLokasiTest() {
+	@Column(name = "LOKASI_TEST", nullable = true, length = 8)
+	public String getLokasiTest() {
 		return this.lokasiTest;
 	}
 
-	public void setLokasiTest(RefLokasiTest lokasiTest) {
+	public void setLokasiTest(String lokasiTest) {
 		this.lokasiTest = lokasiTest;
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "TGL_CREATED", nullable = false, length = 10)
+	@Column(name = "TGL_CREATED", nullable = false, length = 19)
 	public Date getTglCreated() {
 		return this.tglCreated;
 	}
@@ -311,7 +329,7 @@ public class DtPendaftaran implements java.io.Serializable {
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "TGL_UPDATED", nullable = false, length = 10)
+	@Column(name = "TGL_UPDATED", nullable = false, length = 19)
 	public Date getTglUpdated() {
 		return this.tglUpdated;
 	}
@@ -330,7 +348,7 @@ public class DtPendaftaran implements java.io.Serializable {
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "TGL_VALIDATE", nullable = false, length = 10)
+	@Column(name = "TGL_VALIDATE", nullable = false, length = 19)
 	public Date getTglValidate() {
 		return this.tglValidate;
 	}
@@ -364,6 +382,36 @@ public class DtPendaftaran implements java.io.Serializable {
 
 	public void setNilaiIpk(String nilaiIpk) {
 		this.nilaiIpk = nilaiIpk;
+	}
+
+	// add formasi 2 dan 3
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "FORMASI_ID2", nullable = true)
+	public MFormasi getFormasi2() {
+		return this.formasi2;
+	}
+
+	public void setFormasi2(MFormasi formasi2) {
+		this.formasi2 = formasi2;
+	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "FORMASI_ID3", nullable = true)
+	public MFormasi getFormasi3() {
+		return this.formasi3;
+	}
+
+	public void setFormasi3(MFormasi formasi3) {
+		this.formasi3 = formasi3;
+	}
+
+	@Column(name = "TAHUN_LULUS", nullable = false, length = 4)
+	public int getTahunLulus() {
+		return this.tahunLulus;
+	}
+
+	public void setTahunLulus(int tahunLulus) {
+		this.tahunLulus = tahunLulus;
 	}
 
 }
