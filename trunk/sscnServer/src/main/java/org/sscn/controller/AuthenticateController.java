@@ -1,5 +1,7 @@
 package org.sscn.controller;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
@@ -8,13 +10,18 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.sscn.dao.PeriodeDaftarDao;
 import org.sscn.persistence.entities.DtUser;
+import org.sscn.persistence.entities.PeriodeDaftar;
 import org.sscn.services.AuthenticateService;
 
 @Controller
 public class AuthenticateController {
 	@Inject
 	private AuthenticateService authenticateService;
+	
+	@Inject
+	private PeriodeDaftarDao periodeDaftarDao;
 
 	@RequestMapping(value = "/processLogin.do", method = RequestMethod.POST)
 	public String login(ModelMap map, HttpSession session,
@@ -28,6 +35,10 @@ public class AuthenticateController {
 					session.removeAttribute("userLogin");					
 				}
 				session.setAttribute("userLogin", user);
+				List<PeriodeDaftar> periodeDaftars = periodeDaftarDao.findByProperty("kode", user.getRefInstansi().getKode(), null);
+				if(periodeDaftars!=null && periodeDaftars.size()>0){
+					session.setAttribute("periodeDaftar", periodeDaftars.get(0));
+				}
 				return "dashboard";
 			} else {
 				map.addAttribute("pesan",
