@@ -22,5 +22,5 @@ public interface MFormasiDao extends CoreDao<MFormasi> {
 
 	List<MFormasi> findByInstansiLokasiPendidikan(String instansi,
 			String lokasi, String pendidikan);
-
+	Integer countNumberOfFormasiUmum(String instansiId);
 }
