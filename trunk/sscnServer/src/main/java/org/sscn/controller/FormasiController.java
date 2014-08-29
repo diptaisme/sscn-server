@@ -100,6 +100,13 @@ public class FormasiController {
 //		Integer count = mFormasiDao.countByProperty("refInstansi", userp.getRefInstansi());
 		List<MFormasi> formasis = mFormasiDao.findFormasiUmum(user.getRefInstansi().getKode(), orders, indexAndCount);
 		Integer count = mFormasiDao.countFormasiUmum(userp.getRefInstansi().getKode());
+		Integer jmlFormasi = 0;	
+		if (count > 0){
+			jmlFormasi = mFormasiDao.countNumberOfFormasiUmum(userp.getRefInstansi().getKode());
+		} 
+		
+		model.addAttribute("jmlFormasi", jmlFormasi);
+		
 		int numPage = (int) Math.ceil((double)count/indexAndCount[1]);		
 		int activePage = (int) Math.ceil((double)(indexAndCount[0] + 1)/ indexAndCount[1]);
 		int part2;
@@ -220,6 +227,13 @@ public class FormasiController {
 				model.addAttribute("kodeLokasi",lokasis.get(0).getKode());
 			}			
 		}
+		
+		Integer jmlFormasi = 0;	
+		if (count > 0){
+			jmlFormasi = mFormasiDao.countNumberOfFormasiUmum(userp.getRefInstansi().getKode());
+		} 
+		
+		model.addAttribute("jmlFormasi", jmlFormasi);
 		
 		model.addAttribute("isDaerah",isDaerah);
 		model.addAttribute("count",count);

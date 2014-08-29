@@ -94,10 +94,11 @@ public class InstansiController {
 			DateFormat df1 = new SimpleDateFormat("HH:mm");
 			endTime = df1.format(periode.getEnd());
 		}
-		
+		isReadOnly = "";
 		if (!isReadOnly.isEmpty()){
 			model.addAttribute("isDisabled", "disabled='disabled'");
 		}
+		
 		model.addAttribute("isReadOnly", isReadOnly);
 		model.addAttribute("startDate", start);
 		model.addAttribute("endDate", end);
@@ -163,7 +164,7 @@ public class InstansiController {
 		}
 		RefInstansi instansi = this.refInstansiDao.findById(user.getRefInstansi().getKode());
 		
-		if (instansi.getPilihanJabatan() != null && instansi.getPilihanLokasiTest() != null){
+		if (instansi.getPilihanJabatan() != null && instansi.getPilihanLokasiTest() != null && instansi.getPilihanCetakKartu() != null){
 			model.addAttribute("isDisabled", "disabled='disabled'");
 		} else {
 			model.addAttribute("isDisabled", "");
@@ -184,10 +185,11 @@ public class InstansiController {
 		
 		String pilihanJabatan = request.getParameter("maxPilihan");
 		String lokasitest = request.getParameter("lokasitest");
+		String cetakkartu = request.getParameter("cetakkartu");
 		RefInstansi ins = this.refInstansiDao.findById(user.getRefInstansi().getKode());
 		ins.setPilihanJabatan(pilihanJabatan);
 		ins.setPilihanLokasiTest(lokasitest);
-		
+		ins.setPilihanCetakKartu(cetakkartu);
 		try {
 			RefInstansi res = instansiService.updateRefInstansi(ins);
 			if (res != null){
