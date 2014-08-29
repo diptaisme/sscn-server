@@ -115,6 +115,21 @@ public class MFormasiDaoImpl extends CoreDaoImpl<MFormasi> implements
 	}
 	
 	@Override
+	public Integer countNumberOfFormasiUmum(String instansiId){
+		StringBuilder sbFind = new StringBuilder(
+				"SELECT SUM(model.jumlah) FROM MFormasi model ");
+		StringBuilder wherePhrase = new StringBuilder(
+				" WHERE model.refInstansi.kode = :refInstansiId AND (model.refJenisFormasi.id=1 or model.refJenisFormasi.id is null)");
+		
+		sbFind.append(wherePhrase);
+		Query query = createQuery(sbFind);
+		
+		query.setParameter("refInstansiId", instansiId);
+		
+		return Integer.valueOf(query.uniqueResult().toString());
+	}
+	
+	@Override
 	public List<MFormasi> findFormasiKhusus(String instansiId, List<QueryOrder> orders, int... idxAndCount){
 		StringBuilder sbFind = new StringBuilder(getSelectFindQuery());
 
