@@ -324,10 +324,15 @@
 														<input type="hidden" name="id" value="${formasi.id}">-->
 													<button class="btn btn-primary btn-mini"
 														onclick="deleteFormasi(event, '${formasi.id}')">Delete</button>
-													<!--  </form> --></td>
+													<!--  </form> -->
 												</td>
 											</tr>
 										</c:forEach>
+											<tr>
+												<td colspan="2"><b>Total Jumlah Formasi</b></td>
+												<td><b>${jmlFormasi }</b></td>
+												<td colspan="2">&nbsp;</td>
+											</tr>
 									</tbody>
 								</table>
 								<div class="row">
