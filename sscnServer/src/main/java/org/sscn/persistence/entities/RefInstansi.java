@@ -33,6 +33,7 @@ public class RefInstansi implements java.io.Serializable {
 	private String status;
 	private String pilihanJabatan;
 	private String pilihanLokasiTest;
+	private String pilihanCetakKartu;
 	private Set<DtPengumuman> dtPengumumans = new HashSet<DtPengumuman>(0);
 	private Set<MFormasi> MFormasis = new HashSet<MFormasi>(0);
 	private Set<DtUser> dtUsers = new HashSet<DtUser>(0);
@@ -118,7 +119,7 @@ public class RefInstansi implements java.io.Serializable {
 		this.dtUsers = dtUsers;
 	}
 	
-	@Column(name = "JUMLAH_MAX_DAFTAR", nullable = false, length = 1)
+	@Column(name = "JUMLAH_MAX_DAFTAR", nullable = true, length = 1)
 	public String getPilihanJabatan() {
 		return this.pilihanJabatan;
 	}
@@ -127,13 +128,22 @@ public class RefInstansi implements java.io.Serializable {
 		this.pilihanJabatan = status;
 	}
 	
-	@Column(name = "PILIHAN_LOKASI_TEST", nullable = false, length = 1)
+	@Column(name = "PILIHAN_LOKASI_TEST", nullable = true, length = 1)
 	public String getPilihanLokasiTest() {
 		return this.pilihanLokasiTest;
 	}
 
 	public void setPilihanLokasiTest(String status) {
 		this.pilihanLokasiTest = status;
+	}
+	
+	@Column(name = "PILIHAN_CETAK_TEST", nullable = true, length = 1)
+	public String getPilihanCetakKartu() {
+		return this.pilihanCetakKartu;
+	}
+
+	public void setPilihanCetakKartu(String status) {
+		this.pilihanCetakKartu = status;
 	}
 
 }
