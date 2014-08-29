@@ -238,7 +238,7 @@
 											<tr class="odd gradeX">
 												<td>${pendaftar.nama}</td>
 												<td>${pendaftar.noRegister}</td>
-												<td><fmt:formatDate value='${pendaftar.tglLahir}' type='date' pattern='dd-mm-yyyy'/></td>
+												<td><fmt:formatDate value='${pendaftar.tglLahir}' type='date' pattern='dd-MM-yyyy'/></td>
 												<td>${pendaftar.nilaiIpk}</td>
 												<c:choose>
 													<c:when

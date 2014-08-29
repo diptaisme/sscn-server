@@ -240,6 +240,35 @@
 							          														
 									</div>
 								</div>
+								
+								<div class="control-group">
+									<label class="control-label" for="input01">Cetak Kartu Test</label>
+									<div class="controls">
+										<select name="cetakkartu" size="1" 
+																				aria-controls="example">
+																			  	<c:choose>
+																			  		<c:when test="${instansi.pilihanCetakKartu == '1'}">
+																			  			<option value="1" selected="selected">Pendaftar</option>
+																			  			<option value="2" >Verifikator</option>																			  		
+																			  			<option value="3" >Verifikator dan Pendaftar</option>	
+																			  		</c:when>
+																			  		<c:when test="${instansi.pilihanCetakKartu == '2'}">
+																			  			<option value="1" >Pendaftar</option>
+																			  			<option value="2" selected="selected" >Verifikator</option>																			  		
+																			  			<option value="3" >Verifikator dan Pendaftar</option>	
+																			  		</c:when>
+																			  		<c:otherwise>
+																			  			<option value="1" >Pendaftar</option>
+																			  			<option value="2" >Verifikator</option>																			  		
+																			  			<option value="3" selected="selected">Verifikator dan Pendaftar</option>																			  			
+																			  		</c:otherwise>
+																			  	</c:choose>																					  			
+																			 
+																		  </select>	
+							           
+							          														
+									</div>
+								</div>
 								<div class="form-actions">
 									<button <c:out value="${isDisabled}"/> class="btn btn-primary btn-large" type="submit">Simpan</button>
 									<!-- <button type="reset" class="btn btn-large">Reset</button>  -->
