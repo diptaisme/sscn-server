@@ -101,21 +101,17 @@ public class VerfikasiServiceImpl implements VerfikasiService {
 		String nourut = dtPendaftaranDao.getnoUrutPendaftaran(stringDigit);
 		if (nourut.contentEquals("")) {
 			if (jenisFormasi.getNama().equalsIgnoreCase("UMUM")){
-				if (pendidikan.substring(0, 1).contentEquals("2")){
-					nourut = "20001";
-				} else {
-					nourut = "50001";
-				}
+				nourut = "000001";				
 			} else {
 				nourut = jenisFormasi.getPrefixCode() + "001";
 			}						
 		} else {
 			int x = Integer.parseInt(nourut) + 1;
-			nourut = String.format("%05d", x);
+			nourut = String.format("%06d", x);
 		}
 
-		Integer varMod = 9 - (Integer.parseInt(nourut) % 8);
-		return stringDigit + nourut + varMod;
+	//	Integer varMod = 9 - (Integer.parseInt(nourut) % 8);
+		return stringDigit + nourut;
 	}
 
 	@Override
