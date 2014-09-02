@@ -260,6 +260,18 @@ label.error {
 													 />																																				
 											</form>
 											
+											<BR/>
+											<form method="POST" name="formDownloadDataRekapanTidakLulusVerifikasi" action="/sscnServer/ReportServlet" target="_BLANK">
+												<input type="hidden" value="rptRekapanTidakLulus" name="typeReport" id="typeReport4"
+													 />
+												&nbsp;&nbsp;<input type="submit" value="Download Data Rekapan Pendaftaran Tidak Lulus Verifikasi" onclick="return cekTime()" title="Klik untuk download data rekapan pendaftaran"
+													class="btn btn-small btn-primary" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Download Data Rekapan Pendaftaran SSCN Tidak Lolos Verifikasi untuk <B>Instansi ${userLogin.refInstansi.nama}</B>
+												<input type="hidden" value="${userLogin.refInstansi.kode}" name="kodeInstansi4" id="kodeInstansi4"
+													 />
+												<input type="hidden" value="${userLogin.refInstansi.nama}" name="namaInstansi4" id="namaInstansi4"
+													 />																																				
+											</form>
+											
 										</div>
 									</div>																		
 								</div>								
