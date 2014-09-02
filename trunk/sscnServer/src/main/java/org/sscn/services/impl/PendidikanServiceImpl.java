@@ -43,7 +43,7 @@ public class PendidikanServiceImpl implements PendidikanService {
 		map.put("tingkat", tingkat);
 		int indexAndCount[] = new int[2]; 
 		indexAndCount[0] = 0;
-		indexAndCount[1] = 30;
+		indexAndCount[1] = 100;
 		List<RefPendidikan> pendidikans = refPendidikanDao
 				.findPendidikanByLikeNameAndTkPddkn(map, indexAndCount);
 		return pendidikans;
