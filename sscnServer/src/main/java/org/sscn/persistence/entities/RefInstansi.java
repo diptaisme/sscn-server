@@ -34,6 +34,8 @@ public class RefInstansi implements java.io.Serializable {
 	private String pilihanJabatan;
 	private String pilihanLokasiTest;
 	private String pilihanCetakKartu;
+	private String spesimenNip;
+	private String spesimenNama;
 	private Set<DtPengumuman> dtPengumumans = new HashSet<DtPengumuman>(0);
 	private Set<MFormasi> MFormasis = new HashSet<MFormasi>(0);
 	private Set<DtUser> dtUsers = new HashSet<DtUser>(0);
@@ -146,4 +148,21 @@ public class RefInstansi implements java.io.Serializable {
 		this.pilihanCetakKartu = status;
 	}
 
+	@Column(name = "SPESIMEN_NIP", nullable = true)
+	public String getSpesimenNip() {
+		return this.spesimenNip;
+	}
+
+	public void setSpesimenNip(String nip) {
+		this.spesimenNip = nip;
+	}
+	
+	@Column(name = "SPESIMEN_NAMA", nullable = true)
+	public String getSpesimenNama() {
+		return this.spesimenNama;
+	}
+
+	public void setSpesimenNama(String nama) {
+		this.spesimenNama = nama;
+	}
 }
