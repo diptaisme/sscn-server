@@ -76,6 +76,10 @@ public class DataPendaftaran {
 	}
 
 	public void setNoNik(String noNik) {
+
+		if (noNik != null && noNik.equalsIgnoreCase("null")) {
+			noNik = "";
+		}
 		this.noNik = noNik;
 	}
 
@@ -84,6 +88,9 @@ public class DataPendaftaran {
 	}
 
 	public void setNoRegister(String noRegister) {
+		if (noRegister != null && noRegister.equalsIgnoreCase("null")) {
+			noRegister = "";
+		}
 		this.noRegister = noRegister;
 	}
 
@@ -92,6 +99,9 @@ public class DataPendaftaran {
 	}
 
 	public void setNoPeserta(String noPeserta) {
+		if (noPeserta != null && noPeserta.equalsIgnoreCase("null")) {
+			noPeserta = "";
+		}
 		this.noPeserta = noPeserta;
 	}
 
@@ -100,6 +110,9 @@ public class DataPendaftaran {
 	}
 
 	public void setNama(String nama) {
+		if (nama != null && nama.equalsIgnoreCase("null")) {
+			nama = "";
+		}
 		this.nama = nama;
 	}
 
@@ -108,6 +121,9 @@ public class DataPendaftaran {
 	}
 
 	public void setTmpLahir(String tmpLahir) {
+		if (tmpLahir != null && tmpLahir.equalsIgnoreCase("null")) {
+			tmpLahir = "";
+		}
 		this.tmpLahir = tmpLahir;
 	}
 
@@ -116,6 +132,9 @@ public class DataPendaftaran {
 	}
 
 	public void setTglLahir(String tglLahir) {
+		if (tglLahir != null && tglLahir.equalsIgnoreCase("null")) {
+			tglLahir = "";
+		}
 		this.tglLahir = tglLahir;
 	}
 
@@ -124,6 +143,9 @@ public class DataPendaftaran {
 	}
 
 	public void setJnsKelamin(String jnsKelamin) {
+		if (jnsKelamin != null && jnsKelamin.equalsIgnoreCase("null")) {
+			jnsKelamin = "";
+		}
 		if (jnsKelamin.equalsIgnoreCase("P")) {
 			jnsKelamin = "Pria";
 		}
@@ -138,6 +160,9 @@ public class DataPendaftaran {
 	}
 
 	public void setAlamat(String alamat) {
+		if (alamat != null && alamat.equalsIgnoreCase("null")) {
+			alamat = "";
+		}
 		this.alamat = alamat;
 	}
 
@@ -146,6 +171,9 @@ public class DataPendaftaran {
 	}
 
 	public void setKodePos(String kodePos) {
+		if (kodePos != null && kodePos.equalsIgnoreCase("null")) {
+			kodePos = "";
+		}
 		this.kodePos = kodePos;
 	}
 
@@ -154,6 +182,9 @@ public class DataPendaftaran {
 	}
 
 	public void setPropinsi(String propinsi) {
+		if (propinsi != null && propinsi.equalsIgnoreCase("null")) {
+			propinsi = "";
+		}
 		this.propinsi = propinsi;
 	}
 
@@ -162,6 +193,9 @@ public class DataPendaftaran {
 	}
 
 	public void setKota(String kota) {
+		if (kota != null && kota.equalsIgnoreCase("null")) {
+			kota = "";
+		}
 		this.kota = kota;
 	}
 
@@ -170,6 +204,9 @@ public class DataPendaftaran {
 	}
 
 	public void setTelpon(String telpon) {
+		if (telpon != null && telpon.equalsIgnoreCase("null")) {
+			telpon = "";
+		}
 		this.telpon = telpon;
 	}
 
@@ -178,6 +215,9 @@ public class DataPendaftaran {
 	}
 
 	public void setEmail(String email) {
+		if (email != null && email.equalsIgnoreCase("null")) {
+			email = "";
+		}
 		this.email = email;
 	}
 
@@ -186,6 +226,10 @@ public class DataPendaftaran {
 	}
 
 	public void setAsalInstitusiPendidikan(String asalInstitusiPendidikan) {
+		if (asalInstitusiPendidikan != null
+				&& asalInstitusiPendidikan.equalsIgnoreCase("null")) {
+			asalInstitusiPendidikan = "";
+		}
 		this.asalInstitusiPendidikan = asalInstitusiPendidikan;
 	}
 
@@ -194,6 +238,9 @@ public class DataPendaftaran {
 	}
 
 	public void setNoIjazah(String noIjazah) {
+		if (noIjazah != null && noIjazah.equalsIgnoreCase("null")) {
+			noIjazah = "";
+		}
 		this.noIjazah = noIjazah;
 	}
 
@@ -202,6 +249,9 @@ public class DataPendaftaran {
 	}
 
 	public void setAkreditasi(String akreditasi) {
+		if (akreditasi != null && akreditasi.equalsIgnoreCase("null")) {
+			akreditasi = "";
+		}
 		this.akreditasi = akreditasi;
 	}
 
@@ -210,6 +260,9 @@ public class DataPendaftaran {
 	}
 
 	public void setNilaiIpk(String nilaiIpk) {
+		if (nilaiIpk != null && nilaiIpk.equalsIgnoreCase("null")) {
+			nilaiIpk = "";
+		}
 		this.nilaiIpk = nilaiIpk;
 	}
 
@@ -218,6 +271,9 @@ public class DataPendaftaran {
 	}
 
 	public void setInstansiKode(String instansiKode) {
+		if (instansiKode != null && instansiKode.equalsIgnoreCase("null")) {
+			instansiKode = "";
+		}
 		this.instansiKode = instansiKode;
 	}
 
@@ -226,6 +282,9 @@ public class DataPendaftaran {
 	}
 
 	public void setInstansiNama(String instansiNama) {
+		if (instansiNama != null && instansiNama.equalsIgnoreCase("null")) {
+			instansiNama = "";
+		}
 		this.instansiNama = instansiNama;
 	}
 
@@ -234,6 +293,9 @@ public class DataPendaftaran {
 	}
 
 	public void setLokasiKode(String lokasiKode) {
+		if (lokasiKode != null && lokasiKode.equalsIgnoreCase("null")) {
+			lokasiKode = "";
+		}
 		this.lokasiKode = lokasiKode;
 	}
 
@@ -242,6 +304,9 @@ public class DataPendaftaran {
 	}
 
 	public void setLokasiNama(String lokasiNama) {
+		if (lokasiNama != null && lokasiNama.equalsIgnoreCase("null")) {
+			lokasiNama = "";
+		}
 		this.lokasiNama = lokasiNama;
 	}
 
@@ -250,6 +315,9 @@ public class DataPendaftaran {
 	}
 
 	public void setJabatanKode(String jabatanKode) {
+		if (jabatanKode != null && jabatanKode.equalsIgnoreCase("null")) {
+			jabatanKode = "";
+		}
 		this.jabatanKode = jabatanKode;
 	}
 
@@ -258,6 +326,9 @@ public class DataPendaftaran {
 	}
 
 	public void setJabatanNama(String jabatanNama) {
+		if (jabatanNama != null && jabatanNama.equalsIgnoreCase("null")) {
+			jabatanNama = "";
+		}
 		this.jabatanNama = jabatanNama;
 	}
 
@@ -266,6 +337,9 @@ public class DataPendaftaran {
 	}
 
 	public void setPendidikanKode(String pendidikanKode) {
+		if (pendidikanKode != null && pendidikanKode.equalsIgnoreCase("null")) {
+			pendidikanKode = "";
+		}
 		this.pendidikanKode = pendidikanKode;
 	}
 
@@ -274,6 +348,9 @@ public class DataPendaftaran {
 	}
 
 	public void setPendidikanNama(String pendidikanNama) {
+		if (pendidikanNama != null && pendidikanNama.equalsIgnoreCase("null")) {
+			pendidikanNama = "";
+		}
 		this.pendidikanNama = pendidikanNama;
 	}
 
@@ -282,6 +359,9 @@ public class DataPendaftaran {
 	}
 
 	public void setTglCreated(String tglCreated) {
+		if (tglCreated != null && tglCreated.equalsIgnoreCase("null")) {
+			tglCreated = "";
+		}
 		this.tglCreated = tglCreated;
 	}
 
@@ -290,6 +370,9 @@ public class DataPendaftaran {
 	}
 
 	public void setStatus(String status) {
+		if (status != null && status.equalsIgnoreCase("null")) {
+			status = "";
+		}
 		this.status = status;
 	}
 
