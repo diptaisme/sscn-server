@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Component;
 import org.sscn.core.report.command.workbook.DataPendaftaranWorkbook;
 import org.sscn.dao.DtPendaftaranDao;
-import org.sscn.persistence.entities.view.DataPendaftaran;
+import org.sscn.persistence.entities.view.DataPendaftaran2014;
 
 @Component("ReportDataPendaftaranCommand")
 public class ReportDataPendaftaranCommand extends ReportCommand {
@@ -38,7 +38,7 @@ public class ReportDataPendaftaranCommand extends ReportCommand {
 	private static final String START_INDEX = "START_INDEX";
 
 	public static final String INSTANSI = "INSTANSI";
-	
+
 	public static final String WAKTU = "WAKTU";
 
 	@Inject
@@ -76,8 +76,8 @@ public class ReportDataPendaftaranCommand extends ReportCommand {
 		Date nowTime = java.util.Calendar.getInstance().getTime();
 		Format formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
-		List<DataPendaftaran> listDataPendaftaran = dtPendaftaranDao
-				.findDataPendaftaran(request.getParameter("kodeInstansi"));
+		List<DataPendaftaran2014> listDataPendaftaran = dtPendaftaranDao
+				.findDataPendaftaran2014(request.getParameter("kodeInstansi"));
 		Object[] dataPendaftaranArray = listDataPendaftaran.toArray();
 
 		excelMap.put(TEMPLATE, reportBaseDir + "rptDataPendaftaran.xls");
@@ -86,7 +86,7 @@ public class ReportDataPendaftaranCommand extends ReportCommand {
 				"Instansi " + request.getParameter("namaInstansi"));
 		excelMap.put("WAKTU", "Keadaan " + formatter.format(nowTime));
 		excelMap.put(START_INDEX, Integer.valueOf(INT_START_INDEX));
-		excelMap.put(FORMAT, "NCCCCCCCCCCCCCCCCCCCCCCCCCC");
+		excelMap.put(FORMAT, "NCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC");
 
 		generateXlsReport(dataPendaftaranArray, response, excelMap,
 				"rptDataPendaftaran.xls");
