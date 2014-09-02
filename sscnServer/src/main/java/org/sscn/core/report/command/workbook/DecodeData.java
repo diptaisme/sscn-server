@@ -7,7 +7,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.sscn.core.report.GeneralReportFactory;
 import org.sscn.persistence.entities.DtPendaftaran;
-import org.sscn.persistence.entities.view.DataPendaftaran;
+import org.sscn.persistence.entities.view.DataPendaftaran2014;
 import org.sscn.persistence.entities.view.RekapanPendaftaran;
 import org.sscn.persistence.entities.view.RekapanPendaftaranTidakLulus;
 
@@ -32,7 +32,8 @@ public final class DecodeData {
 
 	// Put Decoder objects and their corresponding reportType here.
 	static {
-		DECODER_MAP.put(GeneralReportFactory.RPT_REKAPAN_TIDAKLULUS.toLowerCase(),
+		DECODER_MAP.put(
+				GeneralReportFactory.RPT_REKAPAN_TIDAKLULUS.toLowerCase(),
 				new Decoder() {
 					public Object[] decode(Object object) {
 						return decodePendaftaranTidakLulus(object);
@@ -44,20 +45,23 @@ public final class DecodeData {
 						return decodeTestSaja(object);
 					}
 				});
-		DECODER_MAP.put(GeneralReportFactory.RPT_DATA_PENDAFTARAN.toLowerCase(),
+		DECODER_MAP.put(
+				GeneralReportFactory.RPT_DATA_PENDAFTARAN.toLowerCase(),
 				new Decoder() {
 					public Object[] decode(Object object) {
 						return decodeDataPendaftaran(object);
 					}
 				});
-		DECODER_MAP.put(GeneralReportFactory.RPT_DATA_PESERTA_TEST.toLowerCase(),
+		DECODER_MAP.put(
+				GeneralReportFactory.RPT_DATA_PESERTA_TEST.toLowerCase(),
 				new Decoder() {
 					public Object[] decode(Object object) {
 						return decodeDataPesertaTest(object);
 					}
 				});
 
-		DECODER_MAP.put(GeneralReportFactory.RPT_REKAPAN_PENDAFTARAN.toLowerCase(),
+		DECODER_MAP.put(
+				GeneralReportFactory.RPT_REKAPAN_PENDAFTARAN.toLowerCase(),
 				new Decoder() {
 					public Object[] decode(Object object) {
 						return decodeDataRekapanPendaftaran(object);
@@ -84,29 +88,78 @@ public final class DecodeData {
 		DtPendaftaran val = (DtPendaftaran) object;
 		return new Object[] { ROWNUM, val.getId(), val.getNama(), };
 	}
-	
+
 	protected static Object[] decodePendaftaranTidakLulus(Object object) {
 		RekapanPendaftaranTidakLulus val = (RekapanPendaftaranTidakLulus) object;
-		return new Object[] { ROWNUM, val.getNama(), val.getNik(), val.getSyarat()};
+		return new Object[] { ROWNUM, val.getNama(), val.getNik(),
+				val.getSyarat() };
 	}
-	
+
 	protected static Object[] decodeDataPendaftaran(Object object) {
-		DataPendaftaran val = (DataPendaftaran) object;
-		return new Object[] { ROWNUM, val.getNoNik(), val.getTglCreated(), val.getNoRegister(), val.getNoPeserta(), val.getNama(), 
-				val.getTmpLahir(), val.getTglLahir(), val.getJnsKelamin(), val.getAlamat(), val.getKodePos(), val.getPropinsi(), val.getKota(),
-				val.getTelpon(), val.getEmail(), val.getAsalInstitusiPendidikan(), val.getNoIjazah(), val.getAkreditasi(), val.getNilaiIpk(),
-				val.getLokasiKode(), val.getLokasiNama(), val.getJabatanKode(), val.getJabatanNama(), val.getPendidikanKode(), val.getPendidikanNama(), val.getStatus()};
+		// DataPendaftaran val = (DataPendaftaran) object;
+		DataPendaftaran2014 val = (DataPendaftaran2014) object;
+		// return new Object[] { ROWNUM, val.getNoNik(), val.getTglCreated(),
+		// val.getNoRegister(), val.getNoPeserta(), val.getNama(),
+		// val.getTmpLahir(), val.getTglLahir(), val.getJnsKelamin(),
+		// val.getAlamat(), val.getKodePos(), val.getPropinsi(), val.getKota(),
+		// val.getTelpon(), val.getEmail(), val.getAsalInstitusiPendidikan(),
+		// val.getNoIjazah(), val.getAkreditasi(), val.getNilaiIpk(),
+		// val.getLokasiKode(), val.getLokasiNama(), val.getJabatanKode(),
+		// val.getJabatanNama(), val.getPendidikanKode(),
+		// val.getPendidikanNama(),
+		// val.getStatus()};
+		return new Object[] { ROWNUM, val.getNoNik(), val.getTglCreated(),
+				val.getNoRegister(), val.getNoPeserta(), val.getNama(),
+				val.getTmpLahir(), val.getTglLahir(), val.getJnsKelamin(),
+				val.getAlamat(), val.getKodePos(), val.getPropinsi(),
+				val.getKota(), val.getTelpon(), val.getEmail(),
+				val.getAsalInstitusiPendidikan(), val.getNoIjazah(),
+				val.getAkreditasi(), val.getNilaiIpk(), val.getLokasiKode(),
+				val.getLokasiNama(), val.getJabatanKode(),
+				val.getJabatanNama(), val.getPendidikanKode(),
+				val.getPendidikanNama(), val.getLokasiKode2(),
+				val.getLokasiNama2(), val.getJabatanKode2(),
+				val.getJabatanNama2(), val.getLokasiKode3(),
+				val.getLokasiNama3(), val.getJabatanKode3(),
+				val.getJabatanNama3(), val.getLokasiTest(),
+				val.getLokasiTestNama(), val.getStatus() };
 	}
+
 	protected static Object[] decodeDataPesertaTest(Object object) {
-		DataPendaftaran val = (DataPendaftaran) object;
-		return new Object[] { ROWNUM, val.getNoNik(), val.getNoRegister(), val.getNoPeserta(), val.getNama(), 
-				val.getTmpLahir(), val.getTglLahir(), val.getJnsKelamin(), val.getAlamat(), val.getKodePos(), val.getPropinsi(), val.getKota(),
-				val.getTelpon(), val.getEmail(), val.getAsalInstitusiPendidikan(), val.getNoIjazah(), val.getAkreditasi(), val.getNilaiIpk(),
-				val.getLokasiKode(), val.getLokasiNama(), val.getJabatanKode(), val.getJabatanNama(), val.getPendidikanKode(), val.getPendidikanNama(), val.getTglCreated(), val.getStatus()};
+		// DataPendaftaran val = (DataPendaftaran) object;
+		DataPendaftaran2014 val = (DataPendaftaran2014) object;
+		return new Object[] { ROWNUM, val.getNoNik(), val.getNoRegister(),
+				val.getNoPeserta(), val.getNama(), val.getTmpLahir(),
+				val.getTglLahir(), val.getJnsKelamin(), val.getAlamat(),
+				val.getKodePos(), val.getPropinsi(), val.getKota(),
+				val.getTelpon(), val.getEmail(),
+				val.getAsalInstitusiPendidikan(), val.getNoIjazah(),
+				val.getAkreditasi(), val.getNilaiIpk(), val.getLokasiKode(),
+				val.getLokasiNama(), val.getJabatanKode(),
+				val.getJabatanNama(), val.getPendidikanKode(),
+				val.getPendidikanNama(), val.getLokasiKode2(),
+				val.getLokasiNama2(), val.getJabatanKode2(),
+				val.getJabatanNama2(), val.getLokasiKode3(),
+				val.getLokasiNama3(), val.getJabatanKode3(),
+				val.getJabatanNama3(), val.getLokasiTest(),
+				val.getLokasiTestNama(), val.getTglCreated(), val.getStatus() };
+		// return new Object[] { ROWNUM, val.getNoNik(), val.getNoRegister(),
+		// val.getNoPeserta(), val.getNama(),
+		// val.getTmpLahir(), val.getTglLahir(), val.getJnsKelamin(),
+		// val.getAlamat(), val.getKodePos(), val.getPropinsi(), val.getKota(),
+		// val.getTelpon(), val.getEmail(), val.getAsalInstitusiPendidikan(),
+		// val.getNoIjazah(), val.getAkreditasi(), val.getNilaiIpk(),
+		// val.getLokasiKode(), val.getLokasiNama(), val.getJabatanKode(),
+		// val.getJabatanNama(), val.getPendidikanKode(),
+		// val.getPendidikanNama(),
+		// val.getTglCreated(),val.getStatus()};
 	}
+
 	protected static Object[] decodeDataRekapanPendaftaran(Object object) {
 		RekapanPendaftaran val = (RekapanPendaftaran) object;
-		return new Object[] { ROWNUM, val.getLokasi(), val.getJabatan(), val.getPendidikan(), 
-				val.getJumlahPendaftar(), val.getJumlahLulus(), val.getJumlahTidakLulus(), val.getJumlahBelumVerifikasi()};
+		return new Object[] { ROWNUM, val.getLokasi(), val.getJabatan(),
+				val.getPendidikan(), val.getJumlahPendaftar(),
+				val.getJumlahLulus(), val.getJumlahTidakLulus(),
+				val.getJumlahBelumVerifikasi() };
 	}
 }
