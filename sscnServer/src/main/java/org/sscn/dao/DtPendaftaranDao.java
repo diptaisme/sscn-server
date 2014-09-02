@@ -9,6 +9,7 @@ import org.sscn.persistence.entities.RefInstansi;
 import org.sscn.persistence.entities.RefJabatan;
 import org.sscn.persistence.entities.view.DataPendaftaran;
 import org.sscn.persistence.entities.view.RekapanPendaftaran;
+import org.sscn.persistence.entities.view.RekapanPendaftaranTidakLulus;
 import org.sscn.persistence.entities.view.StatInstansi;
 import org.sscn.persistence.entities.view.StatInstansiJabatan;
 
@@ -55,5 +56,7 @@ public interface DtPendaftaranDao extends CoreDao<DtPendaftaran> {
 			final int... idxAndCount);
 	
 	Integer countReverifikasiByInstansiAndMap(RefInstansi refInstansi, Map<String, Object> map);
-	
+
+	List<RekapanPendaftaranTidakLulus> getRekapanPendaftaranTidakLulusInstansi(
+			String kodeInstansi);
 }
