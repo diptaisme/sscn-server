@@ -188,6 +188,14 @@ public class ReportPesertaUjianCommand extends ReportCommand {
 				.getNama());
 		mapParamater.put("INSTANSI", pendaftaran.getFormasi().getRefInstansi()
 				.getNama());
+		String nipSpesimen = "", namaSpesimen = "";
+		if (pendaftaran.getFormasi().getRefInstansi().getKode().equalsIgnoreCase("4011")){
+			nipSpesimen = pendaftaran.getFormasi().getRefInstansi().getSpesimenNip();
+			namaSpesimen = pendaftaran.getFormasi().getRefInstansi().getSpesimenNama();
+		}
+		mapParamater.put("SPESIMEN_NIP", nipSpesimen);
+		mapParamater.put("SPESIMEN_NAMA", namaSpesimen);
+		
 		String lokasiTest = "";
 		if (pendaftaran.getLokasiTest() != null) {
 			if (!pendaftaran.getLokasiTest().equalsIgnoreCase("")) {
