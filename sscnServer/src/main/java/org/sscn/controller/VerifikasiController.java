@@ -98,6 +98,17 @@ public class VerifikasiController {
 		} else {
 			part2 = activePage * indexAndCount[1];
 		}		
+		Boolean isCanCetak = false;
+		if (user.getRefInstansi().getPilihanCetakKartu() != null && (user.getRefInstansi().getPilihanCetakKartu().equalsIgnoreCase("2") || user.getRefInstansi().getPilihanCetakKartu().equalsIgnoreCase("3"))){
+			isCanCetak = true;
+		}
+		
+		Boolean isSetLokasi = false;
+		if (user.getRefInstansi().getPilihanLokasiTest() != null && (user.getRefInstansi().getPilihanLokasiTest().equalsIgnoreCase("2") || user.getRefInstansi().getPilihanLokasiTest().equalsIgnoreCase("3"))){
+			isSetLokasi = true;
+		}
+		model.addAttribute("isCanCetak", isCanCetak);
+		model.addAttribute("isSetLokasi", isSetLokasi);
 		List<RefLokasiTest> lokasis = refLokasiTestDao.findByProperty("refInstansi", user.getRefInstansi(), null);
 		model.addAttribute("lokasis", lokasis);
 		model.addAttribute("pendaftars", pendaftars);
@@ -176,6 +187,18 @@ public class VerifikasiController {
 		}		
 
 		List<RefLokasiTest> lokasis = refLokasiTestDao.findByProperty("refInstansi", user.getRefInstansi(), null);
+		
+		Boolean isCanCetak = false;
+		if (user.getRefInstansi().getPilihanCetakKartu() != null && (user.getRefInstansi().getPilihanCetakKartu().equalsIgnoreCase("2") || user.getRefInstansi().getPilihanCetakKartu().equalsIgnoreCase("3"))){
+			isCanCetak = true;
+		}
+		
+		Boolean isSetLokasi = false;
+		if (user.getRefInstansi().getPilihanLokasiTest() != null && (user.getRefInstansi().getPilihanLokasiTest().equalsIgnoreCase("2") || user.getRefInstansi().getPilihanLokasiTest().equalsIgnoreCase("3"))){
+			isSetLokasi = true;
+		}
+		model.addAttribute("isCanCetak", isCanCetak);
+		model.addAttribute("isSetLokasi", isSetLokasi);
 		model.addAttribute("lokasis", lokasis);
 		model.addAttribute("pendaftars", pendaftars);
 		model.addAttribute("count",count);
