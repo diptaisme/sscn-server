@@ -9,6 +9,7 @@ import org.sscn.core.report.GeneralReportFactory;
 import org.sscn.persistence.entities.DtPendaftaran;
 import org.sscn.persistence.entities.view.DataPendaftaran;
 import org.sscn.persistence.entities.view.RekapanPendaftaran;
+import org.sscn.persistence.entities.view.RekapanPendaftaranTidakLulus;
 
 public final class DecodeData {
 	// constants
@@ -31,6 +32,12 @@ public final class DecodeData {
 
 	// Put Decoder objects and their corresponding reportType here.
 	static {
+		DECODER_MAP.put(GeneralReportFactory.RPT_REKAPAN_TIDAKLULUS.toLowerCase(),
+				new Decoder() {
+					public Object[] decode(Object object) {
+						return decodePendaftaranTidakLulus(object);
+					}
+				});
 		DECODER_MAP.put(GeneralReportFactory.RPT_TEST_CETAK.toLowerCase(),
 				new Decoder() {
 					public Object[] decode(Object object) {
@@ -76,6 +83,11 @@ public final class DecodeData {
 	protected static Object[] decodeTestSaja(Object object) {
 		DtPendaftaran val = (DtPendaftaran) object;
 		return new Object[] { ROWNUM, val.getId(), val.getNama(), };
+	}
+	
+	protected static Object[] decodePendaftaranTidakLulus(Object object) {
+		RekapanPendaftaranTidakLulus val = (RekapanPendaftaranTidakLulus) object;
+		return new Object[] { ROWNUM, val.getNama(), val.getNik(), val.getSyarat()};
 	}
 	
 	protected static Object[] decodeDataPendaftaran(Object object) {
