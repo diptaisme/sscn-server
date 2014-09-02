@@ -10,6 +10,7 @@ public class RekapanPendaftaran {
 	private String jumlahBelumVerifikasi;
 
 	public RekapanPendaftaran() {
+		// NOOP
 	}
 
 	public RekapanPendaftaran(String lokasi, String jabatan, String pendidikan,
