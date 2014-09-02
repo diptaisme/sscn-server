@@ -54,4 +54,6 @@ public class GeneralReportUtil {
 	public static final String RPT_DATA_PESERTA_TEST = "rptDataPesertaTest";
 	/** The Constant RPT_REKAPAN_PENDAFTARAN. */
 	public static final String RPT_REKAPAN_PENDAFTARAN = "rptRekapanPendaftaran";
+	/** The Constant RPT_REKAPAN_PENDAFTARAN. */
+	
 }
