@@ -265,10 +265,13 @@
 																class="icon-edit"></i>Verifikasi</a>&nbsp;<a href="#"
 															onclick="info(this,'${pendaftar.id }')"
 															class="btn btn-small btn-primary"><i
-																class="icon-edit"></i>Info</a>&nbsp;<a href="#"
+																class="icon-edit"></i>Info</a>&nbsp;
+														<c:if test="${isSetLokasi }">
+																<a href="#"
 															onclick="setLokasi(this,'${pendaftar.id }')"
 															class="btn btn-small btn-primary"><i
 																class="icon-edit"></i>Set Lokasi</a>&nbsp;</td>
+														</c:if>			
 													</c:when>
 													<c:otherwise>
 														<td>Sudah diverifikasi &nbsp;<a href="#"
@@ -276,14 +279,18 @@
 															class="btn btn-small btn-primary"><i
 																class="icon-edit"></i>Info</a>&nbsp; <c:if
 																test="${pendaftar.noPeserta != null && pendaftar.noPeserta != ''}">
-																<a href="#"
-																	onclick="cetak(this,'${pendaftar.noRegister }')"
-																	class="btn btn-small btn-primary"><i
-																	class="icon-edit"></i>Cetak </a>&nbsp;
-																<a href="#"
-																	onclick="setLokasi(this,'${pendaftar.id }')"
-																	class="btn btn-small btn-primary"><i
-																	class="icon-edit"></i>Set Lokasi</a>&nbsp;	
+																	<c:if test="${isCanCetak }">
+																		<a href="#"
+																			onclick="cetak(this,'${pendaftar.noRegister }')"
+																			class="btn btn-small btn-primary"><i
+																			class="icon-edit"></i>Cetak </a>&nbsp;
+																	</c:if>
+																	<c:if test="${isSetLokasi }">		
+																		<a href="#"
+																			onclick="setLokasi(this,'${pendaftar.id }')"
+																			class="btn btn-small btn-primary"><i
+																			class="icon-edit"></i>Set Lokasi</a>&nbsp;
+																	</c:if>				
 															</c:if>															
 														</td>
 													</c:otherwise>
