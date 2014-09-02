@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Component;
 import org.sscn.core.report.command.workbook.DataPesertaTestWorkbook;
 import org.sscn.dao.DtPendaftaranDao;
-import org.sscn.persistence.entities.view.DataPendaftaran;
+import org.sscn.persistence.entities.view.DataPendaftaran2014;
 
 @Component("ReportDataPesertaTestCommand")
 public class ReportDataPesertaTestCommand extends ReportCommand {
@@ -76,8 +76,8 @@ public class ReportDataPesertaTestCommand extends ReportCommand {
 		Date nowTime = java.util.Calendar.getInstance().getTime();
 		Format formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
-		List<DataPendaftaran> listDataPesertaTest = dtPendaftaranDao
-				.findDataPesertaTest(request.getParameter("kodeInstansi2"));
+		List<DataPendaftaran2014> listDataPesertaTest = dtPendaftaranDao
+				.findDataPesertaTest2014(request.getParameter("kodeInstansi2"));
 		Object[] dataPesertaTestArray = listDataPesertaTest.toArray();
 
 		excelMap.put(TEMPLATE, reportBaseDir + "rptDataPesertaTest.xls");
@@ -86,7 +86,7 @@ public class ReportDataPesertaTestCommand extends ReportCommand {
 				"Instansi " + request.getParameter("namaInstansi2"));
 		excelMap.put("WAKTU", "Keadaan " + formatter.format(nowTime));
 		excelMap.put(START_INDEX, Integer.valueOf(INT_START_INDEX));
-		excelMap.put(FORMAT, "NCCCCCCCCCCCCCCCCCCCCCCCCCC");
+		excelMap.put(FORMAT, "NCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC");
 
 		generateXlsReport(dataPesertaTestArray, response, excelMap,
 				"rptDataPesertaTest.xls");
