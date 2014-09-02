@@ -21,6 +21,7 @@ import org.sscn.persistence.entities.RefInstansi;
 import org.sscn.persistence.entities.RefJabatan;
 import org.sscn.persistence.entities.view.DataPendaftaran;
 import org.sscn.persistence.entities.view.RekapanPendaftaran;
+import org.sscn.persistence.entities.view.RekapanPendaftaranTidakLulus;
 import org.sscn.persistence.entities.view.StatInstansi;
 import org.sscn.persistence.entities.view.StatInstansiJabatan;
 
@@ -604,4 +605,35 @@ public class DtPendaftaranDaoImpl extends CoreDaoImpl<DtPendaftaran> implements
 		return Integer.valueOf(query.uniqueResult().toString());
 	}
 
+	@Override
+	public List<RekapanPendaftaranTidakLulus> getRekapanPendaftaranTidakLulusInstansi(
+			String kodeInstansi) {
+		List<RekapanPendaftaranTidakLulus> result = new ArrayList<RekapanPendaftaranTidakLulus>();
+		final String sql = "select dt_pendaftaran.NAMA, dt_pendaftaran.NO_NIK, dt_persyaratan.syarat, dt_persyaratan.instansi  from dt_verifikasi_nok " +
+							"	inner join dt_pendaftaran ON dt_verifikasi_nok.PENDAFTAR = dt_pendaftaran.ID " +
+							"	inner join dt_persyaratan ON dt_verifikasi_nok.PERSYARATAN = dt_persyaratan.id " +
+							"where dt_persyaratan.instansi = '" + kodeInstansi + "' order by dt_pendaftaran.NAMA, dt_persyaratan.urutan";
+		try {
+			SQLQuery query = createSqlQuery(sql);
+			List<Object[]> res = query.list();
+			//String lokasi = "";
+			//String jabatan = "";
+			for (Object[] obj : res) {
+				if (res != null) {
+					RekapanPendaftaranTidakLulus rekapanPendaftaran = new RekapanPendaftaranTidakLulus();
+					int index = 0;
+					String nama = String.valueOf(obj[index++]);
+					String nik = String.valueOf(obj[index++]);
+					String syarat = String.valueOf(obj[index++]);
+					rekapanPendaftaran.setNama(nama);
+					rekapanPendaftaran.setNik(nik);
+					rekapanPendaftaran.setSyarat(syarat);					
+					result.add(rekapanPendaftaran);
+				}
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return result;
+	}
 }
