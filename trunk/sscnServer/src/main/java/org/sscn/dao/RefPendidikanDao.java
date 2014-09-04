@@ -10,4 +10,6 @@ public interface RefPendidikanDao extends CoreDao<RefPendidikan> {
 	
 	List<RefPendidikan> findPendidikanByLikeNameAndTkPddkn(Map<String, Object> map,
 			int... idxAndCount);
+	
+	List<RefPendidikan> findPendidikanOfPendaftar(String searchTerm);
 }
