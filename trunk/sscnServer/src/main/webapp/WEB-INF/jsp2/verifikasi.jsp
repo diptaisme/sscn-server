@@ -211,7 +211,18 @@
 																id="defaultSearchField"> </label>
 														</c:otherwise>
 													</c:choose>
-
+													
+												<!-- 	<a class="btn" onClick="submitSearch(event)"><i
+														class="icon-search m-icon-white"></i> </a> -->
+												</div>
+												
+												<div class="control-group" id="searchBar2">
+													<input type="hidden" class="input-large" name="spendidikanKode"
+														id="spendidikanKode" value="${spendidikanKode}">
+													<label>Pendidikan : <input type="text"
+																aria-controls="example" name="spendidikanLabel" id="spendidikanLabel"
+																value="${spendidikanLabel}"> </label>
+													
 													<a class="btn" onClick="submitSearch(event)"><i
 														class="icon-search m-icon-white"></i> </a>
 												</div>
@@ -409,6 +420,14 @@
 					<input type="text" value="" id="valueTTL" readonly="readonly" />
 				</div>
 			</div>
+			
+			<div class="control-group">
+				<label>Pendidikan : </label>
+				<div class="controls">
+					<input type="text" value="" id="valuePendidikan" readonly="readonly" />
+				</div>
+			</div>
+			
 			<div id="valueStatus"></div>
 			<div class="form-actions">
 				<button class="btn btn-large" id="btnCancelInfo">Tutup</button>
@@ -660,6 +679,7 @@
 																data.data.tmpLahir
 																		+ ", "
 																		+ data.data.tglLahir);
+												$('#valuePendidikan').val(data.data.pendidikan);
 												if (data.mapData != null) {
 													var html = "<span>Status Tidak Lulus dengan syarat yang tidak terpenuhi : </span></br>";
 													html = html + "<lu>";
@@ -782,6 +802,65 @@
 												}
 
 											});
+
+							$("#spendidikanLabel")
+							.autocomplete(
+									{
+										source : function(request,
+												response) {
+											$
+													.ajax({
+														
+														url : "/sscnServer/findPendidikanOfPendaftar.do",
+														dataType : "jsonp",
+														data : {
+															featureClass : "P",
+															style : "full",
+															maxRows : 30,
+															name_startsWith : request.term
+														},
+														success : function(
+																data) {
+															response($
+																	.map(
+																			data.pendidikans,
+																			function(
+																					item) {
+																				return {
+																					code : item.kode,
+																					label : item.nama,
+																					value : item.nama
+																				}
+																			}));
+														}
+													});
+										},
+										minLength : 2,
+										select : function(event, ui, data) {
+											$('#spendidikanKode').val(
+													ui.item.code);										
+										},
+										open : function() {
+											$(this)
+													.removeClass(
+															"ui-corner-all")
+													.addClass(
+															"ui-corner-top");
+										},
+										close : function() {
+											$(this)
+													.removeClass(
+															"ui-corner-top")
+													.addClass(
+															"ui-corner-all");
+										},
+										change : function(event, ui){
+											if (ui.item == null){
+												//validasiLokasi();
+											}											
+										}
+							});
+							
 							
 							$("#formSetLokasi")
 							.submit(
