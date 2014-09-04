@@ -48,6 +48,16 @@ public class PendidikanServiceImpl implements PendidikanService {
 				.findPendidikanByLikeNameAndTkPddkn(map, indexAndCount);
 		return pendidikans;
 	}
+	
+	@Override
+	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
+	public List<RefPendidikan> findPendidikanOfPendaftar(String searchTerm) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		List<RefPendidikan> pendidikans = refPendidikanDao
+				.findPendidikanOfPendaftar(searchTerm);
+		return pendidikans;
+	}
 
 	@Override
 	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
