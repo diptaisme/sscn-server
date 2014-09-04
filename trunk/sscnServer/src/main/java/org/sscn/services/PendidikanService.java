@@ -12,6 +12,8 @@ public interface PendidikanService {
 	
 	List<RefPendidikan> findPendidikanByLikeNameAndTkPddkn(String name, String tingkat);
 	
+	List<RefPendidikan> findPendidikanOfPendaftar(String searchTerm);
+	
 	RefPendidikan findById(String id);
 
 }
