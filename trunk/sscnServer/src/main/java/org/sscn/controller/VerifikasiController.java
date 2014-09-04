@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.sscn.dao.DtPendaftaranDao;
 import org.sscn.dao.RefLokasiDao;
 import org.sscn.dao.RefLokasiTestDao;
+import org.sscn.dao.RefPendidikanDao;
 import org.sscn.persistence.entities.DtPendaftaran;
 import org.sscn.persistence.entities.DtPersyaratan;
 import org.sscn.persistence.entities.DtUser;
@@ -44,6 +45,9 @@ public class VerifikasiController {
 	
 	@Inject
 	private RefLokasiDao refLokasiDao;
+	
+	@Inject
+	private RefPendidikanDao refPendidikanDao;
 	
 	@Inject
 	private RefLokasiTestDao refLokasiTestDao;
@@ -151,6 +155,7 @@ public class VerifikasiController {
 		
 		String searchPar = request.getParameter("searchPar");
 		String noReg = "";
+		String spendidikanKode = "";
 		Boolean searchBy = false;
 		if (searchPar != null && !searchPar.contentEquals("")){			
 			noReg = request.getParameter("no_reg");
@@ -159,12 +164,20 @@ public class VerifikasiController {
 				searchBy = true;
 			}
 			model.addAttribute("no_reg", noReg);
+			
+			spendidikanKode = request.getParameter("spendidikanKode");
+			
+			if (spendidikanKode != null && !spendidikanKode.contentEquals("")){
+				searchBy = true;
+			}
+			model.addAttribute("spendidikanKode", spendidikanKode);
 		}
 		
 		List<DtPendaftaran> pendaftars;
 		if (searchBy){
 			Map<String, Object> maps = new HashMap<String, Object>();
 			maps.put("noRegister", noReg);
+			maps.put("pendidikan", spendidikanKode);
 			pendaftars = dtPendaftaranDao.findByInstansiAndMap(user.getRefInstansi(), maps, 
 					indexAndCount);				
 			count = dtPendaftaranDao.countByInstansiAndMap(user.getRefInstansi(), maps);
@@ -176,7 +189,7 @@ public class VerifikasiController {
 		
 		List<DtPersyaratan> persyaratans = persyaratanServices.findByProperty("refInstansi",
 				user.getRefInstansi(), null, null);
-		
+		//List<RefPendidikan> pendidikans = refPendidikanDao.findPendidikanOfPendaftar;
 		int numPage = (int) Math.ceil((double)count/indexAndCount[1]);		
 		int activePage = (int) Math.ceil((double)(indexAndCount[0] + 1)/ indexAndCount[1]);
 		int part2;
@@ -341,10 +354,12 @@ public class VerifikasiController {
 			}
 			infoPendaftar.setPendidikan(pddkn);
 			infoPendaftar.setFormasi(null);
-			
-			if (infoPendaftar.getLokasiTest() != null){				
+			infoPendaftar.setFormasi2(null);
+			infoPendaftar.setFormasi3(null);
+			infoPendaftar.setTabelPendaftar(null);
+		/*	if (infoPendaftar.getLokasiTest() != null){				
 				infoPendaftar.setLokasiTest(infoPendaftar.getLokasiTest());
-			} 
+			} */ 
 			
 			res = new StandardJsonMessage(1, infoPendaftar, mob, "Get Pendaftaran Success");
 		} catch (Exception ex) {
