@@ -72,7 +72,7 @@ public class DtPendaftaranDaoImpl extends CoreDaoImpl<DtPendaftaran> implements
 	public String getnoUrutPendaftaran(String limaDigitPertama) {
 
 		StringBuilder sqlText = new StringBuilder(
-				"select max(convert(substr(NO_PESERTA,6,5),unsigned integer)) from dt_pendaftaran where NO_PESERTA LIKE '"
+				"select max(convert(substr(NO_PESERTA,6,6),unsigned integer)) from dt_pendaftaran where NO_PESERTA LIKE '"
 						+ limaDigitPertama + "%'");
 
 		SQLQuery query = createSqlQuery(sqlText);
@@ -122,11 +122,17 @@ public class DtPendaftaranDaoImpl extends CoreDaoImpl<DtPendaftaran> implements
 		Iterator<Map.Entry<String, Object>> entries = map.entrySet().iterator();
 		while (entries.hasNext()) {
 			Map.Entry<String, Object> entry = entries.next();
-			whereMap = whereMap + "model." + entry.getKey() + " LIKE :"
-					+ entry.getKey();
+			if (entry.getKey().equalsIgnoreCase("noRegister")){
+				whereMap = whereMap + " AND " +  "model." + entry.getKey() + " LIKE :"
+				+ entry.getKey();
+			} else {
+				whereMap = whereMap + " AND " +  "model." + entry.getKey() + " = :"
+				+ entry.getKey();
+			}
+			
 		}
 		sbFind.append(innerJoinFetchPhrase).append(wherePhrase)
-				.append(" AND " + whereMap);
+				.append(whereMap);
 		System.out.println("Query : " + sbFind);
 		Query query = createQuery(sbFind);
 		query.setParameter("refInstansiId", instansi.getKode());
@@ -135,7 +141,12 @@ public class DtPendaftaranDaoImpl extends CoreDaoImpl<DtPendaftaran> implements
 				.iterator();
 		while (entries2.hasNext()) {
 			Map.Entry<String, Object> entry = entries2.next();
-			query.setParameter(entry.getKey(), "%" + entry.getValue() + "%");
+			if (entry.getKey().equalsIgnoreCase("noRegister")){
+				query.setParameter(entry.getKey(), "%" + entry.getValue() + "%");	
+			} else {
+				query.setParameter(entry.getKey(), entry.getValue());
+			}
+			
 		}
 		return doQuery(query, idxAndCount);
 	}
@@ -152,10 +163,16 @@ public class DtPendaftaranDaoImpl extends CoreDaoImpl<DtPendaftaran> implements
 		Iterator<Map.Entry<String, Object>> entries = map.entrySet().iterator();
 		while (entries.hasNext()) {
 			Map.Entry<String, Object> entry = entries.next();
-			whereMap = whereMap + "model." + entry.getKey() + " LIKE :"
-					+ entry.getKey();
+			if (entry.getKey().equalsIgnoreCase("noRegister")){
+				whereMap = whereMap + " AND " +  "model." + entry.getKey() + " LIKE :"
+				+ entry.getKey();
+			} else {
+				whereMap = whereMap + " AND " +  "model." + entry.getKey() + " = :"
+				+ entry.getKey();
+			}
+			
 		}
-		sbFind.append(wherePhrase).append(" AND " + whereMap);
+		sbFind.append(wherePhrase).append(whereMap);
 		// System.out.println("Query : " + sbFind);
 		Query query = createQuery(sbFind);
 		query.setParameter("refInstansiId", refInstansi.getKode());
@@ -164,8 +181,13 @@ public class DtPendaftaranDaoImpl extends CoreDaoImpl<DtPendaftaran> implements
 				.iterator();
 		while (entries2.hasNext()) {
 			Map.Entry<String, Object> entry = entries2.next();
-			query.setParameter(entry.getKey(), "%" + entry.getValue() + "%");
+			if (entry.getKey().equalsIgnoreCase("noRegister")){
+				query.setParameter(entry.getKey(), "%" + entry.getValue() + "%");	
+			} else {
+				query.setParameter(entry.getKey(), entry.getValue());
+			}
 		}
+
 		return Integer.valueOf(query.uniqueResult().toString());
 	}
 
