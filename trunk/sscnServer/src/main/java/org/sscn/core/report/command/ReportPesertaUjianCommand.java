@@ -131,7 +131,7 @@ public class ReportPesertaUjianCommand extends ReportCommand {
 		String noPeserta = pendaftaran.getNoPeserta();
 		String formattedNoPeserta = noPeserta.substring(0, 4) + "-"
 				+ noPeserta.substring(4, 5) + "-" + noPeserta.substring(5, 10)
-				+ "-" + noPeserta.substring(10, 11);
+				+ noPeserta.substring(10, 11);
 		mapParamater.put("NOMOR_PESERTA", formattedNoPeserta);
 		mapParamater.put("BARCODE", pendaftaran.getNoPeserta());
 		mapParamater.put("NIK", pendaftaran.getNoNik());
