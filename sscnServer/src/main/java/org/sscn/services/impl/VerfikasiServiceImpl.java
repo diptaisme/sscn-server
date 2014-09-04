@@ -118,6 +118,8 @@ public class VerfikasiServiceImpl implements VerfikasiService {
 	@Transactional(readOnly = false)
 	public boolean verifikasiUlang(DtVerifikasiUlang reVer, DtPendaftaran pendaftaran) {
 		try {
+			List<DtVerifikasiNok> verNok = dtVerifikasiNokDao.findByProperty("pendaftar", pendaftaran, null);
+			dtVerifikasiNokDao.removeBulk(verNok);
 			verUlangDao.insert(reVer);
 			dtPendaftaranDao.update(pendaftaran);
 			return true;
