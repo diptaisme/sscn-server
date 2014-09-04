@@ -157,6 +157,7 @@ public class VerifikasiController {
 		String noReg = "";
 		String spendidikanKode = "";
 		Boolean searchBy = false;
+		Boolean searchByPendidikan = false;
 		if (searchPar != null && !searchPar.contentEquals("")){			
 			noReg = request.getParameter("no_reg");
 			
@@ -168,7 +169,7 @@ public class VerifikasiController {
 			spendidikanKode = request.getParameter("spendidikanKode");
 			
 			if (spendidikanKode != null && !spendidikanKode.contentEquals("")){
-				searchBy = true;
+				searchByPendidikan = true;
 			}
 			model.addAttribute("spendidikanKode", spendidikanKode);
 		}
@@ -177,7 +178,9 @@ public class VerifikasiController {
 		if (searchBy){
 			Map<String, Object> maps = new HashMap<String, Object>();
 			maps.put("noRegister", noReg);
-			maps.put("pendidikan", spendidikanKode);
+			if (searchByPendidikan){
+				maps.put("pendidikan", spendidikanKode);
+			}			
 			pendaftars = dtPendaftaranDao.findByInstansiAndMap(user.getRefInstansi(), maps, 
 					indexAndCount);				
 			count = dtPendaftaranDao.countByInstansiAndMap(user.getRefInstansi(), maps);
