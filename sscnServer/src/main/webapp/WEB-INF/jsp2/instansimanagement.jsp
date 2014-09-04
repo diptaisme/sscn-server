@@ -4,6 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <c:set var="userLogin" value="${sessionScope.userLogin}" />
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -266,7 +267,7 @@
 																			 
 																		  </select>	
 							           
-							          														
+										
 									</div>
 								</div>
 								<div class="form-actions">
@@ -274,7 +275,23 @@
 									<!-- <button type="reset" class="btn btn-large">Reset</button>  -->
 								</div>
 								</fieldset>
-							</form>
+							</form>							
+							
+							<form action="saveInstansiConfFinalVerifikasi.do" method="post" class="form-horizontal">
+									   <c:choose>
+											<c:when test="${instansi.isFinalVerifikasi == '0'}">
+											<p style="font-family:arial;font-size:25px;">							
+													Keputusan Verifikasi Belum final dibuat. Klik  <input TYPE='checkbox' id='is_final_verifikasi' name='is_final_verifikasi' VALUE='1'> FINAL jika sudah melakukan Verifikasi semua dengan benar. Jika settingan pendaftar dapat melakukan cetak kartu peserta, maka peserta dapat mencetak kartu perserta di <a href='http://sscn.bkn.go.id'>http://sscn.bkn.go.id<a/>			
+<BR> <button class="btn btn-primary btn-small" type="submit">Simpan</button>													
+											</p>
+											</c:when>
+											<c:when test="${instansi.isFinalVerifikasi == '1'}">
+											<p style="font-family:arial;font-size:25px;">							
+													Keputusan Verifikasi final telah dibuat. Klik  <input TYPE='checkbox' id='is_final_verifikasi' name='is_final_verifikasi' VALUE='0'> BELUM FINAL jika ingin melakukan verifikasi kembali. Jika settingan pendaftar dapat melakukan cetak kartu peserta, maka peserta tidak dapat mencetak kartu perserta di <a href='http://sscn.bkn.go.id'>http://sscn.bkn.go.id<a/>						<BR> <button class="btn btn-primary btn-small" type="submit">Simpan</button>									
+											</p>
+											</c:when>
+										</c:choose>										
+							</form>								
 						</div>
 						<!-- /widget-content -->
 
