@@ -51,4 +51,18 @@ public class PendidikanController {
 				mapResult));
 	}
 
+	@RequestMapping(value = "/findPendidikanOfPendaftar.do", method = RequestMethod.GET)
+	@ResponseBody
+	public String findPendidikanOfPendaftar(
+			@RequestParam("callback") String callBack,
+			@RequestParam("name_startsWith") String name) throws Exception {
+		ObjectMapper objectMapper = new ObjectMapper();
+		List<RefPendidikan> pendidikans = pendidikanService.findPendidikanOfPendaftar(name);
+		Map<String, Object> mapResult = new HashMap<String, Object>();
+		mapResult.put("pendidikans", pendidikans);
+
+		return objectMapper.writeValueAsString(new JSONPObject(callBack,
+				mapResult));
+	}
+
 }
