@@ -189,7 +189,7 @@ public class InstansiController {
 		RefInstansi ins = this.refInstansiDao.findById(user.getRefInstansi().getKode());
 		ins.setPilihanJabatan(pilihanJabatan);
 		ins.setPilihanLokasiTest(lokasitest);
-		ins.setPilihanCetakKartu(cetakkartu);
+		ins.setPilihanCetakKartu(cetakkartu);		
 		try {
 			RefInstansi res = instansiService.updateRefInstansi(ins);
 			if (res != null){
@@ -201,6 +201,37 @@ public class InstansiController {
 		} catch (Exception e) {
 			// TODO: handle exception
 			model.addAttribute("pesan", "Data periode daftar gagal disimpan");
+		}
+		
+		return "redirect:instansiconf.do";
+		
+	}
+	
+	@RequestMapping(value = "/saveInstansiConfFinalVerifikasi.do", method = RequestMethod.POST)
+	public String saveInstansiConfFinalVerifikasi(ModelMap model, HttpSession session, HttpServletRequest request) {
+		DtUser user = (DtUser) session.getAttribute("userLogin");
+		if (user == null) {
+			model.addAttribute("pesan", "Session habis silahkan login kembali");
+			return "login";
+		}
+		
+		
+		RefInstansi ins = this.refInstansiDao.findById(user.getRefInstansi().getKode());		
+		String isFinalVerifikasi = request.getParameter("is_final_verifikasi");
+		if(isFinalVerifikasi!=null && !isFinalVerifikasi.equalsIgnoreCase("")){
+			ins.setIsFinalVerifikasi(isFinalVerifikasi);
+		}
+		try {
+			RefInstansi res = instansiService.updateRefInstansi(ins);
+			if (res != null){
+				model.addAttribute("pesan", "Settingan berhasil disimpan");
+			} else {
+				model.addAttribute("pesan", "Settingan gagal disimpan");
+			}
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			model.addAttribute("pesan", "Settingan gagal disimpan");
 		}
 		
 		return "redirect:instansiconf.do";
