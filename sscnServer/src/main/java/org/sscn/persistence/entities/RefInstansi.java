@@ -36,6 +36,7 @@ public class RefInstansi implements java.io.Serializable {
 	private String pilihanCetakKartu;
 	private String spesimenNip;
 	private String spesimenNama;
+	private String isFinalVerifikasi;
 	private Set<DtPengumuman> dtPengumumans = new HashSet<DtPengumuman>(0);
 	private Set<MFormasi> MFormasis = new HashSet<MFormasi>(0);
 	private Set<DtUser> dtUsers = new HashSet<DtUser>(0);
@@ -165,4 +166,15 @@ public class RefInstansi implements java.io.Serializable {
 	public void setSpesimenNama(String nama) {
 		this.spesimenNama = nama;
 	}
+
+	@Column(name = "IS_FINAL_VERIFIKASI", nullable = true, length = 1)
+	public String getIsFinalVerifikasi() {
+		return isFinalVerifikasi;
+	}
+
+	public void setIsFinalVerifikasi(String isFinalVerifikasi) {
+		this.isFinalVerifikasi = isFinalVerifikasi;
+	}
+	
+	
 }
