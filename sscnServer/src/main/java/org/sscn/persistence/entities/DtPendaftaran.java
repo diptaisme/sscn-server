@@ -62,8 +62,12 @@ public class DtPendaftaran implements java.io.Serializable {
 	private String akreditasi;
 	private String nilaiIpk;
 	private int tahunLulus;
+	private Integer flagFormasi;
+	private Integer flagFormasi2;
+	private Integer flagFormasi3;
 
 	public DtPendaftaran() {
+		//NOOP
 	}
 
 	public DtPendaftaran(MFormasi mFormasi1, String noNik, String noRegister,
@@ -414,4 +418,48 @@ public class DtPendaftaran implements java.io.Serializable {
 		this.tahunLulus = tahunLulus;
 	}
 
+	/**
+	 * @return the flagFormasi
+	 */
+	@Column(name = "FLAG_FORMASI", nullable = true)
+	public Integer getFlagFormasi() {
+		return flagFormasi;
+	}
+
+	/**
+	 * @param flagFormasi the flagFormasi to set
+	 */
+	public void setFlagFormasi(Integer flagFormasi) {
+		this.flagFormasi = flagFormasi;
+	}
+
+	/**
+	 * @return the flagFormasi2
+	 */
+	@Column(name = "FLAG_FORMASI2", nullable = true)
+	public Integer getFlagFormasi2() {
+		return flagFormasi2;
+	}
+
+	/**
+	 * @param flagFormasi2 the flagFormasi2 to set
+	 */
+	public void setFlagFormasi2(Integer flagFormasi2) {
+		this.flagFormasi2 = flagFormasi2;
+	}
+
+	/**
+	 * @return the flagFormasi3
+	 */
+	@Column(name = "FLAG_FORMASI3", nullable = true)
+	public Integer getFlagFormasi3() {
+		return flagFormasi3;
+	}
+
+	/**
+	 * @param flagFormasi3 the flagFormasi3 to set
+	 */
+	public void setFlagFormasi3(Integer flagFormasi3) {
+		this.flagFormasi3 = flagFormasi3;
+	}	
 }
