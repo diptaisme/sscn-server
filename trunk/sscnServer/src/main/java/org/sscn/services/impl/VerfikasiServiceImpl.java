@@ -43,7 +43,27 @@ public class VerfikasiServiceImpl implements VerfikasiService {
 	public boolean simpanHasilVerifikasi(DtPendaftaran pendaftaran,
 			List<DtVerifikasiNok> verNoks) {
 		try {
-			if (verNoks.size() > 0) {
+			int i = 0;
+			if (pendaftaran.getFormasi() != null){
+				if (pendaftaran.getFlagFormasi() == 1){
+					i++;
+				} 
+			}
+			
+			if (pendaftaran.getFormasi2() != null){
+				if (pendaftaran.getFlagFormasi2() == 1){
+					i++;
+				} 
+			}
+			
+			if (pendaftaran.getFormasi3() != null){
+				if (pendaftaran.getFlagFormasi3() == 1){
+					i++;
+				} 
+			}
+			
+			
+			if (i==0) {
 				// jika gagal
 				pendaftaran.setStatus("0");
 				pendaftaran.setTglValidate(new Date());
@@ -119,7 +139,9 @@ public class VerfikasiServiceImpl implements VerfikasiService {
 	public boolean verifikasiUlang(DtVerifikasiUlang reVer, DtPendaftaran pendaftaran) {
 		try {
 			List<DtVerifikasiNok> verNok = dtVerifikasiNokDao.findByProperty("pendaftar", pendaftaran, null);
-			dtVerifikasiNokDao.removeBulk(verNok);
+			if (verNok != null && verNok.size()>0){
+				dtVerifikasiNokDao.removeBulk(verNok);
+			}			
 			verUlangDao.insert(reVer);
 			dtPendaftaranDao.update(pendaftaran);
 			return true;
