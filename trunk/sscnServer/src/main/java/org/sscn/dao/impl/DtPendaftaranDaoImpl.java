@@ -752,8 +752,8 @@ public class DtPendaftaranDaoImpl extends CoreDaoImpl<DtPendaftaran> implements
 		final String sql = "SELECT NO_NIK, NO_REGISTER, NO_PESERTA, NAMA, TMP_LAHIR, DATE_FORMAT(TGL_LAHIR, '%d-%m-%Y'), JNS_KELAMIN, ALAMAT, KODE_POS, PROPINSI, KOTA, TELPON, EMAIL, LEMBAGA, NO_IJAZAH, AKREDITASI, NILAI_IPK, INSTANSI, NAMA_INSTANSI as NI, LOKASI, NAMA_LOKASI as NL, JABATAN, NAMA_JABATAN as NJ, PENDIDIKAN, NAMA_PENDIDIKAN as NP, DATE_FORMAT(TGL_CREATED, '%d-%m-%Y %T'), "
 				+ "STATUS, LOKASI2,  NAMA_LOKASI2, JABATAN2,  NAMA_JABATAN2, "
 				+ "LOKASI3,  NAMA_LOKASI3,  JABATAN3,  NAMA_JABATAN3, "
-				+ "LOKASI_TEST, NAMA_LOKASI_TEST "
-				+ "FROM data_01_2014 "
+				+ "LOKASI_TEST, NAMA_LOKASI_TEST, PILIHAN1, PILIHAN2, PILIHAN3 "
+				+ "FROM download_data_pendaftar_lulus "
 				+ "WHERE INSTANSI= '"
 				+ kodeInstansi
 				+ "' and STATUS = '1' order by NO_PESERTA, NAMA";
@@ -817,6 +817,12 @@ public class DtPendaftaranDaoImpl extends CoreDaoImpl<DtPendaftaran> implements
 							.valueOf(obj[index++]));
 					dataPendaftaran.setLokasiTest(String.valueOf(obj[index++]));
 					dataPendaftaran.setLokasiTestNama(String
+							.valueOf(obj[index++]));
+					dataPendaftaran.setPilihan1(String
+							.valueOf(obj[index++]));
+					dataPendaftaran.setPilihan2(String
+							.valueOf(obj[index++]));
+					dataPendaftaran.setPilihan3(String
 							.valueOf(obj[index++]));
 
 					result.add(dataPendaftaran);
