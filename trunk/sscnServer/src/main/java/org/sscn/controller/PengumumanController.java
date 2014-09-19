@@ -71,8 +71,8 @@ public class PengumumanController implements HandlerExceptionResolver {
 			return "login";
 		}
 
-		List<DtUser> users = userService.getAllUser(null);
-		model.addAttribute("users", users);
+//		List<DtUser> users = userService.getAllUser(null);
+//		model.addAttribute("users", users);
 
 		FileUpload form = new FileUpload();
 		model.addAttribute("fileUploadCommand", form);

@@ -11,6 +11,8 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.hibernate.Hibernate;
+import org.hibernate.proxy.HibernateProxy;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +28,8 @@ import org.sscn.persistence.entities.DtPersyaratan;
 import org.sscn.persistence.entities.DtUser;
 import org.sscn.persistence.entities.DtVerifikasiNok;
 import org.sscn.persistence.entities.DtVerifikasiUlang;
+import org.sscn.persistence.entities.MFormasi;
+import org.sscn.persistence.entities.RefJabatan;
 import org.sscn.persistence.entities.RefLokasi;
 import org.sscn.persistence.entities.RefLokasiTest;
 import org.sscn.persistence.entities.RefPendidikan;
@@ -156,6 +160,7 @@ public class VerifikasiController {
 		String searchPar = request.getParameter("searchPar");
 		String noReg = "";
 		String spendidikanKode = "";
+		String spendidikanLabel = "";
 		Boolean searchBy = false;
 		Boolean searchByPendidikan = false;
 		if (searchPar != null && !searchPar.contentEquals("")){			
@@ -167,17 +172,23 @@ public class VerifikasiController {
 			model.addAttribute("no_reg", noReg);
 			
 			spendidikanKode = request.getParameter("spendidikanKode");
+			spendidikanLabel = request.getParameter("spendidikanLabel");
 			
-			if (spendidikanKode != null && !spendidikanKode.contentEquals("")){
+			if (spendidikanLabel != null && !spendidikanLabel.contentEquals("")){
+				searchBy = true;
 				searchByPendidikan = true;
 			}
 			model.addAttribute("spendidikanKode", spendidikanKode);
+			model.addAttribute("spendidikanLabel", spendidikanLabel);
 		}
 		
 		List<DtPendaftaran> pendaftars;
 		if (searchBy){
+			model.addAttribute("searchPar", "1");
 			Map<String, Object> maps = new HashMap<String, Object>();
-			maps.put("noRegister", noReg);
+			if (noReg!= null && !noReg.isEmpty()){
+				maps.put("noRegister", noReg);
+			}			
 			if (searchByPendidikan){
 				maps.put("pendidikan", spendidikanKode);
 			}			
@@ -284,6 +295,32 @@ public class VerifikasiController {
 					verNoks.add(pverNok);
 				}
 			}
+			String flag1 = request.getParameter("flag1");
+			String flag2 = request.getParameter("flag2");
+			String flag3 = request.getParameter("flag3");
+			if (pendaftar.getFormasi() != null){
+				if (flag1!=null && flag1.equalsIgnoreCase("1")){
+					pendaftar.setFlagFormasi(1);
+				} else {
+					pendaftar.setFlagFormasi(0);
+				}
+			}
+			
+			if (pendaftar.getFormasi2() != null){
+				if (flag2!=null && flag2.equalsIgnoreCase("1")){
+					pendaftar.setFlagFormasi2(1);
+				} else {
+					pendaftar.setFlagFormasi2(0);
+				}
+			}
+			
+			if (pendaftar.getFormasi3() != null){
+				if (flag3!=null && flag3.equalsIgnoreCase("1")){
+					pendaftar.setFlagFormasi3(1);
+				} else {
+					pendaftar.setFlagFormasi3(0);
+				}
+			}
 			pendaftar.setUserValidate(user.getUsername());
 
 			try {
@@ -355,14 +392,75 @@ public class VerifikasiController {
 				RefPendidikan pddknTemp = pendidikanServices.findById(infoPendaftar.getPendidikan()); 
 				pddkn = pddknTemp.getNama();
 			}
+			
+			if (infoPendaftar.getFormasi() != null){
+				MFormasi formasi = infoPendaftar.getFormasi();
+				//Hibernate.initialize(formasi);
+				formasi = (MFormasi) ((HibernateProxy) formasi).getHibernateLazyInitializer().getImplementation();
+				//MFormasi tformasi = new MFormasi(); 
+				//  
+				formasi.setDtFormasis(null);
+				formasi.setDtPendaftarans(null);
+				formasi.setRefInstansi(null);
+				formasi.setRefJenisFormasi(null);
+				RefJabatan jabatan = new RefJabatan();
+				jabatan.setKode(formasi.getRefJabatan().getKode());
+				jabatan.setNama(formasi.getRefJabatan().getNama());
+				jabatan.setMFormasis(null);
+				RefLokasi lokasi = (RefLokasi) ((HibernateProxy) formasi.getRefLokasi()).getHibernateLazyInitializer().getImplementation();
+				lokasi.setRefInstansi(null);
+				formasi.setRefJabatan(jabatan);
+				formasi.setRefInstansi(null);
+				formasi.setRefLokasi(lokasi);
+				infoPendaftar.setFormasi(formasi);
+			}
+			
+			if (infoPendaftar.getFormasi2() != null){
+				MFormasi formasi = infoPendaftar.getFormasi2(); 
+				formasi = (MFormasi) ((HibernateProxy) formasi).getHibernateLazyInitializer().getImplementation();
+				formasi.setDtFormasis(null);
+				formasi.setDtPendaftarans(null);
+				formasi.setRefInstansi(null);
+				formasi.setRefJenisFormasi(null);
+				RefJabatan jabatan = new RefJabatan();
+				jabatan.setKode(formasi.getRefJabatan().getKode());
+				jabatan.setNama(formasi.getRefJabatan().getNama());
+				jabatan.setMFormasis(null);
+				formasi.setRefJabatan(jabatan);
+				formasi.setRefInstansi(null);
+				RefLokasi lokasi = (RefLokasi) ((HibernateProxy) formasi.getRefLokasi()).getHibernateLazyInitializer().getImplementation();
+				lokasi.setRefInstansi(null);
+				formasi.setRefLokasi(lokasi);
+				infoPendaftar.setFormasi2(formasi);
+			}
+			
+			if (infoPendaftar.getFormasi3() != null){
+				MFormasi formasi = infoPendaftar.getFormasi3(); 
+				formasi = (MFormasi) ((HibernateProxy) formasi).getHibernateLazyInitializer().getImplementation();
+				formasi.setDtFormasis(null);
+				formasi.setDtPendaftarans(null);
+				formasi.setRefInstansi(null);
+				formasi.setRefJenisFormasi(null);
+				RefJabatan jabatan = new RefJabatan();
+				jabatan.setKode(formasi.getRefJabatan().getKode());
+				jabatan.setNama(formasi.getRefJabatan().getNama());
+				jabatan.setMFormasis(null);
+				RefLokasi lokasi = (RefLokasi) ((HibernateProxy) formasi.getRefLokasi()).getHibernateLazyInitializer().getImplementation();
+				lokasi.setRefInstansi(null);
+				formasi.setRefLokasi(lokasi);
+				formasi.setRefJabatan(jabatan);
+				formasi.setRefInstansi(null);
+				infoPendaftar.setFormasi3(formasi);
+			}
 			infoPendaftar.setPendidikan(pddkn);
-			infoPendaftar.setFormasi(null);
-			infoPendaftar.setFormasi2(null);
-			infoPendaftar.setFormasi3(null);
+			//infoPendaftar.setFormasi(null);
+			//infoPendaftar.setFormasi2(null);
+			//infoPendaftar.setFormasi3(null);
 			infoPendaftar.setTabelPendaftar(null);
-		/*	if (infoPendaftar.getLokasiTest() != null){				
+			
+			if (infoPendaftar.getLokasiTest() != null){
 				infoPendaftar.setLokasiTest(infoPendaftar.getLokasiTest());
-			} */ 
+			}  
 			
 			res = new StandardJsonMessage(1, infoPendaftar, mob, "Get Pendaftaran Success");
 		} catch (Exception ex) {
@@ -539,7 +637,9 @@ public class VerifikasiController {
 						DtVerifikasiNok temp = iter.next();
 						persyaratan += temp.getPersyaratan().getId() + ";";						
 					}
-					persyaratan = persyaratan.substring(0, persyaratan.length() - 1);
+					if (!persyaratan.isEmpty()){
+						persyaratan = persyaratan.substring(0, persyaratan.length() - 1);
+					}					
 				}				
 			} 
 			
@@ -552,6 +652,10 @@ public class VerifikasiController {
 			
 			infoPendaftar.setStatus("");
 			infoPendaftar.setNoPeserta(null);
+			//infoPendaftar.setUserValidate(null);
+			infoPendaftar.setFlagFormasi(null);
+			infoPendaftar.setFlagFormasi2(null);
+			infoPendaftar.setFlagFormasi3(null);
 			Boolean result = verifikasiServices.verifikasiUlang(verUlang, infoPendaftar);
 			if (result){
 				res = new StandardJsonMessage(1, null, null, "Reset Pendaftaran Success");
