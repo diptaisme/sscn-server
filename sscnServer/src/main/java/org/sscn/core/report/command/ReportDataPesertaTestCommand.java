@@ -86,7 +86,7 @@ public class ReportDataPesertaTestCommand extends ReportCommand {
 				"Instansi " + request.getParameter("namaInstansi2"));
 		excelMap.put("WAKTU", "Keadaan " + formatter.format(nowTime));
 		excelMap.put(START_INDEX, Integer.valueOf(INT_START_INDEX));
-		excelMap.put(FORMAT, "NCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC");
+		excelMap.put(FORMAT, "NCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC");
 
 		generateXlsReport(dataPesertaTestArray, response, excelMap,
 				"rptDataPesertaTest.xls");
