@@ -197,7 +197,7 @@
 										<div class="">
 											<form id="searchForm" method="post" action="verifikasi.do">
 												<div class="control-group" id="searchBar">
-													<input type="hidden" name="searchPar" value="0" /> <input
+													<input type="hidden" name="searchPar" value="${searchPar}" id="searchPar"/> <input
 														type="hidden" name="activePage" id="activePageBar" />
 													<c:choose>
 														<c:when test="${no_reg != null}">
@@ -368,8 +368,12 @@
 					<div id="noRegPendaftar"></div>
 				</div>
 
-				<div class="control-group">
+				<div class="control-group" >
 					<div id="pddknPendaftar"></div>
+				</div>
+				
+				<div class="control-group" id="jabatanPendaftar">
+					
 				</div>
 				<!-- <hr> -->
 				<div class="form-actions">
@@ -382,7 +386,7 @@
 						style="width: 400px; padding-right: 20px">Select/Unselect
 						All</label>
 					<div class="controls">
-						<input type="checkbox" id="selectedAll">
+						<input type="checkbox" id="selectedAll" checked>
 					</div>
 				</div>
 				<c:forEach items="${persyaratans}" var="persyaratan">
@@ -391,7 +395,7 @@
 							style="width: 400px; padding-right: 20px">${persyaratan.syarat}</label>
 						<div class="controls">
 							<input type="checkbox" name="persyaratanIds[]"
-								value="${persyaratan.id}">
+								value="${persyaratan.id}" >
 						</div>
 					</div>
 				</c:forEach>
@@ -399,7 +403,7 @@
 				<div class="form-actions">
 					<button type="submit" class="btn btn-primary btn-large">
 						Simpan</button>
-					<button class="btn btn-large" id="btnCancel">Batal</button>
+					<button class="btn btn-large" id="btnCancel2">Batal</button>
 				</div>
 			</fieldset>
 		</form>
@@ -435,7 +439,7 @@
 		</fieldset>
 	</div>
 
-	<div id="myModal3" title="Ubah Status Verifikasi">
+	<!--  <div id="myModal3" title="Ubah Status Verifikasi">
 		<form class="form-horizontal" action="verifikasiSave.do" method="post"
 			id="formVerifikasi2">
 			<fieldset>
@@ -462,6 +466,10 @@
 				</div>
 			</fieldset>
 		</form>
+	</div> -->
+	
+	<div id="confirmDialog" title="Dialog Confirm">
+		<div id="message_ConfirmDialog"></div>
 	</div>
 
 	<div id="setLokasiModal" title="Check">
@@ -654,6 +662,18 @@
 												"<label>Pendidikan : &nbsp;"
 														+ data.data.pendidikan
 														+ "</label>");
+										var jabatan = "<label>Jabatan : &nbsp;</label>";
+										if (data.data.formasi != null){
+											jabatan = jabatan + "<div class='control-group'><label class='control-label' style='width: 400px; padding-right: 20px' for='input01'>1. " + data.data.formasi.refJabatan.nama + " (" + data.data.formasi.refLokasi.nama+")</label>"+'<div class="controls"><input type="checkbox" name="flag1" id="flag1" value="1" checked></div></div>'; 
+										}
+										if (data.data.formasi2 != null){
+											jabatan = jabatan + "<div class='control-group'><label class='control-label' style='width: 400px; padding-right: 20px' for='input01'>2. " + data.data.formasi2.refJabatan.nama + " (" + data.data.formasi2.refLokasi.nama+")</label>"+'<div class="controls"><input type="checkbox" name="flag2" id="flag2" value="1" checked/></div></div>'; 
+										}
+										if (data.data.formasi3 != null){
+											jabatan = jabatan + "<div class='control-group'><label class='control-label' style='width: 400px; padding-right: 20px' for='input01'>3. " + data.data.formasi3.refJabatan.nama + " (" + data.data.formasi3.refLokasi.nama+")</label>"+'<div class="controls"><input type="checkbox" name="flag3" id="flag3" value="1" checked/></div></div>'; 
+										}
+										jabatan = jabatan + "";
+										$('#jabatanPendaftar').html(jabatan);
 									},
 									dataType : "json"
 								});
@@ -726,6 +746,11 @@
 								$('#myModal').dialog("close");
 							});
 
+							$('#btnCancel2').click(function(event) {
+								event.preventDefault();
+								$('#myModal').dialog("close");
+							});
+
 							$('#btnCancelLokasi').click(function(event){
 								event.preventDefault();
 								$('#setLokasiModal').dialog("close");								
@@ -746,62 +771,142 @@
 									.submit(
 											function(event) {
 
-												/* stop form from submitting normally */
-												event.preventDefault();
+									/* stop form from submitting normally */
+									event.preventDefault();
+									var i = 0;
+									if ($('#flag1').is(':checked')){
+										i++;
+									} 
+									if ($('#flag2').is(':checked')){
+										i++;
+									}
+									if ($('#flag3').is(':checked')){
+										i++;
+									}
+									
+									var j = $('input[name=persyaratanIds\\[\\]]').length;
+									var k = $('input[name=persyaratanIds\\[\\]]:checked').length;
+									
+									if (i==3 && j==k){
+										$('#message_ConfirmDialog').html("Apakah Benar Pelamar Memenuhi Syarat untuk Semua Jabatan yang Dipilih ?");
+										$("#confirmDialog").dialog('open');
+									} 
 
-												$('#loadingImage').show();
-												$('#alert').hide();
+									if (i==0 && j==k){
+										$('#alert').html('Pelamar Tidak Memenuhi Syarat ? Harus ada Persyaratan yang tidak diceklist[]');
+										$('#alert').show();
+										$("#alert").delay(7200).fadeOut(800);
+									}
 
-												/* get some values from elements on the page: */
-												var $form = $(this), term = $(
-														this).serialize(), url = $form
-														.attr('action');
+									if (i==3 && (k==0 || k<j)){
+										$('#alert').html('Semua jabatan memenuhi syarat, pastikan mencentang semua checklist[v] untuk semua persyaratan');
+										$('#alert').show();
+										$("#alert").delay(7200).fadeOut(800);
+									}
 
-												/* Send the data using post */
-												var posting = $.post(url, term,
-														"json");
+									if (i==0 && k==0){
+										$('#message_ConfirmDialog').html("Pelamar Tidak Lulus untuk semua Jabatan ?");
+										$("#confirmDialog").dialog('open');																				
+									}
 
-												/* Put the results in a div */
-												posting
-														.done(function(data) {
-															$('#loadingImage')
-																	.hide();
-															if (data.result == 0) {
-																var html = '<strong>Error!</strong> '
-																		+ data.message;
-																$('#alert')
-																		.html(
-																				html);
-																$('#alert')
-																		.show();
-															}
+									if (i>0 && i<3 && k<j){
+										if (k==0){
+											$('#alert').html('Apakah Anda Yakin Pelamar Memenuhi Syarat ? Pastikan mencetang salah satu persyaratan');
+											$('#alert').show();
+											$("#alert").delay(7200).fadeOut(800);
+										} else {
+											$('#message_ConfirmDialog').html("Apakah Anda Yakin Pelamar Memenuhi Syarat ?");
+											$("#confirmDialog").dialog('open');	
+										}																				
+									}
 
-															if (data.result == 1) {
-																$("#myModal")
-																		.dialog(
-																				"close");
-																alert(data.message);
-																refresh();
-																return false;
-															}
+									if ((i>0 && i<3) && k==j){
+										$('#message_ConfirmDialog').html("Apakah Anda Yakin Pelamar Memenuhi Syarat ?");
+										$("#confirmDialog").dialog('open');										
+									}
 
-															if (data.result == -1) {
-																window.location = "login.do";
-															}
-														});
+									if (i==0 && k<j && k>0){
+										$('#message_ConfirmDialog').html("Apakah Anda Yakin Pelamar Tidak Memenuhi Syarat ?");
+										$("#confirmDialog").dialog('open');
+									}
+									
+									
 
-												posting.error(function() {
-													alert('failure');
-												});
+							});
 
-												function refresh() {
-													/*	var tesHtml = '<td>Sudah diverifikasi</td>';
-														var lasttd = $(selRowTable).find('td:last-child');
-														lasttd.replaceWith(tesHtml); */
-													window.location = "verifikasi.do";
-												}
+							$('#confirmDialog').dialog({
+							    autoOpen: false,
+							    width: 600,
+							    modal: true,
+							    buttons: {
+							        "Yes": function () {
+							            $(this).dialog('close');
+							            callback(true);
+							        },
+							        "No": function () {
+							            $(this).dialog('close');
+							            callback(false);
+							        }
+							    }    
+							});
 
-											});
+							function callback(value) {
+							    if (value) {
+							        goVerifikasiToServer();
+							    } 
+							}
+
+							goVerifikasiToServer = function(){
+								$('#loadingImage').show();
+								$('#alert').hide();
+								/* get some values from elements on the page: */
+								var $form = $('#formVerifikasi'), term = $form.serialize(), url = $form
+										.attr('action');
+
+								/* Send the data using post */
+								var posting = $.post(url, term,
+										"json");
+
+								/* Put the results in a div */
+								posting
+										.done(function(data) {
+											$('#loadingImage')
+													.hide();
+											if (data.result == 0) {
+												var html = '<strong>Error!</strong> '
+														+ data.message;
+												$('#alert')
+														.html(
+																html);
+												$('#alert')
+														.show();
+											}
+
+											if (data.result == 1) {
+												$("#myModal")
+														.dialog(
+																"close");
+												alert(data.message);
+												refresh();
+												return false;
+											}
+
+											if (data.result == -1) {
+												window.location = "login.do";
+											}
+										});
+
+								posting.error(function() {
+									alert('failure');
+								});
+
+								function refresh() {
+									/*	var tesHtml = '<td>Sudah diverifikasi</td>';
+										var lasttd = $(selRowTable).find('td:last-child');
+										lasttd.replaceWith(tesHtml); */
+									window.location = "verifikasi.do";
+								}
+							}
 
 							$("#spendidikanLabel")
 							.autocomplete(
