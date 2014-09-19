@@ -142,7 +142,7 @@ public final class DecodeData {
 				val.getJabatanNama2(), val.getLokasiKode3(),
 				val.getLokasiNama3(), val.getJabatanKode3(),
 				val.getJabatanNama3(), val.getLokasiTest(),
-				val.getLokasiTestNama(), val.getTglCreated(), val.getStatus() };
+				val.getLokasiTestNama(), val.getTglCreated(), val.getStatus(), val.getPilihan1(), val.getPilihan2(), val.getPilihan3() };
 		// return new Object[] { ROWNUM, val.getNoNik(), val.getNoRegister(),
 		// val.getNoPeserta(), val.getNama(),
 		// val.getTmpLahir(), val.getTglLahir(), val.getJnsKelamin(),
