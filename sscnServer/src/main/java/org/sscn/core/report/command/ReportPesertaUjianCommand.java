@@ -18,6 +18,7 @@ import org.sscn.dao.RefLokasiTestDao;
 import org.sscn.dao.RefPendidikanDao;
 import org.sscn.manager.Constanta;
 import org.sscn.persistence.entities.DtPendaftaran;
+import org.sscn.persistence.entities.RefInstansi;
 import org.sscn.persistence.entities.RefPendidikan;
 import org.sscn.services.RegistrasiService;
 
@@ -59,9 +60,23 @@ public class ReportPesertaUjianCommand extends ReportCommand {
 					Map<String, Object> mapParamater = generateParameterToReport(pendaftaran);
 
 					String baseDir = getBaseDirectory(request);
-					String fileName = baseDir
-							+ GeneralReportUtil.getRptPesertaUjian();
-
+					String fileName = "";
+					RefInstansi instansi = pendaftaran.getTabelPendaftar()
+							.getRefInstansi();
+					if (instansi.getKode().equalsIgnoreCase("4011")) { // untuk
+																		// BKN
+																		// tercinta
+						fileName = baseDir+"/reports/rptPesertaUjianBKN.jasper"; // its
+																			// hardcode,
+																			// bsok
+																			// taruh
+																			// di
+																			// constanta
+																			// aja.
+					} else {
+						fileName = baseDir
+								+ GeneralReportUtil.getRptPesertaUjian();
+					}
 					InputStream logo = loadDefaultLogo(request);
 					InputStream logo2 = loadDefaultLogo(request);
 					mapParamater.put("LOGO", logo);
@@ -198,13 +213,16 @@ public class ReportPesertaUjianCommand extends ReportCommand {
 		mapParamater.put("INSTANSI", pendaftaran.getFormasi().getRefInstansi()
 				.getNama());
 		String nipSpesimen = "", namaSpesimen = "";
-		if (pendaftaran.getFormasi().getRefInstansi().getKode().equalsIgnoreCase("4011")){
-			nipSpesimen = pendaftaran.getFormasi().getRefInstansi().getSpesimenNip();
-			namaSpesimen = pendaftaran.getFormasi().getRefInstansi().getSpesimenNama();
+		if (pendaftaran.getFormasi().getRefInstansi().getKode()
+				.equalsIgnoreCase("4011")) {
+			nipSpesimen = pendaftaran.getFormasi().getRefInstansi()
+					.getSpesimenNip();
+			namaSpesimen = pendaftaran.getFormasi().getRefInstansi()
+					.getSpesimenNama();
 		}
 		mapParamater.put("SPESIMEN_NIP", nipSpesimen);
 		mapParamater.put("SPESIMEN_NAMA", namaSpesimen);
-		
+
 		String lokasiTest = "";
 		if (pendaftaran.getLokasiTest() != null) {
 			if (!pendaftaran.getLokasiTest().equalsIgnoreCase("")) {
