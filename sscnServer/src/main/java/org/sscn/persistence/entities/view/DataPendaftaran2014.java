@@ -11,6 +11,9 @@ public class DataPendaftaran2014 extends DataPendaftaran {
 	private String jabatanNama3;
 	private String lokasiTest;
 	private String lokasiTestNama;
+	private String pilihan1;
+	private String pilihan2;
+	private String pilihan3;
 
 	public DataPendaftaran2014(String noNik, String noRegister,
 			String noPeserta, String nama, String tmpLahir, String tglLahir,
@@ -156,4 +159,36 @@ public class DataPendaftaran2014 extends DataPendaftaran {
 		this.lokasiTestNama = lokasiTestNama;
 	}
 
+	public String getPilihan1() {
+		return pilihan1;
+	}
+
+	public void setPilihan1(String pilihan1) {
+		if (pilihan1 != null && pilihan1.equalsIgnoreCase("null")) {
+			pilihan1 = "";
+		}
+		this.pilihan1 = pilihan1;
+	}
+	
+	public String getPilihan2() {
+		return pilihan2;
+	}
+
+	public void setPilihan2(String pilihan2) {
+		if (pilihan2 != null && pilihan2.equalsIgnoreCase("null")) {
+			pilihan2 = "";
+		}
+		this.pilihan2 = pilihan2;
+	}
+	
+	public String getPilihan3() {
+		return pilihan3;
+	}
+
+	public void setPilihan3(String pilihan3) {
+		if (pilihan3 != null && pilihan3.equalsIgnoreCase("null")) {
+			pilihan3 = "";
+		}
+		this.pilihan3 = pilihan3;
+	}
 }
