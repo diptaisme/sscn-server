@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rptPesertaUjian" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
-	<property name="ireport.zoom" value="1.0"/>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rptPesertaUjian" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a9e89856-e730-4a78-9dfd-45fd7ab1e6bb">
+	<property name="ireport.zoom" value="1.3310000000000004"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="13"/>
+	<property name="ireport.y" value="585"/>
 	<parameter name="NOMOR_PESERTA" class="java.lang.String"/>
 	<parameter name="NAMA" class="java.lang.String"/>
 	<parameter name="TTL" class="java.lang.String"/>
@@ -17,6 +17,8 @@
 	<parameter name="LOGO" class="java.io.InputStream"/>
 	<parameter name="LOGO2" class="java.io.InputStream"/>
 	<parameter name="NIK" class="java.lang.String"/>
+	<parameter name="SPESIMEN_NIK" class="java.lang.String"/>
+	<parameter name="SPESIMEN_NAMA" class="java.lang.String"/>
 	<parameter name="LOKASI_TEST" class="java.lang.String"/>
 	<parameter name="BARCODE" class="java.lang.String"/>
 	<parameter name="JABATAN2" class="java.lang.String"/>
@@ -27,7 +29,7 @@
 	<title>
 		<band height="45" splitType="Stretch">
 			<staticText>
-				<reportElement x="71" y="-3" width="478" height="46"/>
+				<reportElement uuid="7632f075-42f8-4d66-8f23-de54f87876ed" x="71" y="-3" width="478" height="46"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="SansSerif" size="16" isBold="true"/>
 				</textElement>
@@ -35,7 +37,7 @@
 FORMASI UMUM]]></text>
 			</staticText>
 			<line>
-				<reportElement x="0" y="44" width="555" height="1"/>
+				<reportElement uuid="7a8b4761-8e50-4784-83f2-54283dff4cd6" x="0" y="44" width="555" height="1"/>
 				<graphicElement>
 					<pen lineWidth="2.25"/>
 				</graphicElement>
@@ -45,186 +47,186 @@ FORMASI UMUM]]></text>
 	<pageHeader>
 		<band height="336">
 			<staticText>
-				<reportElement x="0" y="62" width="142" height="30"/>
+				<reportElement uuid="d048529a-a20e-4b15-a08d-4ae8811f67ea" x="0" y="62" width="142" height="30"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif"/>
 				</textElement>
 				<text><![CDATA[Nomor Peserta]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="90" width="142" height="24"/>
+				<reportElement uuid="f86ff9ef-47d5-4d8b-a5c5-f9cb5a9ffc55" x="0" y="90" width="142" height="24"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif"/>
 				</textElement>
 				<text><![CDATA[Nama]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="135" width="142" height="18"/>
+				<reportElement uuid="5850dd9d-1050-40da-b8ef-98c2c0389d3e" x="0" y="135" width="142" height="18"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif"/>
 				</textElement>
 				<text><![CDATA[Tempat / Tanggal Lahir]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="171" width="142" height="18"/>
+				<reportElement uuid="d5d9760b-fdf1-49ca-adda-984258d32ed7" x="0" y="171" width="142" height="18"/>
 				<textElement verticalAlignment="Top">
 					<font fontName="SansSerif"/>
 				</textElement>
 				<text><![CDATA[Formasi Jabatan]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1" y="153" width="142" height="18"/>
+				<reportElement uuid="cf7db95c-c71e-4a89-9cdc-db640aa54f32" x="1" y="153" width="142" height="18"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif"/>
 				</textElement>
 				<text><![CDATA[Kualifikasi Pendidikan]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="141" y="114" width="4" height="18"/>
+				<reportElement uuid="e31b73cf-8ff3-401a-a4ad-5349cfb663f2" x="141" y="114" width="4" height="18"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif"/>
 				</textElement>
 				<text><![CDATA[:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="141" y="64" width="4" height="24"/>
+				<reportElement uuid="50b37616-3185-48e0-8c9f-2e82d6123761" x="141" y="64" width="4" height="24"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif"/>
 				</textElement>
 				<text><![CDATA[:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="142" y="44" width="4" height="18"/>
+				<reportElement uuid="384f1d7c-2868-43b9-84df-88925c0b8bf1" x="142" y="44" width="4" height="18"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif"/>
 				</textElement>
 				<text><![CDATA[:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="141" y="133" width="4" height="18"/>
+				<reportElement uuid="81c4ad8c-2737-4405-97d6-036be96384e8" x="141" y="133" width="4" height="18"/>
 				<textElement verticalAlignment="Top">
 					<font fontName="SansSerif"/>
 				</textElement>
 				<text><![CDATA[:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="141" y="151" width="4" height="18"/>
+				<reportElement uuid="7170dd3c-aa70-42d6-8c65-801a8117f34d" x="141" y="151" width="4" height="18"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif"/>
 				</textElement>
 				<text><![CDATA[:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="144" y="62" width="305" height="30"/>
+				<reportElement uuid="e14e439c-a505-4569-97c7-a47b13548cd4" x="144" y="62" width="305" height="30"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif" size="20" isBold="true"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{NOMOR_PESERTA}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{NOMOR_PESERTA}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="145" y="91" width="306" height="24"/>
+				<reportElement uuid="63f79cb3-052e-4047-bddc-725b8caf12b6" x="145" y="91" width="306" height="24"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif" size="14" isBold="true"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{NAMA}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{NAMA}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="145" y="134" width="404" height="18"/>
+				<reportElement uuid="3b6b42be-3e28-457a-8308-56ab2b842a1a" x="145" y="134" width="404" height="18"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{TTL}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{TTL}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="145" y="172" width="404" height="18"/>
+				<reportElement uuid="48cda55f-e012-4917-a54a-18a64eb2d6ef" x="145" y="172" width="404" height="18"/>
 				<textElement verticalAlignment="Top">
 					<font fontName="SansSerif"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{JABATAN1}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{JABATAN1}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="145" y="153" width="404" height="18"/>
+				<reportElement uuid="872ac866-30d7-4665-80eb-bc44680b3a30" x="145" y="153" width="404" height="18"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{PENDIDIKAN}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{PENDIDIKAN}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="145" y="1" width="306" height="24" isPrintWhenDetailOverflows="true"/>
+				<reportElement uuid="7a3d2575-12dd-48c6-b30d-3e5d9a88b0f9" x="145" y="1" width="306" height="24" isPrintWhenDetailOverflows="true"/>
 				<textElement verticalAlignment="Top">
 					<font fontName="SansSerif" size="12" isBold="true"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{INSTANSI}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{INSTANSI}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="141" y="1" width="4" height="21"/>
+				<reportElement uuid="df855b21-1b2e-4ca4-bf62-4fd397a672bb" x="141" y="1" width="4" height="21"/>
 				<textElement verticalAlignment="Top">
 					<font fontName="SansSerif"/>
 				</textElement>
 				<text><![CDATA[:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="1" width="142" height="24"/>
+				<reportElement uuid="913770ec-c653-4f26-b796-617b95a0a3bd" x="0" y="1" width="142" height="24"/>
 				<textElement verticalAlignment="Top">
 					<font fontName="SansSerif"/>
 				</textElement>
 				<text><![CDATA[Instansi]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="24" width="142" height="20"/>
+				<reportElement uuid="9bd4e84a-dcd1-494e-9061-3bd64084ef06" x="0" y="24" width="142" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif"/>
 				</textElement>
 				<text><![CDATA[Wilayah yang dilamar]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="141" y="24" width="4" height="20"/>
+				<reportElement uuid="30c42704-a681-4c1d-ac82-9a32567bb022" x="141" y="24" width="4" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif"/>
 				</textElement>
 				<text><![CDATA[:]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="145" y="25" width="306" height="20"/>
+				<reportElement uuid="8cddb6d0-ce12-4fce-a863-2e49e599df21" x="145" y="25" width="306" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif" size="10" isBold="false"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{LOKASI}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{LOKASI}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="115" width="142" height="18"/>
+				<reportElement uuid="ba5244bc-58ef-4005-a87e-e208d6b3c50e" x="0" y="115" width="142" height="18"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif"/>
 				</textElement>
 				<text><![CDATA[Jenis Kelamin]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="141" y="93" width="4" height="18"/>
+				<reportElement uuid="c6707722-202e-4400-8790-ae371522e3dd" x="141" y="93" width="4" height="18"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif"/>
 				</textElement>
 				<text><![CDATA[:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="145" y="114" width="305" height="18"/>
+				<reportElement uuid="c7704565-8d74-4df2-a074-63aa0f251bc5" x="145" y="114" width="305" height="18"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{JENIS_KELAMIN}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{JENIS_KELAMIN}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="426" y="254" width="130" height="14"/>
+				<reportElement uuid="ef02df43-65e9-4f08-8a44-fe52af560796" x="426" y="254" width="130" height="14"/>
 				<textElement textAlignment="Center">
 					<font fontName="SansSerif" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[Panitia Pengadaan Instansi]]></text>
 			</staticText>
 			<image onErrorType="Blank">
-				<reportElement x="10" y="-64" width="61" height="58"/>
-				<imageExpression class="java.io.InputStream"><![CDATA[$P{LOGO}]]></imageExpression>
+				<reportElement uuid="615e63e2-b63d-4c5e-8928-d5a25fe71659" x="10" y="-64" width="61" height="58"/>
+				<imageExpression><![CDATA[$P{LOGO}]]></imageExpression>
 			</image>
 			<staticText>
-				<reportElement x="460" y="65" width="89" height="106"/>
+				<reportElement uuid="c874a240-bd63-49af-a649-fe05470aaf80" x="460" y="65" width="89" height="106"/>
 				<box>
 					<pen lineWidth="0.75"/>
 					<topPen lineWidth="0.75"/>
@@ -242,162 +244,176 @@ FORMASI UMUM]]></text>
             4 x 6]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="53" y="253" width="151" height="13"/>
+				<reportElement uuid="3d729526-d493-4ff6-8f53-a3f9f63c5a41" x="53" y="253" width="151" height="13"/>
 				<textElement textAlignment="Left">
 					<font fontName="SansSerif" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[       Peserta]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="4" y="319" width="99" height="11"/>
+				<reportElement uuid="be3d4df6-bdad-4172-8522-4358a15f7383" x="4" y="319" width="99" height="11"/>
 				<textElement>
 					<font fontName="SansSerif" size="8"/>
 				</textElement>
 				<text><![CDATA[Lembar Panitia]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="500" y="322" width="54" height="11"/>
+				<reportElement uuid="d2590329-6001-4926-9dc0-35082f4e399f" x="500" y="322" width="54" height="11"/>
 				<textElement textAlignment="Right">
 					<font fontName="SansSerif" size="6" isItalic="true"/>
 				</textElement>
 				<text><![CDATA[ © BKN 2014]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="141" y="168" width="4" height="18"/>
+				<reportElement uuid="307049ff-ef37-434f-a459-6e59d7db6022" x="141" y="168" width="4" height="18"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif"/>
 				</textElement>
 				<text><![CDATA[:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="238" width="142" height="18"/>
+				<reportElement uuid="d4fe563e-b035-4589-af85-edf4662bff11" x="0" y="238" width="142" height="18"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif"/>
 				</textElement>
 				<text><![CDATA[Lokasi Tes]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="53" y="282" width="150" height="15"/>
+				<reportElement uuid="0dfa4f4f-6920-4bb5-b571-d07fcfb97d23" x="53" y="282" width="150" height="15"/>
 				<textElement>
 					<font fontName="SansSerif" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[-------------------------------------------]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="417" y="245" width="142" height="15"/>
+				<reportElement uuid="387588ca-aa96-44d7-937a-2279e0ca2940" x="417" y="245" width="142" height="15"/>
 				<textElement>
 					<font fontName="SansSerif" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[----------------------------------------------]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="425" y="240" width="129" height="13"/>
+				<reportElement uuid="acf60be8-cdc8-48f6-9188-30b93150feef" x="425" y="240" width="129" height="13"/>
 				<textElement>
 					<font fontName="SansSerif" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[.....,...........................  2014]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="396" y="264" width="156" height="14"/>
+				<reportElement uuid="95c70ccb-b9a7-4f52-b0d2-3208e10531e5" x="396" y="264" width="156" height="14"/>
 				<textElement textAlignment="Center">
 					<font fontName="SansSerif" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[CPNS 2014,]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="396" y="293" width="156" height="14"/>
+				<reportElement uuid="da519bda-832e-4717-ad04-8fcb7c025630" x="396" y="293" width="156" height="14"/>
 				<textElement>
 					<font fontName="SansSerif" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[Nama :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="396" y="306" width="156" height="15"/>
+				<reportElement uuid="a5cf62fc-e5c3-449a-810a-f2808ecc70a0" x="396" y="306" width="156" height="15"/>
 				<textElement>
 					<font fontName="SansSerif" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[NIP :]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="53" y="288" width="150" height="18"/>
+				<reportElement uuid="691c6559-c2b8-41bf-97f7-f235730f7a84" x="53" y="288" width="150" height="18"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif" size="10" isBold="false"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{NAMA}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{NAMA}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="44" width="142" height="18"/>
+				<reportElement uuid="de87015e-9a9a-4235-ab47-f33d38ac966f" x="0" y="44" width="142" height="18"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif"/>
 				</textElement>
 				<text><![CDATA[NIK]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="146" y="44" width="305" height="18"/>
+				<reportElement uuid="8a2898ee-5e16-461b-8a23-1554ced32858" x="146" y="44" width="305" height="18"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif" size="14" isBold="true"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{NIK}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{NIK}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="145" y="237" width="404" height="18"/>
+				<reportElement uuid="cf1097f7-ea90-4423-b5e6-541d66f706c3" x="145" y="237" width="404" height="18"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{LOKASI_TEST}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{LOKASI_TEST}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="144" y="216" width="404" height="18"/>
+				<reportElement uuid="97d46380-2abc-4516-b644-f8018947135f" x="144" y="216" width="404" height="18"/>
 				<textElement verticalAlignment="Top">
 					<font fontName="SansSerif"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{JABATAN3}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{JABATAN3}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="144" y="194" width="404" height="18"/>
+				<reportElement uuid="db27b0b9-142e-4c5f-ac8d-b4d7eb0c43be" x="144" y="194" width="404" height="18"/>
 				<textElement verticalAlignment="Top">
 					<font fontName="SansSerif"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{JABATAN2}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{JABATAN2}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="141" y="237" width="4" height="18"/>
+				<reportElement uuid="3893f16d-80a2-413b-9146-b8fe799a8826" x="141" y="237" width="4" height="18"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif"/>
 				</textElement>
 				<text><![CDATA[:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="454" y="-2" width="46" height="3" forecolor="#FFCCCC"/>
+				<reportElement uuid="bfc59180-c366-421d-b49e-1b66bc26f3e3" x="454" y="-2" width="46" height="3" forecolor="#FFCCCC"/>
 				<textElement textAlignment="Center" verticalAlignment="Bottom">
 					<font fontName="SansSerif" size="2" isBold="true" isItalic="true" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[© Badan Kepegawaian Negara 2014]]></text>
 			</staticText>
 			<line>
-				<reportElement x="1" y="332" width="554" height="1"/>
+				<reportElement uuid="e9b2d66a-ef7c-4805-9ef7-ff2c2d2780f5" x="1" y="332" width="554" height="1"/>
 				<graphicElement>
 					<pen lineStyle="Dashed"/>
 				</graphicElement>
 			</line>
 			<componentElement>
-				<reportElement x="453" y="12" width="101" height="53"/>
+				<reportElement uuid="ddc0555e-2d12-468f-a596-a7998ee34fd4" x="453" y="12" width="101" height="53"/>
 				<jr:Code39 xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" textPosition="bottom">
 					<jr:codeExpression><![CDATA[$P{BARCODE}]]></jr:codeExpression>
 				</jr:Code39>
 			</componentElement>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="f21e3feb-df82-49b2-a852-bbb794de451a" x="428" y="291" width="150" height="18"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{SPESIMEN_NAMA}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="d8563521-942f-4612-8d3e-c97744b0c8e7" x="419" y="304" width="150" height="18"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{SPESIMEN_NIK}]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageHeader>
 	<detail>
 		<band height="65" splitType="Stretch">
 			<line>
-				<reportElement x="1" y="62" width="553" height="1"/>
+				<reportElement uuid="25c760f0-cf67-4877-a981-5932343248a9" x="1" y="62" width="553" height="1"/>
 				<graphicElement>
 					<pen lineWidth="2.25"/>
 				</graphicElement>
 			</line>
 			<staticText>
-				<reportElement x="73" y="11" width="480" height="46"/>
+				<reportElement uuid="2d90931b-c7f8-4a65-8e1f-979204df9395" x="73" y="11" width="480" height="46"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="SansSerif" size="16" isBold="true"/>
 				</textElement>
@@ -405,11 +421,11 @@ FORMASI UMUM]]></text>
 FORMASI UMUM]]></text>
 			</staticText>
 			<image onErrorType="Blank">
-				<reportElement x="12" y="2" width="61" height="58"/>
-				<imageExpression class="java.io.InputStream"><![CDATA[$P{LOGO2}]]></imageExpression>
+				<reportElement uuid="abb75dfd-dbf3-4680-8e80-8c4ec0542d14" x="12" y="2" width="61" height="58"/>
+				<imageExpression><![CDATA[$P{LOGO2}]]></imageExpression>
 			</image>
 			<staticText>
-				<reportElement x="453" y="61" width="46" height="3" forecolor="#FFCCCC"/>
+				<reportElement uuid="5469ec06-a7b6-4857-885a-2c6418410f57" x="453" y="61" width="46" height="3" forecolor="#FFCCCC"/>
 				<textElement textAlignment="Center" verticalAlignment="Bottom">
 					<font fontName="SansSerif" size="2" isBold="true" isItalic="true" isUnderline="false"/>
 				</textElement>
@@ -420,49 +436,49 @@ FORMASI UMUM]]></text>
 	<summary>
 		<band height="335" splitType="Stretch">
 			<staticText>
-				<reportElement x="1" y="324" width="99" height="11"/>
+				<reportElement uuid="0bede326-6edb-49ff-8a0c-b13718ee8876" x="1" y="324" width="99" height="11"/>
 				<textElement>
 					<font fontName="SansSerif" size="8"/>
 				</textElement>
 				<text><![CDATA[Lembar Peserta]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="501" y="324" width="54" height="11"/>
+				<reportElement uuid="cce6f8fd-89ed-4506-9b80-f7ef2b66c5b2" x="501" y="324" width="54" height="11"/>
 				<textElement textAlignment="Right">
 					<font fontName="SansSerif" size="6" isItalic="true"/>
 				</textElement>
 				<text><![CDATA[ © BKN 2014]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="141" y="40" width="4" height="18"/>
+				<reportElement uuid="d7a8b221-59db-4056-9767-c62e7c510c7d" x="141" y="40" width="4" height="18"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif"/>
 				</textElement>
 				<text><![CDATA[:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="145" y="131" width="404" height="18"/>
+				<reportElement uuid="02277046-eadb-40bd-8551-df7d4b85d37a" x="145" y="131" width="404" height="18"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{TTL}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{TTL}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="52" y="258" width="181" height="13"/>
+				<reportElement uuid="ae07b4b8-5783-4e71-864f-c1cccd11411c" x="52" y="258" width="181" height="13"/>
 				<textElement textAlignment="Left">
 					<font fontName="SansSerif" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[     Peserta]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="145" y="21" width="306" height="20"/>
+				<reportElement uuid="6069b955-bbf1-4555-a9d3-4acb3d38bb71" x="145" y="21" width="306" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif" size="10" isBold="false"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{LOKASI}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{LOKASI}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="460" y="61" width="89" height="110"/>
+				<reportElement uuid="2d79ab0b-2d78-472e-a2ae-cf30cdf59577" x="460" y="61" width="89" height="110"/>
 				<box>
 					<pen lineWidth="0.75"/>
 					<topPen lineWidth="0.75"/>
@@ -480,270 +496,284 @@ FORMASI UMUM]]></text>
             4 x 6]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="149" width="142" height="18"/>
+				<reportElement uuid="15b682a5-a230-46da-89d8-41937ba33abf" x="0" y="149" width="142" height="18"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif"/>
 				</textElement>
 				<text><![CDATA[Kualifikasi Pendidikan]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="145" y="0" width="306" height="22" isPrintWhenDetailOverflows="true"/>
+				<reportElement uuid="18804d7a-d4d9-4fb2-99ef-ce0c0490ab0b" x="145" y="0" width="306" height="22" isPrintWhenDetailOverflows="true"/>
 				<textElement verticalAlignment="Top">
 					<font fontName="SansSerif" size="12" isBold="true"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{INSTANSI}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{INSTANSI}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="0" width="142" height="22"/>
+				<reportElement uuid="01c6789e-fc66-415f-bb04-9b978ffbaa39" x="0" y="0" width="142" height="22"/>
 				<textElement verticalAlignment="Top">
 					<font fontName="SansSerif"/>
 				</textElement>
 				<text><![CDATA[Instansi]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="144" y="89" width="306" height="24"/>
+				<reportElement uuid="330cf983-f7ed-41d0-94a6-88cbbe96d353" x="144" y="89" width="306" height="24"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif" size="14" isBold="true"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{NAMA}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{NAMA}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="89" width="142" height="24"/>
+				<reportElement uuid="dcd7b68b-51b6-4e70-a14b-fc7311f690cd" x="0" y="89" width="142" height="24"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif"/>
 				</textElement>
 				<text><![CDATA[Nama]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="171" width="142" height="18"/>
+				<reportElement uuid="4e7512c8-33d6-4059-b555-dded7e0e5573" x="0" y="171" width="142" height="18"/>
 				<textElement verticalAlignment="Top">
 					<font fontName="SansSerif"/>
 				</textElement>
 				<text><![CDATA[Formasi Jabatan]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="422" y="238" width="137" height="13"/>
+				<reportElement uuid="061e5278-c8d6-4550-8c35-47c5016d73cc" x="422" y="238" width="137" height="13"/>
 				<textElement>
 					<font fontName="SansSerif" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[.....,..........................  2014]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="141" y="1" width="4" height="17"/>
+				<reportElement uuid="d6542404-ad00-4742-b633-6d8c63c3797a" x="141" y="1" width="4" height="17"/>
 				<textElement verticalAlignment="Top">
 					<font fontName="SansSerif"/>
 				</textElement>
 				<text><![CDATA[:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="21" width="142" height="20"/>
+				<reportElement uuid="69f0239e-b8eb-4bcd-9cac-f981b285f2b3" x="0" y="21" width="142" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif"/>
 				</textElement>
 				<text><![CDATA[Wilayah yang dilamar]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="141" y="21" width="4" height="20"/>
+				<reportElement uuid="ccb16b92-8cb0-4438-ba3d-7e4a058f498b" x="141" y="21" width="4" height="20"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif"/>
 				</textElement>
 				<text><![CDATA[:]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="145" y="150" width="405" height="18"/>
+				<reportElement uuid="1d179732-45fc-450c-a88c-4717521e21e0" x="145" y="150" width="405" height="18"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{PENDIDIKAN}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{PENDIDIKAN}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="145" y="172" width="404" height="21"/>
+				<reportElement uuid="b3a2072b-66b9-4fa3-99df-a51c52be5a1c" x="145" y="172" width="404" height="21"/>
 				<textElement verticalAlignment="Top">
 					<font fontName="SansSerif"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{JABATAN1}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{JABATAN1}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="145" y="60" width="305" height="30"/>
+				<reportElement uuid="4a671822-09c1-4580-8e02-cd422ad7895d" x="145" y="60" width="305" height="30"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif" size="20" isBold="true"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{NOMOR_PESERTA}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{NOMOR_PESERTA}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="417" y="243" width="137" height="15"/>
+				<reportElement uuid="247d3120-beb0-4fee-8c14-e0d6e567f9d3" x="417" y="243" width="137" height="15"/>
 				<textElement>
 					<font fontName="SansSerif" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[----------------------------------------------]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="420" y="255" width="137" height="13"/>
+				<reportElement uuid="41d6cd17-1849-4a63-b233-ca99ce331638" x="420" y="255" width="137" height="13"/>
 				<textElement textAlignment="Center">
 					<font fontName="SansSerif" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[Panitia Pengadaan Instansi]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="141" y="168" width="4" height="18"/>
+				<reportElement uuid="2a8004ae-e481-4155-9b3b-38df3a88b632" x="141" y="168" width="4" height="18"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif"/>
 				</textElement>
 				<text><![CDATA[:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="113" width="142" height="18"/>
+				<reportElement uuid="292af763-ea16-493d-af8b-9cf1da72bbf4" x="0" y="113" width="142" height="18"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif"/>
 				</textElement>
 				<text><![CDATA[Jenis Kelamin]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="141" y="112" width="4" height="18"/>
+				<reportElement uuid="11a92fa7-d55d-49bb-9785-1f243aecc37f" x="141" y="112" width="4" height="18"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif"/>
 				</textElement>
 				<text><![CDATA[:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="52" y="290" width="150" height="15"/>
+				<reportElement uuid="c2819296-865e-4a04-b813-f0c15930a000" x="52" y="290" width="150" height="15"/>
 				<textElement>
 					<font fontName="SansSerif" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[-------------------------------------------]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="141" y="149" width="4" height="18"/>
+				<reportElement uuid="563a26a3-cf8f-4ae7-83bc-1c5847f2d51f" x="141" y="149" width="4" height="18"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif"/>
 				</textElement>
 				<text><![CDATA[:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="141" y="91" width="4" height="18"/>
+				<reportElement uuid="c72834db-abff-4476-93b8-f99bcbf87c13" x="141" y="91" width="4" height="18"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif"/>
 				</textElement>
 				<text><![CDATA[:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="398" y="293" width="156" height="19"/>
+				<reportElement uuid="8420cbd1-7331-4450-b9d6-5c6a618bb203" x="398" y="293" width="156" height="19"/>
 				<textElement>
 					<font fontName="SansSerif" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[Nama :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="398" y="310" width="156" height="14"/>
+				<reportElement uuid="966db754-4df4-4ed9-a8d3-0c53d7211513" x="398" y="310" width="156" height="14"/>
 				<textElement>
 					<font fontName="SansSerif" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[NIP :]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="145" y="113" width="305" height="18"/>
+				<reportElement uuid="4a7a5edf-202f-4746-b3b4-f43894bd7041" x="145" y="113" width="305" height="18"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{JENIS_KELAMIN}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{JENIS_KELAMIN}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="241" width="142" height="18"/>
+				<reportElement uuid="2ad59b26-2823-4509-bd99-3f7ac6a51990" x="0" y="241" width="142" height="18"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif"/>
 				</textElement>
 				<text><![CDATA[Lokasi Tes]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="131" width="142" height="18"/>
+				<reportElement uuid="a88be4fe-74e2-4bbd-bfdb-e3b3c0f61519" x="0" y="131" width="142" height="18"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif"/>
 				</textElement>
 				<text><![CDATA[Tempat / Tanggal Lahir]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="400" y="268" width="156" height="14"/>
+				<reportElement uuid="9e512e89-de2b-415b-a944-08d8910410aa" x="400" y="268" width="156" height="14"/>
 				<textElement textAlignment="Center">
 					<font fontName="SansSerif" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[CPNS 2014,]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="141" y="61" width="4" height="24"/>
+				<reportElement uuid="d1a27a1e-5078-4cc4-ad96-2a9e70313e75" x="141" y="61" width="4" height="24"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif"/>
 				</textElement>
 				<text><![CDATA[:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="141" y="133" width="4" height="18"/>
+				<reportElement uuid="62fc2b0c-55ae-4e3f-a09f-25abc049d87d" x="141" y="133" width="4" height="18"/>
 				<textElement verticalAlignment="Top">
 					<font fontName="SansSerif"/>
 				</textElement>
 				<text><![CDATA[:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="59" width="142" height="30"/>
+				<reportElement uuid="dd7deb10-ee31-4015-83a3-ff8b293c59bd" x="0" y="59" width="142" height="30"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif"/>
 				</textElement>
 				<text><![CDATA[Nomor Peserta]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="52" y="296" width="150" height="18"/>
+				<reportElement uuid="0749c8fe-16bb-4a89-9272-e9a4cf1c0fc2" x="52" y="296" width="150" height="18"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif" size="10" isBold="false"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{NAMA}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{NAMA}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="144" y="40" width="305" height="18"/>
+				<reportElement uuid="18898b7e-520a-4e13-be3b-cfbd44e7eadc" x="144" y="40" width="305" height="18"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif" size="14" isBold="true"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{NIK}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{NIK}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="41" width="142" height="18"/>
+				<reportElement uuid="12d35322-3d1c-429d-89e2-bd144c04f4e5" x="0" y="41" width="142" height="18"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif"/>
 				</textElement>
 				<text><![CDATA[NIK]]></text>
 			</staticText>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="145" y="196" width="404" height="18"/>
+				<reportElement uuid="a39a7b66-94a8-443a-baf8-46cae75898fb" x="145" y="196" width="404" height="18"/>
 				<textElement verticalAlignment="Top">
 					<font fontName="SansSerif"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{JABATAN2}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{JABATAN2}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="145" y="219" width="404" height="18"/>
+				<reportElement uuid="e8fb603b-a321-43e0-9d37-164ceb839c4a" x="145" y="219" width="404" height="18"/>
 				<textElement verticalAlignment="Top">
 					<font fontName="SansSerif"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{JABATAN3}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{JABATAN3}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="146" y="240" width="399" height="18"/>
+				<reportElement uuid="e8ea07c9-2edd-469a-b2fd-d549531d6032" x="146" y="240" width="399" height="18"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{LOKASI_TEST}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{LOKASI_TEST}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="142" y="239" width="4" height="18"/>
+				<reportElement uuid="341df942-e20d-480e-acaf-7241b1378829" x="142" y="239" width="4" height="18"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif"/>
 				</textElement>
 				<text><![CDATA[:]]></text>
 			</staticText>
 			<componentElement>
-				<reportElement x="454" y="8" width="101" height="53"/>
+				<reportElement uuid="2153e81d-961c-40a3-ae34-31783fced0d2" x="454" y="8" width="101" height="53"/>
 				<jr:Code39 xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" textPosition="bottom">
 					<jr:codeExpression><![CDATA[$P{BARCODE}]]></jr:codeExpression>
 				</jr:Code39>
 			</componentElement>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="3306acc6-b202-47a1-96aa-418af8d60678" x="431" y="291" width="150" height="18"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{SPESIMEN_NAMA}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="35cb40db-fd93-4635-8807-8d58c694b385" x="422" y="307" width="150" height="18"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{SPESIMEN_NIK}]]></textFieldExpression>
+			</textField>
 		</band>
 	</summary>
 </jasperReport>
