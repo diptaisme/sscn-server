@@ -119,9 +119,9 @@ $(function () {
 	handleGoToPage = function(el, page) {
 		el.preventDefault();
 		numpage = $('#paging_numpage').val();
-
+	//	alert('kampret ' + $('#searchPar').val() );
 		$('#numPage').val(numpage);
-		$('#searchPage').val(0);
+		//$('#searchPage').val(0);
 		//if ($('#defaultSearchField').val() != "" && typeof($('#defaultSearchField').val()) != "undefined"){
 		if ($('#searchPar').val() != "" && typeof($('#searchPar').val()) != "undefined"){	
 			$('#activePageBar').val(page);
@@ -149,6 +149,7 @@ $(function () {
 	// PAGING END
 	submitSearch = function(ev){
 		ev.preventDefault();
+		$('#searchPar').val(1);
 		$('#searchForm').submit();
 	};	
 
