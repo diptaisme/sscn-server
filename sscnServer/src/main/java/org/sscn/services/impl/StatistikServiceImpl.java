@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.sscn.dao.DtPendaftaranDao;
 import org.sscn.persistence.entities.view.StatInstansi;
 import org.sscn.persistence.entities.view.StatInstansiJabatan;
+import org.sscn.persistence.entities.view.StatInstansiJabatan3Pilihan;
 import org.sscn.services.StatistikService;
 
 @Service("StatistikService")
@@ -19,7 +20,7 @@ public class StatistikServiceImpl implements StatistikService {
 
 	@Override
 	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
-	public List<StatInstansi> getStatistikPendaftaranInstansi() {		
+	public List<StatInstansi> getStatistikPendaftaranInstansi() {
 		return dtPendaftaranDao.getStatistikPendaftaranInstansi();
 	}
 
@@ -27,7 +28,8 @@ public class StatistikServiceImpl implements StatistikService {
 	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 	public List<StatInstansiJabatan> getStatistikJabatanPendaftaranInstansi(
 			String kodeInstansi) {
-		return dtPendaftaranDao.getStatistikJabatanPendaftaranInstansi(kodeInstansi);
+		return dtPendaftaranDao
+				.getStatistikJabatanPendaftaranInstansi(kodeInstansi);
 	}
 
 	@Override
@@ -35,6 +37,14 @@ public class StatistikServiceImpl implements StatistikService {
 	public List<StatInstansi> getStatistikPendaftaranInstansi(
 			String kodeInstansi) {
 		return dtPendaftaranDao.getStatistikPendaftaranInstansi(kodeInstansi);
+	}
+
+	@Override
+	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
+	public List<StatInstansiJabatan3Pilihan> getStatistikJabatanPendaftaranInstansi3Pilihan(
+			String kodeInstansi) {
+		return dtPendaftaranDao
+				.getStatistikJabatanPendaftaranInstansi3Pilihan(kodeInstansi);
 	}
 
 }
