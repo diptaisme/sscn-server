@@ -21,6 +21,7 @@ import org.sscn.persistence.entities.view.RekapanPendaftaran;
 import org.sscn.persistence.entities.view.RekapanPendaftaranTidakLulus;
 import org.sscn.persistence.entities.view.StatInstansi;
 import org.sscn.persistence.entities.view.StatInstansiJabatan;
+import org.sscn.persistence.entities.view.StatInstansiJabatan3Pilihan;
 
 @Repository("DtPendaftaranDao")
 public class DtPendaftaranDaoImpl extends CoreDaoImpl<DtPendaftaran> implements
@@ -122,14 +123,14 @@ public class DtPendaftaranDaoImpl extends CoreDaoImpl<DtPendaftaran> implements
 		Iterator<Map.Entry<String, Object>> entries = map.entrySet().iterator();
 		while (entries.hasNext()) {
 			Map.Entry<String, Object> entry = entries.next();
-			if (entry.getKey().equalsIgnoreCase("noRegister")){
-				whereMap = whereMap + " AND " +  "model." + entry.getKey() + " LIKE :"
-				+ entry.getKey();
+			if (entry.getKey().equalsIgnoreCase("noRegister")) {
+				whereMap = whereMap + " AND " + "model." + entry.getKey()
+						+ " LIKE :" + entry.getKey();
 			} else {
-				whereMap = whereMap + " AND " +  "model." + entry.getKey() + " = :"
-				+ entry.getKey();
+				whereMap = whereMap + " AND " + "model." + entry.getKey()
+						+ " = :" + entry.getKey();
 			}
-			
+
 		}
 		sbFind.append(innerJoinFetchPhrase).append(wherePhrase)
 				.append(whereMap);
@@ -141,12 +142,12 @@ public class DtPendaftaranDaoImpl extends CoreDaoImpl<DtPendaftaran> implements
 				.iterator();
 		while (entries2.hasNext()) {
 			Map.Entry<String, Object> entry = entries2.next();
-			if (entry.getKey().equalsIgnoreCase("noRegister")){
-				query.setParameter(entry.getKey(), "%" + entry.getValue() + "%");	
+			if (entry.getKey().equalsIgnoreCase("noRegister")) {
+				query.setParameter(entry.getKey(), "%" + entry.getValue() + "%");
 			} else {
 				query.setParameter(entry.getKey(), entry.getValue());
 			}
-			
+
 		}
 		return doQuery(query, idxAndCount);
 	}
@@ -163,14 +164,14 @@ public class DtPendaftaranDaoImpl extends CoreDaoImpl<DtPendaftaran> implements
 		Iterator<Map.Entry<String, Object>> entries = map.entrySet().iterator();
 		while (entries.hasNext()) {
 			Map.Entry<String, Object> entry = entries.next();
-			if (entry.getKey().equalsIgnoreCase("noRegister")){
-				whereMap = whereMap + " AND " +  "model." + entry.getKey() + " LIKE :"
-				+ entry.getKey();
+			if (entry.getKey().equalsIgnoreCase("noRegister")) {
+				whereMap = whereMap + " AND " + "model." + entry.getKey()
+						+ " LIKE :" + entry.getKey();
 			} else {
-				whereMap = whereMap + " AND " +  "model." + entry.getKey() + " = :"
-				+ entry.getKey();
+				whereMap = whereMap + " AND " + "model." + entry.getKey()
+						+ " = :" + entry.getKey();
 			}
-			
+
 		}
 		sbFind.append(wherePhrase).append(whereMap);
 		// System.out.println("Query : " + sbFind);
@@ -181,8 +182,8 @@ public class DtPendaftaranDaoImpl extends CoreDaoImpl<DtPendaftaran> implements
 				.iterator();
 		while (entries2.hasNext()) {
 			Map.Entry<String, Object> entry = entries2.next();
-			if (entry.getKey().equalsIgnoreCase("noRegister")){
-				query.setParameter(entry.getKey(), "%" + entry.getValue() + "%");	
+			if (entry.getKey().equalsIgnoreCase("noRegister")) {
+				query.setParameter(entry.getKey(), "%" + entry.getValue() + "%");
 			} else {
 				query.setParameter(entry.getKey(), entry.getValue());
 			}
@@ -755,8 +756,7 @@ public class DtPendaftaranDaoImpl extends CoreDaoImpl<DtPendaftaran> implements
 				+ "LOKASI_TEST, NAMA_LOKASI_TEST, PILIHAN1, PILIHAN2, PILIHAN3 "
 				+ "FROM download_data_pendaftar_lulus "
 				+ "WHERE INSTANSI= '"
-				+ kodeInstansi
-				+ "' and STATUS = '1' order by NO_PESERTA, NAMA";
+				+ kodeInstansi + "' and STATUS = '1' order by NO_PESERTA, NAMA";
 		try {
 			SQLQuery query = createSqlQuery(sql);
 			List<Object[]> res = query.list();
@@ -818,14 +818,49 @@ public class DtPendaftaranDaoImpl extends CoreDaoImpl<DtPendaftaran> implements
 					dataPendaftaran.setLokasiTest(String.valueOf(obj[index++]));
 					dataPendaftaran.setLokasiTestNama(String
 							.valueOf(obj[index++]));
-					dataPendaftaran.setPilihan1(String
-							.valueOf(obj[index++]));
-					dataPendaftaran.setPilihan2(String
-							.valueOf(obj[index++]));
-					dataPendaftaran.setPilihan3(String
-							.valueOf(obj[index++]));
+					dataPendaftaran.setPilihan1(String.valueOf(obj[index++]));
+					dataPendaftaran.setPilihan2(String.valueOf(obj[index++]));
+					dataPendaftaran.setPilihan3(String.valueOf(obj[index++]));
 
 					result.add(dataPendaftaran);
+				}
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return result;
+	}
+
+	/**
+	 * Get Statistik Jabatan untuk 3 pilihan
+	 * 
+	 * @author Andez 23092014
+	 * */
+	@Override
+	public List<StatInstansiJabatan3Pilihan> getStatistikJabatanPendaftaranInstansi3Pilihan(
+			String kodeInstansi) {
+		List<StatInstansiJabatan3Pilihan> result = new ArrayList<StatInstansiJabatan3Pilihan>();
+		final String sql = "SELECT kode, instansi, jabatan, pil_1, pil_2, pil_3 from Rekap_pilihan_per_jabatan where kode='"
+				+ kodeInstansi + "' order by jabatan";
+		try {
+			SQLQuery query = createSqlQuery(sql);
+			List<Object[]> res = query.list();
+			for (Object[] obj : res) {
+				if (res != null) {
+					StatInstansiJabatan3Pilihan statInstansiJabatan = new StatInstansiJabatan3Pilihan();
+					int index = 0;
+					statInstansiJabatan.setKode(String.valueOf(obj[index++]));
+					statInstansiJabatan.setInstansi(String
+							.valueOf(obj[index++]));
+					statInstansiJabatan
+							.setJabatan(String.valueOf(obj[index++]));
+					statInstansiJabatan.setPilihan1(String
+							.valueOf(obj[index++]));
+					statInstansiJabatan.setPilihan2(String
+							.valueOf(obj[index++]));
+					statInstansiJabatan.setPilihan3(String
+							.valueOf(obj[index++]));
+					result.add(statInstansiJabatan);
 				}
 			}
 		} catch (Exception ex) {
