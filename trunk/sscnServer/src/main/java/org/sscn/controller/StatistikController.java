@@ -45,8 +45,9 @@ public class StatistikController {
 		}
 		model.addAttribute("statInstansi", resultInstansi);
 
+		//edited at 23092014 by Roberto
 		model.addAttribute("statJabatans", statistikService
-				.getStatistikJabatanPendaftaranInstansi(user.getRefInstansi()
+				.getStatistikJabatanPendaftaranInstansi3Pilihan(user.getRefInstansi()
 						.getKode()));
 		return "statistik";
 	}
