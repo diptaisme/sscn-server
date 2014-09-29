@@ -840,8 +840,15 @@ public class DtPendaftaranDaoImpl extends CoreDaoImpl<DtPendaftaran> implements
 	public List<StatInstansiJabatan3Pilihan> getStatistikJabatanPendaftaranInstansi3Pilihan(
 			String kodeInstansi) {
 		List<StatInstansiJabatan3Pilihan> result = new ArrayList<StatInstansiJabatan3Pilihan>();
-		final String sql = "SELECT kode, instansi, jabatan, pil_1, pil_2, pil_3 from Rekap_pilihan_per_jabatan where kode='"
-				+ kodeInstansi + "' order by jabatan";
+		final String sql = "SELECT ref_jabatan.KODE, ref_jabatan.nama, "
+					+"SUM((CASE WHEN (dp.FORMASI_ID = m_formasi.id) THEN 1 ELSE 0 END)) "
+					+"AS `pil_1`, SUM((CASE WHEN (dp.FORMASI_ID2 = m_formasi.id) THEN 1 ELSE 0 END)) "
+          +"AS `pil_2`, SUM((CASE WHEN (dp.FORMASI_ID3 = m_formasi.id) THEN 1 ELSE 0 END)) "
+          +"AS `pil_3` FROM m_formasi "
+          +"INNER JOIN ref_jabatan ON m_formasi.JABATAN = ref_jabatan.KODE "
+          +"INNER JOIN dt_pendaftaran dp "
+          +"INNER JOIN tabel_pendaftar tp ON (tp.id = dp.ID_PENDAFTAR AND tp.ref_instansi = m_formasi.instansi) "
+          +"WHERE INSTANSI = '"+kodeInstansi+"' GROUP BY ref_jabatan.KODE,ref_jabatan.nama ORDER BY ref_jabatan.nama";
 		try {
 			SQLQuery query = createSqlQuery(sql);
 			List<Object[]> res = query.list();
@@ -850,8 +857,8 @@ public class DtPendaftaranDaoImpl extends CoreDaoImpl<DtPendaftaran> implements
 					StatInstansiJabatan3Pilihan statInstansiJabatan = new StatInstansiJabatan3Pilihan();
 					int index = 0;
 					statInstansiJabatan.setKode(String.valueOf(obj[index++]));
-					statInstansiJabatan.setInstansi(String
-							.valueOf(obj[index++]));
+//					statInstansiJabatan.setInstansi(String
+//							.valueOf(obj[index++]));
 					statInstansiJabatan
 							.setJabatan(String.valueOf(obj[index++]));
 					statInstansiJabatan.setPilihan1(String
